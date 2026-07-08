@@ -861,14 +861,57 @@ export const shuanRiskControlDashboardData = {
 export const shuanDangerousWorkReportData = {
   route: 'shuan-home-command-v3-dangerous-work-report',
   title: '危险作业报备',
-  subtitle: '日常监管 / 风险分级管控 / 危险作业报备',
-  description: '先搭建危险作业报备下钻页的内容舞台框架，后续承接报备清单、审核流转、作业类型、风险校核和闭环监管等详细需求。',
+  subtitle: '跟踪今日危险作业状态，辅助重点作业核查与风险处置',
+  description: '围绕今日危险作业报备状态、重点作业清单、即将开始作业、撤销报备、关联异常和重点煤矿关注事项，支撑监管人员快速核查与处置。',
   updatedAt: '待接入业务数据',
   tools: ['今日', '近7日', '近30日'],
   slots: [
     { title: '报备总览区', hint: '预留统计卡片、趋势和作业类型分布。' },
     { title: '作业报备台账区', hint: '预留报备列表、审批状态、矿井、作业地点和时间窗口。' },
     { title: '风险校核与处置区', hint: '预留风险等级联动、措施确认、超期提醒和闭环动作。' },
+  ],
+};
+
+export const shuanMajorHazardReminderData = {
+  route: 'shuan-home-command-v3-major-hazard-reminder',
+  title: '重大灾害提醒',
+  subtitle: '首页 / 日常监管 / 重大灾害提醒',
+  description: '先搭建重大灾害提醒下钻页内容框架，后续继续补充灾害类型、风险研判、督办任务和处置闭环等详细业务。',
+  updatedAt: '2026-07-08 16:10',
+  timeRange: '近7日',
+  kpis: [
+    { label: '在途提醒', value: '3', hint: '与首页入口保持一致' },
+    { label: '高优先级矿井', value: '2', hint: '建议持续跟踪' },
+    { label: '已启动督办', value: '2', hint: '预留处置链路' },
+    { label: '待补业务规则', value: '6', hint: '等待详细需求' },
+  ],
+  tags: [
+    { label: '灾害范围', value: '瓦斯 / 水害 / 顶板 / 冲击地压' },
+    { label: '当前目标', value: '先搭框架再补业务' },
+    { label: '导航状态', value: '顶部仍保持首页选中' },
+  ],
+  focusCards: [
+    {
+      title: '提醒总览区',
+      summary: '承接首页入口数字，后续可放提醒总量、趋势、区域分布和重点矿井摘要。',
+      bullets: ['适合放趋势图或分布图', '保留总览卡片和重点说明位'],
+    },
+    {
+      title: '灾害清单区',
+      summary: '预留重大灾害提醒台账、灾害类型、风险等级、所属矿井和当前处置状态。',
+      bullets: ['适合扩展为表格或多列卡片', '后续可补筛选、搜索、导出'],
+    },
+    {
+      title: '督办处置区',
+      summary: '预留责任单位、督办任务、整改节点、升级提醒和闭环记录。',
+      bullets: ['适合放流程进展和责任链路', '便于后续接入处置详情'],
+    },
+  ],
+  moduleSlots: [
+    { title: '左侧分析位', hint: '可放灾害类型分布、重点区域排序、历史提醒对比等分析模块。' },
+    { title: '中部主舞台', hint: '可放全省分布图、专题看板、重点矿井提醒流或灾害事件总览。' },
+    { title: '右侧督办位', hint: '可放督办队列、超期提醒、闭环进度和责任人动态。' },
+    { title: '底部扩展位', hint: '可放趋势分析、提醒明细、专题报告或跨模块联动记录。' },
   ],
 };
 
@@ -969,6 +1012,7 @@ export const shuanDrilldownRoutePages = [
   ...shuanDrilldownPages.map((page) => ({ id: page.id, title: page.title })),
   { id: shuanRiskControlData.route, title: shuanRiskControlData.title },
   { id: shuanDangerousWorkReportData.route, title: shuanDangerousWorkReportData.title },
+  { id: shuanMajorHazardReminderData.route, title: shuanMajorHazardReminderData.title },
   { id: shuanHiddenDangerData.route, title: shuanHiddenDangerData.title },
   { id: shuanHiddenFaceMineProfileData.route, title: shuanHiddenFaceMineProfileData.title },
   ...shuanIllegalCampaignModules.map((item) => ({ id: item.route, title: item.title })),

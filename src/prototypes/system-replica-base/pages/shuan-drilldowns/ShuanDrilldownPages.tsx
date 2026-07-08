@@ -42,7 +42,7 @@ import { useMemo } from 'react';
 import sichuanMapSvg from '../../../../resources/shuan/sichuan-map.svg?raw';
 import { normalizeInlineSvg } from '../../../../common/inlineSvg';
 import { DangerousWorkReportPage } from './DangerousWorkReportPage';
-import { DrilldownPage, DrilldownTone, shuanDailyRegulationAnalysis, shuanDangerousWorkReportData, shuanDrilldownPages, shuanHiddenDangerData, shuanHiddenFaceMineProfileData, shuanIllegalCampaignModules, shuanRiskControlDashboardData, shuanRiskControlData, shuanVideoDispatchData } from './data';
+import { DrilldownPage, DrilldownTone, shuanDailyRegulationAnalysis, shuanDangerousWorkReportData, shuanDrilldownPages, shuanHiddenDangerData, shuanHiddenFaceMineProfileData, shuanIllegalCampaignModules, shuanMajorHazardReminderData, shuanRiskControlDashboardData, shuanRiskControlData, shuanVideoDispatchData } from './data';
 
 const normalizedSichuanMapSvg = normalizeInlineSvg(sichuanMapSvg);
 
@@ -233,6 +233,112 @@ function DetailPage({ page }: { page: DrilldownPage }) {
   );
 }
 
+function MajorHazardReminderPage() {
+  const data = shuanMajorHazardReminderData;
+
+  return (
+    <div className="drill-page drill-major-hazard-page tone-cyan">
+      <DrillContentHeader
+        eyebrow={data.subtitle}
+        title={data.title}
+        description={data.description}
+        icon={<Bell aria-hidden="true" />}
+        actions={
+          <>
+            <button type="button"><CalendarDays aria-hidden="true" />{data.timeRange}</button>
+            <button type="button"><RefreshCcw aria-hidden="true" />刷新</button>
+            <button type="button"><Download aria-hidden="true" />导出</button>
+          </>
+        }
+      />
+
+      <section className="drill-major-hazard-toolbar" aria-label="重大灾害提醒信息栏">
+        <div className="drill-major-hazard-tags">
+          {data.tags.map((item) => (
+            <article key={item.label}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </article>
+          ))}
+        </div>
+        <div className="drill-major-hazard-status">
+          <span>更新时间</span>
+          <strong>{data.updatedAt}</strong>
+        </div>
+      </section>
+
+      <section className="drill-major-hazard-kpis" aria-label="重大灾害提醒核心指标">
+        {data.kpis.map((item) => (
+          <article key={item.label}>
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+            <em>{item.hint}</em>
+          </article>
+        ))}
+      </section>
+
+      <section className="drill-major-hazard-main">
+        <div className="drill-major-hazard-focus-grid">
+          {data.focusCards.map((item) => (
+            <article key={item.title} className="drill-major-hazard-card">
+              <header>
+                <strong>{item.title}</strong>
+                <span>待补详细需求</span>
+              </header>
+              <p>{item.summary}</p>
+              <ul>
+                {item.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div className="drill-major-hazard-stage-grid">
+          <section className="drill-major-hazard-stage">
+            <header>
+              <strong>{data.moduleSlots[0].title}</strong>
+              <span>分析模块占位</span>
+            </header>
+            <p>{data.moduleSlots[0].hint}</p>
+          </section>
+
+          <section className="drill-major-hazard-stage drill-major-hazard-stage-center">
+            <header>
+              <strong>{data.moduleSlots[1].title}</strong>
+              <span>主舞台占位</span>
+            </header>
+            <p>{data.moduleSlots[1].hint}</p>
+            <div className="drill-major-hazard-canvas">
+              <div className="drill-major-hazard-canvas-core">
+                <b>重大灾害提醒页面框架</b>
+                <span>后续可继续承接地图、专题看板或重点矿井提醒流。</span>
+              </div>
+            </div>
+          </section>
+
+          <section className="drill-major-hazard-stage">
+            <header>
+              <strong>{data.moduleSlots[2].title}</strong>
+              <span>督办模块占位</span>
+            </header>
+            <p>{data.moduleSlots[2].hint}</p>
+          </section>
+        </div>
+
+        <section className="drill-major-hazard-bottom">
+          <header>
+            <strong>{data.moduleSlots[3].title}</strong>
+            <span>扩展区占位</span>
+          </header>
+          <p>{data.moduleSlots[3].hint}</p>
+        </section>
+      </section>
+    </div>
+  );
+}
+
 function RiskControlPage() {
   const data = shuanRiskControlDashboardData;
   const typeMax = Math.max(...data.typeDistribution.map((item) => item.value));
@@ -240,6 +346,8 @@ function RiskControlPage() {
   const riskTrendMax = Math.max(...data.riskTrendSeries.flatMap((item) => item.values));
   const levelTrendMax = Math.max(...data.levelTrendBars.flatMap((item) => [item.up, item.down]));
   const heatTrendMax = Math.max(...data.regionHeatSeries.flatMap((item) => item.values));
+  const riskTrendTicks = [1500, 1200, 900, 600, 300, 0];
+  const heatTrendTicks = [100, 80, 60, 40, 20, 0];
 
   const linePoints = (values: number[], max: number) => values.map((value, index) => {
     const x = 6 + (index / Math.max(values.length - 1, 1)) * 88;
@@ -376,11 +484,18 @@ function RiskControlPage() {
           <div className="drill-risk-v2-trend-card">
             <div className="drill-risk-v2-subhead"><strong>近30日风险变化趋势</strong><button type="button">近30日 <ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-risk-v2-trend-legend">{data.riskTrendSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}</span>)}</div>
-            <svg className="drill-risk-v2-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              {[0, 300, 600, 900, 1200, 1500].map((value) => <g key={value}><line x1="8" x2="98" y1={90 - (value / riskTrendMax) * 64} y2={90 - (value / riskTrendMax) * 64} /><text x="0.4" y={92 - (value / riskTrendMax) * 64}>{value.toLocaleString()}</text></g>)}
-              {data.riskTrendSeries.map((item) => <polyline key={item.label} points={linePath(item.values, riskTrendMax)} stroke={item.color} />)}
-            </svg>
-            <div className="drill-risk-v2-axis-labels">{data.riskTrendDays.map((item) => <span key={item}>{item}</span>)}</div>
+            <div className="drill-risk-v2-chart-shell">
+              <div className="drill-risk-v2-y-axis" aria-hidden="true">
+                {riskTrendTicks.map((value) => <span key={value}>{value.toLocaleString()}</span>)}
+              </div>
+              <div className="drill-risk-v2-chart-main">
+                <svg className="drill-risk-v2-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  {riskTrendTicks.map((value) => <line key={value} x1="8" x2="98" y1={90 - (value / riskTrendMax) * 64} y2={90 - (value / riskTrendMax) * 64} />)}
+                  {data.riskTrendSeries.map((item) => <polyline key={item.label} points={linePath(item.values, riskTrendMax)} stroke={item.color} />)}
+                </svg>
+                <div className="drill-risk-v2-axis-labels">{data.riskTrendDays.map((item) => <span key={item}>{item}</span>)}</div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -406,13 +521,20 @@ function RiskControlPage() {
           <div className="drill-risk-v2-trend-card">
             <div className="drill-risk-v2-subhead"><strong>区域风险热力趋势</strong><div className="drill-risk-v2-inline-controls"><button type="button">风险热力指数 <ChevronDown aria-hidden="true" /></button><button type="button">近30日 <ChevronDown aria-hidden="true" /></button></div></div>
             <div className="drill-risk-v2-heat-layout">
-              <svg className="drill-risk-v2-line-chart heat" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                {[0, 20, 40, 60, 80, 100].map((value) => <g key={value}><line x1="8" x2="98" y1={90 - (value / heatTrendMax) * 64} y2={90 - (value / heatTrendMax) * 64} /><text x="0.4" y={92 - (value / heatTrendMax) * 64}>{value}</text></g>)}
-                {data.regionHeatSeries.map((item) => <polyline key={item.label} points={linePath(item.values, heatTrendMax)} stroke={item.color} />)}
-              </svg>
+              <div className="drill-risk-v2-chart-shell heat">
+                <div className="drill-risk-v2-y-axis" aria-hidden="true">
+                  {heatTrendTicks.map((value) => <span key={value}>{value}</span>)}
+                </div>
+                <div className="drill-risk-v2-chart-main">
+                  <svg className="drill-risk-v2-line-chart heat" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    {heatTrendTicks.map((value) => <line key={value} x1="8" x2="98" y1={90 - (value / heatTrendMax) * 64} y2={90 - (value / heatTrendMax) * 64} />)}
+                    {data.regionHeatSeries.map((item) => <polyline key={item.label} points={linePath(item.values, heatTrendMax)} stroke={item.color} />)}
+                  </svg>
+                  <div className="drill-risk-v2-axis-labels">{data.riskTrendDays.map((item) => <span key={item}>{item}</span>)}</div>
+                </div>
+              </div>
               <div className="drill-risk-v2-heat-legend">{data.regionHeatSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}<b>{item.values[item.values.length - 1]}</b></span>)}</div>
             </div>
-            <div className="drill-risk-v2-axis-labels">{data.riskTrendDays.map((item) => <span key={item}>{item}</span>)}</div>
           </div>
         </section>
       </section>
@@ -453,6 +575,9 @@ function HiddenDangerManagementPage() {
   const overdueTrendMax = 320;
   const closureMax = 100;
   const closureBarMax = 40;
+  const newTrendTicks = [120, 80, 40, 0];
+  const closureTicks = [100, 50, 0];
+  const overdueTicks = [300, 200, 100, 0];
   const toneClass = (tone: DrilldownTone) => `tone-${tone}`;
   const linePoints = (values: number[], max: number) => values.map((value, index) => {
     const x = 6 + (index / Math.max(values.length - 1, 1)) * 88;
@@ -589,15 +714,21 @@ function HiddenDangerManagementPage() {
 
       <section className="drill-hazard-v2-bottom">
         <section className="drill-hazard-v2-panel">
-          <div className="drill-hazard-v2-subhead trend"><strong>趋势分析</strong></div>
           <div className="drill-hazard-v2-trend-card">
             <div className="drill-hazard-v2-subhead"><strong>近30日隐患新增趋势</strong><button type="button">近30日 <ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-hazard-v2-trend-legend">{data.newTrendSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}</span>)}</div>
-            <svg className="drill-hazard-v2-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              {[0, 40, 80, 120].map((value) => <g key={value}><line x1="8" x2="98" y1={90 - (value / newTrendMax) * 66} y2={90 - (value / newTrendMax) * 66} /><text x="0.4" y={92 - (value / newTrendMax) * 66}>{value}</text></g>)}
-              {data.newTrendSeries.map((item) => <polyline key={item.label} points={linePath(item.values, newTrendMax)} stroke={item.color} />)}
-            </svg>
-            <div className="drill-hazard-v2-axis-labels">{data.trendDays.map((item) => <span key={item}>{item}</span>)}</div>
+            <div className="drill-hazard-v2-chart-shell">
+              <div className="drill-hazard-v2-y-axis" aria-hidden="true">
+                {newTrendTicks.map((value) => <span key={value}>{value}</span>)}
+              </div>
+              <div className="drill-hazard-v2-chart-main">
+                <svg className="drill-hazard-v2-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  {newTrendTicks.map((value) => <line key={value} x1="8" x2="98" y1={90 - (value / newTrendMax) * 66} y2={90 - (value / newTrendMax) * 66} />)}
+                  {data.newTrendSeries.map((item) => <polyline key={item.label} points={linePath(item.values, newTrendMax)} stroke={item.color} />)}
+                </svg>
+                <div className="drill-hazard-v2-axis-labels">{data.trendDays.map((item) => <span key={item}>{item}</span>)}</div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -605,16 +736,23 @@ function HiddenDangerManagementPage() {
           <div className="drill-hazard-v2-trend-card">
             <div className="drill-hazard-v2-subhead"><strong>隐患整改闭环趋势</strong><button type="button">近30日 <ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-hazard-v2-trend-legend"><span><i style={{ background: data.closureTrend.line.color }} />闭环率</span><span><i style={{ background: data.closureTrend.bars.color }} />环比提升</span></div>
-            <div className="drill-hazard-v2-combo-chart">
-              {data.closureTrend.bars.values.map((value, index) => (
-                <i key={`${data.trendDays[index]}-${value}`} className={value >= 0 ? 'plus' : 'minus'} style={{ height: `${(Math.abs(value) / closureBarMax) * 42}%` }} />
-              ))}
-              <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                {[0, 50, 100].map((value) => <g key={value}><line x1="8" x2="98" y1={90 - (value / closureMax) * 66} y2={90 - (value / closureMax) * 66} /><text x="0.4" y={92 - (value / closureMax) * 66}>{value}</text></g>)}
-                <polyline points={linePath(data.closureTrend.line.values, closureMax)} stroke={data.closureTrend.line.color} />
-              </svg>
+            <div className="drill-hazard-v2-chart-shell">
+              <div className="drill-hazard-v2-y-axis" aria-hidden="true">
+                {closureTicks.map((value) => <span key={value}>{value}</span>)}
+              </div>
+              <div className="drill-hazard-v2-chart-main">
+                <div className="drill-hazard-v2-combo-chart">
+                  {data.closureTrend.bars.values.map((value, index) => (
+                    <i key={`${data.trendDays[index]}-${value}`} className={value >= 0 ? 'plus' : 'minus'} style={{ height: `${(Math.abs(value) / closureBarMax) * 42}%` }} />
+                  ))}
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    {closureTicks.map((value) => <line key={value} x1="8" x2="98" y1={90 - (value / closureMax) * 66} y2={90 - (value / closureMax) * 66} />)}
+                    <polyline points={linePath(data.closureTrend.line.values, closureMax)} stroke={data.closureTrend.line.color} />
+                  </svg>
+                </div>
+                <div className="drill-hazard-v2-axis-labels">{data.trendDays.map((item) => <span key={item}>{item}</span>)}</div>
+              </div>
             </div>
-            <div className="drill-hazard-v2-axis-labels">{data.trendDays.map((item) => <span key={item}>{item}</span>)}</div>
           </div>
         </section>
 
@@ -622,11 +760,18 @@ function HiddenDangerManagementPage() {
           <div className="drill-hazard-v2-trend-card">
             <div className="drill-hazard-v2-subhead"><strong>逾期隐患趋势</strong><button type="button">近30日 <ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-hazard-v2-trend-legend">{data.overdueTrendSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}</span>)}</div>
-            <svg className="drill-hazard-v2-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              {[0, 100, 200, 300].map((value) => <g key={value}><line x1="8" x2="98" y1={90 - (value / overdueTrendMax) * 66} y2={90 - (value / overdueTrendMax) * 66} /><text x="0.4" y={92 - (value / overdueTrendMax) * 66}>{value}</text></g>)}
-              {data.overdueTrendSeries.map((item) => <polyline key={item.label} points={linePath(item.values, overdueTrendMax)} stroke={item.color} />)}
-            </svg>
-            <div className="drill-hazard-v2-axis-labels">{data.trendDays.map((item) => <span key={item}>{item}</span>)}</div>
+            <div className="drill-hazard-v2-chart-shell">
+              <div className="drill-hazard-v2-y-axis" aria-hidden="true">
+                {overdueTicks.map((value) => <span key={value}>{value}</span>)}
+              </div>
+              <div className="drill-hazard-v2-chart-main">
+                <svg className="drill-hazard-v2-line-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  {overdueTicks.map((value) => <line key={value} x1="8" x2="98" y1={90 - (value / overdueTrendMax) * 66} y2={90 - (value / overdueTrendMax) * 66} />)}
+                  {data.overdueTrendSeries.map((item) => <polyline key={item.label} points={linePath(item.values, overdueTrendMax)} stroke={item.color} />)}
+                </svg>
+                <div className="drill-hazard-v2-axis-labels">{data.trendDays.map((item) => <span key={item}>{item}</span>)}</div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -1110,7 +1255,7 @@ function IllegalCluePage() {
             <p>按分类、来源页面和矿井集中度查看线索分布</p>
           </div>
           <a className="illegal-overview-title__back" href={routeHref('shuan-home-command-v3')}>
-            <ArrowLeft aria-hidden="true" />
+            <LogOut aria-hidden="true" />
             <span>退出</span>
           </a>
         </div>
@@ -1489,8 +1634,8 @@ function IllegalCampaignReferenceV2Page() {
             {topRows.map((row) => (
               <div key={row[0]}>
                 {row.map((cell, i) => {
-                  const className = i === 4 ? (cell === '高风险' ? 'risk high' : 'risk mid') : i === 7 ? 'link' : '';
-                  if (i === 7 && row[1] === '达星XX煤矿') {
+                  const className = i === 4 ? (cell === '高风险' ? 'risk high' : 'risk mid') : i === 1 || i === 7 ? 'link' : '';
+                  if (i === 1 || i === 7) {
                     return <span key={`${row[0]}-${i}`} className={className}><a href={routeHref(shuanHiddenFaceMineProfileData.route)}>{cell}</a></span>;
                   }
                   return <span key={`${row[0]}-${i}`} className={className}>{cell}</span>;
@@ -1969,7 +2114,7 @@ function OverviewPage() {
   );
 }
 
-export function ShuanDrilldownContent({ pageId }: { pageId: string }) {
+export function ShuanDrilldownContent({ pageId, onExit }: { pageId: string; onExit?: () => void }) {
   if (pageId === 'shuan-home-command-v3-wireframes') {
     return <OverviewPage />;
   }
@@ -1986,7 +2131,10 @@ export function ShuanDrilldownContent({ pageId }: { pageId: string }) {
     return <RiskControlPage />;
   }
   if (pageId === shuanDangerousWorkReportData.route) {
-    return <DangerousWorkReportPage />;
+    return <DangerousWorkReportPage onExit={onExit} />;
+  }
+  if (pageId === shuanMajorHazardReminderData.route) {
+    return <MajorHazardReminderPage />;
   }
   if (pageId === shuanHiddenDangerData.route) {
     return <HiddenDangerManagementPage />;

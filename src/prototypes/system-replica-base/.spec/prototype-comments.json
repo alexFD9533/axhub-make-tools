@@ -2,7 +2,7 @@
   "version": 1,
   "prototypeId": "system-replica-base",
   "pageId": "shuan-home-command-v3",
-  "updatedAt": "2026-07-06T14:08:00+08:00",
+  "updatedAt": "2026-07-08T12:45:00+08:00",
   "comments": [
     {
       "elementKey": "shuan-v3-header",
@@ -138,6 +138,23 @@
       "state": "completed",
       "provider": "codex",
       "updatedAt": "2026-07-06T14:08:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-risk-control-map-tone-bleed",
+      "pageId": "shuan-home-command-v3-risk-control",
+      "locator": {
+        "selectors": [
+          ".drill-risk-v2-map-stage .drill-risk-v2-map-point",
+          ".drill-hazard-v2-map-stage .drill-hazard-v2-map-point",
+          ".drill-dangerous-map-stage .drill-dangerous-map-point"
+        ],
+        "description": "风险分级管控及同类地图页的点位父容器 tone 状态类污染排查与局部覆盖"
+      },
+      "comment": "地图点位外层不应继承全局 tone-blue、tone-cyan 等背景色块；在地图点位组件作用域内清掉父容器和标签背景、边框、阴影，仅保留内部圆点或图标承载状态色。",
+      "type": "style",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-08T00:00:00+08:00"
     }
   ],
   "tasks": {
@@ -159,7 +176,7 @@
     "shuan-v3-daily-regulation": {
       "state": "completed",
       "provider": "codex",
-      "updatedAt": "2026-07-06T12:42:00+08:00"
+      "updatedAt": "2026-07-08T12:45:00+08:00"
     },
     "shuan-v3-illegal-treatment": {
       "state": "completed",
@@ -185,6 +202,11 @@
       "state": "completed",
       "provider": "codex",
       "updatedAt": "2026-07-06T14:08:00+08:00"
+    },
+    "shuan-v3-risk-control-map-tone-bleed": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-08T00:00:00+08:00"
     }
   },
   "images": []

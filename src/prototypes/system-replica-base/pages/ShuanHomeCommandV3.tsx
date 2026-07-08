@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ChevronDown, ExternalLink, Search, Settings, UserRound, Video } from 'lucide-react';
 import sichuanMapSvg from '../../../resources/shuan/sichuan-map.svg?raw';
 import { normalizeInlineSvg } from '../../../common/inlineSvg';
@@ -162,14 +162,14 @@ const dailyRegulationAlertGroups = [
 ];
 
 const dailyRegulationEntryRows = [
-  { title: '危险作业报备', icon: 'badge' as CockpitIconName, tone: 'cyan' as ReminderTone, total: '18', unit: '待审核', meta: [['密闭', '2件'], ['放炮', '6件']], action: '进入审批' },
+  { title: '危险作业报备', icon: 'badge' as CockpitIconName, tone: 'cyan' as ReminderTone, total: '18', unit: '待审核', meta: [['密闭', '2件'], ['放炮', '6件']], action: '进入审批', page: 'shuan-home-command-v3-dangerous-work-report' },
   { title: '风险分级管控', icon: 'shield' as CockpitIconName, tone: 'cyan' as ReminderTone, total: '12', unit: '高风险点', meta: [['高风险', '38'], ['动态', '7']], action: '查看清单', page: 'shuan-home-command-v3-risk-control' },
   { title: '隐患管理', icon: 'warning' as CockpitIconName, tone: 'amber' as ReminderTone, total: '23', unit: '整改中', meta: [['新增', '9'], ['待验收', '6']], action: '进入治理', page: 'shuan-home-command-v3-hidden-danger-management' },
 ] as const;
 
 const reminderTasks = [
-  { tone: 'amber' as ReminderTone, title: '证照到期提醒', highlight: '5', detail: '5个证照将在30日内到期', icon: 'badge' as CockpitIconName },
-  { tone: 'cyan' as ReminderTone, title: '重大灾害提醒', highlight: '3', detail: '3项重大灾害风险需持续跟踪', icon: 'warning' as CockpitIconName },
+  { tone: 'amber' as ReminderTone, title: '证照到期提醒', highlight: '5', detail: '5个证照将在30日内到期', icon: 'badge' as CockpitIconName, page: 'shuan-home-command-v3-license-expiry-reminder' },
+  { tone: 'cyan' as ReminderTone, title: '重大灾害提醒', highlight: '3', detail: '3项重大灾害风险需持续跟踪', icon: 'warning' as CockpitIconName, page: 'shuan-home-command-v3-major-hazard-reminder' },
 ];
 
 const illegalSourceRows = [
@@ -423,7 +423,7 @@ function CommandV2Concept({ onOpenPage, activeOverlayPage }: { onOpenPage?: (pag
         <section className="shuan-drilldown-overlay" data-annotation-id="shuan-v3-drill-stage">
           <div className="shuan-drilldown-overlay-backdrop" aria-hidden="true" onClick={() => onOpenPage?.('shuan-home-command-v3')} />
           <div className="shuan-drilldown-overlay-panel">
-            <ShuanDrilldownContent pageId={activeOverlayPage} />
+            <ShuanDrilldownContent pageId={activeOverlayPage} onExit={() => onOpenPage?.('shuan-home-command-v3')} />
           </div>
         </section>
       ) : null}
@@ -535,7 +535,20 @@ function DailyRegulationPanel({ onOpenPage }: { onOpenPage?: (pageId: string) =>
         {dailyRegulationEntryRows.map((entry) => <button type="button" key={entry.title} className={`daily-regulation-entry-card tone-${entry.tone} is-clickable`} onClick={() => onOpenPage?.('page' in entry ? entry.page : 'shuan-home-command-v3-daily-regulation')}><header><span><CockpitIcon name={entry.icon} /><b>{entry.title}</b></span><strong>{entry.total}</strong></header><div className="daily-regulation-entry-meta">{entry.meta.map(([label, value]) => <span key={label}><em>{label}</em><b>{value}</b></span>)}</div></button>)}
       </div>
       <div className="daily-regulation-reminder-inline" aria-label="重点提醒">
-        {reminderTasks.map((item) => <article key={item.title} className={`daily-regulation-reminder-card tone-${item.tone}`}><span className="reminder-card-icon"><CockpitIcon name={item.icon} /></span><div className="reminder-card-copy"><header><b>{item.title}</b><strong>{item.highlight}</strong></header></div></article>)}
+        {reminderTasks.map((item) => (
+          <button
+            type="button"
+            key={item.title}
+            className={`daily-regulation-reminder-card tone-${item.tone}${item.page ? ' is-clickable' : ''}`}
+            onClick={item.page ? () => onOpenPage?.(item.page) : undefined}
+          >
+            <span className="reminder-card-icon"><CockpitIcon name={item.icon} /></span>
+            <div className="reminder-card-copy">
+              <header><b>{item.title}</b><strong>{item.highlight}</strong></header>
+              <p>{item.detail}</p>
+            </div>
+          </button>
+        ))}
       </div>
     </Panel>
   );

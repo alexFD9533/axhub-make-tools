@@ -15,11 +15,9 @@ import {
   ChevronDown,
   ChevronRight,
   CalendarDays,
-  MapPinned,
-  Gauge,
   Users,
   Factory,
-  TrendingUp,
+  LogOut,
 } from 'lucide-react';
 import { normalizeInlineSvg } from '../../../../common/inlineSvg';
 import sichuanMapSvg from '../../../../resources/shuan/sichuan-map.svg?raw';
@@ -71,7 +69,7 @@ function DangerousTable({ head, rows, className = '' }: { head: React.ReactNode[
   );
 }
 
-export function DangerousWorkReportPage() {
+export function DangerousWorkReportPage({ onExit }: { onExit?: () => void }) {
   const kpis = [
     { label: '今日报备总数', value: '128', unit: '次', delta: '较昨日  +18 ↑', tone: 'cyan', icon: ClipboardList },
     { label: '当前作业中', value: '47', unit: '次', delta: '较昨日  +7 ↑', tone: 'cyan', icon: UserRound },
@@ -103,6 +101,7 @@ export function DangerousWorkReportPage() {
   const trendDays = ['05-18', '05-19', '05-20', '05-21', '05-22', '05-23', '05-24'];
   const totalTrend = [92, 88, 95, 110, 101, 109, 128];
   const activeTrend = [32, 29, 31, 42, 38, 40, 47];
+  const trendTicks = [100, 80, 60, 40, 20, 0];
 
   const toTrendPoints = (values: number[], max: number) =>
     values.map((value, index) => `${8 + index * 14.5},${88 - (value / max) * 66}`).join(' ');
@@ -177,13 +176,12 @@ export function DangerousWorkReportPage() {
     <div className="drill-page drill-dangerous-work-page tone-cyan">
       <header className="drill-dangerous-titlebar">
         <div>
-          <span>危险作业报备</span>
-          <strong>今日作业报备监测</strong>
-          <em>报备总览、地图定位、重点作业与异常关联一屏联动</em>
+          <strong>危险作业报备</strong>
+          <em>跟踪今日危险作业状态，辅助重点作业核查与风险处置</em>
         </div>
-        <button type="button" className="drill-dangerous-promote-button">
-          <TrendingUp aria-hidden="true" />
-          提升
+        <button type="button" className="drill-dangerous-exit-button" onClick={onExit}>
+          <LogOut aria-hidden="true" />
+          退出
         </button>
       </header>
 
@@ -251,32 +249,36 @@ export function DangerousWorkReportPage() {
                 作业中
               </em>
             </div>
-            <svg className="drill-dangerous-line" viewBox="0 0 110 100" preserveAspectRatio="none" aria-hidden="true">
-              {[0, 20, 40, 60, 80, 100].map((v) => (
-                <g key={v}>
-                  <line x1="7" x2="108" y1={88 - v * 0.66} y2={88 - v * 0.66} />
-                  <text x="0" y={91 - v * 0.66}>
-                    {v}
-                  </text>
-                </g>
-              ))}
-              <polyline points={toTrendPoints(totalTrend, 130)} className="blue" />
-              <polyline points={toTrendPoints(activeTrend, 60)} className="green" />
-              {totalTrend.map((v, i) => (
-                <text key={`t-${v}-${i}`} x={6 + i * 14.5} y={84 - (v / 130) * 66}>
-                  {v}
-                </text>
-              ))}
-              {activeTrend.map((v, i) => (
-                <text key={`a-${v}-${i}`} x={6 + i * 14.5} y={84 - (v / 60) * 66}>
-                  {v}
-                </text>
-              ))}
-            </svg>
-            <div className="drill-dangerous-axis">
-              {trendDays.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
+            <div className="drill-dangerous-chart-shell">
+              <div className="drill-dangerous-y-axis" aria-hidden="true">
+                {trendTicks.map((value) => (
+                  <span key={value}>{value}</span>
+                ))}
+              </div>
+              <div className="drill-dangerous-chart-main">
+                <svg className="drill-dangerous-line" viewBox="0 0 110 100" preserveAspectRatio="none" aria-hidden="true">
+                  {trendTicks.map((v) => (
+                    <line key={v} x1="7" x2="108" y1={88 - v * 0.66} y2={88 - v * 0.66} />
+                  ))}
+                  <polyline points={toTrendPoints(totalTrend, 130)} className="blue" />
+                  <polyline points={toTrendPoints(activeTrend, 60)} className="green" />
+                  {totalTrend.map((v, i) => (
+                    <text key={`t-${v}-${i}`} x={6 + i * 14.5} y={84 - (v / 130) * 66}>
+                      {v}
+                    </text>
+                  ))}
+                  {activeTrend.map((v, i) => (
+                    <text key={`a-${v}-${i}`} x={6 + i * 14.5} y={84 - (v / 60) * 66}>
+                      {v}
+                    </text>
+                  ))}
+                </svg>
+                <div className="drill-dangerous-axis">
+                  {trendDays.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </div>
             </div>
           </DangerousPanel>
 
@@ -334,36 +336,6 @@ export function DangerousWorkReportPage() {
                   {item}
                 </span>
               ))}
-            </div>
-            <div className="drill-dangerous-map-pop">
-              <h3>
-                <MapPinned aria-hidden="true" />
-                泸州市
-              </h3>
-              <p>
-                <span>煤矿数</span>
-                <strong>22处</strong>
-              </p>
-              <p>
-                <span>今日报备</span>
-                <strong>38次</strong>
-              </p>
-              <p>
-                <span>当前作业中</span>
-                <strong>22次</strong>
-              </p>
-              <p>
-                <span>重点关注</span>
-                <strong className="red">6项</strong>
-              </p>
-              <button type="button">进入泸州市</button>
-            </div>
-            <div className="drill-dangerous-map-tools">
-              <button type="button">+</button>
-              <button type="button">−</button>
-              <button type="button">
-                <Gauge aria-hidden="true" />
-              </button>
             </div>
           </section>
         </main>
