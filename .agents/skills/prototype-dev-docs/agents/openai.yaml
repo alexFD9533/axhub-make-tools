@@ -1,0 +1,4 @@
+interface:
+  display_name: "原型开发文档"
+  short_description: "原型调整后同步维护开发向版本记录和模块需求说明"
+  default_prompt: "使用 $prototype-dev-docs，在完成原型调整后同步补齐开发向文档。"

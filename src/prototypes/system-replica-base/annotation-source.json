@@ -1,0 +1,794 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "system-replica-base",
+    "pageId": "alarm-disposal",
+    "updatedAt": 1781222400000,
+    "nodes": [
+      {
+        "id": "alarm-table",
+        "index": 4,
+        "title": "报警处置表格",
+        "pageId": "alarm-disposal",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"alarm-table\"]"
+          ],
+          "fingerprint": "div|data-annotation-id=alarm-table",
+          "path": []
+        },
+        "aiPrompt": "说明报警处置页作为系统列表模板的作用。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#D97706",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "sms-record-tabs",
+        "index": 5,
+        "title": "单位范围页签",
+        "pageId": "sms-record",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"sms-record-tabs\"]"
+          ],
+          "fingerprint": "div|data-annotation-id=sms-record-tabs",
+          "path": []
+        },
+        "aiPrompt": "说明短信发送记录查询页中本单位和其他单位的范围切换。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#DC2626",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000,
+        "controls": [
+          {
+            "type": "segmented",
+            "attributeId": "sms_record_scope",
+            "displayName": "短信记录范围",
+            "info": "切换短信发送记录查询页展示本单位或其他单位视角。",
+            "initialValue": "own",
+            "options": [
+              {
+                "label": "本单位",
+                "value": "own"
+              },
+              {
+                "label": "其他单位",
+                "value": "other"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sms-record-query",
+        "index": 6,
+        "title": "查询区",
+        "pageId": "sms-record",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"sms-record-query\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=sms-record-query",
+          "path": []
+        },
+        "aiPrompt": "说明短信发送记录查询区的字段变化与复用原则。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "sms-record-table",
+        "index": 7,
+        "title": "短信记录表格",
+        "pageId": "sms-record",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"sms-record-table\"]"
+          ],
+          "fingerprint": "div|data-annotation-id=sms-record-table",
+          "path": []
+        },
+        "aiPrompt": "说明短信记录表格在不同单位范围下的字段差异。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563EB",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "other-unit-directory",
+        "index": 8,
+        "title": "单位通讯录树",
+        "pageId": "sms-other-unit-address-book",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"other-unit-directory\"]"
+          ],
+          "fingerprint": "aside|data-annotation-id=other-unit-directory",
+          "path": []
+        },
+        "aiPrompt": "说明其他单位通讯录左树右表结构中的树节点作用。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#059669",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "other-unit-list",
+        "index": 9,
+        "title": "其他单位通讯录列表",
+        "pageId": "sms-other-unit-address-book",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"other-unit-list\"]"
+          ],
+          "fingerprint": "main|data-annotation-id=other-unit-list",
+          "path": []
+        },
+        "aiPrompt": "说明其他单位通讯录列表的字段和只读查看口径。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#9333EA",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000,
+        "controls": [
+          {
+            "type": "segmented",
+            "attributeId": "sms_address_book_mode",
+            "displayName": "通讯录视图",
+            "info": "在列表和查看详情之间切换，演示原型状态。",
+            "initialValue": "list",
+            "options": [
+              {
+                "label": "列表",
+                "value": "list"
+              },
+              {
+                "label": "详情",
+                "value": "detail"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "other-unit-rule-cell",
+        "index": 9.5,
+        "title": "短信接收规则单行展示",
+        "pageId": "sms-other-unit-address-book",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"other-unit-rule-cell\"]"
+          ],
+          "fingerprint": "span|data-annotation-id=other-unit-rule-cell",
+          "path": []
+        },
+        "aiPrompt": "说明这格短信接收规则为什么改为单行省略展示。",
+        "annotationText": "这里原先允许把整段短信接收规则按多行完整铺开显示，长文本会直接把整行表格撑高。\n\n现在改成了只允许单行展示：\n\n- 超出列宽的内容使用省略样式处理\n- 保持表格行高稳定，避免列表页阅读节奏被长文本打断\n- 列表只负责总览，完整规则通过悬浮提示或详情页查看\n\n这样更符合“列表看概况、详情看全文”的页面分工。",
+        "hasMarkdown": false,
+        "color": "#9333EA",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "other-unit-detail-basic",
+        "index": 10,
+        "title": "查看页基本信息",
+        "pageId": "sms-other-unit-address-book",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"other-unit-detail-basic\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=other-unit-detail-basic",
+          "path": []
+        },
+        "aiPrompt": "说明其他单位通讯录查看页的基本信息分组。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#EA580C",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "other-unit-detail-rules",
+        "index": 11,
+        "title": "查看页短信接收规则",
+        "pageId": "sms-other-unit-address-book",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"other-unit-detail-rules\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=other-unit-detail-rules",
+          "path": []
+        },
+        "aiPrompt": "说明查看页短信接收规则为什么改为只读表格。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#DC2626",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "other-unit-detail-companies",
+        "index": 12,
+        "title": "查看页接收企业",
+        "pageId": "sms-other-unit-address-book",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"other-unit-detail-companies\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=other-unit-detail-companies",
+          "path": []
+        },
+        "aiPrompt": "说明查看页接收企业分组的展示边界。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0F766E",
+        "images": [],
+        "createdAt": 1781222400000,
+        "updatedAt": 1781222400000
+      },
+      {
+        "id": "system-organization-tree",
+        "index": 20,
+        "title": "组织机构树",
+        "pageId": "system-organization",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"system-organization-tree\"]"
+          ],
+          "fingerprint": "aside|data-annotation-id=system-organization-tree",
+          "path": []
+        },
+        "aiPrompt": "说明组织机构页左侧树形结构的层级与筛选作用。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0F766E",
+        "images": [],
+        "createdAt": 1781395200000,
+        "updatedAt": 1781395200000
+      },
+      {
+        "id": "system-organization-list",
+        "index": 21,
+        "title": "组织机构列表",
+        "pageId": "system-organization",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"system-organization-list\"]"
+          ],
+          "fingerprint": "main|data-annotation-id=system-organization-list",
+          "path": []
+        },
+        "aiPrompt": "说明组织机构页右侧列表字段和管理操作。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563EB",
+        "images": [],
+        "createdAt": 1781395200000,
+        "updatedAt": 1781395200000
+      },
+      {
+        "id": "hidden-risk-filter",
+        "index": 30,
+        "title": "隐蔽面风险筛选区",
+        "pageId": "guard-hidden-risk-overview",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-filter\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-filter",
+          "path": []
+        },
+        "aiPrompt": "说明风险总览筛选区的统计周期、区域、等级、跟踪状态和可疑点类型口径。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563EB",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-metrics",
+        "index": 31,
+        "title": "顶部风险指标",
+        "pageId": "guard-hidden-risk-overview",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-metrics\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-metrics",
+          "path": []
+        },
+        "aiPrompt": "说明顶部五个指标如何围绕煤矿风险等级和核查任务组织。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#DC2626",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-suspicious",
+        "index": 32,
+        "title": "可疑点统计",
+        "pageId": "guard-hidden-risk-overview",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-suspicious\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-suspicious",
+          "path": []
+        },
+        "aiPrompt": "说明可疑点如何连接评分解释和任务核查。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#EA580C",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-mine-rank",
+        "index": 33,
+        "title": "高风险煤矿排行",
+        "pageId": "guard-hidden-risk-overview",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-mine-rank\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-mine-rank",
+          "path": []
+        },
+        "aiPrompt": "说明高风险煤矿排行如何承接画像和专项排查。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#EA580C",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-inspection",
+        "index": 34,
+        "title": "核查任务与风险回流",
+        "pageId": "guard-hidden-risk-overview",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-inspection\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-inspection",
+          "path": []
+        },
+        "aiPrompt": "说明核查任务如何体现风险等级回流和解除规则。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0F766E",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-profile-hero",
+        "index": 35,
+        "title": "煤矿风险画像头部",
+        "pageId": "guard-hidden-risk-mine-profile",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-profile-hero\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-profile-hero",
+          "path": []
+        },
+        "aiPrompt": "说明煤矿画像头部如何呈现风险等级、支撑线索和跟踪状态。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#DC2626",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-profile-score",
+        "index": 36,
+        "title": "评分构成与依据",
+        "pageId": "guard-hidden-risk-mine-profile",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-profile-score\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-profile-score",
+          "path": []
+        },
+        "aiPrompt": "说明评分构成如何追溯到线索、关联关系和回流修正。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563EB",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-profile-suspicious",
+        "index": 37,
+        "title": "可疑点与检查重点",
+        "pageId": "guard-hidden-risk-mine-profile",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-profile-suspicious\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-profile-suspicious",
+          "path": []
+        },
+        "aiPrompt": "说明可疑点如何成为检查任务的落实对象。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#EA580C",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-profile-evidence",
+        "index": 38,
+        "title": "支撑线索与证据链",
+        "pageId": "guard-hidden-risk-mine-profile",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-profile-evidence\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-profile-evidence",
+          "path": []
+        },
+        "aiPrompt": "说明线索作为评分依据和证据追溯而非处置对象。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#2563EB",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "hidden-risk-profile-backflow",
+        "index": 39,
+        "title": "风险回流判断",
+        "pageId": "guard-hidden-risk-mine-profile",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"hidden-risk-profile-backflow\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=hidden-risk-profile-backflow",
+          "path": []
+        },
+        "aiPrompt": "说明检查结果如何影响风险维持、降级或解除跟踪。",
+        "annotationText": "",
+        "hasMarkdown": true,
+        "color": "#0F766E",
+        "images": [],
+        "createdAt": 1782345600000,
+        "updatedAt": 1782345600000
+      },
+      {
+        "id": "shuan-v3-header",
+        "index": 50,
+        "title": "顶部系统标题与工具入口",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-header\"]"
+          ],
+          "fingerprint": "header|data-annotation-id=shuan-v3-header",
+          "path": []
+        },
+        "aiPrompt": "说明系统名称、视频入口和顶部工具区的展示要求。",
+        "annotationText": "说明系统名称、视频入口和顶部工具区的展示要求。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-left-overview",
+        "index": 51,
+        "title": "左侧煤矿概况模块组",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-left-overview\"]"
+          ],
+          "fingerprint": "div|data-annotation-id=shuan-v3-left-overview",
+          "path": []
+        },
+        "aiPrompt": "说明左侧模块顺序和灾害类模块下移的页面安排。",
+        "annotationText": "说明左侧模块顺序和灾害类模块下移的页面安排。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-map-aggregation",
+        "index": 52,
+        "title": "四川地图煤矿聚合",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-map-aggregation\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=shuan-v3-map-aggregation",
+          "path": []
+        },
+        "aiPrompt": "说明 12 个市州煤矿聚合数量和点位表达口径。",
+        "annotationText": "说明 12 个市州煤矿聚合数量和点位表达口径。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-daily-regulation",
+        "index": 53,
+        "title": "日常监管模块",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-daily-regulation\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=shuan-v3-daily-regulation",
+          "path": []
+        },
+        "aiPrompt": "说明监管业务入口、重点提醒和风险分级管控文案。",
+        "annotationText": "说明监管业务入口、重点提醒和风险分级管控文案。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-illegal-treatment",
+        "index": 54,
+        "title": "打非治违模块",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-illegal-treatment\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=shuan-v3-illegal-treatment",
+          "path": []
+        },
+        "aiPrompt": "说明删除综合分析行后的三层结构和高度分配。",
+        "annotationText": "说明删除综合分析行后的三层结构和高度分配。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      }
+    ]
+  },
+  "markdownMap": {
+    "alarm-table": "# 报警处置表格\n\n报警处置页在这里承担的是列表页模板角色。\n\n它帮助我们固定这类页面的几个基础约束：\n\n- 顶部页签与工具区如何排布\n- 表格头部、空状态、滚动区的视觉口径\n- 后续其他业务列表页可以优先复用什么",
+    "sms-record-tabs": "# 单位范围页签\n\n这里的核心不是多加了两个按钮，而是把一个原本只有“本单位”的页面，扩成了监管人员可切换“本单位 / 其他单位”的复用页面。\n\n切到“其他单位”后，查询字段和表格字段都会发生同步变化，避免再新开一个平行页面。",
+    "sms-record-query": "# 查询区\n\n短信发送记录查询区沿用系统统一的查询结构，只在必要处扩展字段。\n\n当前规则：\n\n- `本单位` 保持原页面字段不动\n- `其他单位` 新增 `发送单位` 字段\n- 查询、重置、日期范围、按钮样式继续复用底座\n\n这样既能保留原系统习惯，也能把新需求控制在局部增量里。",
+    "sms-record-table": "# 短信记录表格\n\n表格是这次改动最关键的结果承载区。\n\n- `本单位` 维持原字段结构\n- `其他单位` 增加 `发送单位` 列，放在前部，方便快速识别短信来源\n\n这类说明如果只写在文字 PRD 里，很容易和实际页面脱节；直接挂在原型上更方便评审和后续修改。",
+    "other-unit-directory": "# 单位通讯录树\n\n其他单位通讯录沿用了左树右表的系统结构，但把原来单根节点的思路扩成了多根节点单位树。\n\n这个分组的价值在于：\n\n- 一眼能看出来源单位层级\n- 与右侧列表形成天然的筛选和定位关系\n- 后续如果要继续补部门、科室或角色层级，也有扩展空间",
+    "other-unit-list": "# 其他单位通讯录列表\n\n这个列表页承担的是“监管侧查看其他单位人员配置情况”的入口页。\n\n当前口径：\n\n- 保留只读查看，不提供编辑、删除、批量配置\n- 字段重点放在所属单位、短信接收规则数、是否设置、接收企业数\n- `短信接收规则` 列已从原先允许多行完整展示，调整为只允许单行展示\n- 当规则名称超出列宽时，统一使用省略样式展示，避免把整行表格高度撑开\n- 操作列只保留 `查看`\n\n这样处理后，列表更适合作为总览入口；完整规则内容保留在悬浮提示和详情页中查看，避免列表页变成信息堆叠区。\n\n因此它更像一个配置总览页，而不是配置操作台。",
+    "other-unit-detail-basic": "# 查看页基本信息\n\n查看页拆成三个信息分组，基本信息只承载摘要，不承载规则编辑行为。\n\n这里要说明的不是字段本身，而是边界：\n\n- 只展示人员、单位、规则数、接收企业数等摘要\n- 不出现保存、取消、编辑等操作语义\n- 继续沿用系统详情分组样式，保持与原系统口径一致",
+    "other-unit-detail-rules": "# 查看页短信接收规则\n\n这里从“标签堆叠”改成了“只读表格”。\n\n原因是查看页更需要：\n\n- 清楚列出规则名称\n- 一眼区分是否为煤矿规则\n- 明确看到状态\n\n如果继续沿用可编辑标签形态，用户会误以为这里可以直接增删规则，和页面定位冲突。",
+    "other-unit-detail-companies": "# 查看页接收企业\n\n接收企业被独立成第三个分组，是为了把“配置结果”展示清楚，而不是把企业选择过程暴露出来。\n\n所以这里刻意去掉了：\n\n- 勾选框\n- 企业选择框\n- 保存 / 取消\n- 编辑 / 删除\n\n页面只保留结果视图，避免把查看页做成半配置页。",
+    "project-overview-doc": "",
+    "sms-module-doc": "",
+    "system-organization-tree": "# 组织机构树\n\n左侧树用于展示组织层级。\n\n选中不同组织后，右侧列表聚焦展示对应部门数据，便于按行政或业务层级管理机构。",
+    "system-organization-list": "# 组织机构列表\n\n右侧列表承载组织机构的主要管理内容。\n\n表格展示组织名称、简称、联系电话等信息，并保留修改、删除等基础操作入口。",
+    "hidden-risk-filter": "# 隐蔽面风险筛选区\n\n筛选区把风险总览限定到监管人员当前关心的统计周期、区域、风险等级、跟踪状态和可疑点类型。\n\n本轮采用“煤矿风险等级 + 可疑点 + 核查回流”口径：\n\n- 风险等级：高、中、低\n- 跟踪状态：未核查、已纳入检查、专项排查中、结果已回流、持续跟踪、已降级、解除跟踪\n- 可疑点类型：停产期间疑似生产、夜间异常活动、同一区域多类异常、数据遮蔽风险、历史问题复发\n\n交互上采用“局部筛选刷新”而不是整页跳转：点击可疑点类型后，该筛选项进入选中态，下方出现筛选反馈条，说明当前命中的煤矿数量、支撑线索数量和建议核查方向；结果区域轻微淡入上移，表示区域态势、可疑点统计、高风险煤矿排行和任务回流统计已按该类型重新聚焦。",
+    "hidden-risk-metrics": "# 顶部风险指标\n\n顶部指标回答监管负责人最先关心的五个问题：\n\n- 接入了多少煤矿\n- 当前多少煤矿为高风险\n- 当前多少煤矿为中风险\n- 还有多少高风险煤矿待核查或待反馈\n- 哪些核查/排查任务已经逾期\n\n这里改为展示“待核查高风险煤矿”。线索只作为评分和证据追溯输入；真正需要人员落实的是煤矿风险等级下的可疑点和核查任务。",
+    "hidden-risk-mine-rank": "# 高风险煤矿排行\n\n排行表是总览页进入煤矿风险画像和专项排查的主入口。\n\n字段已调整为煤矿、区域、综合风险分、风险等级、主要可疑点、支撑线索数、最近核查状态和环比变化。\n\n当选择某个可疑点类型后，排行表只保留命中该类型的煤矿，并在“主要可疑点”字段中高亮命中的可疑点文本，让监管人员立刻知道这些煤矿为什么被筛出来。\n\n点击“画像”查看该煤矿为什么风险高、高在哪里、下一步怎么查；点击“安排排查”从煤矿风险等级和可疑点创建核查任务。",
+    "hidden-risk-inspection": "# 核查任务与风险回流\n\n本区展示任务落实和风险等级回流进展，包括待派发、待办理、专项排查中、结果已回流、持续跟踪和逾期任务。\n\n任务完成不等于风险自动消除。只有核查结果改变了线索有效性、可疑点结论或评分依据后，才会触发风险等级维持、升高、降级或解除跟踪。",
+    "hidden-risk-suspicious": "# 可疑点统计\n\n可疑点用于把线索和关联关系转化成监管人员能执行的检查重点。\n\n页面当前统计停产期间疑似生产、夜间异常活动、同一区域多类异常、数据遮蔽风险、历史问题复发等类型。\n\n可疑点卡片本身也是筛选入口：点击某一类可疑点后，该卡片高亮，并驱动与顶部“可疑点类型”一致的筛选反馈、排行过滤和命中词高亮。\n\n可疑点承接评分解释，并作为工作安排处置页创建任务时的检查重点。",
+    "hidden-risk-profile-hero": "# 煤矿风险画像头部\n\n画像头部用于回答“这家矿当前风险多高”。\n\n页面聚合展示煤矿名称、综合风险分、风险等级、区域排名、支撑线索数、主要可疑点、跟踪状态和回流结论。\n\n该区域是从总览排行进入后的第一判断区，帮助监管负责人快速确认是否需要专项排查。",
+    "hidden-risk-profile-score": "# 评分构成与依据\n\n评分构成说明煤矿风险等级从哪里来。\n\n当前拆分为方向基础分、关联印证分、状态冲突分、历史复发分、数据质量修正分和核查回流修正分。\n\n每一项都应能追溯到参与线索、关联关系、规则版本、证据材料和回流记录。",
+    "hidden-risk-profile-suspicious": "# 可疑点与检查重点\n\n可疑点是连接风险评分和任务落实的关键对象。\n\n画像页列出每个可疑点的形成依据、支撑线索数、核查重点和当前结论。监管人员从这里判断要查什么、为什么查、查哪些证据。\n\n后续创建任务时，应围绕煤矿和可疑点安排检查，不对线索本身创建处置流程。",
+    "hidden-risk-profile-evidence": "# 支撑线索与证据链\n\n本区展示参与当前评分的核心线索和证据材料。\n\n线索字段包括方向、类型、发生时间、等级、有效性、参与评分项和证据材料。线索一经生成即参与评分或追溯；核查结果只修正线索有效性和评分依据。",
+    "hidden-risk-profile-backflow": "# 风险回流判断\n\n风险回流判断说明检查结果如何影响煤矿风险等级。\n\n当前示例中专项排查尚未完成，关键线索仍为当前有效，因此风险维持高风险。后续如果核查属实，风险维持或升高；如果关键线索被排除并且后续无持续线索，才可降级或解除跟踪。",
+    "hidden-risk-module-doc": "",
+    "shuan-home-v3-module-doc": ""
+  },
+  "assetMap": {},
+  "directory": {
+    "nodes": [
+      {
+        "type": "folder",
+        "id": "prototype-navigation",
+        "title": "页面导航",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "route",
+            "id": "route-alarm-disposal",
+            "title": "报警处置",
+            "route": "alarm-disposal"
+          },
+          {
+            "type": "route",
+            "id": "route-hidden-risk-overview",
+            "title": "隐蔽面风险综合分析 / 风险总览一张图",
+            "route": "guard-hidden-risk-overview"
+          },
+          {
+            "type": "route",
+            "id": "route-hidden-risk-mine-profile",
+            "title": "隐蔽面风险综合分析 / 煤矿风险画像",
+            "route": "guard-hidden-risk-mine-profile"
+          },
+          {
+            "type": "route",
+            "id": "route-system-organization",
+            "title": "组织机构",
+            "route": "system-organization"
+          },
+          {
+            "type": "route",
+            "id": "route-system-user",
+            "title": "用户管理",
+            "route": "system-user"
+          },
+          {
+            "type": "route",
+            "id": "route-system-role",
+            "title": "角色管理",
+            "route": "system-role"
+          },
+          {
+            "type": "route",
+            "id": "route-system-menu",
+            "title": "菜单管理",
+            "route": "system-menu"
+          },
+          {
+            "type": "route",
+            "id": "route-system-dept",
+            "title": "部门管理",
+            "route": "system-dept"
+          },
+          {
+            "type": "route",
+            "id": "route-system-post",
+            "title": "岗位管理",
+            "route": "system-post"
+          },
+          {
+            "type": "route",
+            "id": "route-system-dict",
+            "title": "字典管理",
+            "route": "system-dict"
+          },
+          {
+            "type": "route",
+            "id": "route-system-config",
+            "title": "参数设置",
+            "route": "system-config"
+          },
+          {
+            "type": "route",
+            "id": "route-system-notice",
+            "title": "通知公告",
+            "route": "system-notice"
+          },
+          {
+            "type": "route",
+            "id": "route-system-operlog",
+            "title": "操作日志",
+            "route": "system-operlog"
+          },
+          {
+            "type": "route",
+            "id": "route-system-loginlog",
+            "title": "登录日志",
+            "route": "system-loginlog"
+          },
+          {
+            "type": "route",
+            "id": "route-system-online",
+            "title": "在线用户",
+            "route": "system-online"
+          },
+          {
+            "type": "route",
+            "id": "route-system-job",
+            "title": "定时任务",
+            "route": "system-job"
+          },
+          {
+            "type": "route",
+            "id": "route-sms-record-own",
+            "title": "短信发送记录查询（本单位）",
+            "route": "sms-record",
+            "payload": {
+              "sms_record_scope": "own"
+            }
+          },
+          {
+            "type": "route",
+            "id": "route-sms-record-other",
+            "title": "短信发送记录查询（其他单位）",
+            "route": "sms-record",
+            "payload": {
+              "sms_record_scope": "other"
+            }
+          },
+          {
+            "type": "route",
+            "id": "route-sms-address-list",
+            "title": "其他单位通讯录（列表）",
+            "route": "sms-other-unit-address-book",
+            "payload": {
+              "sms_address_book_mode": "list"
+            }
+          },
+          {
+            "type": "route",
+            "id": "route-sms-address-detail",
+            "title": "其他单位通讯录（详情）",
+            "route": "sms-other-unit-address-book",
+            "payload": {
+              "sms_address_book_mode": "detail"
+            }
+          }
+        ]
+      },
+      {
+        "type": "folder",
+        "id": "prototype-docs",
+        "title": "原型说明文档",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "markdown",
+            "id": "project-overview-doc",
+            "title": "原型版本记录",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "sms-module-doc",
+            "title": "短信管理模块产品迭代需求说明（2026-06-11）",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "hidden-risk-module-doc",
+            "title": "隐蔽面风险综合分析模块迭代需求说明（2026-06-23）",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "shuan-home-v3-module-doc",
+            "title": "蜀安首页V3产品迭代需求说明（2026-06-30）",
+            "markdown": ""
+          }
+        ]
+      }
+    ]
+  }
+}

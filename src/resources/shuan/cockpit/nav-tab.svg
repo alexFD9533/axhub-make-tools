@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="68" viewBox="0 0 140 68" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="tab" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#073b80" stop-opacity=".96"/>
+      <stop offset="1" stop-color="#031637" stop-opacity=".96"/>
+    </linearGradient>
+    <linearGradient id="tab-active" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#0d9aec"/>
+      <stop offset="1" stop-color="#0749a6"/>
+    </linearGradient>
+  </defs>
+  <symbol id="normal" viewBox="0 0 140 68">
+    <path d="M16 0 H140 L124 68 H0 Z" fill="url(#tab)"/>
+    <path d="M16 0 H140 L124 68 H0 Z" fill="none" stroke="#2ecfff" stroke-opacity=".34"/>
+    <path d="M7 66 H124" stroke="#29dbff" stroke-opacity=".48" stroke-width="2"/>
+  </symbol>
+  <symbol id="active" viewBox="0 0 140 68">
+    <path d="M16 0 H140 L124 68 H0 Z" fill="url(#tab-active)"/>
+    <path d="M16 0 H140 L124 68 H0 Z" fill="none" stroke="#6ff6ff" stroke-opacity=".82"/>
+    <path d="M8 66 H122" stroke="#27f4ff" stroke-width="5"/>
+    <circle cx="70" cy="16" r="28" fill="#7ff7ff" opacity=".18"/>
+  </symbol>
+  <use href="#normal"/>
+</svg>

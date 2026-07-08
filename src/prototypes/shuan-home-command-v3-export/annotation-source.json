@@ -1,0 +1,148 @@
+{
+  "documentVersion": 1,
+  "format": "axhub-annotation-source",
+  "data": {
+    "version": 2,
+    "prototypeName": "shuan-home-command-v3-export",
+    "pageId": "shuan-home-command-v3",
+    "updatedAt": 1782748800000,
+    "nodes": [
+      {
+        "id": "shuan-v3-header",
+        "index": 1,
+        "title": "顶部系统标题与工具入口",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-header\"]"
+          ],
+          "fingerprint": "header|data-annotation-id=shuan-v3-header",
+          "path": []
+        },
+        "aiPrompt": "说明系统名称、视频入口和顶部工具区的展示要求。",
+        "annotationText": "系统名称、视频入口和顶部工具区保持 V3 当前设计，不因单页导出改变业务表现。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-left-overview",
+        "index": 2,
+        "title": "左侧煤矿概况模块组",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-left-overview\"]"
+          ],
+          "fingerprint": "div|data-annotation-id=shuan-v3-left-overview",
+          "path": []
+        },
+        "aiPrompt": "说明左侧模块顺序和灾害类模块下移的页面安排。",
+        "annotationText": "左侧概况按生产状态、生产情况、从业人员、数据汇聚、灾害补充信息组织，保持 V3 已确认层级。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-map-aggregation",
+        "index": 3,
+        "title": "四川地图煤矿聚合",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-map-aggregation\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=shuan-v3-map-aggregation",
+          "path": []
+        },
+        "aiPrompt": "说明 12 个市州煤矿聚合数量和点位表达口径。",
+        "annotationText": "地图聚合点表达市州级煤矿数量分布，不作为精确经纬度或行政边界交付。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-daily-regulation",
+        "index": 4,
+        "title": "日常监管模块",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-daily-regulation\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=shuan-v3-daily-regulation",
+          "path": []
+        },
+        "aiPrompt": "说明监管业务入口、重点提醒和风险分级管控文案。",
+        "annotationText": "危险作业报备、风险分级管控、隐患排查作为主业务入口，提醒类信息保持轻量表达。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      },
+      {
+        "id": "shuan-v3-illegal-treatment",
+        "index": 5,
+        "title": "打非治违模块",
+        "pageId": "shuan-home-command-v3",
+        "locator": {
+          "selectors": [
+            "[data-annotation-id=\"shuan-v3-illegal-treatment\"]"
+          ],
+          "fingerprint": "section|data-annotation-id=shuan-v3-illegal-treatment",
+          "path": []
+        },
+        "aiPrompt": "说明删除综合分析行后的三层结构和高度分配。",
+        "annotationText": "打非治违保留算法线索、专项整治、分级处置任务三层结构，不再展示中间分析层。",
+        "hasMarkdown": false,
+        "color": "#0891B2",
+        "images": [],
+        "createdAt": 1782748800000,
+        "updatedAt": 1782748800000
+      }
+    ]
+  },
+  "markdownMap": {
+    "prd-shuan-home-v3-export": "## PRD-蜀安首页V3单页导出\n\n## 1. Summary\n\n本文档说明“蜀安首页方案 A V3 单页导出”的产品需求。该页面用于把已确认的 V3 首页作为独立 Axure 导出资源交付，并在原型说明面板中提供 PRD、页面锚点和验收口径。\n\n## 2. Contacts\n\n| 角色 | 说明 |\n|---|---|\n| 业务方 | 确认页面名称、监管重点、地图聚合数量和打非治违表达是否符合汇报口径。 |\n| 产品/原型评审 | 通过原型批注和 PRD 判断页面是否满足当前交付目标。 |\n| 前端开发 | 根据页面锚点、文案、布局约束和验收标准完成实现或后续调整。 |\n\n## 3. Background\n\n蜀安首页 V3 是省级煤矿安全监管驾驶舱首页。页面需要在一屏内表达全省煤矿总体状态、区域聚合分布、日常监管重点和打非治违线索处置链路。\n\n本次单页导出不是新增业务页面，而是把当前已收敛的 V3 首页独立出来，作为 Axure 导出资源。导出页必须保留现有业务行为、交互和视觉表现，同时补齐原型 PRD 文档入口，便于评审人员和开发人员在同一页面查看需求说明。\n\n## 4. Objective\n\n目标是让 V3 首页导出资源同时具备“可看、可批注、可交付”的能力。用户打开导出页后，可以查看完整首页，也可以从说明面板读取 PRD 和关键区域说明。\n\n关键结果：\n\n| 指标 | 验收方式 |\n|---|---|\n| 页面行为不变 | 首页仍展示 `command` 方案，变体切换回到 `shuan-home-command-v3`。 |\n| 文档可读 | 说明面板目录中可以打开本 PRD。 |\n| 锚点可定位 | 5 个核心区域均通过 `data-annotation-id` 被标注系统识别。 |\n| 导出可检查 | 文件头保留 `@mode axure`，默认导出为 `Component`。 |\n| 构建可验证 | 单入口构建命令执行通过。 |\n\n## 5. Market Segment(s)\n\n主要服务三类使用者：\n\n| 使用者 | 任务 |\n|---|---|\n| 省级煤矿安全监管人员 | 快速判断全省煤矿分布、监管重点和打非治违处置态势。 |\n| 原型评审人员 | 对照 PRD 和页面锚点检查页面是否符合当前评审意见。 |\n| 前端开发人员 | 根据原型、锚点和验收标准完成后续开发、调整和验收。 |\n\n约束：\n\n- 本页只处理 V3 首页单页导出，不新增二级页面。\n- 不接入真实接口、不改权限、不重绘精确行政区地图。\n- 不为了通过 Axure 导出检查新增非必需 Axure API。\n- 说明面板只承载交付说明，不改变页面业务组件的视觉布局。\n\n## 6. Value Proposition(s)\n\n- 对业务方：在同一个页面中看到首页效果和需求口径，减少截图、口头说明和页面版本之间的偏差。\n- 对评审方：通过锚点直接定位顶部、左侧概况、地图、日常监管、打非治违等关键区域，反馈更准确。\n- 对开发方：PRD 明确页面范围、数据口径、非范围和验收标准，减少二次理解成本。\n\n## 7. Solution\n\n### 7.1 UX / Prototype\n\n页面路由：`shuan-home-command-v3`\n\n导出资源：`shuan-home-command-v3-export`\n\n页面保持当前 V3 首页体验：\n\n- 顶部显示系统名称、区域选择、视频入口、报警消息、用户和设置入口。\n- 左侧展示煤矿生产状态、生产情况、从业人员、数据汇聚、瓦斯灾害和水害信息。\n- 中部展示四川地图及 12 个市州煤矿聚合点。\n- 右侧展示日常监管和打非治违两组业务信息。\n- 原型说明面板挂载 PRD 文档和关键区域锚点。\n\n### 7.2 Key Features\n\n#### 顶部系统栏\n\n- 系统名称显示为：`蜀·安煤矿多源异构监测系统`。\n- 视频入口以图标方式放在报警消息入口附近。\n- 不新增说明文字，避免破坏顶部信息密度。\n\n#### 左侧煤矿概况\n\n左侧模块顺序为：\n\n1. 煤矿生产状态统计。\n2. 煤矿生产情况。\n3. 从业人员情况。\n4. 数据汇聚情况。\n5. 煤矿瓦斯灾害情况、煤矿水害情况。\n\n瓦斯灾害和水害作为自然灾害类补充信息，固定在左侧底部。\n\n#### 中部地图煤矿聚合\n\n地图按市州展示煤矿数量：\n\n| 市州 | 数量 |\n|---|---:|\n| 达州市 | 41 |\n| 宜宾市 | 30 |\n| 攀枝花市 | 18 |\n| 乐山市 | 15 |\n| 广安市 | 14 |\n| 泸州市 | 13 |\n| 广元市 | 11 |\n| 雅安市 | 10 |\n| 内江市 | 9 |\n| 自贡市 | 7 |\n| 凉山州 | 4 |\n| 巴中市 | 2 |\n\n地图点位表达区域级聚合位置，不作为精确经纬度定位。\n\n#### 日常监管\n\n- “危险作业报备 / 风险分级管控 / 隐患排查”为主业务入口。\n- 主业务入口展示在“证照到期提醒 / 重大灾害提醒”之前。\n- 风险分级管控卡片显示“高风险 38”和“动态 7”。\n- 提醒类信息保持轻量样式。\n\n#### 打非治违\n\n模块保留三层结构：\n\n1. 五类智能算法线索：瓦斯、风、人、煤、电。\n2. 三类专项整治：隐蔽工作面专项整治、监控系统造假专项整治、隐瞒入井人数专项整治。\n3. 分级处置任务：煤矿整改、县级走访、市级研判、省挂牌督办。\n\n不再展示“综合分析 / 多源线索交叉验证”中间行和对应连接线。\n\n### 7.3 Technology\n\n- 页面组件复用 `system-replica-base/pages/ShuanHomeCommandV3`。\n- 导出入口保持 `function Component()` 和 `export default Component`。\n- 原型说明使用 `@axhub/annotation` 的 `AnnotationViewer`。\n- PRD 文档以 Markdown 文件维护，通过 `?raw` 读取后写入说明面板目录。\n- 不新增 `forwardRef`、`useImperativeHandle` 或其他非必需 Axure API。\n\n### 7.4 Assumptions\n\n- 当前 V3 首页视觉和交互已作为本次导出的基线。\n- 说明面板的浮层入口属于原型交付能力，不改变业务页面主体布局。\n- 后续如果需要真实接口、二级页面或权限控制，应作为新迭代处理。\n\n## 8. Release\n\n首版交付：\n\n- 保留 V3 首页当前视觉、交互和业务行为。\n- 在导出页挂载原型说明面板。\n- 在说明面板目录中加入本 PRD。\n- 保留 5 个核心区域锚点：\n\n| 锚点 | 对应区域 |\n|---|---|\n| `shuan-v3-header` | 顶部系统标题和工具入口 |\n| `shuan-v3-left-overview` | 左侧煤矿概况模块组 |\n| `shuan-v3-map-aggregation` | 中部四川地图煤矿聚合点 |\n| `shuan-v3-daily-regulation` | 右侧日常监管模块 |\n| `shuan-v3-illegal-treatment` | 右侧打非治违模块 |\n\n后续版本：\n\n- 接入真实地图边界和经纬度点位。\n- 补充二级页面跳转和权限控制。\n- 根据评审反馈继续完善锚点说明和模块级验收规则。\n\n验收标准：\n\n- 页面顶部显示“蜀·安煤矿多源异构监测系统”。\n- 地图显示 12 个市州煤矿聚合点，数量与本文档一致。\n- 日常监管中“风险分级管控”卡片显示“高风险 38”。\n- 打非治违模块不出现“综合分析 / 多源线索交叉验证”。\n- 说明面板目录可以打开 `PRD-蜀安首页V3单页导出`。\n- `shuan-v3-*` 核心锚点可以被标注系统定位。\n"
+  },
+  "assetMap": {},
+  "directory": {
+    "nodes": [
+      {
+        "type": "folder",
+        "id": "prototype-documents",
+        "title": "原型交付文档",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "markdown",
+            "id": "prd-shuan-home-v3-export",
+            "title": "PRD-蜀安首页V3单页导出",
+            "markdown": "## PRD-蜀安首页V3单页导出\n\n## 1. Summary\n\n本文档说明“蜀安首页方案 A V3 单页导出”的产品需求。该页面用于把已确认的 V3 首页作为独立 Axure 导出资源交付，并在原型说明面板中提供 PRD、页面锚点和验收口径。\n\n## 2. Contacts\n\n| 角色 | 说明 |\n|---|---|\n| 业务方 | 确认页面名称、监管重点、地图聚合数量和打非治违表达是否符合汇报口径。 |\n| 产品/原型评审 | 通过原型批注和 PRD 判断页面是否满足当前交付目标。 |\n| 前端开发 | 根据页面锚点、文案、布局约束和验收标准完成实现或后续调整。 |\n\n## 3. Background\n\n蜀安首页 V3 是省级煤矿安全监管驾驶舱首页。页面需要在一屏内表达全省煤矿总体状态、区域聚合分布、日常监管重点和打非治违线索处置链路。\n\n本次单页导出不是新增业务页面，而是把当前已收敛的 V3 首页独立出来，作为 Axure 导出资源。导出页必须保留现有业务行为、交互和视觉表现，同时补齐原型 PRD 文档入口，便于评审人员和开发人员在同一页面查看需求说明。\n\n## 4. Objective\n\n目标是让 V3 首页导出资源同时具备“可看、可批注、可交付”的能力。用户打开导出页后，可以查看完整首页，也可以从说明面板读取 PRD 和关键区域说明。\n\n关键结果：\n\n| 指标 | 验收方式 |\n|---|---|\n| 页面行为不变 | 首页仍展示 `command` 方案，变体切换回到 `shuan-home-command-v3`。 |\n| 文档可读 | 说明面板目录中可以打开本 PRD。 |\n| 锚点可定位 | 5 个核心区域均通过 `data-annotation-id` 被标注系统识别。 |\n| 导出可检查 | 文件头保留 `@mode axure`，默认导出为 `Component`。 |\n| 构建可验证 | 单入口构建命令执行通过。 |\n\n## 5. Market Segment(s)\n\n主要服务三类使用者：\n\n| 使用者 | 任务 |\n|---|---|\n| 省级煤矿安全监管人员 | 快速判断全省煤矿分布、监管重点和打非治违处置态势。 |\n| 原型评审人员 | 对照 PRD 和页面锚点检查页面是否符合当前评审意见。 |\n| 前端开发人员 | 根据原型、锚点和验收标准完成后续开发、调整和验收。 |\n\n约束：\n\n- 本页只处理 V3 首页单页导出，不新增二级页面。\n- 不接入真实接口、不改权限、不重绘精确行政区地图。\n- 不为了通过 Axure 导出检查新增非必需 Axure API。\n- 说明面板只承载交付说明，不改变页面业务组件的视觉布局。\n\n## 6. Value Proposition(s)\n\n- 对业务方：在同一个页面中看到首页效果和需求口径，减少截图、口头说明和页面版本之间的偏差。\n- 对评审方：通过锚点直接定位顶部、左侧概况、地图、日常监管、打非治违等关键区域，反馈更准确。\n- 对开发方：PRD 明确页面范围、数据口径、非范围和验收标准，减少二次理解成本。\n\n## 7. Solution\n\n### 7.1 UX / Prototype\n\n页面路由：`shuan-home-command-v3`\n\n导出资源：`shuan-home-command-v3-export`\n\n页面保持当前 V3 首页体验：\n\n- 顶部显示系统名称、区域选择、视频入口、报警消息、用户和设置入口。\n- 左侧展示煤矿生产状态、生产情况、从业人员、数据汇聚、瓦斯灾害和水害信息。\n- 中部展示四川地图及 12 个市州煤矿聚合点。\n- 右侧展示日常监管和打非治违两组业务信息。\n- 原型说明面板挂载 PRD 文档和关键区域锚点。\n\n### 7.2 Key Features\n\n#### 顶部系统栏\n\n- 系统名称显示为：`蜀·安煤矿多源异构监测系统`。\n- 视频入口以图标方式放在报警消息入口附近。\n- 不新增说明文字，避免破坏顶部信息密度。\n\n#### 左侧煤矿概况\n\n左侧模块顺序为：\n\n1. 煤矿生产状态统计。\n2. 煤矿生产情况。\n3. 从业人员情况。\n4. 数据汇聚情况。\n5. 煤矿瓦斯灾害情况、煤矿水害情况。\n\n瓦斯灾害和水害作为自然灾害类补充信息，固定在左侧底部。\n\n#### 中部地图煤矿聚合\n\n地图按市州展示煤矿数量：\n\n| 市州 | 数量 |\n|---|---:|\n| 达州市 | 41 |\n| 宜宾市 | 30 |\n| 攀枝花市 | 18 |\n| 乐山市 | 15 |\n| 广安市 | 14 |\n| 泸州市 | 13 |\n| 广元市 | 11 |\n| 雅安市 | 10 |\n| 内江市 | 9 |\n| 自贡市 | 7 |\n| 凉山州 | 4 |\n| 巴中市 | 2 |\n\n地图点位表达区域级聚合位置，不作为精确经纬度定位。\n\n#### 日常监管\n\n- “危险作业报备 / 风险分级管控 / 隐患排查”为主业务入口。\n- 主业务入口展示在“证照到期提醒 / 重大灾害提醒”之前。\n- 风险分级管控卡片显示“高风险 38”和“动态 7”。\n- 提醒类信息保持轻量样式。\n\n#### 打非治违\n\n模块保留三层结构：\n\n1. 五类智能算法线索：瓦斯、风、人、煤、电。\n2. 三类专项整治：隐蔽工作面专项整治、监控系统造假专项整治、隐瞒入井人数专项整治。\n3. 分级处置任务：煤矿整改、县级走访、市级研判、省挂牌督办。\n\n不再展示“综合分析 / 多源线索交叉验证”中间行和对应连接线。\n\n### 7.3 Technology\n\n- 页面组件复用 `system-replica-base/pages/ShuanHomeCommandV3`。\n- 导出入口保持 `function Component()` 和 `export default Component`。\n- 原型说明使用 `@axhub/annotation` 的 `AnnotationViewer`。\n- PRD 文档以 Markdown 文件维护，通过 `?raw` 读取后写入说明面板目录。\n- 不新增 `forwardRef`、`useImperativeHandle` 或其他非必需 Axure API。\n\n### 7.4 Assumptions\n\n- 当前 V3 首页视觉和交互已作为本次导出的基线。\n- 说明面板的浮层入口属于原型交付能力，不改变业务页面主体布局。\n- 后续如果需要真实接口、二级页面或权限控制，应作为新迭代处理。\n\n## 8. Release\n\n首版交付：\n\n- 保留 V3 首页当前视觉、交互和业务行为。\n- 在导出页挂载原型说明面板。\n- 在说明面板目录中加入本 PRD。\n- 保留 5 个核心区域锚点：\n\n| 锚点 | 对应区域 |\n|---|---|\n| `shuan-v3-header` | 顶部系统标题和工具入口 |\n| `shuan-v3-left-overview` | 左侧煤矿概况模块组 |\n| `shuan-v3-map-aggregation` | 中部四川地图煤矿聚合点 |\n| `shuan-v3-daily-regulation` | 右侧日常监管模块 |\n| `shuan-v3-illegal-treatment` | 右侧打非治违模块 |\n\n后续版本：\n\n- 接入真实地图边界和经纬度点位。\n- 补充二级页面跳转和权限控制。\n- 根据评审反馈继续完善锚点说明和模块级验收规则。\n\n验收标准：\n\n- 页面顶部显示“蜀·安煤矿多源异构监测系统”。\n- 地图显示 12 个市州煤矿聚合点，数量与本文档一致。\n- 日常监管中“风险分级管控”卡片显示“高风险 38”。\n- 打非治违模块不出现“综合分析 / 多源线索交叉验证”。\n- 说明面板目录可以打开 `PRD-蜀安首页V3单页导出`。\n- `shuan-v3-*` 核心锚点可以被标注系统定位。\n"
+          }
+        ]
+      },
+      {
+        "type": "folder",
+        "id": "prototype-anchors",
+        "title": "页面关键区域",
+        "defaultExpanded": true,
+        "children": [
+          {
+            "type": "route",
+            "id": "route-shuan-home-command-v3",
+            "title": "蜀安首页方案A V3",
+            "route": "shuan-home-command-v3"
+          }
+        ]
+      }
+    ]
+  }
+}

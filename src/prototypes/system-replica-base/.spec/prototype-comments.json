@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "prototypeId": "system-replica-base",
+  "pageId": "shuan-home-command-v3",
+  "updatedAt": "2026-07-06T14:08:00+08:00",
+  "comments": [
+    {
+      "elementKey": "shuan-v3-header",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          "[data-annotation-id=\"shuan-v3-header\"]"
+        ],
+        "description": "蜀安首页 V3 顶部系统标题和工具入口"
+      },
+      "comment": "系统名称调整为“蜀·安煤矿多源异构监测系统”，并在顶部消息铃铛附近保留视频入口图标。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-left-overview",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          "[data-annotation-id=\"shuan-v3-left-overview\"]"
+        ],
+        "description": "蜀安首页 V3 左侧煤矿概况模块组"
+      },
+      "comment": "左侧模块顺序调整为生产状态、生产情况、从业人员、数据汇聚、瓦斯灾害和水害，灾害类模块固定在最下方。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-map-aggregation",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          "[data-annotation-id=\"shuan-v3-map-aggregation\"]"
+        ],
+        "description": "蜀安首页 V3 中部四川地图煤矿聚合点"
+      },
+      "comment": "地图聚合点按达州、宜宾、攀枝花、乐山、广安、泸州、广元、雅安、内江、自贡、凉山州、巴中 12 个市州展示煤矿数量，点位按行政区相对位置校准。",
+      "type": "data",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-daily-regulation",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          "[data-annotation-id=\"shuan-v3-daily-regulation\"]"
+        ],
+        "description": "蜀安首页 V3 右侧日常监管模块"
+      },
+      "comment": "监管业务入口行加高并置于重点提醒之前；风险分级标题改为风险分级管控，指标项由中风险修正为高风险。",
+      "type": "text-layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-illegal-treatment",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          "[data-annotation-id=\"shuan-v3-illegal-treatment\"]"
+        ],
+        "description": "蜀安首页 V3 右侧打非治违模块"
+      },
+      "comment": "删除综合分析行和连接线，保留五类线索、三类专项整治和分级处置任务，并重新分配模块内部高度。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-region-selector",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          ".shuan-command .shuan-top-tools .shuan-region"
+        ],
+        "description": "V3 顶部工具栏区域选择按钮"
+      },
+      "comment": "删除顶部工具栏中的“四川”区域选择模块。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T10:20:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-illegal-algorithms-page",
+      "pageId": "shuan-home-command-v3-illegal-algorithms",
+      "locator": {
+        "selectors": [
+          ".drill-shell .drill-stage .drill-illegal-page"
+        ],
+        "description": "打非治违算法线索研判台二级页内容区"
+      },
+      "comment": "二级页保持 DrilldownFrame 顶部不动，只重做内容舞台，补齐算法类型切换、概览指标、算法卡片、研判重点、处置建议和线索明细。",
+      "type": "layout-content",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-hidden-face-head",
+      "pageId": "shuan-home-command-v3-illegal-campaign-hidden-face",
+      "locator": {
+        "selectors": [
+          "section.shuan-drilldown-overlay > div.shuan-drilldown-overlay-panel:nth-of-type(2) > div.drill-page.drill-campaign-v2-page > section.campaign-v2-head"
+        ],
+        "description": "隐蔽工作面专项整治页头部标题与模块入口区域"
+      },
+      "comment": "头部边框需要完整包住“隐蔽工作面、监控造假、隐瞒入井人数”三个模块，不能让模块落到区域外。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T11:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-hidden-face-top-nav",
+      "pageId": "shuan-home-command-v3-illegal-campaign-hidden-face",
+      "locator": {
+        "selectors": [
+          ".shuan-command .command-nav"
+        ],
+        "description": "隐蔽工作面专项整治页复用首页底稿时的顶部导航选中态"
+      },
+      "comment": "当前页面属于首页底稿上的覆盖层，下砖进入专项整治页后，顶部导航不应高亮“打非治违”，应保持“首页”选中。",
+      "type": "interaction",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T14:08:00+08:00"
+    }
+  ],
+  "tasks": {
+    "shuan-v3-header": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    "shuan-v3-left-overview": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    "shuan-v3-map-aggregation": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    "shuan-v3-daily-regulation": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T12:42:00+08:00"
+    },
+    "shuan-v3-illegal-treatment": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T00:00:00+08:00"
+    },
+    "shuan-v3-region-selector": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-06-30T10:20:00+08:00"
+    },
+    "shuan-v3-illegal-algorithms-page": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T00:00:00+08:00"
+    },
+    "shuan-v3-hidden-face-head": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T11:00:00+08:00"
+    },
+    "shuan-v3-hidden-face-top-nav": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-06T14:08:00+08:00"
+    }
+  },
+  "images": []
+}

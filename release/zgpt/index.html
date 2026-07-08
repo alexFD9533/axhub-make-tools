@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>煤矿安全综合监控平台</title>
+  <script>
+    window.__AXHUB_DEFINE_COMPONENT__ = function(Component) {
+      window._AXHUB_PAGE_COMPONENT = Component;
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", renderComponent);
+      } else {
+        renderComponent();
+      }
+    };
+    function renderComponent() {
+      var root = document.getElementById("root");
+      if (root && window.React && window.ReactDOM && window._AXHUB_PAGE_COMPONENT) {
+        if (window.ReactDOM.createRoot) {
+          window.ReactDOM.createRoot(root).render(window.React.createElement(window._AXHUB_PAGE_COMPONENT));
+        } else {
+          window.ReactDOM.render(window.React.createElement(window._AXHUB_PAGE_COMPONENT), root);
+        }
+      }
+    }
+  </script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="./prototypes-system-replica-base.js?v=20260707075301"></script>
+</body>
+</html>

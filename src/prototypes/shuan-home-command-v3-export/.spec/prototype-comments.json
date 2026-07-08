@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "kind": "prototype-edit-comments",
+  "resource": {
+    "id": "shuan-home-command-v3-export",
+    "targetPath": "prototypes/shuan-home-command-v3-export",
+    "filePath": "src/prototypes/shuan-home-command-v3-export/.spec/prototype-comments.json"
+  },
+  "comments": [
+    {
+      "elementKey": "section_30",
+      "label": "section(\"煤矿生产状态统计更多煤矿总数174处生产矿井64处建设矿井13处隐患整改矿井12处一停四不停矿井34处井口封（锁）闭矿井51处\")",
+      "locator": {
+        "selectors": [
+          ".regulated-mine-panel",
+          ".regulated-mine-panel-v3",
+          ".shuan-panel.regulated-mine-panel",
+          "body > div > div > main > div:nth-of-type(1) > section:nth-of-type(1)",
+          "#root div > main > div:nth-of-type(1) > section:nth-of-type(1)"
+        ],
+        "fingerprint": "section|class=shuan-panel.regulated-mine-panel.regulated-mine-panel-v3|text=煤矿生产状态统计更多煤矿总数174处生产矿井64处建设矿井13处",
+        "path": [
+          0,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0
+        ]
+      },
+      "marker": {
+        "clientX": 26,
+        "clientY": 93,
+        "documentX": 26,
+        "documentY": 93,
+        "xPercent": 1.3598326359832638,
+        "y": 93,
+        "isFixed": false,
+        "offsetX": 14,
+        "offsetY": 7,
+        "dirtySince": 1783486966089
+      },
+      "comment": "顶部加一个标题栏",
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report"
+    },
+    {
+      "elementKey": "main_37",
+      "label": "main(\"作业类型请选择 状态请选择 时间2025-05-24 重置6广元市5绵阳市4巴中市12达州市7南充市3成都市4雅安市8眉山市6…\")",
+      "locator": {
+        "selectors": [
+          ".drill-dangerous-map-panel",
+          "body > div > div > section > div:nth-of-type(2) > div > section:nth-of-type(2) > main",
+          "#root div > section > div:nth-of-type(2) > div > section:nth-of-type(2) > main"
+        ],
+        "fingerprint": "main|class=drill-dangerous-map-panel|text=作业类型请选择 状态请选择 时间2025-05-24 重置6广元",
+        "path": [
+          0,
+          1,
+          0,
+          0,
+          3,
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      "marker": {
+        "clientX": 897,
+        "clientY": 400,
+        "documentX": 897,
+        "documentY": 400,
+        "xPercent": 46.91422594142259,
+        "y": 400,
+        "isFixed": true,
+        "offsetX": 522,
+        "offsetY": 201,
+        "dirtySince": 1783486987254
+      },
+      "comment": "这种底部的色斑不要",
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report"
+    },
+    {
+      "elementKey": "button_89",
+      "label": "button",
+      "locator": {
+        "selectors": [
+          "body > div > div > section > div:nth-of-type(2) > div > section:nth-of-type(2) > main > section:nth-of-type(2) > div:nth-of-type(21) > button:nth-of-type(3)",
+          "#root div > section > div:nth-of-type(2) > div > section:nth-of-type(2) > main > section:nth-of-type(2) > div:nth-of-type(21) > button:nth-of-type(3)"
+        ],
+        "fingerprint": "button",
+        "path": [
+          0,
+          1,
+          0,
+          0,
+          3,
+          1,
+          0,
+          1,
+          1,
+          1,
+          20,
+          2
+        ]
+      },
+      "marker": {
+        "clientX": 1511,
+        "clientY": 484,
+        "documentX": 1511,
+        "documentY": 484,
+        "xPercent": 79.02719665271967,
+        "y": 484,
+        "isFixed": true,
+        "offsetX": 18,
+        "offsetY": 20,
+        "dirtySince": 1783487002493
+      },
+      "comment": "删除",
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report"
+    }
+  ],
+  "tasks": {},
+  "images": []
+}
