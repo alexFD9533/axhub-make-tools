@@ -872,47 +872,420 @@ export const shuanDangerousWorkReportData = {
   ],
 };
 
-export const shuanMajorHazardReminderData = {
+export interface LicenseExpiryKpi {
+  label: string;
+  value: string;
+  unit?: string;
+  iconType: 'shield' | 'clock' | 'alert' | 'building' | 'user' | 'gauge';
+  trend?: 'up';
+}
+
+export interface LicenseTypeRow {
+  type: string;
+  icon: string;
+  upcoming: number;
+  expired: number;
+  total: number;
+  highlight?: boolean;
+}
+
+export interface CityMapMarker {
+  name: string;
+  value: number;
+  x: number;
+  y: number;
+}
+
+export interface MineRankingItem {
+  rank: number;
+  name: string;
+  total: number;
+  upcoming: number;
+  expired: number;
+}
+
+export interface TrendData {
+  days: string[];
+  upcoming: number[];
+  expired: number[];
+}
+
+export interface DonutSlice {
+  label: string;
+  value: number;
+  percent: string;
+  color: string;
+}
+
+export interface PositionBarItem {
+  label: string;
+  value: number;
+}
+
+export interface UrgentReminder {
+  company: string;
+  licenseType: string;
+  status: 'expired' | 'upcoming';
+  days: number;
+}
+
+export interface LicenseExpiryReminderData {
+  route: string;
+  title: string;
+  updatedAt: string;
+  kpis: LicenseExpiryKpi[];
+  licenseTypes: LicenseTypeRow[];
+  cityMarkers: CityMapMarker[];
+  mineRankings: MineRankingItem[];
+  trend: TrendData;
+  abnormalStructure: DonutSlice[];
+  warningCategories: DonutSlice[];
+  positionAbnormal: PositionBarItem[];
+  urgentReminders: UrgentReminder[];
+}
+
+export const shuanLicenseExpiryReminderData: LicenseExpiryReminderData = {
+  route: 'shuan-home-command-v3-license-expiry-reminder',
+  title: '证照到期提醒',
+  updatedAt: '2024-05-28 10:30:00',
+  kpis: [
+    { label: '预警总数', value: '118', iconType: 'shield', trend: 'up' },
+    { label: '即将到期(30天内)', value: '93', iconType: 'clock', trend: 'up' },
+    { label: '已过期', value: '25', iconType: 'alert', trend: 'up' },
+    { label: '涉及煤矿', value: '67', unit: '家', iconType: 'building' },
+    { label: '涉及人员', value: '1,602', unit: '人', iconType: 'user' },
+    { label: '企业覆盖率', value: '82%', iconType: 'gauge' },
+  ],
+  licenseTypes: [
+    { type: '营业执照', icon: 'file', upcoming: 0, expired: 1, total: 1 },
+    { type: '采矿许可证', icon: 'pickaxe', upcoming: 10, expired: 2, total: 12 },
+    { type: '安全生产许可证', icon: 'shield', upcoming: 12, expired: 25, total: 37, highlight: true },
+    { type: '安全生产标准化证书', icon: 'award', upcoming: 18, expired: 18, total: 36 },
+    { type: '职业病危害评价证书', icon: 'hospital', upcoming: 3, expired: 7, total: 10 },
+    { type: '其他', icon: 'files', upcoming: 1, expired: 4, total: 5 },
+  ],
+  cityMarkers: [
+    { name: '成都市', value: 5, x: 43, y: 42 },
+    { name: '绵阳市', value: 9, x: 44, y: 30 },
+    { name: '广元市', value: 8, x: 50, y: 20 },
+    { name: '巴中市', value: 6, x: 58, y: 28 },
+    { name: '南充市', value: 7, x: 55, y: 38 },
+    { name: '达州市', value: 11, x: 68, y: 35 },
+    { name: '遂宁市', value: 5, x: 52, y: 42 },
+    { name: '广安市', value: 6, x: 62, y: 44 },
+    { name: '资阳市', value: 4, x: 50, y: 48 },
+    { name: '内江市', value: 10, x: 58, y: 52 },
+    { name: '自贡市', value: 6, x: 58, y: 56 },
+    { name: '泸州市', value: 12, x: 65, y: 62 },
+    { name: '宜宾市', value: 4, x: 52, y: 62 },
+    { name: '乐山市', value: 4, x: 43, y: 55 },
+    { name: '眉山市', value: 4, x: 45, y: 48 },
+    { name: '雅安市', value: 5, x: 38, y: 48 },
+    { name: '攀枝花市', value: 3, x: 32, y: 72 },
+    { name: '凉山州', value: 9, x: 36, y: 65 },
+    { name: '阿坝州', value: 0, x: 36, y: 22 },
+    { name: '甘孜州', value: 0, x: 28, y: 45 },
+  ],
+  mineRankings: [
+    { rank: 1, name: '川煤集团华蓥山煤矿', total: 12, upcoming: 8, expired: 4 },
+    { rank: 2, name: '达州CC煤业有限公司', total: 10, upcoming: 6, expired: 4 },
+    { rank: 3, name: '达县小CC煤业有限责任公司', total: 9, upcoming: 6, expired: 3 },
+    { rank: 4, name: '广元市CC煤矿', total: 8, upcoming: 6, expired: 2 },
+    { rank: 5, name: '资中县CC煤业有限责任公司', total: 7, upcoming: 5, expired: 2 },
+  ],
+  trend: {
+    days: ['04-29', '05-03', '05-07', '05-11', '05-15', '05-19', '05-23', '05-27'],
+    upcoming: [30, 25, 28, 33, 30, 32, 22, 30],
+    expired: [5, 3, 4, 6, 5, 4, 3, 7],
+  },
+  abnormalStructure: [
+    { label: '安全生产许可证', value: 22, percent: '37.9%', color: '#2b7de9' },
+    { label: '采矿许可证', value: 15, percent: '25.9%', color: '#ff9d27' },
+    { label: '标准化证书', value: 6, percent: '10.3%', color: '#52c41a' },
+    { label: '职业危害评', value: 6, percent: '10.3%', color: '#64d7ff' },
+    { label: '营业执照', value: 3, percent: '5.2%', color: '#ff4d4f' },
+    { label: '其他', value: 6, percent: '10.3%', color: '#8c8c8c' },
+  ],
+  warningCategories: [
+    { label: '企业预警', value: 65, percent: '55.1%', color: '#ff9d27' },
+    { label: '人员预警', value: 38, percent: '32.2%', color: '#2b7de9' },
+    { label: '其他预警', value: 15, percent: '12.7%', color: '#52c41a' },
+  ],
+  positionAbnormal: [
+    { label: '主要负责人', value: 16 },
+    { label: '安全生产管理人员', value: 12 },
+    { label: '特种作业人员', value: 10 },
+    { label: '瓦斯检查员', value: 7 },
+    { label: '爆破作业人员', value: 6 },
+  ],
+  urgentReminders: [
+    { company: '达县小CC煤业有限责任公司', licenseType: '安全生产许可证', status: 'expired', days: -18 },
+    { company: '达州CC煤业有限责任公司', licenseType: '采矿许可证', status: 'upcoming', days: 5 },
+    { company: '广元市CC煤矿', licenseType: '安全生产标准化证书', status: 'upcoming', days: 8 },
+    { company: '攀枝集团CC煤业有限责任公司', licenseType: '安全生产许可证', status: 'upcoming', days: 11 },
+    { company: '川煤集团华蓥山煤矿', licenseType: '职业病危害评价许可证', status: 'upcoming', days: 15 },
+  ],
+};
+
+
+export interface DisasterEvent {
+  id: string;
+  type: string;
+  typeIcon: 'rain' | 'landslide' | 'earthquake' | 'lightning' | 'flood';
+  warningLevel: 'orange' | 'yellow' | 'blue' | 'red';
+  name: string;
+  area: string;
+  time: string;
+  affectedMineCount: number;
+  status: '处置中' | '监测中' | '已解除';
+}
+
+export interface AffectedMine {
+  id: string;
+  name: string;
+  area: string;
+  feedbackStatus: '已反馈' | '未反馈';
+  needEvacuation: boolean;
+  undergroundCount: number;
+  unevacuatedCount: number;
+  lastReportTime: string;
+  status: '撤离中' | '持续监测' | '待反馈' | '无需撤离' | '已完成撤离' | '异常';
+  phone: string;
+}
+
+export interface EvacuationStage {
+  name: string;
+  completed: boolean;
+  time?: string;
+}
+
+export interface EvacuationDetail {
+  totalUnderground: number;
+  evacuated: number;
+  unevacuated: number;
+  completionRate: string;
+  phone: string;
+  lastReport: string;
+  stages: EvacuationStage[];
+}
+
+export interface DisasterDetail {
+  name: string;
+  type: string;
+  warningLevel: string;
+  area: string;
+  source: string;
+  publishTime: string;
+  updateTime: string;
+  status: string;
+}
+
+export interface MapMineMarker {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+  status: 'need-evacuation' | 'feedback' | 'no-feedback' | 'completed';
+}
+
+export interface MajorHazardWorkbenchData {
+  route: string;
+  title: string;
+  globalStatus: {
+    currentDisasterCount: number;
+    affectedMineCount: number;
+    needEvacuationCount: number;
+    noFeedbackCount: number;
+    disposalStatus: string;
+    currentTime: string;
+    autoRefresh: boolean;
+  };
+  currentDisasters: DisasterEvent[];
+  historicalDisasters: DisasterEvent[];
+  selectedDisaster: {
+    detail: DisasterDetail;
+    mapMines: MapMineMarker[];
+    affectedMines: AffectedMine[];
+    evacuationDetail: EvacuationDetail;
+  };
+}
+
+export const shuanMajorHazardReminderData: MajorHazardWorkbenchData = {
   route: 'shuan-home-command-v3-major-hazard-reminder',
   title: '重大灾害提醒',
-  subtitle: '首页 / 日常监管 / 重大灾害提醒',
-  description: '先搭建重大灾害提醒下钻页内容框架，后续继续补充灾害类型、风险研判、督办任务和处置闭环等详细业务。',
-  updatedAt: '2026-07-08 16:10',
-  timeRange: '近7日',
-  kpis: [
-    { label: '在途提醒', value: '3', hint: '与首页入口保持一致' },
-    { label: '高优先级矿井', value: '2', hint: '建议持续跟踪' },
-    { label: '已启动督办', value: '2', hint: '预留处置链路' },
-    { label: '待补业务规则', value: '6', hint: '等待详细需求' },
-  ],
-  tags: [
-    { label: '灾害范围', value: '瓦斯 / 水害 / 顶板 / 冲击地压' },
-    { label: '当前目标', value: '先搭框架再补业务' },
-    { label: '导航状态', value: '顶部仍保持首页选中' },
-  ],
-  focusCards: [
+  globalStatus: {
+    currentDisasterCount: 2,
+    affectedMineCount: 5,
+    needEvacuationCount: 1,
+    noFeedbackCount: 1,
+    disposalStatus: '处置中',
+    currentTime: '2025-07-08 08:22:36',
+    autoRefresh: true,
+  },
+  currentDisasters: [
     {
-      title: '提醒总览区',
-      summary: '承接首页入口数字，后续可放提醒总量、趋势、区域分布和重点矿井摘要。',
-      bullets: ['适合放趋势图或分布图', '保留总览卡片和重点说明位'],
+      id: 'd1',
+      type: '暴雨',
+      typeIcon: 'rain',
+      warningLevel: 'orange',
+      name: '广元市朝天区强降雨过程',
+      area: '广元市朝天区',
+      time: '08:10',
+      affectedMineCount: 3,
+      status: '处置中',
     },
     {
-      title: '灾害清单区',
-      summary: '预留重大灾害提醒台账、灾害类型、风险等级、所属矿井和当前处置状态。',
-      bullets: ['适合扩展为表格或多列卡片', '后续可补筛选、搜索、导出'],
+      id: 'd2',
+      type: '滑坡',
+      typeIcon: 'landslide',
+      warningLevel: 'yellow',
+      name: '乐山市马边县地质灾害风险',
+      area: '乐山市马边县',
+      time: '07-07 17:40',
+      affectedMineCount: 1,
+      status: '监测中',
     },
     {
-      title: '督办处置区',
-      summary: '预留责任单位、督办任务、整改节点、升级提醒和闭环记录。',
-      bullets: ['适合放流程进展和责任链路', '便于后续接入处置详情'],
+      id: 'd3',
+      type: '地震',
+      typeIcon: 'earthquake',
+      warningLevel: 'blue',
+      name: '宜宾市珙县地震余震影响',
+      area: '宜宾市珙县',
+      time: '07-06 11:05',
+      affectedMineCount: 1,
+      status: '已解除',
+    },
+    {
+      id: 'd4',
+      type: '雷电',
+      typeIcon: 'lightning',
+      warningLevel: 'yellow',
+      name: '凉山州盐源县雷电活动增强',
+      area: '凉山州盐源县',
+      time: '07-05 19:30',
+      affectedMineCount: 2,
+      status: '监测中',
+    },
+    {
+      id: 'd5',
+      type: '洪水',
+      typeIcon: 'flood',
+      warningLevel: 'blue',
+      name: '雅安市汉源县河流水位上涨',
+      area: '雅安市汉源县',
+      time: '07-04 15:20',
+      affectedMineCount: 1,
+      status: '已解除',
     },
   ],
-  moduleSlots: [
-    { title: '左侧分析位', hint: '可放灾害类型分布、重点区域排序、历史提醒对比等分析模块。' },
-    { title: '中部主舞台', hint: '可放全省分布图、专题看板、重点矿井提醒流或灾害事件总览。' },
-    { title: '右侧督办位', hint: '可放督办队列、超期提醒、闭环进度和责任人动态。' },
-    { title: '底部扩展位', hint: '可放趋势分析、提醒明细、专题报告或跨模块联动记录。' },
+  historicalDisasters: [
+    {
+      id: 'h1',
+      type: '暴雨',
+      typeIcon: 'rain',
+      warningLevel: 'orange',
+      name: '成都市都江堰强降雨过程',
+      area: '成都市都江堰',
+      time: '06-28 06:30',
+      affectedMineCount: 2,
+      status: '已解除',
+    },
+    {
+      id: 'h2',
+      type: '地震',
+      typeIcon: 'earthquake',
+      warningLevel: 'yellow',
+      name: '甘孜州泸定县地震余震',
+      area: '甘孜州泸定县',
+      time: '06-15 14:20',
+      affectedMineCount: 3,
+      status: '已解除',
+    },
   ],
+  selectedDisaster: {
+    detail: {
+      name: '广元市朝天区强降雨过程',
+      type: '暴雨',
+      warningLevel: '橙色预警',
+      area: '广元市朝天区',
+      source: '四川省气象台',
+      publishTime: '2025-07-08 08:10',
+      updateTime: '2025-07-08 08:20',
+      status: '处置中',
+    },
+    mapMines: [
+      { id: 'm1', name: '广元朝天煤矿', x: 52, y: 28, status: 'need-evacuation' },
+      { id: 'm2', name: '平溪煤矿', x: 54, y: 30, status: 'feedback' },
+      { id: 'm3', name: '羊木煤矿', x: 51, y: 26, status: 'no-feedback' },
+      { id: 'm4', name: '柏杨煤矿', x: 55, y: 32, status: 'feedback' },
+    ],
+    affectedMines: [
+      {
+        id: 'm1',
+        name: '广元朝天煤矿',
+        area: '朝天区',
+        feedbackStatus: '已反馈',
+        needEvacuation: true,
+        undergroundCount: 36,
+        unevacuatedCount: 6,
+        lastReportTime: '08:18',
+        status: '撤离中',
+        phone: '0839-8622001',
+      },
+      {
+        id: 'm2',
+        name: '平溪煤矿',
+        area: '朝天区',
+        feedbackStatus: '已反馈',
+        needEvacuation: false,
+        undergroundCount: 22,
+        unevacuatedCount: 0,
+        lastReportTime: '08:16',
+        status: '持续监测',
+        phone: '0839-8622002',
+      },
+      {
+        id: 'm3',
+        name: '羊木煤矿',
+        area: '朝天区',
+        feedbackStatus: '未反馈',
+        needEvacuation: true,
+        undergroundCount: 15,
+        unevacuatedCount: 15,
+        lastReportTime: '----',
+        status: '待反馈',
+        phone: '0839-8622003',
+      },
+      {
+        id: 'm4',
+        name: '柏杨煤矿',
+        area: '朝天区',
+        feedbackStatus: '已反馈',
+        needEvacuation: false,
+        undergroundCount: 10,
+        unevacuatedCount: 0,
+        lastReportTime: '08:05',
+        status: '持续监测',
+        phone: '0839-8622004',
+      },
+    ],
+    evacuationDetail: {
+      totalUnderground: 36,
+      evacuated: 30,
+      unevacuated: 6,
+      completionRate: '83.3%',
+      phone: '0839-8622001',
+      lastReport: '2025-07-08 08:18',
+      stages: [
+        { name: '预警', completed: true, time: '08:10' },
+        { name: '下达撤离', completed: true, time: '08:12' },
+        { name: '井下广播', completed: true, time: '08:13' },
+        { name: '人员升井', completed: true, time: '08:16' },
+        { name: '清点核验', completed: false },
+      ],
+    },
+  },
 };
 
 export const shuanHiddenDangerData = {
@@ -1007,13 +1380,222 @@ export const shuanHiddenDangerData = {
   ],
 };
 
+export interface ShuanRectificationReviewData {
+  route: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  updatedAt: string;
+  timeRange: string;
+  summary: string;
+  filters: {
+    statuses: string[];
+    actions: string[];
+  };
+  kpis: Array<{ label: string; value: string; unit: string; hint: string; tone: DrilldownTone }>;
+  escalationCards: Array<{ label: string; value: string; hint: string }>;
+  compare: {
+    before: { title: string; summary: string; points: string[] };
+    after: { title: string; summary: string; points: string[] };
+  };
+  ledgerRows: Array<{
+    mine: string;
+    source: string;
+    campaign: string;
+    deadline: string;
+    status: string;
+    statusTone: 'pending' | 'review' | 'returned' | 'done' | 'overdue';
+    owner: string;
+  }>;
+  conclusions: Array<{ mine: string; conclusion: string; reviewer: string }>;
+  rejectReasons: Array<{ label: string; count: number; share: string; detail: string }>;
+  upgradeRules: Array<{ title: string; detail: string; action: string }>;
+  attachments: Array<{ name: string; meta: string; status: string }>;
+  actionTips: Array<{ title: string; detail: string; icon: 'check' | 'clock' | 'upgrade' }>;
+  flow: Array<{ label: string; owner: string; active?: boolean }>;
+}
+
+export const shuanRectificationReviewData: ShuanRectificationReviewData = {
+  route: 'shuan-home-command-v3-illegal-disposal-rectification-review',
+  title: '整改复核 / 县级协同处置',
+  subtitle: '打非治违 / 分级协同处置',
+  description: '围绕整改闭环与县级复核，统一查看整改进度、退回原因、复核结论与升级流转判断。',
+  updatedAt: '数据更新时间：2026-07-08 18:40',
+  timeRange: '本周',
+  summary: '本页重点盯整改是否到位、县级复核是否通过、退回原因是否集中、逾期事项是否需要升级流转。',
+  filters: {
+    statuses: ['全部', '待整改', '待复核', '复核退回', '已销号', '逾期事项'],
+    actions: ['县级视角', '仅看重点矿井'],
+  },
+  kpis: [
+    { label: '待整改', value: '26', unit: '项', hint: '矿上整改未完成', tone: 'cyan' },
+    { label: '待复核', value: '15', unit: '项', hint: '已提请县级复核', tone: 'amber' },
+    { label: '复核退回', value: '7', unit: '项', hint: '需补材料或重整改', tone: 'red' },
+    { label: '已销号', value: '18', unit: '项', hint: '闭环归档完成', tone: 'green' },
+    { label: '逾期事项', value: '5', unit: '项', hint: '建议升级流转', tone: 'blue' },
+  ],
+  escalationCards: [
+    { label: '县级退回集中矿井', value: '4 座', hint: '重复退回超过 2 次' },
+    { label: '需市级研判事项', value: '3 项', hint: '涉及重大隐患或跨专项' },
+    { label: '附件缺失事项', value: '6 项', hint: '现场图片、复测单据待补齐' },
+  ],
+  compare: {
+    before: {
+      title: '31203 回风巷瓦斯异常未处置',
+      summary: '整改前现场仍存在超限波动、台账补录不一致、责任分工不清。',
+      points: ['瓦斯浓度峰值 1.42%', '临时风障未闭合', '整改照片缺少时间戳'],
+    },
+    after: {
+      title: '整改措施完成并提交复核',
+      summary: '整改后已补充密闭处理、复测记录和班组签认，等待县级复核销号。',
+      points: ['瓦斯浓度回落至 0.71%', '复测记录已上传', '责任班组与矿领导完成签认'],
+    },
+  },
+  ledgerRows: [
+    { mine: '达州星河煤矿', source: '算法线索回流', campaign: '隐蔽工作面专项整治', deadline: '07-09 18:00', status: '待复核', statusTone: 'review', owner: '渠县应急局 李强' },
+    { mine: '宜宾安平煤矿', source: '驻矿检查发现', campaign: '监控系统造假专项整治', deadline: '07-10 12:00', status: '整改中', statusTone: 'pending', owner: '矿方整改专员 周敏' },
+    { mine: '泸州宏达煤矿', source: '企业自查上报', campaign: '隐瞒入井人数专项整治', deadline: '07-08 17:00', status: '复核退回', statusTone: 'returned', owner: '古蔺县监管组 黄杰' },
+    { mine: '乐山嘉阳煤矿', source: '视频巡查复核', campaign: '隐蔽工作面专项整治', deadline: '07-07 18:00', status: '已逾期', statusTone: 'overdue', owner: '犍为县应急局 罗丹' },
+    { mine: '广元广旺煤矿', source: '市级督办转办', campaign: '监控系统造假专项整治', deadline: '07-11 10:00', status: '已销号', statusTone: 'done', owner: '旺苍县监管组 赵川' },
+  ],
+  conclusions: [
+    { mine: '达州星河煤矿', conclusion: '材料齐全，待现场复核', reviewer: '渠县应急局 / 07-08 16:20' },
+    { mine: '泸州宏达煤矿', conclusion: '退回补正，需补现场定位照片', reviewer: '古蔺县监管组 / 07-08 14:05' },
+    { mine: '乐山嘉阳煤矿', conclusion: '逾期未完成，建议升级市级协同', reviewer: '犍为县应急局 / 07-08 11:40' },
+  ],
+  rejectReasons: [
+    { label: '附件缺少前后对比证据', count: 4, share: '57%', detail: '缺少整改前后同点位照片或复测截图' },
+    { label: '整改措施与问题不匹配', count: 3, share: '43%', detail: '只补台账，未证明现场措施落地' },
+    { label: '责任签认不完整', count: 2, share: '29%', detail: '缺少矿长、带班负责人或县级复核人签认' },
+    { label: '超过整改期限仍未提请复核', count: 2, share: '29%', detail: '节点超时，未说明延期原因' },
+  ],
+  upgradeRules: [
+    { title: '连续两次复核退回', detail: '同一问题两次退回仍无有效整改证据', action: '转市级研判' },
+    { title: '逾期且涉及重大隐患', detail: '整改超期并伴随高风险状态未解除', action: '提省级督办建议' },
+    { title: '跨专项反复出现同类问题', detail: '同矿井在多个专项内重复出现闭环失效', action: '纳入重点矿井清单' },
+  ],
+  attachments: [
+    { name: '整改前后对比照片（31203 回风巷）', meta: '图片 / 达州星河煤矿 / 07-08 上传', status: '已提交' },
+    { name: '县级复核意见单', meta: 'PDF / 古蔺县监管组 / 07-08 退回', status: '待补正' },
+    { name: '现场复测记录与签认表', meta: '表单 / 乐山嘉阳煤矿 / 07-07 上传', status: '复核中' },
+  ],
+  actionTips: [
+    { title: '优先复核待销号事项', detail: '当天已具备资料的 6 项事项优先完成县级复核。', icon: 'check' },
+    { title: '补盯逾期与退回事项', detail: '对 5 项逾期事项明确补证时限与责任到人。', icon: 'clock' },
+    { title: '必要时升级流转', detail: '对重复退回和重大隐患事项同步发起上级协同。', icon: 'upgrade' },
+  ],
+  flow: [
+    { label: '问题下发', owner: '省市县监管' },
+    { label: '企业整改', owner: '煤矿责任单位' },
+    { label: '提交复核', owner: '矿方整改专员' },
+    { label: '县级复核', owner: '县级监管组', active: true },
+    { label: '销号归档', owner: '平台闭环台账' },
+  ],
+};
+
+export const shuanCountyInspectionData = {
+  route: 'shuan-home-command-v3-illegal-disposal-county-inspection',
+  title: '现场核查 / 县级走访',
+};
+
+export const shuanProvinceSupervisionData = {
+  route: 'shuan-home-command-v3-illegal-disposal-province-supervision',
+  title: '挂牌督办 / 省级督办',
+  subtitle: '蜀安首页 Av3 / 打非治违 / 分级协同处置第 4 页',
+  scope: '省级挂牌督办 / 挂牌督办合并视角',
+  updatedAt: '2026-07-08 18:40',
+  filters: ['近30天', '全部区域', '待销号', '超期未办'],
+  kpis: [
+    { label: '挂牌总数', value: '18', hint: '当前纳入重大事项督办台账', tone: 'blue' as DrilldownTone },
+    { label: '超期未办', value: '3', hint: '超过督办时限仍未完成整改', tone: 'red' as DrilldownTone },
+    { label: '催办次数', value: '27', hint: '本轮已发起短信、电话和通报催办', tone: 'amber' as DrilldownTone },
+    { label: '待销号', value: '6', hint: '已提交销号申请待省级复核', tone: 'cyan' as DrilldownTone },
+    { label: '已销号', value: '12', hint: '完成复核并归档闭环', tone: 'green' as DrilldownTone },
+  ],
+  tableRows: [
+    { id: 'DB-2026-041', mine: '达星XX煤矿', reason: '停产期间疑似生产且两次复核不一致', owner: '达州市应急管理局 / 企业主要负责人', deadline: '07-12 18:00', node: '整改反馈待复核', status: '待销号', tone: 'cyan' as DrilldownTone },
+    { id: 'DB-2026-037', mine: '宜宾XX煤矿', reason: '监控造假问题复发，关键传感器数据缺失', owner: '宜宾市应急管理局 / 矿长', deadline: '07-10 18:00', node: '省级复核退回', status: '再整改', tone: 'amber' as DrilldownTone },
+    { id: 'DB-2026-033', mine: '泸州XX煤矿', reason: '隐蔽入井人数且逾期未完成责任倒查', owner: '泸州市应急管理局 / 县级包保组', deadline: '07-08 12:00', node: '超期催办', status: '超期未办', tone: 'red' as DrilldownTone },
+    { id: 'DB-2026-029', mine: '乐山XX煤矿', reason: '夜间异常活动连续命中，未按期提交整改闭环材料', owner: '乐山市应急管理局 / 企业分管副矿长', deadline: '07-15 18:00', node: '整改中', status: '正常推进', tone: 'blue' as DrilldownTone },
+    { id: 'DB-2026-024', mine: '广元XX煤矿', reason: '同一区域多类异常叠加，需省市县联合复核', owner: '广元市应急管理局 / 县级核查组', deadline: '07-09 18:00', node: '已签收待反馈', status: '临期催办', tone: 'amber' as DrilldownTone },
+    { id: 'DB-2026-018', mine: '古叙XX煤矿', reason: '挂牌问题整改完成，待省级销号确认', owner: '泸州市应急管理局 / 企业主要负责人', deadline: '07-11 12:00', node: '销号申请已提交', status: '待销号', tone: 'cyan' as DrilldownTone },
+  ],
+  timeline: [
+    { label: '督办下发', time: '07-02 09:00', detail: '省厅下发挂牌督办清单并明确责任链。', active: true },
+    { label: '责任签收', time: '07-02 11:30', detail: '属地监管与煤矿企业完成双签收确认。', active: true },
+    { label: '整改反馈', time: '07-06 18:20', detail: '企业提交整改台账、照片、制度修订和责任追究材料。', active: true },
+    { label: '省级复核', time: '07-08 10:40', detail: '省级督办组抽查现场和材料一致性，形成审核意见。', active: true },
+    { label: '销号归档', time: '待确认', detail: '满足问题销号条件后生成销号结论并归档。', active: false },
+  ],
+  reminders: [
+    { time: '07-08 09:10', channel: '电话催办', target: '泸州市应急管理局' },
+    { time: '07-07 17:40', channel: '短信催办', target: '达星XX煤矿主要负责人' },
+    { time: '07-06 15:20', channel: '发函通报', target: '宜宾市应急管理局' },
+  ],
+  notice: {
+    status: '已通报未销号',
+    summary: '对 3 项超期未办事项已形成省级督办通报，要求 48 小时内补齐整改证据并反馈责任追究结果。',
+    tone: 'red' as DrilldownTone,
+  },
+  directive: '领导批示：责任必须压实到属地监管、企业主要负责人和具体整改责任人，逾期事项逐项说明原因，未经验证不得销号。',
+  closure: {
+    status: '暂不可销号',
+    summary: '当前仍缺现场复核一致性证明和责任追究闭环材料，销号申请需退回补正后再提交。',
+    tone: 'red' as DrilldownTone,
+    conditions: [
+      '现场复核结论与企业整改反馈一致。',
+      '责任追究、制度修订和隐患复发防控材料齐全。',
+      '催办记录、通报状态和领导批示已逐项落实。',
+    ],
+  },
+  audit: {
+    application: {
+      item: 'DB-2026-041 达星XX煤矿挂牌督办事项',
+      owner: '达州市应急管理局',
+      submittedAt: '2026-07-08 09:35',
+      materials: '整改报告、现场照片 12 张、责任追究说明、复核申请单',
+    },
+    decision: {
+      status: '退回补正',
+      tone: 'amber' as DrilldownTone,
+      summary: '材料能证明主要问题已整改，但销号闭环证据仍不充分，暂不通过本轮销号审核。',
+      points: [
+        '缺少现场复核影像与关键传感器原始数据比对。',
+        '责任追究仅说明会议要求，未附到人到岗的处理结果。',
+        '再整改期限内需同步补齐防复发措施落实证明。',
+      ],
+    },
+    rectify: {
+      reason: '销号证据链不闭合，省级复核意见与企业反馈存在两处不一致。',
+      deadline: '2026-07-11 18:00',
+      actions: [
+        '补传现场复核视频、原始数据截图和签字版复核记录。',
+        '完善责任追究材料，明确责任人、处理方式和完成时间。',
+        '围绕同类问题制定再整改要求，并在下一轮反馈中逐项对应。',
+      ],
+    },
+  },
+};
+
+export const shuanIllegalDisposalRows = [
+  { title: '煤矿整改', owner: '县级复核', todo: '26', closed: '18', tone: 'cyan', page: shuanRectificationReviewData.route },
+  { title: '县级走访', owner: '现场核查', todo: '15', closed: '11', tone: 'green', page: shuanCountyInspectionData.route },
+  { title: '市级研判', owner: '专项研判', todo: '10', closed: '7', tone: 'orange', page: 'shuan-home-command-v3-illegal-disposal-city-analysis' },
+  { title: '省挂牌督办', owner: '挂牌督办', todo: '6', closed: '4', tone: 'red', page: shuanProvinceSupervisionData.route },
+] as const;
+
 export const shuanDrilldownRoutePages = [
   { id: 'shuan-home-command-v3-wireframes', title: '下钻页面框架总览' },
   ...shuanDrilldownPages.map((page) => ({ id: page.id, title: page.title })),
   { id: shuanRiskControlData.route, title: shuanRiskControlData.title },
   { id: shuanDangerousWorkReportData.route, title: shuanDangerousWorkReportData.title },
+  { id: shuanLicenseExpiryReminderData.route, title: shuanLicenseExpiryReminderData.title },
   { id: shuanMajorHazardReminderData.route, title: shuanMajorHazardReminderData.title },
   { id: shuanHiddenDangerData.route, title: shuanHiddenDangerData.title },
+  { id: shuanRectificationReviewData.route, title: shuanRectificationReviewData.title },
+  { id: shuanCountyInspectionData.route, title: shuanCountyInspectionData.title },
+  { id: 'shuan-home-command-v3-illegal-disposal-city-analysis', title: '专项研判 / 市级研判' },
+  { id: shuanProvinceSupervisionData.route, title: shuanProvinceSupervisionData.title },
   { id: shuanHiddenFaceMineProfileData.route, title: shuanHiddenFaceMineProfileData.title },
   ...shuanIllegalCampaignModules.map((item) => ({ id: item.route, title: item.title })),
 ];

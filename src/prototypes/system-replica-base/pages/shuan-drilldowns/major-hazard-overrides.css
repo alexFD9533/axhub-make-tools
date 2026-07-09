@@ -1,0 +1,799 @@
+.drill-page.drill-major-hazard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding: 10px 12px 12px;
+  background: linear-gradient(180deg, #06162b 0%, #081a31 100%);
+  color: #d7ebfb;
+}
+
+.drill-major-hazard-page .mhr-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 24px;
+}
+
+.drill-major-hazard-page .mhr-titlebar-main {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.drill-major-hazard-page .mhr-titlebar-main h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #f2f8fe;
+  letter-spacing: 0.01em;
+}
+
+.drill-major-hazard-page .mhr-exit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(67, 170, 255, 0.34);
+  background: linear-gradient(180deg, rgba(5, 40, 78, 0.84), rgba(4, 24, 52, 0.92));
+  color: #ccecff;
+  text-decoration: none;
+}
+
+.drill-major-hazard-page .mhr-exit svg {
+  width: 14px;
+  height: 14px;
+}
+
+.drill-major-hazard-page .mhr-status-bar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(280px, 1.08fr);
+  gap: 8px;
+}
+
+.drill-major-hazard-page .mhr-status-item {
+  min-height: 66px;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(54, 149, 235, 0.25);
+  background: linear-gradient(180deg, rgba(10, 35, 68, 0.95), rgba(8, 27, 53, 0.98));
+  box-shadow: inset 0 0 0 1px rgba(26, 109, 185, 0.14);
+}
+
+.drill-major-hazard-page .mhr-status-icon {
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border-radius: 10px;
+  color: #5cc6ff;
+  background: radial-gradient(circle at 50% 35%, rgba(92, 198, 255, 0.16), rgba(92, 198, 255, 0.05));
+}
+
+.drill-major-hazard-page .mhr-status-item:nth-child(1) .mhr-status-icon { color: #ff6a5b; }
+.drill-major-hazard-page .mhr-status-item:nth-child(2) .mhr-status-icon { color: #4ea5ff; }
+.drill-major-hazard-page .mhr-status-item:nth-child(3) .mhr-status-icon { color: #ffb53d; }
+.drill-major-hazard-page .mhr-status-item:nth-child(4) .mhr-status-icon { color: #ffd05a; }
+.drill-major-hazard-page .mhr-status-item:nth-child(5) .mhr-status-icon { color: #5add8c; }
+
+.drill-major-hazard-page .mhr-status-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.drill-major-hazard-page .mhr-status-label {
+  font-size: 12px;
+  color: #90b5d2;
+}
+
+.drill-major-hazard-page .mhr-status-value {
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #f6fbff;
+}
+
+.drill-major-hazard-page .mhr-status-value small {
+  margin-left: 4px;
+  font-size: 12px;
+  color: #cbdcf0;
+}
+
+.drill-major-hazard-page .mhr-status-disposal {
+  color: #57de87;
+}
+
+.drill-major-hazard-page .mhr-status-time .mhr-status-label {
+  font-size: 12px;
+  color: #d8e8f8;
+}
+
+.drill-major-hazard-page .mhr-status-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #8bc4aa;
+  font-size: 12px;
+}
+
+.drill-major-hazard-page .mhr-refresh-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #72f0a7;
+  box-shadow: 0 0 10px rgba(114, 240, 167, 0.6);
+}
+
+.drill-major-hazard-page .mhr-workspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 25.6% 39.3% 35.1%;
+  gap: 7px;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.drill-major-hazard-page .mhr-left-panel,
+.drill-major-hazard-page .mhr-center-panel,
+.drill-major-hazard-page .mhr-right-panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.drill-major-hazard-page .mhr-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 22px;
+  padding: 0 4px;
+}
+
+.drill-major-hazard-page .mhr-panel-title-bar {
+  width: 4px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #5bd6ff, #2b88ff);
+  box-shadow: 0 0 8px rgba(91, 214, 255, 0.45);
+}
+
+.drill-major-hazard-page .mhr-panel-header strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #eef8ff;
+}
+
+.drill-major-hazard-page .mhr-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  padding: 2px;
+  border-radius: 8px;
+  border: 1px solid rgba(54, 149, 235, 0.22);
+  background: rgba(8, 28, 56, 0.9);
+}
+
+.drill-major-hazard-page .mhr-tabs button {
+  height: 30px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #8fb4cf;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.drill-major-hazard-page .mhr-tabs button.active {
+  background: linear-gradient(180deg, rgba(18, 85, 152, 0.52), rgba(13, 55, 104, 0.68));
+  color: #f6fbff;
+  box-shadow: inset 0 -2px 0 #28a7ff;
+}
+
+.drill-major-hazard-page .mhr-disaster-list,
+.drill-major-hazard-page .mhr-mine-list {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.drill-major-hazard-page .mhr-disaster-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.drill-major-hazard-page .mhr-disaster-card,
+.drill-major-hazard-page .mhr-detail-card,
+.drill-major-hazard-page .mhr-map-wrap,
+.drill-major-hazard-page .mhr-mine-card,
+.drill-major-hazard-page .mhr-evac-card,
+.drill-major-hazard-page .mhr-timeline {
+  border-radius: 8px;
+  border: 1px solid rgba(54, 149, 235, 0.22);
+  background: linear-gradient(180deg, rgba(10, 34, 64, 0.96), rgba(7, 24, 46, 0.98));
+  box-shadow: inset 0 0 0 1px rgba(16, 89, 156, 0.1);
+}
+
+.drill-major-hazard-page .mhr-disaster-card {
+  min-height: 92px;
+  padding: 9px 11px;
+}
+
+.drill-major-hazard-page .mhr-disaster-card.active {
+  border-color: rgba(255, 180, 54, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 180, 54, 0.18), 0 0 0 2px rgba(255, 180, 54, 0.12);
+}
+
+.drill-major-hazard-page .mhr-disaster-card-top {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.drill-major-hazard-page .mhr-disaster-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(77, 170, 255, 0.34);
+  background: radial-gradient(circle at 50% 35%, rgba(77, 170, 255, 0.16), rgba(77, 170, 255, 0.05));
+  color: #5cc6ff;
+}
+
+.drill-major-hazard-page .mhr-disaster-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+}
+
+.drill-major-hazard-page .mhr-disaster-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.drill-major-hazard-page .mhr-disaster-title-row strong {
+  font-size: 14px;
+  color: #f4f8fd;
+}
+
+.drill-major-hazard-page .mhr-warning-badge,
+.drill-major-hazard-page .mhr-feedback-badge,
+.drill-major-hazard-page .mhr-evac-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.drill-major-hazard-page .mhr-warning-badge.level-orange { background: rgba(255, 159, 67, 0.18); color: #ffb05a; border: 1px solid rgba(255, 159, 67, 0.32); }
+.drill-major-hazard-page .mhr-warning-badge.level-yellow { background: rgba(255, 205, 86, 0.16); color: #ffd870; border: 1px solid rgba(255, 205, 86, 0.28); }
+.drill-major-hazard-page .mhr-warning-badge.level-blue { background: rgba(69, 152, 255, 0.16); color: #73b7ff; border: 1px solid rgba(69, 152, 255, 0.28); }
+.drill-major-hazard-page .mhr-warning-badge.level-red { background: rgba(255, 106, 91, 0.16); color: #ff8d80; border: 1px solid rgba(255, 106, 91, 0.3); }
+
+.drill-major-hazard-page .mhr-disaster-name,
+.drill-major-hazard-page .mhr-mine-area {
+  display: block;
+  color: #a6bfd6;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.drill-major-hazard-page .mhr-disaster-card-bottom {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  color: #9cb8d1;
+}
+
+.drill-major-hazard-page .mhr-disaster-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.drill-major-hazard-page .mhr-disaster-status {
+  justify-self: end;
+  font-weight: 700;
+}
+
+.drill-major-hazard-page .mhr-disaster-status.status-active { color: #ff845e; }
+.drill-major-hazard-page .mhr-disaster-status.status-monitor { color: #4fc1ff; }
+.drill-major-hazard-page .mhr-disaster-status.status-resolved { color: #65dc95; }
+
+.drill-major-hazard-page .mhr-disaster-count {
+  padding: 2px 2px 0;
+  color: #7f9bb6;
+  font-size: 12px;
+}
+
+.drill-major-hazard-page .mhr-detail-card {
+  min-height: 104px;
+  padding: 10px 12px;
+}
+
+.drill-major-hazard-page .mhr-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 8px;
+}
+
+.drill-major-hazard-page .mhr-detail-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.drill-major-hazard-page .mhr-detail-label {
+  font-size: 12px;
+  color: #88a9c5;
+}
+
+.drill-major-hazard-page .mhr-detail-value {
+  font-size: 12px;
+  color: #d8e7f5;
+  line-height: 1.3;
+}
+
+.drill-major-hazard-page .mhr-detail-value strong {
+  font-size: 13px;
+  color: #f4f8fd;
+}
+
+.drill-major-hazard-page .mhr-warning-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drill-major-hazard-page .mhr-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.drill-major-hazard-page .mhr-warning-text.level-orange .mhr-dot { background: #ffb05a; }
+.drill-major-hazard-page .mhr-warning-text.level-yellow .mhr-dot { background: #ffd870; }
+.drill-major-hazard-page .mhr-warning-text.level-blue .mhr-dot { background: #73b7ff; }
+.drill-major-hazard-page .mhr-status-text { color: #57de87; font-weight: 700; }
+
+.drill-major-hazard-page .mhr-map-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.drill-major-hazard-page .mhr-map-container {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.drill-major-hazard-page .mhr-map-container svg {
+  width: 88%;
+  height: 88%;
+  filter: brightness(0.6) contrast(1.2) saturate(0.45) drop-shadow(0 0 14px rgba(57, 182, 255, 0.18));
+}
+
+.drill-major-hazard-page .mhr-map-range-circle {
+  position: absolute;
+  left: 60%;
+  top: 29%;
+  width: 196px;
+  height: 196px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 180, 54, 0.75);
+  background: radial-gradient(circle, rgba(255, 141, 61, 0.22) 0%, rgba(255, 141, 61, 0.12) 45%, rgba(255, 141, 61, 0.04) 68%, transparent 72%);
+  box-shadow: 0 0 0 18px rgba(255, 141, 61, 0.08);
+}
+
+.drill-major-hazard-page .mhr-map-area-label {
+  position: absolute;
+  left: 60%;
+  top: 34%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.drill-major-hazard-page .mhr-map-marker {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.drill-major-hazard-page .mhr-map-marker::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.drill-major-hazard-page .mhr-map-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.drill-major-hazard-page .mhr-map-marker.marker-red { color: #ff765b; }
+.drill-major-hazard-page .mhr-map-marker.marker-green { color: #57de87; }
+.drill-major-hazard-page .mhr-map-marker.marker-yellow { color: #ffd45b; }
+.drill-major-hazard-page .mhr-map-marker.marker-gray { color: #97a9bc; }
+
+.drill-major-hazard-page .mhr-map-legend {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(54, 149, 235, 0.22);
+  background: rgba(8, 24, 46, 0.88);
+  color: #acc4d8;
+  font-size: 12px;
+}
+
+.drill-major-hazard-page .mhr-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drill-major-hazard-page .mhr-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.drill-major-hazard-page .mhr-legend-dot.marker-red { color: #ff765b; }
+.drill-major-hazard-page .mhr-legend-dot.marker-green { color: #57de87; }
+.drill-major-hazard-page .mhr-legend-dot.marker-yellow { color: #ffd45b; }
+.drill-major-hazard-page .mhr-legend-dot.marker-gray { color: #97a9bc; }
+
+.drill-major-hazard-page .mhr-legend-line {
+  width: 20px;
+  height: 0;
+  border-top: 2px dashed #ffb05a;
+}
+
+.drill-major-hazard-page .mhr-map-controls {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.drill-major-hazard-page .mhr-map-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(54, 149, 235, 0.24);
+  border-radius: 8px;
+  background: rgba(10, 30, 55, 0.9);
+  color: #dff4ff;
+  font-size: 20px;
+}
+
+.drill-major-hazard-page .mhr-mine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 0 0 320px;
+  min-height: 320px;
+}
+
+.drill-major-hazard-page .mhr-mine-card {
+  min-height: 72px;
+  padding: 9px 11px;
+}
+
+.drill-major-hazard-page .mhr-mine-card.need-evacuation {
+  border-color: rgba(255, 114, 88, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(255, 114, 88, 0.16);
+}
+
+.drill-major-hazard-page .mhr-mine-card-top {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.drill-major-hazard-page .mhr-mine-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(82, 171, 255, 0.3);
+}
+
+.drill-major-hazard-page .mhr-mine-icon.feedback-yes { color: #57de87; background: rgba(87, 222, 135, 0.08); }
+.drill-major-hazard-page .mhr-mine-icon.feedback-no { color: #ffd45b; background: rgba(255, 212, 91, 0.08); }
+
+.drill-major-hazard-page .mhr-mine-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.drill-major-hazard-page .mhr-mine-title-row strong {
+  font-size: 13px;
+  color: #f4f8fd;
+}
+
+.drill-major-hazard-page .mhr-feedback-badge.badge-green { background: rgba(87, 222, 135, 0.16); color: #7ff2ab; border: 1px solid rgba(87, 222, 135, 0.26); }
+.drill-major-hazard-page .mhr-feedback-badge.badge-yellow { background: rgba(255, 212, 91, 0.14); color: #ffdf86; border: 1px solid rgba(255, 212, 91, 0.24); }
+.drill-major-hazard-page .mhr-evac-badge { background: rgba(255, 118, 91, 0.16); color: #ff987e; border: 1px solid rgba(255, 118, 91, 0.26); }
+
+.drill-major-hazard-page .mhr-mine-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 6px;
+  color: #8eadc7;
+  font-size: 11px;
+}
+
+.drill-major-hazard-page .mhr-mine-stats strong { color: #edf7ff; }
+.drill-major-hazard-page .mhr-mine-stats .text-danger { color: #ff8d80; }
+
+.drill-major-hazard-page .mhr-mine-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drill-major-hazard-page .mhr-mine-status {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.drill-major-hazard-page .mhr-mine-status.status-evacuating { color: #ff8d80; background: rgba(255, 118, 91, 0.16); }
+.drill-major-hazard-page .mhr-mine-status.status-monitoring { color: #74c7ff; background: rgba(69, 152, 255, 0.14); }
+.drill-major-hazard-page .mhr-mine-status.status-pending { color: #ffdf86; background: rgba(255, 212, 91, 0.14); }
+.drill-major-hazard-page .mhr-mine-status.status-safe,
+.drill-major-hazard-page .mhr-mine-status.status-done { color: #8fe6b0; background: rgba(87, 222, 135, 0.12); }
+
+.drill-major-hazard-page .mhr-mine-chevron { color: #78b9ea; }
+
+.drill-major-hazard-page .mhr-evac-header .mhr-evac-subtitle {
+  font-size: 12px;
+  color: #86a3bf;
+}
+
+.drill-major-hazard-page .mhr-evac-card {
+  min-height: 124px;
+  padding: 12px 14px;
+}
+
+.drill-major-hazard-page .mhr-evac-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.drill-major-hazard-page .mhr-evac-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.drill-major-hazard-page .mhr-evac-stat span {
+  font-size: 12px;
+  color: #89a6c1;
+}
+
+.drill-major-hazard-page .mhr-evac-stat strong {
+  font-size: 19px;
+  font-weight: 700;
+  color: #f4f8fd;
+}
+
+.drill-major-hazard-page .mhr-evac-stat .text-success { color: #74e79f; }
+.drill-major-hazard-page .mhr-evac-stat .text-danger { color: #ff8d80; }
+
+.drill-major-hazard-page .mhr-rate-circle {
+  width: 48px;
+  height: 48px;
+  position: relative;
+}
+
+.drill-major-hazard-page .mhr-rate-circle svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.drill-major-hazard-page .mhr-rate-bg {
+  fill: none;
+  stroke: rgba(67, 170, 255, 0.18);
+  stroke-width: 3;
+}
+
+.drill-major-hazard-page .mhr-rate-fill {
+  fill: none;
+  stroke: #49c1ff;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.drill-major-hazard-page .mhr-rate-circle strong {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: #63cbff;
+}
+
+.drill-major-hazard-page .mhr-evac-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(54, 149, 235, 0.16);
+  font-size: 12px;
+  color: #8fadca;
+}
+
+.drill-major-hazard-page .mhr-evac-contact span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.drill-major-hazard-page .mhr-timeline {
+  min-height: 108px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  padding: 12px 10px;
+}
+
+.drill-major-hazard-page .mhr-timeline-item {
+  display: grid;
+  grid-template-rows: 30px 16px auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.drill-major-hazard-page .mhr-timeline-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #78b9ea;
+  background: rgba(42, 126, 212, 0.16);
+}
+
+.drill-major-hazard-page .mhr-timeline-item.completed .mhr-timeline-icon {
+  color: #7feea7;
+  background: rgba(87, 222, 135, 0.16);
+}
+
+.drill-major-hazard-page .mhr-timeline-line {
+  position: relative;
+  width: 100%;
+  height: 16px;
+}
+
+.drill-major-hazard-page .mhr-timeline-connector {
+  position: absolute;
+  left: 50%;
+  right: -50%;
+  top: 7px;
+  height: 2px;
+  background: rgba(73, 193, 255, 0.18);
+}
+
+.drill-major-hazard-page .mhr-timeline-connector.active {
+  background: rgba(127, 238, 167, 0.5);
+}
+
+.drill-major-hazard-page .mhr-timeline-name {
+  font-size: 11px;
+  color: #edf7ff;
+}
+
+.drill-major-hazard-page .mhr-timeline-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #8eadc7;
+}
+
+.drill-major-hazard-page .mhr-timeline-item.completed .mhr-timeline-time {
+  color: #79e4a1;
+}
+
+.drill-major-hazard-page .mhr-disaster-list::-webkit-scrollbar,
+.drill-major-hazard-page .mhr-mine-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+@media (max-width: 1400px) {
+  .drill-major-hazard-page .mhr-workspace {
+    grid-template-columns: 24.8% 39.7% 35.5%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .drill-major-hazard-page .mhr-status-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .drill-major-hazard-page .mhr-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .drill-major-hazard-page .mhr-detail-grid,
+  .drill-major-hazard-page .mhr-evac-stats,
+  .drill-major-hazard-page .mhr-mine-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

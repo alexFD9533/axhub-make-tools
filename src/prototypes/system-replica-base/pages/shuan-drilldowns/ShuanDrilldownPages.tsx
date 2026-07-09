@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import * as React from 'react';
 import {
   Activity,
   ArrowLeft,
@@ -37,12 +37,26 @@ import {
   Waves,
   Wind,
   Zap,
+  AlertTriangle,
+  CloudRain,
+  CloudLightning,
+  Mountain,
+  ShieldCheck,
+  Phone,
+  CheckCircle2,
+  Circle,
+  MapPin,
 } from 'lucide-react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import sichuanMapSvg from '../../../../resources/shuan/sichuan-map.svg?raw';
 import { normalizeInlineSvg } from '../../../../common/inlineSvg';
+import { CountyInspectionPage } from './CountyInspectionPage';
 import { DangerousWorkReportPage } from './DangerousWorkReportPage';
-import { DrilldownPage, DrilldownTone, shuanDailyRegulationAnalysis, shuanDangerousWorkReportData, shuanDrilldownPages, shuanHiddenDangerData, shuanHiddenFaceMineProfileData, shuanIllegalCampaignModules, shuanMajorHazardReminderData, shuanRiskControlDashboardData, shuanRiskControlData, shuanVideoDispatchData } from './data';
+import { IllegalCityAnalysisPage } from './IllegalCityAnalysisPage';
+import './major-hazard-overrides.css';
+import { ProvinceSupervisionPage } from './ProvinceSupervisionPage';
+import { RectificationReviewPage } from './RectificationReviewPage';
+import { DrilldownPage, DrilldownTone, shuanCountyInspectionData, shuanDailyRegulationAnalysis, shuanDangerousWorkReportData, shuanDrilldownPages, shuanHiddenDangerData, shuanHiddenFaceMineProfileData, shuanIllegalCampaignModules, shuanLicenseExpiryReminderData, shuanMajorHazardReminderData, shuanProvinceSupervisionData, shuanRectificationReviewData, shuanRiskControlDashboardData, shuanRiskControlData, shuanVideoDispatchData } from './data';
 
 const normalizedSichuanMapSvg = normalizeInlineSvg(sichuanMapSvg);
 
@@ -235,104 +249,888 @@ function DetailPage({ page }: { page: DrilldownPage }) {
 
 function MajorHazardReminderPage() {
   const data = shuanMajorHazardReminderData;
+  const [activeTab, setActiveTab] = useState<'current' | 'historical'>('current');
+  const [selectedMineId, setSelectedMineId] = useState(data.selectedDisaster.affectedMines[0]?.id || '');
+
+  const disasterList = activeTab === 'current' ? data.currentDisasters : data.historicalDisasters;
+  const selectedMine = data.selectedDisaster.affectedMines.find(m => m.id === selectedMineId) || data.selectedDisaster.affectedMines[0];
+
+  const typeIconMap: Record<string, React.ElementType> = {
+    rain: CloudRain,
+    landslide: Mountain,
+    earthquake: Activity,
+    lightning: CloudLightning,
+    flood: Waves,
+  };
+
+  const warningLevelClass: Record<string, string> = {
+    orange: 'level-orange',
+    yellow: 'level-yellow',
+    blue: 'level-blue',
+    red: 'level-red',
+  };
+
+  const warningLevelText: Record<string, string> = {
+    orange: '橙色预警',
+    yellow: '黄色预警',
+    blue: '蓝色预警',
+    red: '红色预警',
+  };
+
+  const mineStatusClass: Record<string, string> = {
+    '撤离中': 'status-evacuating',
+    '持续监测': 'status-monitoring',
+    '待反馈': 'status-pending',
+    '无需撤离': 'status-safe',
+    '已完成撤离': 'status-done',
+    '异常': 'status-error',
+  };
+
+  const mapMarkerClass: Record<string, string> = {
+    'need-evacuation': 'marker-red',
+    'feedback': 'marker-green',
+    'no-feedback': 'marker-yellow',
+    'completed': 'marker-gray',
+  };
 
   return (
     <div className="drill-page drill-major-hazard-page tone-cyan">
-      <DrillContentHeader
-        eyebrow={data.subtitle}
-        title={data.title}
-        description={data.description}
-        icon={<Bell aria-hidden="true" />}
-        actions={
-          <>
-            <button type="button"><CalendarDays aria-hidden="true" />{data.timeRange}</button>
-            <button type="button"><RefreshCcw aria-hidden="true" />刷新</button>
-            <button type="button"><Download aria-hidden="true" />导出</button>
-          </>
-        }
-      />
-
-      <section className="drill-major-hazard-toolbar" aria-label="重大灾害提醒信息栏">
-        <div className="drill-major-hazard-tags">
-          {data.tags.map((item) => (
-            <article key={item.label}>
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-            </article>
-          ))}
+      <header className="mhr-titlebar">
+        <div className="mhr-titlebar-main">
+          <h1>{data.title}</h1>
         </div>
-        <div className="drill-major-hazard-status">
-          <span>更新时间</span>
-          <strong>{data.updatedAt}</strong>
+        <a className="mhr-exit" href={routeHref('shuan-home-command-v3')}>
+          <LogOut aria-hidden="true" />
+          <span>退出</span>
+        </a>
+      </header>
+      {/* Top status bar */}
+      <section className="mhr-status-bar" aria-label="全局实时状态">
+        <div className="mhr-status-item">
+          <AlertTriangle className="mhr-status-icon" aria-hidden="true" />
+          <div>
+            <span className="mhr-status-label">当前灾害</span>
+            <strong className="mhr-status-value">{data.globalStatus.currentDisasterCount}<small>起</small></strong>
+          </div>
+        </div>
+        <div className="mhr-status-item">
+          <Building2 className="mhr-status-icon" aria-hidden="true" />
+          <div>
+            <span className="mhr-status-label">影响煤矿</span>
+            <strong className="mhr-status-value">{data.globalStatus.affectedMineCount}<small>座</small></strong>
+          </div>
+        </div>
+        <div className="mhr-status-item">
+          <Users className="mhr-status-icon" aria-hidden="true" />
+          <div>
+            <span className="mhr-status-label">需撤离</span>
+            <strong className="mhr-status-value">{data.globalStatus.needEvacuationCount}<small>座</small></strong>
+          </div>
+        </div>
+        <div className="mhr-status-item">
+          <Bell className="mhr-status-icon" aria-hidden="true" />
+          <div>
+            <span className="mhr-status-label">未反馈</span>
+            <strong className="mhr-status-value">{data.globalStatus.noFeedbackCount}<small>座</small></strong>
+          </div>
+        </div>
+        <div className="mhr-status-item">
+          <ShieldCheck className="mhr-status-icon" aria-hidden="true" />
+          <div>
+            <span className="mhr-status-label">处置状态</span>
+            <strong className="mhr-status-value mhr-status-disposal">{data.globalStatus.disposalStatus}</strong>
+          </div>
+        </div>
+        <div className="mhr-status-item mhr-status-time">
+          <Clock className="mhr-status-icon" aria-hidden="true" />
+          <div>
+            <span className="mhr-status-label">{data.globalStatus.currentTime}</span>
+            <span className="mhr-status-refresh">
+              <span className="mhr-refresh-dot" />
+              自动刷新中（10s）
+            </span>
+          </div>
         </div>
       </section>
 
-      <section className="drill-major-hazard-kpis" aria-label="重大灾害提醒核心指标">
-        {data.kpis.map((item) => (
-          <article key={item.label}>
-            <span>{item.label}</span>
-            <strong>{item.value}</strong>
-            <em>{item.hint}</em>
-          </article>
-        ))}
-      </section>
+      {/* Three-column workspace */}
+      <div className="mhr-workspace">
+        {/* Left: Disaster event list */}
+        <aside className="mhr-left-panel">
+          <header className="mhr-panel-header">
+            <span className="mhr-panel-title-bar" />
+            <strong>灾害事件列表</strong>
+          </header>
+          <div className="mhr-tabs">
+            <button
+              type="button"
+              className={activeTab === 'current' ? 'active' : ''}
+              onClick={() => setActiveTab('current')}
+            >
+              当前灾害
+            </button>
+            <button
+              type="button"
+              className={activeTab === 'historical' ? 'active' : ''}
+              onClick={() => setActiveTab('historical')}
+            >
+              历史灾害
+            </button>
+          </div>
+          <div className="mhr-disaster-list">
+            {disasterList.map((disaster) => {
+              const TypeIcon = typeIconMap[disaster.typeIcon] || CloudRain;
+              return (
+                <div
+                  key={disaster.id}
+                  className={`mhr-disaster-card ${activeTab === 'current' && disaster.id === disasterList[0]?.id ? 'active' : ''}`}
+                >
+                  <div className="mhr-disaster-card-top">
+                    <div className="mhr-disaster-icon-wrap">
+                      <TypeIcon aria-hidden="true" />
+                    </div>
+                    <div className="mhr-disaster-info">
+                      <div className="mhr-disaster-title-row">
+                        <strong>{disaster.type}</strong>
+                        <span className={`mhr-warning-badge ${warningLevelClass[disaster.warningLevel]}`}>
+                          {warningLevelText[disaster.warningLevel]}
+                        </span>
+                      </div>
+                      <span className="mhr-disaster-name">{disaster.name}</span>
+                    </div>
+                  </div>
+                  <div className="mhr-disaster-card-bottom">
+                    <span className="mhr-disaster-time">
+                      <Clock size={12} aria-hidden="true" />
+                      {disaster.time}
+                    </span>
+                    <span className="mhr-disaster-mines">影响煤矿 {disaster.affectedMineCount}座</span>
+                    <span className={`mhr-disaster-status ${disaster.status === '处置中' ? 'status-active' : disaster.status === '监测中' ? 'status-monitor' : 'status-resolved'}`}>
+                      {disaster.status}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+            <div className="mhr-disaster-count">共 {disasterList.length} 条</div>
+          </div>
+        </aside>
 
-      <section className="drill-major-hazard-main">
-        <div className="drill-major-hazard-focus-grid">
-          {data.focusCards.map((item) => (
-            <article key={item.title} className="drill-major-hazard-card">
-              <header>
-                <strong>{item.title}</strong>
-                <span>待补详细需求</span>
-              </header>
-              <p>{item.summary}</p>
-              <ul>
-                {item.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <div className="drill-major-hazard-stage-grid">
-          <section className="drill-major-hazard-stage">
-            <header>
-              <strong>{data.moduleSlots[0].title}</strong>
-              <span>分析模块占位</span>
-            </header>
-            <p>{data.moduleSlots[0].hint}</p>
-          </section>
-
-          <section className="drill-major-hazard-stage drill-major-hazard-stage-center">
-            <header>
-              <strong>{data.moduleSlots[1].title}</strong>
-              <span>主舞台占位</span>
-            </header>
-            <p>{data.moduleSlots[1].hint}</p>
-            <div className="drill-major-hazard-canvas">
-              <div className="drill-major-hazard-canvas-core">
-                <b>重大灾害提醒页面框架</b>
-                <span>后续可继续承接地图、专题看板或重点矿井提醒流。</span>
+        {/* Center: Disaster detail + Map */}
+        <main className="mhr-center-panel">
+          <header className="mhr-panel-header">
+            <span className="mhr-panel-title-bar" />
+            <strong>当前查看事件</strong>
+          </header>
+          <div className="mhr-detail-card">
+            <div className="mhr-detail-grid">
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">灾害名称</span>
+                <strong className="mhr-detail-value">{data.selectedDisaster.detail.name}</strong>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">灾害类型</span>
+                <span className="mhr-detail-value">{data.selectedDisaster.detail.type}</span>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">预警级别</span>
+                <span className={`mhr-detail-value mhr-warning-text ${warningLevelClass[data.selectedDisaster.detail.warningLevel.replace('预警', '')]}`}>
+                  <span className="mhr-dot" />
+                  {data.selectedDisaster.detail.warningLevel}
+                </span>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">影响区域</span>
+                <span className="mhr-detail-value">{data.selectedDisaster.detail.area}</span>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">数据来源</span>
+                <span className="mhr-detail-value">{data.selectedDisaster.detail.source}</span>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">发布时间</span>
+                <span className="mhr-detail-value">{data.selectedDisaster.detail.publishTime}</span>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">更新时间</span>
+                <span className="mhr-detail-value">{data.selectedDisaster.detail.updateTime}</span>
+              </div>
+              <div className="mhr-detail-field">
+                <span className="mhr-detail-label">当前状态</span>
+                <span className="mhr-detail-value mhr-status-text">{data.selectedDisaster.detail.status}</span>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section className="drill-major-hazard-stage">
-            <header>
-              <strong>{data.moduleSlots[2].title}</strong>
-              <span>督办模块占位</span>
-            </header>
-            <p>{data.moduleSlots[2].hint}</p>
-          </section>
-        </div>
-
-        <section className="drill-major-hazard-bottom">
-          <header>
-            <strong>{data.moduleSlots[3].title}</strong>
-            <span>扩展区占位</span>
+          <header className="mhr-panel-header mhr-map-header">
+            <span className="mhr-panel-title-bar" />
+            <strong>灾害影响范围与煤矿分布</strong>
           </header>
-          <p>{data.moduleSlots[3].hint}</p>
+          <div className="mhr-map-wrap">
+            <div
+              className="mhr-map-container"
+              dangerouslySetInnerHTML={{ __html: normalizedSichuanMapSvg }}
+            />
+            <div className="mhr-map-range-circle" />
+            <span className="mhr-map-area-label">朝天区</span>
+            {data.selectedDisaster.mapMines.map((mine) => (
+              <div
+                key={mine.id}
+                className={`mhr-map-marker ${mapMarkerClass[mine.status]}`}
+                style={{ left: `${mine.x}%`, top: `${mine.y}%` }}
+                title={mine.name}
+                onClick={() => setSelectedMineId(mine.id)}
+              />
+            ))}
+            <div className="mhr-map-legend">
+              <div className="mhr-legend-item">
+                <span className="mhr-legend-dot marker-red" />
+                <span>需撤离</span>
+              </div>
+              <div className="mhr-legend-item">
+                <span className="mhr-legend-dot marker-green" />
+                <span>已反馈</span>
+              </div>
+              <div className="mhr-legend-item">
+                <span className="mhr-legend-dot marker-yellow" />
+                <span>未反馈</span>
+              </div>
+              <div className="mhr-legend-item">
+                <span className="mhr-legend-dot marker-gray" />
+                <span>已完成</span>
+              </div>
+              <div className="mhr-legend-item">
+                <span className="mhr-legend-line">----</span>
+                <span>影响范围（约30km）</span>
+              </div>
+            </div>
+            <div className="mhr-map-controls">
+              <button type="button" className="mhr-map-btn">+</button>
+              <button type="button" className="mhr-map-btn">-</button>
+              <button type="button" className="mhr-map-btn">◎</button>
+            </div>
+          </div>
+        </main>
+
+        {/* Right: Affected mines + Evacuation details */}
+        <aside className="mhr-right-panel">
+          <header className="mhr-panel-header">
+            <span className="mhr-panel-title-bar" />
+            <strong>受影响煤矿</strong>
+          </header>
+          <div className="mhr-mine-list">
+            {data.selectedDisaster.affectedMines.map((mine) => (
+              <div
+                key={mine.id}
+                className={`mhr-mine-card ${selectedMine?.id === mine.id ? 'active' : ''} ${mine.needEvacuation ? 'need-evacuation' : ''}`}
+                onClick={() => setSelectedMineId(mine.id)}
+              >
+                <div className="mhr-mine-card-top">
+                  <div className={`mhr-mine-icon ${mine.feedbackStatus === '已反馈' ? 'feedback-yes' : 'feedback-no'}`}>
+                    <Factory size={16} />
+                  </div>
+                  <div className="mhr-mine-info">
+                    <div className="mhr-mine-title-row">
+                      <strong>{mine.name}</strong>
+                      <span className={`mhr-feedback-badge ${mine.feedbackStatus === '已反馈' ? 'badge-green' : 'badge-yellow'}`}>
+                        {mine.feedbackStatus}
+                      </span>
+                      {mine.needEvacuation && (
+                        <span className="mhr-evac-badge">需撤离</span>
+                      )}
+                    </div>
+                    <span className="mhr-mine-area">{mine.area}</span>
+                  </div>
+                </div>
+                <div className="mhr-mine-stats">
+                  <span>井下人数 <strong>{mine.undergroundCount}人</strong></span>
+                  <span>未撤人数 <strong className={mine.unevacuatedCount > 0 ? 'text-danger' : ''}>{mine.unevacuatedCount}人</strong></span>
+                  <span>最新上报 <strong>{mine.lastReportTime}</strong></span>
+                </div>
+                <div className="mhr-mine-status-row">
+                  <span className={`mhr-mine-status ${mineStatusClass[mine.status]}`}>{mine.status}</span>
+                  <ChevronRight size={14} className="mhr-mine-chevron" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Evacuation detail for selected mine */}
+          {selectedMine && (
+            <>
+              <header className="mhr-panel-header mhr-evac-header">
+                <span className="mhr-panel-title-bar" />
+                <strong>煤矿撤离详情</strong>
+                <span className="mhr-evac-subtitle">（{selectedMine.name}）</span>
+              </header>
+              <div className="mhr-evac-card">
+                <div className="mhr-evac-stats">
+                  <div className="mhr-evac-stat">
+                    <span>井下总人数</span>
+                    <strong>{data.selectedDisaster.evacuationDetail.totalUnderground}</strong>
+                  </div>
+                  <div className="mhr-evac-stat">
+                    <span>已撤离</span>
+                    <strong className="text-success">{data.selectedDisaster.evacuationDetail.evacuated}</strong>
+                  </div>
+                  <div className="mhr-evac-stat">
+                    <span>未撤离</span>
+                    <strong className="text-danger">{data.selectedDisaster.evacuationDetail.unevacuated}</strong>
+                  </div>
+                  <div className="mhr-evac-stat mhr-evac-rate">
+                    <span>撤离完成率</span>
+                    <div className="mhr-rate-circle">
+                      <svg viewBox="0 0 36 36">
+                        <path className="mhr-rate-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path className="mhr-rate-fill" strokeDasharray={`${parseFloat(data.selectedDisaster.evacuationDetail.completionRate)}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      </svg>
+                      <strong>{data.selectedDisaster.evacuationDetail.completionRate}</strong>
+                    </div>
+                  </div>
+                </div>
+                <div className="mhr-evac-contact">
+                  <span><Phone size={12} /> 调度电话 {data.selectedDisaster.evacuationDetail.phone}</span>
+                  <span><Clock size={12} /> 最后上报 {data.selectedDisaster.evacuationDetail.lastReport}</span>
+                </div>
+              </div>
+
+              <header className="mhr-panel-header">
+                <span className="mhr-panel-title-bar" />
+                <strong>撤离进度</strong>
+              </header>
+              <div className="mhr-timeline">
+                {data.selectedDisaster.evacuationDetail.stages.map((stage, idx) => (
+                  <div key={stage.name} className={`mhr-timeline-item ${stage.completed ? 'completed' : ''}`}>
+                    <div className="mhr-timeline-icon">
+                      {stage.completed ? (
+                        <CheckCircle2 size={18} />
+                      ) : (
+                        <Circle size={18} />
+                      )}
+                    </div>
+                    <div className="mhr-timeline-line">
+                      {idx < data.selectedDisaster.evacuationDetail.stages.length - 1 && (
+                        <div className={`mhr-timeline-connector ${stage.completed ? 'active' : ''}`} />
+                      )}
+                    </div>
+                    <div className="mhr-timeline-content">
+                      <span className="mhr-timeline-name">{stage.name}</span>
+                      <span className="mhr-timeline-time">
+                        {stage.completed ? (
+                          <><CheckCircle2 size={10} /> {stage.time}</>
+                        ) : (
+                          '----'
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+
+function LicenseExpiryReminderPage() {
+  const data = shuanLicenseExpiryReminderData;
+
+  const markerColor = (v: number) => {
+    if (v >= 10) return '#ff4d4f';
+    if (v >= 5) return '#ff9d27';
+    if (v >= 1) return '#2b7de9';
+    return '#4a5568';
+  };
+
+  const maxLicenseTotal = Math.max(...data.licenseTypes.map((l) => l.total));
+  const maxMineTotal = Math.max(...data.mineRankings.map((m) => m.total));
+  const maxPos = Math.max(...data.positionAbnormal.map((p) => p.value));
+  const trendMax = Math.max(...data.trend.upcoming, ...data.trend.expired, 1);
+
+  // 环形图SVG路径生成
+  const makeDonut = (slices: typeof data.abnormalStructure, cx: number, cy: number, r: number, ir: number) => {
+    let a = -Math.PI / 2;
+    const total = slices.reduce((s, x) => s + x.value, 0);
+    return slices.map((sl) => {
+      const ang = (sl.value / total) * Math.PI * 2;
+      const x1 = cx + r * Math.cos(a);
+      const y1 = cy + r * Math.sin(a);
+      const x2 = cx + r * Math.cos(a + ang);
+      const y2 = cy + r * Math.sin(a + ang);
+      const ix2 = cx + ir * Math.cos(a + ang);
+      const iy2 = cy + ir * Math.sin(a + ang);
+      const ix1 = cx + ir * Math.cos(a);
+      const iy1 = cy + ir * Math.sin(a);
+      const la = ang > Math.PI ? 1 : 0;
+      const d = `M ${x1} ${y1} A ${r} ${r} 0 ${la} 1 ${x2} ${y2} L ${ix2} ${iy2} A ${ir} ${ir} 0 ${la} 0 ${ix1} ${iy1} Z`;
+      a += ang;
+      return { ...sl, d };
+    });
+  };
+
+  const abnormalDonut = makeDonut(data.abnormalStructure, 50, 50, 40, 28);
+  const warningDonut = makeDonut(data.warningCategories, 50, 50, 40, 28);
+
+  // 趋势图尺寸
+  const chartW = 100;
+  const chartH = 80;
+  const padL = 8;
+  const padR = 2;
+  const padB = 12;
+  const padT = 4;
+  const plotW = chartW - padL - padR;
+  const plotH = chartH - padB - padT;
+
+  const linePoints = (vals: number[]) =>
+    vals
+      .map((v, i) => {
+        const x = padL + (i / Math.max(vals.length - 1, 1)) * plotW;
+        const y = padT + plotH - (v / trendMax) * plotH;
+        return `${x},${y}`;
+      })
+      .join(' ');
+
+  const barWidth = (plotW / data.trend.days.length) * 0.35;
+
+  return (
+    <div className="drill-page ler-screen">
+      <style>{`
+        .ler-screen { background:#071120; min-height:0; height:calc(100vh - 84px); padding:6px 16px 10px; color:#e2e8f0; font-size:13px; overflow:hidden; box-sizing:border-box; background-image:radial-gradient(circle at 50% 0%, rgba(0,118,255,0.18), transparent 30%), linear-gradient(180deg, #071120 0%, #06101e 100%); }
+        .ler-topline { height:27px; display:flex; align-items:center; justify-content:space-between; padding:0 0 4px; margin-bottom:6px; }
+        .ler-topline-title { font-size:16px; line-height:1; font-weight:600; color:#fff; display:flex; align-items:center; gap:10px; letter-spacing:0; }
+        .ler-topline-title::before { content:''; display:inline-block; width:3px; height:20px; background:#00b8ff; border-radius:1px; box-shadow:0 0 10px rgba(0,184,255,0.75); }
+        .ler-exit { display:flex; align-items:center; gap:5px; color:#94a3b8; text-decoration:none; font-size:12px; padding:3px 8px; border:1px solid rgba(42,130,220,0.48); border-radius:4px; transition:all .2s; }
+        .ler-exit svg { width:13px; height:13px; }
+        .ler-exit:hover { color:#fff; border-color:#2b7de9; background:rgba(43,125,233,0.1); }
+        .ler-kpis { height:96px; display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:12px; margin-bottom:8px; }
+        .ler-kpi { min-width:0; background:linear-gradient(135deg, rgba(12,47,89,0.93) 0%, rgba(6,25,51,0.98) 100%); border:1px solid rgba(0,126,255,0.65); border-radius:5px; padding:15px 22px 15px 24px; display:flex; align-items:center; justify-content:space-between; position:relative; overflow:hidden; box-shadow:inset 0 0 28px rgba(0,116,255,0.08), 0 0 18px rgba(0,84,178,0.12); }
+        .ler-kpi::before { content:''; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,174,255,0.12), transparent 38%); opacity:0.55; pointer-events:none; }
+        .ler-kpi:nth-child(3)::before { background:linear-gradient(120deg, rgba(255,77,79,0.16), transparent 38%); }
+        .ler-kpi-info { position:relative; z-index:1; display:flex; flex-direction:column; gap:8px; }
+        .ler-kpi-label { color:#d8e7ff; font-size:15px; font-weight:600; }
+        .ler-kpi-value { font-size:35px; line-height:1; font-weight:800; color:#22bfff; display:flex; align-items:flex-end; gap:5px; text-shadow:0 0 14px rgba(0,180,255,0.35); }
+        .ler-kpi-unit { font-size:16px; line-height:1.15; font-weight:600; color:#24c7ff; margin-left:2px; }
+        .ler-kpi-trend { color:#ffae25; font-size:22px; line-height:1; padding-bottom:2px; }
+        .ler-kpi:nth-child(1) .ler-kpi-value { color:#ff9d27; }
+        .ler-kpi:nth-child(2) .ler-kpi-value { color:#ff9d27; }
+        .ler-kpi:nth-child(3) .ler-kpi-value { color:#ff4d4f; }
+        .ler-kpi-icon-wrap { position:relative; z-index:1; width:62px; height:62px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle, rgba(16,153,255,0.32), rgba(0,74,165,0.08) 62%, transparent 68%); }
+        .ler-kpi:nth-child(3) .ler-kpi-icon-wrap { background:rgba(255,77,79,0.12); }
+        .ler-kpi-icon-wrap svg { width:34px; height:34px; color:#2aa5ff; filter:drop-shadow(0 0 8px rgba(0,166,255,0.58)); }
+        .ler-kpi:nth-child(3) .ler-kpi-icon-wrap svg { color:#ff4d4f; }
+        .ler-dashboard { height:calc(100% - 137px); min-height:0; display:grid; grid-template-columns:minmax(360px, 26fr) minmax(560px, 40.5fr) minmax(450px, 32.5fr); grid-template-rows:42fr 14fr 42fr; gap:12px; }
+        .ler-dashboard > .ler-panel:nth-child(1) { grid-column:1; grid-row:1 / span 2; }
+        .ler-dashboard > .ler-panel:nth-child(2) { grid-column:2; grid-row:1 / span 2; }
+        .ler-dashboard > .ler-panel:nth-child(3) { grid-column:3; grid-row:1; }
+        .ler-dashboard > .ler-panel:nth-child(4) { grid-column:1; grid-row:3; }
+        .ler-dashboard > .ler-panel:nth-child(5) { grid-column:2; grid-row:3; }
+        .ler-dashboard > .ler-panel:nth-child(6) { grid-column:3; grid-row:2 / span 2; }
+        .ler-panel { min-width:0; min-height:0; background:linear-gradient(135deg, rgba(8,38,75,0.88) 0%, rgba(5,22,48,0.95) 100%); border:1px solid rgba(0,136,255,0.62); border-radius:5px; padding:12px 14px; display:flex; flex-direction:column; overflow:hidden; box-shadow:inset 0 0 30px rgba(0,123,255,0.08), 0 0 20px rgba(0,75,160,0.12); }
+        .ler-panel-header { flex:0 0 auto; min-height:29px; display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(0,133,255,0.25); }
+        .ler-panel-title { font-size:16px; line-height:1; font-weight:700; color:#fff; display:flex; align-items:center; gap:7px; }
+        .ler-panel-title::before { content:''; display:inline-block; width:15px; height:15px; background:linear-gradient(90deg, #18a9ff 2px, transparent 2px 5px, #18a9ff 5px 8px, transparent 8px 11px, #18a9ff 11px); border-radius:1px; opacity:0.9; }
+        .ler-license-row { display:grid; grid-template-columns:minmax(110px, 1fr) 70px 70px 70px; align-items:center; padding:8px 4px; border-radius:4px; font-size:13px; }
+        .ler-license-row:nth-child(even) { background:rgba(255,255,255,0.02); }
+        .ler-license-head { color:#a8bfdc; font-size:12px; padding-bottom:6px; border-bottom:1px solid rgba(42,82,130,0.2); margin-bottom:4px; }
+        .ler-license-type { display:flex; align-items:center; gap:6px; color:#cbd5e1; }
+        .ler-license-highlight { color:#ff9d27; font-weight:600; }
+        .ler-license-bar-bg { height:5px; background:rgba(255,255,255,0.06); border-radius:2px; overflow:hidden; margin:0 4px 4px 4px; grid-column:1 / -1; }
+        .ler-license-bar-fill { height:100%; border-radius:2px; background:#2b7de9; }
+        .ler-license-bar-fill.hl { background:#ff9d27; }
+        .ler-num { text-align:center; font-weight:500; }
+        .ler-num-up { color:#ff9d27; }
+        .ler-num-exp { color:#ff4d4f; }
+        .ler-num-total { color:#fff; font-weight:600; }
+        .ler-license-foot { margin-top:auto; padding-top:8px; color:#a1b4d1; font-size:13px; text-align:center; }
+        .ler-map-wrap { position:relative; flex:1; min-height:0; background:radial-gradient(circle at 52% 45%, rgba(0,109,255,0.18), transparent 58%); }
+        .ler-map-svg { width:100%; height:100%; }
+        .ler-map-svg svg { width:100%; height:100%; filter:drop-shadow(0 0 13px rgba(0,144,255,0.52)); }
+        .ler-map-marker { position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column-reverse; align-items:center; gap:3px; cursor:default; background:transparent !important; border:0 !important; box-shadow:none !important; }
+        .ler-map-marker-dot { width:31px; height:31px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:#fff; border:1px solid rgba(255,255,255,0.36); box-shadow:0 0 0 4px rgba(0,126,255,0.18), 0 0 18px currentColor; }
+        .ler-map-marker-name { font-size:13px; color:#dbeafe; white-space:nowrap; text-shadow:0 1px 4px rgba(0,0,0,0.9); }
+        .ler-map-legend { position:absolute; bottom:12px; left:12px; background:rgba(6,16,32,0.72); border:0; border-radius:4px; padding:8px 10px; display:flex; flex-direction:column; gap:6px; font-size:12px; }
+        .ler-map-legend-item { display:flex; align-items:center; gap:7px; color:#d0def3; }
+        .ler-map-legend-dot { width:11px; height:11px; border-radius:50%; }
+        .ler-map-controls { position:absolute; bottom:16px; right:14px; display:flex; flex-direction:column; gap:0; border:1px solid rgba(170,198,231,0.34); background:rgba(7,17,32,0.68); }
+        .ler-map-btn { width:28px; height:30px; background:rgba(8,14,26,0.65); border:0; border-bottom:1px solid rgba(170,198,231,0.22); border-radius:0; color:#e8f3ff; font-size:18px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+        .ler-map-btn:last-child { border-bottom:0; font-size:14px; }
+        .ler-rank-row { display:grid; grid-template-columns:34px minmax(0, 1fr) 42px 58px 58px; align-items:center; gap:7px; padding:6px 2px; border-radius:4px; font-size:13px; }
+        .ler-rank-row:nth-child(even) { background:rgba(255,255,255,0.02); }
+        .ler-rank-head { color:#a8bfdc; font-size:12px; padding-bottom:5px; border-bottom:1px solid rgba(42,82,130,0.2); margin-bottom:3px; }
+        .ler-rank-num { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:#fff; margin:0 auto; border:1px solid rgba(255,255,255,0.45); box-shadow:0 0 10px rgba(0,0,0,0.4); }
+        .ler-rank-num.gold { background:#ffaf19; box-shadow:0 0 12px rgba(255,175,25,0.55); }
+        .ler-rank-num.silver { background:#94a3b8; }
+        .ler-rank-num.bronze { background:#cd7f32; }
+        .ler-rank-num.other { background:rgba(42,82,130,0.4); color:#94a3b8; }
+        .ler-rank-name { color:#cbd5e1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .ler-rank-total { text-align:center; font-size:17px; font-weight:800; color:#fff; }
+        .ler-rank-up, .ler-rank-exp { text-align:center; padding:3px 0; border-radius:4px; font-size:13px; font-weight:700; }
+        .ler-rank-up { color:#ffd58a; background:linear-gradient(180deg, rgba(255,157,39,0.42), rgba(150,76,0,0.45)); border:1px solid rgba(255,157,39,0.65); }
+        .ler-rank-exp { color:#ffd2d2; background:linear-gradient(180deg, rgba(255,77,79,0.34), rgba(116,18,22,0.52)); border:1px solid rgba(255,77,79,0.58); }
+        .ler-rank-bar-bg { grid-column:2 / 3; grid-row:2; height:4px; background:rgba(255,255,255,0.14); border-radius:2px; overflow:hidden; margin-top:-2px; }
+        .ler-rank-bar-fill { height:100%; background:#ff3d3f; border-radius:2px; box-shadow:0 0 8px rgba(255,61,63,0.5); }
+        .ler-trend-legend { display:flex; gap:24px; margin-bottom:6px; padding-left:28px; font-size:12px; }
+        .ler-trend-legend span { display:flex; align-items:center; gap:4px; color:#94a3b8; }
+        .ler-trend-legend i { display:inline-block; width:10px; height:3px; border-radius:2px; }
+        .ler-trend-legend i.line { height:2px; width:14px; }
+        .ler-trend-chart { flex:1; min-height:0; position:relative; padding:6px 6px 18px 30px; }
+        .ler-trend-plot { position:absolute; inset:6px 6px 18px 30px; }
+        .ler-trend-axis-y { position:absolute; top:6px; bottom:18px; left:0; width:26px; display:flex; flex-direction:column-reverse; justify-content:space-between; color:#7f95b5; font-size:12px; text-align:right; }
+        .ler-trend-axis-x { position:absolute; left:30px; right:6px; bottom:0; display:flex; justify-content:space-between; color:#8ea3c1; font-size:12px; }
+        .ler-analysis-inner { flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr 1.15fr; gap:14px; align-items:center; }
+        .ler-donut-wrap { display:flex; flex-direction:column; align-items:center; }
+        .ler-donut-center { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; }
+        .ler-donut-center b { font-size:18px; font-weight:700; color:#fff; display:block; }
+        .ler-donut-center span { font-size:10px; color:#8ba3c7; }
+        .ler-mini-legend { display:flex; flex-direction:column; gap:3px; margin-top:6px; font-size:11px; }
+        .ler-mini-legend span { display:flex; align-items:center; gap:4px; color:#94a3b8; }
+        .ler-mini-legend i { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+        .ler-pos-bar-row { display:flex; align-items:center; gap:8px; padding:6px 0; font-size:12px; }
+        .ler-pos-bar-label { color:#d6e4f8; width:92px; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .ler-pos-bar-track { flex:1; height:12px; background:rgba(255,255,255,0.06); border-radius:0; overflow:hidden; }
+        .ler-pos-bar-fill { height:100%; background:linear-gradient(90deg, #006dff, #12b8ff); border-radius:0; box-shadow:0 0 10px rgba(18,184,255,0.45); }
+        .ler-pos-bar-val { color:#fff; width:24px; text-align:right; font-weight:700; }
+        .ler-urgent-card { display:flex; align-items:center; gap:12px; min-height:47px; padding:7px 14px; border-radius:4px; margin-bottom:7px; font-size:13px; }
+        .ler-urgent-card:last-child { margin-bottom:0; }
+        .ler-urgent-card.red { background:linear-gradient(90deg, rgba(255,77,79,0.22), rgba(70,19,27,0.58)); border:1px solid rgba(255,77,79,0.62); box-shadow:inset 0 0 20px rgba(255,77,79,0.1); }
+        .ler-urgent-card.orange { background:linear-gradient(90deg, rgba(255,157,39,0.17), rgba(69,42,8,0.62)); border:1px solid rgba(255,157,39,0.58); box-shadow:inset 0 0 20px rgba(255,157,39,0.08); }
+        .ler-urgent-icon { width:37px; height:37px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .ler-urgent-icon svg { width:24px; height:24px; }
+        .ler-urgent-card.red .ler-urgent-icon { background:rgba(255,77,79,0.17); color:#ff574f; border-radius:8px; }
+        .ler-urgent-card.orange .ler-urgent-icon { background:rgba(255,157,39,0.12); color:#ffb12a; border:3px solid currentColor; }
+        .ler-urgent-info { flex:1; min-width:0; }
+        .ler-urgent-company { color:#fff; font-weight:700; margin-bottom:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .ler-urgent-license { color:#c6d6ee; font-size:12px; }
+        .ler-urgent-badge { padding:3px 9px; border-radius:3px; font-size:12px; font-weight:700; flex-shrink:0; }
+        .ler-urgent-card.red .ler-urgent-badge { background:rgba(255,77,79,0.2); color:#ff4d4f; }
+        .ler-urgent-card.orange .ler-urgent-badge { background:rgba(255,157,39,0.2); color:#ff9d27; }
+        .ler-urgent-days { width:66px; text-align:right; font-size:30px; line-height:1; font-weight:800; flex-shrink:0; }
+        .ler-urgent-card.red .ler-urgent-days { color:#ff4d4f; }
+        .ler-urgent-card.orange .ler-urgent-days { color:#ff9d27; }
+        .ler-urgent-days small { font-size:14px; font-weight:700; color:currentColor; margin-left:3px; }
+        @media (max-width: 1200px) {
+          .ler-screen { height:auto; min-height:100vh; overflow:auto; }
+          .ler-kpis { height:auto; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+          .ler-kpi { min-height:88px; }
+          .ler-dashboard { height:auto; min-height:0; grid-template-columns:1fr; grid-template-rows:none; }
+          .ler-dashboard > .ler-panel { grid-column:auto !important; grid-row:auto !important; min-height:280px; }
+        }
+      `}</style>
+
+      {/* 顶部标题栏 */}
+      <header className="ler-topline">
+        <div className="ler-topline-title">证照到期提醒</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ color: '#64748b', fontSize: 12 }}>数据更新时间：{data.updatedAt}</span>
+          <a className="ler-exit" href={routeHref('shuan-home-command-v3')}>
+            <LogOut size={14} />
+            <span>退出</span>
+          </a>
+        </div>
+      </header>
+
+      {/* KPI卡片 */}
+      <section className="ler-kpis">
+        {data.kpis.map((kpi) => {
+          const IconComp =
+            kpi.iconType === 'shield'
+              ? ShieldAlert
+              : kpi.iconType === 'clock'
+                ? Clock
+                : kpi.iconType === 'alert'
+                  ? AlertTriangle
+                  : kpi.iconType === 'building'
+                    ? Building2
+                    : kpi.iconType === 'user'
+                      ? Users
+                      : null;
+          return (
+            <article key={kpi.label} className="ler-kpi">
+              <div className="ler-kpi-info">
+                <span className="ler-kpi-label">{kpi.label}</span>
+                <span className="ler-kpi-value">
+                  {kpi.value}
+                  {kpi.unit && <span className="ler-kpi-unit">{kpi.unit}</span>}
+                  {kpi.trend && <span className="ler-kpi-trend">↑</span>}
+                </span>
+              </div>
+              <div className="ler-kpi-icon-wrap">
+                {kpi.iconType === 'gauge' ? (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 22, height: 22, color: '#2b7de9' }}>
+                    <path d="M12 2a10 10 0 1 0 10 10" />
+                    <path d="M12 12l4-4" />
+                    <path d="M12 2v10" />
+                  </svg>
+                ) : IconComp ? (
+                  <IconComp size={22} />
+                ) : null}
+              </div>
+            </article>
+          );
+        })}
+      </section>
+
+      {/* 中间行 */}
+      <section className="ler-dashboard">
+        {/* 左：企业证照预警分析 */}
+        <section className="ler-panel">
+          <header className="ler-panel-header">
+            <div className="ler-panel-title">企业证照预警分析</div>
+          </header>
+          <div className="ler-license-row ler-license-head">
+            <span>证照类型</span>
+            <span style={{ textAlign: 'center' }}>即将到期</span>
+            <span style={{ textAlign: 'center' }}>已过期</span>
+            <span style={{ textAlign: 'center' }}>预警总数</span>
+          </div>
+          {data.licenseTypes.map((row) => (
+            <div key={row.type}>
+              <div className="ler-license-row">
+                <span className={`ler-license-type ${row.highlight ? 'ler-license-highlight' : ''}`}>{row.type}</span>
+                <span className="ler-num ler-num-up">{row.upcoming}</span>
+                <span className="ler-num ler-num-exp">{row.expired}</span>
+                <span className="ler-num ler-num-total">{row.total}</span>
+              </div>
+              <div className="ler-license-bar-bg">
+                <div
+                  className={`ler-license-bar-fill ${row.highlight ? 'hl' : ''}`}
+                  style={{ width: `${(row.total / maxLicenseTotal) * 100}%` }}
+                />
+              </div>
+            </div>
+          ))}
+          <div className="ler-license-foot">共 6 类证照</div>
+        </section>
+
+        {/* 中：涉及煤矿分布 */}
+        <section className="ler-panel">
+          <header className="ler-panel-header">
+            <div className="ler-panel-title">涉及煤矿分布</div>
+          </header>
+          <div className="ler-map-wrap">
+            <div className="ler-map-svg" dangerouslySetInnerHTML={{ __html: normalizedSichuanMapSvg }} />
+            {data.cityMarkers.map((city) =>
+              city.value > 0 ? (
+                <div key={city.name} className="ler-map-marker" style={{ left: `${city.x}%`, top: `${city.y}%` }}>
+                  <div className="ler-map-marker-dot" style={{ background: markerColor(city.value) }}>
+                    {city.value}
+                  </div>
+                  <span className="ler-map-marker-name">{city.name}</span>
+                </div>
+              ) : null
+            )}
+            <div className="ler-map-legend">
+              <div className="ler-map-legend-item">
+                <span className="ler-map-legend-dot" style={{ background: '#ff4d4f' }} />
+                ≥ 10
+              </div>
+              <div className="ler-map-legend-item">
+                <span className="ler-map-legend-dot" style={{ background: '#ff9d27' }} />
+                5 - 9
+              </div>
+              <div className="ler-map-legend-item">
+                <span className="ler-map-legend-dot" style={{ background: '#2b7de9' }} />
+                1 - 4
+              </div>
+              <div className="ler-map-legend-item">
+                <span className="ler-map-legend-dot" style={{ background: '#4a5568' }} />
+                0
+              </div>
+            </div>
+            <div className="ler-map-controls">
+              <button type="button" className="ler-map-btn">
+                +
+              </button>
+              <button type="button" className="ler-map-btn">
+                -
+              </button>
+              <button type="button" className="ler-map-btn">
+                ◎
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* 右：重点煤矿预警排行 TOP5 */}
+        <section className="ler-panel">
+          <header className="ler-panel-header">
+            <div className="ler-panel-title">重点煤矿预警排行</div>
+            <span style={{ color: '#64748b', fontSize: 11 }}>TOP5</span>
+          </header>
+          <div className="ler-rank-row ler-rank-head">
+            <span style={{ textAlign: 'center' }}>排名</span>
+            <span>煤矿名称</span>
+            <span style={{ textAlign: 'center' }}>风险总数</span>
+            <span style={{ textAlign: 'center' }}>即将到期</span>
+            <span style={{ textAlign: 'center' }}>已过期</span>
+          </div>
+          {data.mineRankings.map((mine) => (
+            <div key={mine.rank}>
+              <div className="ler-rank-row">
+                <span
+                  className={`ler-rank-num ${mine.rank === 1 ? 'gold' : mine.rank === 2 ? 'silver' : mine.rank === 3 ? 'bronze' : 'other'}`}
+                >
+                  {mine.rank}
+                </span>
+                <span className="ler-rank-name" title={mine.name}>
+                  {mine.name}
+                </span>
+                <span className="ler-rank-total">{mine.total}</span>
+                <span className="ler-rank-up">{mine.upcoming}</span>
+                <span className="ler-rank-exp">{mine.expired}</span>
+              </div>
+              <div className="ler-rank-bar-bg">
+                <div className="ler-rank-bar-fill" style={{ width: `${(mine.total / maxMineTotal) * 100}%` }} />
+              </div>
+            </div>
+          ))}
+        </section>
+      {/* 底部行 */}
+        {/* 左：近30天到期趋势 */}
+        <section className="ler-panel">
+          <header className="ler-panel-header">
+            <div className="ler-panel-title">近30天到期趋势</div>
+          </header>
+          <div className="ler-trend-legend">
+            <span>
+              <i className="line" style={{ background: '#ff9d27' }} />
+              即将到期(30天内)
+            </span>
+            <span>
+              <i className="line" style={{ background: '#ff4d4f' }} />
+              已过期
+            </span>
+          </div>
+          <div className="ler-trend-chart">
+            <div className="ler-trend-axis-y">
+              {[0, 10, 20, 30, 40].map((tick) => <span key={tick}>{tick}</span>)}
+            </div>
+            <div className="ler-trend-axis-x">
+              {data.trend.days.map((d) => <span key={d}>{d}</span>)}
+            </div>
+            <svg className="ler-trend-plot" viewBox={`0 0 ${chartW} ${chartH}`} preserveAspectRatio="none">
+              {/* 网格线 */}
+              {[0, 10, 20, 30, 40].map((tick) => {
+                const y = padT + plotH - (tick / trendMax) * plotH;
+                return (
+                  <g key={tick}>
+                    <line x1={padL} x2={chartW - padR} y1={y} y2={y} stroke="rgba(42,82,130,0.32)" strokeWidth="0.3" />
+                  </g>
+                );
+              })}
+              {/* 柱状图 - 已过期 */}
+              {data.trend.expired.map((v, i) => {
+                const x = padL + (i / (data.trend.days.length - 1)) * plotW - barWidth / 2;
+                const h = (v / trendMax) * plotH;
+                const y = padT + plotH - h;
+                return <rect key={`bar-${i}`} x={x} y={y} width={barWidth} height={h} fill="#ff4d4f" rx="0.5" opacity="0.85" />;
+              })}
+              {/* 折线图 - 即将到期 */}
+              <polyline points={linePoints(data.trend.upcoming)} fill="none" stroke="#ff9d27" strokeWidth="0.8" />
+              {data.trend.upcoming.map((v, i) => {
+                const x = padL + (i / (data.trend.days.length - 1)) * plotW;
+                const y = padT + plotH - (v / trendMax) * plotH;
+                return <circle key={`pt-${i}`} cx={x} cy={y} r="1.2" fill="#ff9d27" />;
+              })}
+            </svg>
+          </div>
+        </section>
+
+        {/* 中：证照异常综合分析 */}
+        <section className="ler-panel">
+          <header className="ler-panel-header">
+            <div className="ler-panel-title">证照异常综合分析</div>
+          </header>
+          <div className="ler-analysis-inner">
+            {/* 左：证照异常结构 */}
+            <div className="ler-donut-wrap">
+              <div style={{ position: 'relative', width: 90, height: 90 }}>
+                <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                  {abnormalDonut.map((s, i) => (
+                    <path key={i} d={s.d} fill={s.color} />
+                  ))}
+                </svg>
+                <div className="ler-donut-center">
+                  <b>58</b>
+                  <span>总数</span>
+                </div>
+              </div>
+              <div className="ler-mini-legend">
+                {data.abnormalStructure.map((s) => (
+                  <span key={s.label}>
+                    <i style={{ background: s.color }} />
+                    {s.label} {s.value} ({s.percent})
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 中：预警分类占比 */}
+            <div className="ler-donut-wrap">
+              <div style={{ position: 'relative', width: 90, height: 90 }}>
+                <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                  {warningDonut.map((s, i) => (
+                    <path key={i} d={s.d} fill={s.color} />
+                  ))}
+                </svg>
+                <div className="ler-donut-center">
+                  <b>118</b>
+                  <span>预警总数</span>
+                </div>
+              </div>
+              <div className="ler-mini-legend">
+                {data.warningCategories.map((s) => (
+                  <span key={s.label}>
+                    <i style={{ background: s.color }} />
+                    {s.label} {s.value} ({s.percent})
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 右：重点岗位证照异常TOP5 */}
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#fff', marginBottom: 8, textAlign: 'center' }}>
+                重点岗位证照异常TOP5
+              </div>
+              {data.positionAbnormal.map((pos) => (
+                <div key={pos.label} className="ler-pos-bar-row">
+                  <span className="ler-pos-bar-label">{pos.label}</span>
+                  <div className="ler-pos-bar-track">
+                    <div className="ler-pos-bar-fill" style={{ width: `${(pos.value / maxPos) * 100}%` }} />
+                  </div>
+                  <span className="ler-pos-bar-val">{pos.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 右：紧急证照提醒 */}
+        <section className="ler-panel">
+          <header className="ler-panel-header">
+            <div className="ler-panel-title">
+              <AlertTriangle size={14} style={{ color: '#ff4d4f' }} />
+              紧急证照提醒
+            </div>
+          </header>
+          {data.urgentReminders.map((item, idx) => (
+            <div key={idx} className={`ler-urgent-card ${item.status === 'expired' ? 'red' : 'orange'}`}>
+              <div className="ler-urgent-icon">{item.status === 'expired' ? <AlertTriangle size={16} /> : <Clock size={16} />}</div>
+              <div className="ler-urgent-info">
+                <div className="ler-urgent-company">{item.company}</div>
+                <div className="ler-urgent-license">{item.licenseType}</div>
+              </div>
+              <span className="ler-urgent-badge">{item.status === 'expired' ? '已过期' : '即将到期'}</span>
+              <span className="ler-urgent-days">
+                {item.days < 0 ? item.days : `+${item.days}`}
+                <small>天</small>
+              </span>
+            </div>
+          ))}
         </section>
       </section>
     </div>
@@ -2133,11 +2931,26 @@ export function ShuanDrilldownContent({ pageId, onExit }: { pageId: string; onEx
   if (pageId === shuanDangerousWorkReportData.route) {
     return <DangerousWorkReportPage onExit={onExit} />;
   }
+  if (pageId === shuanLicenseExpiryReminderData.route) {
+    return <LicenseExpiryReminderPage />;
+  }
   if (pageId === shuanMajorHazardReminderData.route) {
     return <MajorHazardReminderPage />;
   }
   if (pageId === shuanHiddenDangerData.route) {
     return <HiddenDangerManagementPage />;
+  }
+  if (pageId === shuanRectificationReviewData.route) {
+    return <RectificationReviewPage />;
+  }
+  if (pageId === shuanCountyInspectionData.route) {
+    return <CountyInspectionPage onExit={onExit} />;
+  }
+  if (pageId === 'shuan-home-command-v3-illegal-disposal-city-analysis') {
+    return <IllegalCityAnalysisPage onExit={onExit} />;
+  }
+  if (pageId === shuanProvinceSupervisionData.route) {
+    return <ProvinceSupervisionPage />;
   }
   if (pageId === shuanHiddenFaceMineProfileData.route) {
     return <HiddenFaceMineProfilePage />;

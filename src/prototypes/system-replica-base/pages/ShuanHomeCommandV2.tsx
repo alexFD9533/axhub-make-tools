@@ -196,13 +196,28 @@ const riskLegend = [
 ] as const;
 
 const normalizedSichuanMapSvg = normalizeInlineSvg(sichuanMapSvg);
+const cockpitIconSymbols = parseCockpitIconSymbols(cockpitIconsSprite);
 
-function CockpitIconSprite() {
-  return <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} dangerouslySetInnerHTML={{ __html: cockpitIconsSprite }} />;
+function parseCockpitIconSymbols(sprite: string) {
+  const symbols: Partial<Record<CockpitIconName, { viewBox: string; content: string }>> = {};
+  const symbolPattern = /<symbol\s+id="([^"]+)"\s+viewBox="([^"]+)"[^>]*>([\s\S]*?)<\/symbol>/g;
+  for (const match of sprite.matchAll(symbolPattern)) {
+    const [, id, viewBox, content] = match;
+    symbols[id as CockpitIconName] = { viewBox, content };
+  }
+  return symbols;
 }
 
 function CockpitIcon({ name, className = '' }: { name: CockpitIconName; className?: string }) {
-  return <svg className={`cockpit-svg-icon ${className}`} aria-hidden="true"><use href={`#${name}`} /></svg>;
+  const symbol = cockpitIconSymbols[name];
+  return (
+    <svg
+      className={`cockpit-svg-icon ${className}`}
+      aria-hidden="true"
+      viewBox={symbol?.viewBox || '0 0 32 32'}
+      dangerouslySetInnerHTML={{ __html: symbol?.content || '' }}
+    />
+  );
 }
 
 function Panel({ title, children, className = '', action }: { title: string; children: React.ReactNode; className?: string; action?: React.ReactNode }) {
@@ -373,7 +388,7 @@ function IllegalTreatmentPanel() {
 }
 
 function CommandV2Concept() {
-  return <div className="shuan-concept shuan-command shuan-command-v2"><CockpitIconSprite /><TopHeader /><main className="command-grid"><div className="command-left"><RegulatedMinePanel /><DataAggregationPanel /></div><MapStage /><div className="command-right"><DailyRegulationPanel /><IllegalTreatmentPanel /></div></main></div>;
+  return <div className="shuan-concept shuan-command shuan-command-v2"><TopHeader /><main className="command-grid"><div className="command-left"><RegulatedMinePanel /><DataAggregationPanel /></div><MapStage /><div className="command-right"><DailyRegulationPanel /><IllegalTreatmentPanel /></div></main></div>;
 }
 
 export function ShuanHomeCommandV2Page(_props: ShuanHomeConceptPageProps) {

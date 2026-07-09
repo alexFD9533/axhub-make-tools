@@ -3,7 +3,7 @@ import { ChevronDown, ExternalLink, Search, Settings, UserRound, Video } from 'l
 import sichuanMapSvg from '../../../resources/shuan/sichuan-map.svg?raw';
 import { normalizeInlineSvg } from '../../../common/inlineSvg';
 import sichuanSatelliteBgUrl from '../../../resources/shuan/sichuan-satellite-bg-v2-bright.png';
-import cockpitIconsUrl from '../../../resources/shuan/cockpit/icons.svg';
+import cockpitIconsSprite from '../../../resources/shuan/cockpit/icons.svg?raw';
 import conceptDataBasicIconUrl from '../../../resources/shuan/cockpit/concept-icons/data-basic.png';
 import conceptDataLaborIconUrl from '../../../resources/shuan/cockpit/concept-icons/data-labor.png';
 import conceptDataDisasterIconUrl from '../../../resources/shuan/cockpit/concept-icons/data-disaster.png';
@@ -21,6 +21,7 @@ import illegalCountyInspectionIconUrl from '../../../resources/shuan/illegal-ico
 import illegalCityAnalysisIconUrl from '../../../resources/shuan/illegal-icons/city-analysis-transparent.png';
 import illegalProvinceSupervisionIconUrl from '../../../resources/shuan/illegal-icons/province-supervision-transparent.png';
 import { ShuanDrilldownContent } from './shuan-drilldowns/ShuanDrilldownPages';
+import { shuanIllegalDisposalRows } from './shuan-drilldowns/data';
 import {
   SICHUAN_TOTAL_MINES,
   SICHUAN_PRODUCING_MINES,
@@ -186,12 +187,12 @@ const illegalCampaignRows = [
   { title: '隐瞒入井人数专项整治', page: 'shuan-home-command-v3-illegal-campaign-hidden-person', metrics: [['疑似矿井', '14'], ['较高风险', '7'], ['待核查', '17']] },
 ] as const;
 
-const illegalDisposalRows = [
-  { title: '煤矿整改', owner: '县级复核', todo: '26', closed: '18', iconUrl: illegalMineRectificationIconUrl, tone: 'cyan' },
-  { title: '县级走访', owner: '现场核查', todo: '15', closed: '11', iconUrl: illegalCountyInspectionIconUrl, tone: 'green' },
-  { title: '市级研判', owner: '专项研判', todo: '10', closed: '7', iconUrl: illegalCityAnalysisIconUrl, tone: 'orange' },
-  { title: '省挂牌督办', owner: '挂牌督办', todo: '6', closed: '4', iconUrl: illegalProvinceSupervisionIconUrl, tone: 'red' },
-] as const;
+const illegalDisposalIconByTitle: Record<string, string> = {
+  '煤矿整改': illegalMineRectificationIconUrl,
+  '县级走访': illegalCountyInspectionIconUrl,
+  '市级研判': illegalCityAnalysisIconUrl,
+  '省挂牌督办': illegalProvinceSupervisionIconUrl,
+};
 
 const illegalSourceDrilldownPage: Record<(typeof illegalSourceRows)[number]['id'], string> = {
   gas: 'shuan-home-command-v3-illegal-algorithms',
@@ -225,9 +226,28 @@ const riskLegend = [
 ] as const;
 
 const normalizedSichuanMapSvg = normalizeInlineSvg(sichuanMapSvg);
+const cockpitIconSymbols = parseCockpitIconSymbols(cockpitIconsSprite);
+
+function parseCockpitIconSymbols(sprite: string) {
+  const symbols: Partial<Record<CockpitIconName, { viewBox: string; content: string }>> = {};
+  const symbolPattern = /<symbol\s+id="([^"]+)"\s+viewBox="([^"]+)"[^>]*>([\s\S]*?)<\/symbol>/g;
+  for (const match of sprite.matchAll(symbolPattern)) {
+    const [, id, viewBox, content] = match;
+    symbols[id as CockpitIconName] = { viewBox, content };
+  }
+  return symbols;
+}
 
 function CockpitIcon({ name, className = '' }: { name: CockpitIconName; className?: string }) {
-  return <svg className={`cockpit-svg-icon ${className}`} aria-hidden="true"><use href={`${cockpitIconsUrl}#${name}`} /></svg>;
+  const symbol = cockpitIconSymbols[name];
+  return (
+    <svg
+      className={`cockpit-svg-icon ${className}`}
+      aria-hidden="true"
+      viewBox={symbol?.viewBox || '0 0 32 32'}
+      dangerouslySetInnerHTML={{ __html: symbol?.content || '' }}
+    />
+  );
 }
 
 function Panel({ title, children, className = '', titleAction, action, annotationId }: { title: string; children: React.ReactNode; className?: string; titleAction?: React.ReactNode; action?: React.ReactNode; annotationId?: string }) {
@@ -566,7 +586,7 @@ function IllegalTreatmentPanel({ onOpenPage }: { onOpenPage?: (pageId: string) =
           {illegalCampaignRows.map((item) => <button type="button" key={item.title} className="illegal-campaign-card" onClick={() => onOpenPage?.(item.page)}><header><strong>{item.title}</strong></header><div>{item.metrics.map(([label, value]) => <span key={label}><em>{label}</em><b>{value}</b></span>)}</div></button>)}
         </div>
         <div className="illegal-disposal-strip" aria-label="分级处置任务">
-          {illegalDisposalRows.map((item, index) => <React.Fragment key={item.title}><article className={`illegal-disposal-card tone-${item.tone}`}><span className="illegal-disposal-icon"><img src={item.iconUrl} alt="" /></span><div><strong>{item.title}</strong><em>{item.owner}</em></div><p><small>待办<b>{item.todo}</b></small><small>闭环<b>{item.closed}</b></small></p></article>{index < illegalDisposalRows.length - 1 && <i aria-hidden="true" />}</React.Fragment>)}
+          {shuanIllegalDisposalRows.map((item, index) => <React.Fragment key={item.title}>{item.page ? <button type="button" className={`illegal-disposal-card tone-${item.tone}`} onClick={() => onOpenPage?.(item.page)}><span className="illegal-disposal-icon"><img src={illegalDisposalIconByTitle[item.title]} alt="" /></span><div><strong>{item.title}</strong><em>{item.owner}</em></div><p><small>待办<b>{item.todo}</b></small><small>闭环<b>{item.closed}</b></small></p></button> : <article className={`illegal-disposal-card tone-${item.tone}`}><span className="illegal-disposal-icon"><img src={illegalDisposalIconByTitle[item.title]} alt="" /></span><div><strong>{item.title}</strong><em>{item.owner}</em></div><p><small>待办<b>{item.todo}</b></small><small>闭环<b>{item.closed}</b></small></p></article>}{index < shuanIllegalDisposalRows.length - 1 && <i aria-hidden="true" />}</React.Fragment>)}
         </div>
       </div>
     </Panel>

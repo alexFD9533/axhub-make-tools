@@ -110,12 +110,24 @@ export default defineConfig(({ command }) => {
       ],
       alias: [
         { find: '@', replacement: path.resolve(projectRoot, 'src') },
-        !isIifeBuild && !isServe && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
+        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
           find: /^react$/,
           replacement: path.resolve(projectRoot, 'src/common/react-shim.js'),
         },
-        !isIifeBuild && !isServe && fs.existsSync(path.resolve(projectRoot, 'src/common/react-dom-shim.js')) && {
+        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
+          find: /^react\/jsx-runtime$/,
+          replacement: path.resolve(projectRoot, 'src/common/react-shim.js'),
+        },
+        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
+          find: /^react\/jsx-dev-runtime$/,
+          replacement: path.resolve(projectRoot, 'src/common/react-shim.js'),
+        },
+        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-dom-shim.js')) && {
           find: /^react-dom$/,
+          replacement: path.resolve(projectRoot, 'src/common/react-dom-shim.js'),
+        },
+        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-dom-shim.js')) && {
+          find: /^react-dom\/client$/,
           replacement: path.resolve(projectRoot, 'src/common/react-dom-shim.js'),
         },
       ].filter(Boolean) as { find: string | RegExp; replacement: string }[],

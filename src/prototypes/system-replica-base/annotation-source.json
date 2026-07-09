@@ -612,7 +612,11 @@
     "hidden-risk-profile-evidence": "# 支撑线索与证据链\n\n本区展示参与当前评分的核心线索和证据材料。\n\n线索字段包括方向、类型、发生时间、等级、有效性、参与评分项和证据材料。线索一经生成即参与评分或追溯；核查结果只修正线索有效性和评分依据。",
     "hidden-risk-profile-backflow": "# 风险回流判断\n\n风险回流判断说明检查结果如何影响煤矿风险等级。\n\n当前示例中专项排查尚未完成，关键线索仍为当前有效，因此风险维持高风险。后续如果核查属实，风险维持或升高；如果关键线索被排除并且后续无持续线索，才可降级或解除跟踪。",
     "hidden-risk-module-doc": "",
-    "shuan-home-v3-module-doc": ""
+    "shuan-home-v3-module-doc": "",
+    "rectification-review-module-doc": "",
+    "county-inspection-module-doc": "",
+    "illegal-city-analysis-module-doc": "",
+    "province-supervision-module-doc": ""
   },
   "assetMap": {},
   "directory": {
@@ -785,6 +789,30 @@
             "type": "markdown",
             "id": "shuan-home-v3-module-doc",
             "title": "蜀安首页V3产品迭代需求说明（2026-06-30）",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "rectification-review-module-doc",
+            "title": "打非治违分级协同处置-整改复核产品迭代需求说明（2026-07-08）",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "county-inspection-module-doc",
+            "title": "打非治违分级协同处置-现场核查产品迭代需求说明（2026-07-08）",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "illegal-city-analysis-module-doc",
+            "title": "打非治违分级协同处置-专项研判产品迭代需求说明（2026-07-08）",
+            "markdown": ""
+          },
+          {
+            "type": "markdown",
+            "id": "province-supervision-module-doc",
+            "title": "打非治违分级协同处置-挂牌督办产品迭代需求说明（2026-07-08）",
             "markdown": ""
           }
         ]

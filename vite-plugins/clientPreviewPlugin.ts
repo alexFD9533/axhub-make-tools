@@ -42,8 +42,12 @@ function createRouteBaseHref(type: ResourceType, name: string): string {
   return `${encodeRoutePath(`/${type}/${name}`)}/`;
 }
 
-function createPreviewTransformUrl(type: ResourceType, name: string): string {
-  return createRouteBaseHref(type, name);
+function createPreviewTransformUrl(type: ResourceType, name: string, cacheToken?: string): string {
+  const baseHref = createRouteBaseHref(type, name);
+  if (!cacheToken) {
+    return baseHref;
+  }
+  return `${baseHref}?axhub_preview_v=${encodeURIComponent(cacheToken)}`;
 }
 
 function normalizeRoute(url: string): { type: ResourceType; name: string; action: 'preview' | 'spec'; assetPath?: string } | null {
@@ -91,6 +95,18 @@ function readTemplate(projectRoot: string, name: string) {
   return fs.readFileSync(templatePath, 'utf8');
 }
 
+function toFsBrowserPath(filePath: string): string {
+  return `/@fs/${filePath.replace(/\\/gu, '/')}`;
+}
+
+function applyNoStoreHeaders(res: {
+  setHeader(name: string, value: string): void;
+}) {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+}
+
 export function createQuickEditRuntimeScriptTag(serverOrigin: string | null | undefined): string {
   const origin = String(serverOrigin || '').trim().replace(/\/+$/u, '');
   if (!origin) {
@@ -105,6 +121,21 @@ export function createDevTemplateBootstrapScriptTag(serverOrigin: string | null 
     return '';
   }
   return `<script type="module" data-axhub-dev-template-bootstrap src="${origin}/assets/dev-template-bootstrap.js"></script>`;
+}
+
+export function injectPreviewReactRuntimeScripts(html: string, projectRoot: string): string {
+  if (html.includes('data-axhub-preview-react-runtime')) {
+    return html;
+  }
+  const reactUmdPath = path.resolve(projectRoot, 'node_modules/react/umd/react.development.js');
+  const reactDomUmdPath = path.resolve(projectRoot, 'node_modules/react-dom/umd/react-dom.development.js');
+  const runtimeTags = [
+    `<script data-axhub-preview-react-runtime src="${toFsBrowserPath(reactUmdPath)}"></script>`,
+    `<script data-axhub-preview-react-runtime src="${toFsBrowserPath(reactDomUmdPath)}"></script>`,
+  ].join('\n  ');
+  return html.includes('</head>')
+    ? html.replace('</head>', `  ${runtimeTags}\n</head>`)
+    : `${runtimeTags}\n${html}`;
 }
 
 export function injectDevTemplateBootstrapScript(html: string, serverOrigin: string | null | undefined): string {
@@ -169,13 +200,10 @@ export function injectPreviewScrollbarStyle(html: string): string {
 }
 
 function createPreviewLoader(type: ResourceType, name: string, projectRoot: string) {
-  const importPath = `/${type}/${name}/index.tsx`;
+  const cacheToken = Date.now().toString(36);
+  const importPath = `/${type}/${name}/index.tsx?axhub_preview_v=${cacheToken}`;
   const previewPath = `/${type}/${name}`;
   return `
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import PreviewComponent from ${JSON.stringify(importPath)};
-
 function notifyAxhubPreviewUpdated(reason) {
   if (typeof window === 'undefined' || window.parent === window) return;
   window.parent.postMessage({
@@ -191,27 +219,46 @@ if (!rootElement) {
   throw new Error('[Axhub Make Project] Missing #root container');
 }
 
-const root = createRoot(rootElement);
-root.render(React.createElement(PreviewComponent, {
-  container: rootElement,
-  config: {
-    projectPath: ${JSON.stringify(projectRoot)},
-  },
-  data: {},
-  events: {},
-}));
+if (!window.React || !window.ReactDOM) {
+  throw new Error('[Axhub Make Project] React runtime is not ready');
+}
+
+const renderPreview = async () => {
+  const module = await import(${JSON.stringify(importPath)});
+  const PreviewComponent = module?.default;
+  if (!PreviewComponent) {
+    throw new Error('[Axhub Make Project] Preview component is missing a default export');
+  }
+
+  const root = window.ReactDOM.createRoot
+    ? window.ReactDOM.createRoot(rootElement)
+    : null;
+  const element = window.React.createElement(PreviewComponent, {
+    container: rootElement,
+    config: {
+      projectPath: ${JSON.stringify(projectRoot)},
+    },
+    data: {},
+    events: {},
+  });
+
+  if (root) {
+    root.render(element);
+    return root;
+  }
+
+  window.ReactDOM.render(element, rootElement);
+  return null;
+};
+
+let currentRoot = await renderPreview();
 
 if (import.meta.hot) {
-  import.meta.hot.accept(${JSON.stringify(importPath)}, (nextModule) => {
-    const NextComponent = nextModule?.default || PreviewComponent;
-    root.render(React.createElement(NextComponent, {
-      container: rootElement,
-      config: {
-        projectPath: ${JSON.stringify(projectRoot)},
-      },
-      data: {},
-      events: {},
-    }));
+  import.meta.hot.accept(${JSON.stringify(importPath)}, async () => {
+    if (currentRoot && currentRoot.unmount) {
+      currentRoot.unmount();
+    }
+    currentRoot = await renderPreview();
     notifyAxhubPreviewUpdated('hmr');
   });
 }
@@ -237,7 +284,7 @@ function sendPreviewFile(res: {
   };
   res.statusCode = 200;
   res.setHeader('Content-Type', contentTypes[ext] || 'application/octet-stream');
-  res.setHeader('Cache-Control', 'no-store');
+  applyNoStoreHeaders(res);
   res.end(fs.readFileSync(filePath));
   return true;
 }
@@ -394,6 +441,7 @@ export function clientPreviewPlugin(): Plugin {
           }
 
           if (isHtmlProxyModuleRequest(req.url)) {
+            applyNoStoreHeaders(res);
             next();
             return;
           }
@@ -438,6 +486,7 @@ export function clientPreviewPlugin(): Plugin {
             displayName: readEntryDisplayName(entryPath),
             mode: 'dev',
           });
+          const previewCacheToken = Date.now().toString(36);
           const template = readTemplate(projectRoot, 'dev-template.html');
           const serverOrigin = await resolveAdminServerOrigin(projectRoot, req);
           let html = template
@@ -446,6 +495,7 @@ export function clientPreviewPlugin(): Plugin {
               '</head>',
               `  <base href="${createRouteBaseHref(route.type, route.name)}">\n</head>`,
             );
+          html = injectPreviewReactRuntimeScripts(html, projectRoot);
           html = injectPreviewScrollbarStyle(html);
 
           const stylePath = path.resolve(projectRoot, 'src', route.type, route.name, 'style.css');
@@ -461,8 +511,9 @@ export function clientPreviewPlugin(): Plugin {
 
           res.statusCode = 200;
           res.setHeader('Content-Type', 'text/html; charset=utf-8');
+          applyNoStoreHeaders(res);
           res.end(await server.transformIndexHtml(
-            createPreviewTransformUrl(route.type, route.name),
+            createPreviewTransformUrl(route.type, route.name, previewCacheToken),
             html,
           ));
         } catch (error) {

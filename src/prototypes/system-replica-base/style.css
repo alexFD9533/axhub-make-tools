@@ -27711,3 +27711,1470 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .drill-dangerous-work-page .drill-dangerous-line {
   height: 88px;
 }
+
+.shuan-command-v3 button.illegal-disposal-card {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  background: transparent;
+}
+
+.drill-supervision-page.drill-supervision-v2 {
+  min-height: calc(100vh - 98px);
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 12px;
+  color: #dcecff;
+}
+
+.drill-supervision-topline,
+.drill-supervision-toolbar,
+.drill-supervision-panel,
+.drill-supervision-kpis article {
+  border: 1px solid rgba(45, 132, 219, 0.46);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(6, 43, 86, 0.92), rgba(4, 25, 56, 0.98));
+  box-shadow: inset 0 0 18px rgba(44, 149, 255, 0.08);
+}
+
+.drill-supervision-topline {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+}
+
+.drill-supervision-topline p,
+.drill-supervision-topline h1,
+.drill-supervision-toolbar span,
+.drill-supervision-kpis p,
+.drill-supervision-kpis span,
+.drill-supervision-panel-head span,
+.drill-supervision-table-row,
+.drill-supervision-side-card p,
+.drill-supervision-side-card span,
+.drill-supervision-side-card em,
+.drill-supervision-audit-grid dd,
+.drill-supervision-audit-grid dt,
+.drill-supervision-rectify-box p,
+.drill-supervision-closure p,
+.drill-supervision-closure li {
+  margin: 0;
+}
+
+.drill-supervision-topline p {
+  color: #8db7de;
+  font-size: 12px;
+}
+
+.drill-supervision-topline h1 {
+  color: #f2f8ff;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.drill-supervision-exit,
+.drill-supervision-toolbar button {
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 1px solid rgba(83, 190, 255, 0.42);
+  border-radius: 3px;
+  background: rgba(5, 36, 72, 0.82);
+  color: #d6efff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.drill-supervision-toolbar {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.drill-supervision-toolbar-group,
+.drill-supervision-toolbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.drill-supervision-toolbar button.active {
+  border-color: rgba(106, 209, 255, 0.78);
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(24, 105, 170, 0.95), rgba(12, 68, 127, 0.96));
+}
+
+.drill-supervision-toolbar-meta span {
+  color: #8db7de;
+  font-size: 12px;
+}
+
+.drill-supervision-kpis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.drill-supervision-kpis article {
+  min-height: 82px;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  padding: 10px 12px;
+}
+
+.drill-supervision-kpis strong {
+  color: #41d8ff;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.drill-supervision-kpis article.tone-red strong { color: #ff6d7b; }
+.drill-supervision-kpis article.tone-amber strong { color: #ffc457; }
+.drill-supervision-kpis article.tone-green strong { color: #52de9c; }
+.drill-supervision-kpis article.tone-blue strong { color: #7bb7ff; }
+
+.drill-supervision-kpis span,
+.drill-supervision-kpis p {
+  color: #a7c7e8;
+  font-size: 12px;
+}
+
+.drill-supervision-main {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.88fr);
+  gap: 8px;
+}
+
+.drill-supervision-left,
+.drill-supervision-right,
+.drill-supervision-side-stack {
+  min-height: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.drill-supervision-left {
+  grid-template-rows: minmax(320px, auto) minmax(250px, auto);
+}
+
+.drill-supervision-right {
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.drill-supervision-panel {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.drill-supervision-panel-head {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(54, 134, 206, 0.24);
+}
+
+.drill-supervision-panel-head strong {
+  display: block;
+  color: #eff7ff;
+  font-size: 15px;
+}
+
+.drill-supervision-panel-head span {
+  color: #8db7de;
+  font-size: 12px;
+}
+
+.drill-supervision-head-metrics {
+  display: flex;
+  gap: 10px;
+}
+
+.drill-supervision-head-metrics span {
+  min-width: 88px;
+  display: grid;
+  gap: 2px;
+  justify-items: end;
+}
+
+.drill-supervision-head-metrics em {
+  color: #8db7de;
+  font-style: normal;
+  font-size: 11px;
+}
+
+.drill-supervision-head-metrics b {
+  color: #f7fbff;
+  font-size: 16px;
+}
+
+.drill-supervision-table {
+  padding: 0 12px 12px;
+}
+
+.drill-supervision-table-row {
+  display: grid;
+  grid-template-columns: 110px 110px minmax(180px, 1.5fr) 180px 120px 130px 92px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(49, 117, 184, 0.18);
+  color: #dcecff;
+  font-size: 12px;
+}
+
+.drill-supervision-table-row.head {
+  color: #9ec2e5;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.drill-supervision-pill {
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border: 1px solid rgba(101, 173, 232, 0.24);
+  border-radius: 999px;
+  background: rgba(22, 54, 98, 0.75);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.drill-supervision-pill.tone-red { color: #ff7887; border-color: rgba(255, 103, 123, 0.28); background: rgba(94, 25, 38, 0.48); }
+.drill-supervision-pill.tone-amber { color: #ffc768; border-color: rgba(255, 197, 88, 0.24); background: rgba(94, 63, 15, 0.44); }
+.drill-supervision-pill.tone-cyan { color: #53dfff; border-color: rgba(83, 223, 255, 0.24); background: rgba(10, 69, 89, 0.42); }
+.drill-supervision-pill.tone-green { color: #6de4ab; border-color: rgba(109, 228, 171, 0.24); background: rgba(17, 78, 54, 0.44); }
+.drill-supervision-pill.tone-blue { color: #7fbaff; border-color: rgba(127, 186, 255, 0.22); background: rgba(19, 57, 98, 0.48); }
+
+.drill-supervision-timeline {
+  padding: 12px 14px 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.drill-supervision-timeline > div {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.drill-supervision-timeline > div i {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(16, 56, 98, 0.9);
+  border: 1px solid rgba(62, 145, 217, 0.38);
+  color: #9ecfff;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.drill-supervision-timeline > div.active i {
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(42, 145, 229, 0.96), rgba(21, 95, 164, 0.96));
+}
+
+.drill-supervision-timeline section {
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.drill-supervision-timeline section::after {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 32px;
+  bottom: -8px;
+  width: 1px;
+  background: rgba(56, 125, 191, 0.26);
+}
+
+.drill-supervision-timeline > div:last-child section::after {
+  display: none;
+}
+
+.drill-supervision-timeline strong {
+  color: #f0f7ff;
+  font-size: 13px;
+}
+
+.drill-supervision-timeline span,
+.drill-supervision-timeline p {
+  display: block;
+  color: #8db7de;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.drill-supervision-side-stack {
+  padding: 12px 14px 16px;
+}
+
+.drill-supervision-side-card {
+  padding: 12px;
+  border: 1px solid rgba(48, 126, 191, 0.24);
+  border-radius: 4px;
+  background: rgba(3, 28, 62, 0.44);
+}
+
+.drill-supervision-side-card header,
+.drill-supervision-audit-grid article header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #eef7ff;
+}
+
+.drill-supervision-side-card header svg,
+.drill-supervision-audit-grid article header svg {
+  width: 16px;
+  height: 16px;
+  color: #5ddbff;
+}
+
+.drill-supervision-side-card p {
+  display: grid;
+  gap: 2px;
+}
+
+.drill-supervision-side-card p + p {
+  margin-top: 10px;
+}
+
+.drill-supervision-side-card b {
+  color: #eef7ff;
+  font-size: 13px;
+}
+
+.drill-supervision-side-card span,
+.drill-supervision-side-card em,
+.drill-supervision-notice p,
+.drill-supervision-judgement .directive,
+.drill-supervision-closure p,
+.drill-supervision-closure li,
+.drill-supervision-audit-grid dd,
+.drill-supervision-rectify-box li {
+  color: #92b8de;
+  font-size: 12px;
+  line-height: 1.65;
+  font-style: normal;
+}
+
+.drill-supervision-notice,
+.drill-supervision-closure {
+  display: grid;
+  gap: 8px;
+}
+
+.drill-supervision-judgement {
+  display: grid;
+  gap: 10px;
+}
+
+.drill-supervision-judgement .directive {
+  padding: 10px 12px;
+  border-radius: 4px;
+  background: rgba(14, 45, 86, 0.74);
+  border: 1px solid rgba(51, 118, 180, 0.24);
+}
+
+.drill-supervision-audit-zone {
+  display: flex;
+  flex-direction: column;
+}
+
+.drill-supervision-audit-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px 14px 16px;
+}
+
+.drill-supervision-audit-grid article {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(48, 126, 191, 0.24);
+  border-radius: 4px;
+  background: rgba(3, 28, 62, 0.44);
+}
+
+.drill-supervision-audit-grid dl {
+  display: grid;
+  gap: 10px;
+}
+
+.drill-supervision-audit-grid dt {
+  color: #88b2dc;
+  font-size: 11px;
+}
+
+.drill-supervision-audit-grid dd {
+  margin-top: 4px;
+}
+
+.drill-supervision-audit-result,
+.drill-supervision-rectify-box {
+  display: grid;
+  gap: 8px;
+}
+
+.drill-supervision-audit-result ul,
+.drill-supervision-closure ul,
+.drill-supervision-rectify-box ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+@media (max-width: 1440px) {
+  .drill-supervision-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .drill-supervision-main {
+    grid-template-columns: 1fr;
+  }
+
+  .drill-supervision-audit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* county inspection drilldown */
+.drill-county-inspection-page {
+  min-height: calc(100vh - 100px);
+  padding: 12px 14px 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.drill-county-inspection-page::before {
+  display: none;
+}
+
+.county-inspection-header,
+.county-inspection-metrics article,
+.county-inspection-panel {
+  border: 1px solid rgba(54, 186, 255, 0.26);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(7, 40, 79, 0.94), rgba(3, 24, 53, 0.96));
+  box-shadow: inset 0 0 18px rgba(0, 154, 229, 0.08), 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.county-inspection-header {
+  padding: 14px 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.county-inspection-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.county-inspection-title h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.county-inspection-title p,
+.county-inspection-panel-head p,
+.county-inspection-table-panel > header > span,
+.county-inspection-next-step p,
+.county-inspection-track p,
+.county-inspection-records li,
+.county-inspection-checklist em {
+  margin: 0;
+  color: rgba(186, 226, 246, 0.82);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.county-inspection-exit,
+.county-inspection-filter button,
+.county-inspection-actions button {
+  border: 1px solid rgba(74, 190, 255, 0.28);
+  background: rgba(5, 28, 61, 0.72);
+  color: #d8f5ff;
+  font: inherit;
+}
+
+.county-inspection-exit {
+  flex: 0 0 auto;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.county-inspection-toolbox {
+  display: grid;
+  gap: 10px;
+}
+
+.county-inspection-filters {
+  display: grid;
+  grid-template-columns: minmax(420px, 2fr) repeat(3, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.county-inspection-filter {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.county-inspection-filter span {
+  color: #9dc7dc;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.county-inspection-filter button {
+  height: 38px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: 6px;
+}
+
+.county-inspection-filter.wide button {
+  justify-content: flex-start;
+}
+
+.county-inspection-filter button em,
+.county-inspection-filter button i {
+  font-style: normal;
+}
+
+.county-inspection-filter button em {
+  color: #ffffff;
+}
+
+.county-inspection-filter button svg {
+  margin-left: auto;
+  width: 16px;
+  height: 16px;
+  color: #9fdfff;
+}
+
+.county-inspection-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.county-inspection-search {
+  flex: 1 1 auto;
+  min-width: 260px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid rgba(74, 190, 255, 0.28);
+  border-radius: 6px;
+  background: rgba(5, 28, 61, 0.72);
+}
+
+.county-inspection-search svg {
+  width: 15px;
+  height: 15px;
+  color: #8fd6fb;
+}
+
+.county-inspection-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #e4fbff;
+  font: inherit;
+  outline: none;
+}
+
+.county-inspection-actions button {
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: 6px;
+}
+
+.county-inspection-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.county-inspection-metrics article {
+  min-height: 110px;
+  padding: 14px 16px;
+  display: grid;
+  align-content: space-between;
+}
+
+.county-inspection-metrics span,
+.county-inspection-metrics em {
+  color: rgba(176, 221, 244, 0.82);
+  font-size: 13px;
+}
+
+.county-inspection-metrics strong {
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.county-inspection-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 0.95fr);
+  gap: 12px;
+}
+
+.county-inspection-side,
+.county-inspection-detail-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.county-inspection-detail-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.county-inspection-panel {
+  padding: 14px 16px;
+}
+
+.county-inspection-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.county-inspection-panel-head h2 {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.county-inspection-table {
+  display: grid;
+}
+
+.county-inspection-table-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1.15fr 1fr 0.74fr 0.74fr 0.88fr 0.6fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(63, 145, 191, 0.18);
+}
+
+.county-inspection-table-row.head,
+.county-inspection-table-row span {
+  color: #d5effd;
+  font-size: 13px;
+}
+
+.county-inspection-table-row.head {
+  min-height: 42px;
+  color: rgba(153, 201, 223, 0.8);
+}
+
+.county-inspection-table button.county-inspection-table-row {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.county-inspection-table button.county-inspection-table-row.active {
+  background: linear-gradient(90deg, rgba(33, 138, 184, 0.18), rgba(8, 35, 69, 0.06));
+  box-shadow: inset 2px 0 0 #39d2ff;
+}
+
+.status-tag,
+.level-tag,
+.county-inspection-conclusion-list span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-tag.red,
+.county-inspection-conclusion-list span.recommended,
+.level-tag.level-�?{
+  color: #ffe3e5;
+  background: rgba(255, 94, 107, 0.2);
+  border: 1px solid rgba(255, 94, 107, 0.32);
+}
+
+.status-tag.amber,
+.level-tag.level-�?{
+  color: #ffe9bf;
+  background: rgba(255, 181, 72, 0.18);
+  border: 1px solid rgba(255, 181, 72, 0.28);
+}
+
+.status-tag.blue,
+.status-tag.cyan,
+.level-tag.level-�?
+.county-inspection-conclusion-list span {
+  color: #daf6ff;
+  background: rgba(60, 170, 255, 0.16);
+  border: 1px solid rgba(60, 170, 255, 0.24);
+}
+
+.status-tag.green {
+  color: #dfffee;
+  background: rgba(77, 215, 149, 0.16);
+  border: 1px solid rgba(77, 215, 149, 0.24);
+}
+
+.county-inspection-owner-card,
+.county-inspection-checklist,
+.county-inspection-media {
+  display: grid;
+  gap: 10px;
+}
+
+.county-inspection-owner-row,
+.county-inspection-checklist article,
+.county-inspection-media article {
+  border: 1px solid rgba(60, 142, 184, 0.18);
+  border-radius: 8px;
+  background: rgba(6, 29, 58, 0.64);
+  padding: 10px 12px;
+}
+
+.county-inspection-owner-row {
+  display: grid;
+  gap: 6px;
+}
+
+.county-inspection-owner-row span,
+.county-inspection-next-step strong {
+  color: #91c9e2;
+  font-size: 12px;
+}
+
+.county-inspection-owner-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.county-inspection-owner-row strong,
+.county-inspection-checklist strong,
+.county-inspection-track strong {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.county-inspection-conclusion-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.county-inspection-next-step {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(6, 29, 58, 0.64);
+  border: 1px solid rgba(60, 142, 184, 0.18);
+}
+
+.county-inspection-route-chain {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #d6f4ff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.county-inspection-route-chain i {
+  width: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(62, 221, 255, 0.2), rgba(62, 221, 255, 0.92), rgba(62, 221, 255, 0.2));
+}
+
+.county-inspection-checklist article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.county-inspection-checklist article div {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.county-inspection-records {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.county-inspection-media article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.county-inspection-media span,
+.county-inspection-track p {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.county-inspection-media svg,
+.county-inspection-track svg {
+  width: 15px;
+  height: 15px;
+  color: #8fd6fb;
+}
+
+.county-inspection-track {
+  display: grid;
+  gap: 10px;
+}
+
+@media (max-width: 1600px) {
+  .county-inspection-filters,
+  .county-inspection-detail-grid,
+  .county-inspection-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .county-inspection-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1080px) {
+  .county-inspection-filters,
+  .county-inspection-metrics,
+  .county-inspection-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .county-inspection-actions {
+    flex-wrap: wrap;
+  }
+
+  .county-inspection-table {
+    overflow-x: auto;
+  }
+
+  .county-inspection-table-row {
+    width: 1120px;
+  }
+}
+
+
+/* city analysis drilldown */
+.drill-city-analysis-page {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 10px;
+  padding: 10px 12px 14px;
+}
+
+.city-analysis-titlebar,
+.city-analysis-toolbar,
+.city-analysis-panel,
+.city-analysis-summary article,
+.city-analysis-actions button {
+  border: 1px solid rgba(59, 192, 255, 0.26);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(8, 42, 84, 0.94), rgba(4, 24, 54, 0.94));
+  box-shadow: inset 0 0 18px rgba(0, 162, 255, 0.08), 0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+.city-analysis-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.city-analysis-titlebar strong {
+  display: block;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.city-analysis-titlebar span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(181, 224, 244, 0.84);
+  font-size: 13px;
+}
+
+.city-analysis-exit,
+.city-analysis-filter button,
+.city-analysis-refresh,
+.city-analysis-opinion-meta {
+  border: 1px solid rgba(88, 205, 255, 0.42);
+  background: rgba(5, 35, 72, 0.82);
+  color: #def7ff;
+  font: inherit;
+}
+
+.city-analysis-exit {
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.city-analysis-exit svg,
+.city-analysis-refresh svg,
+.city-analysis-opinion-meta svg {
+  width: 15px;
+  height: 15px;
+}
+
+.city-analysis-toolbar {
+  display: grid;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.city-analysis-toolbar__intro span {
+  color: #dff6ff;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.city-analysis-toolbar__filters {
+  display: grid;
+  grid-template-columns: minmax(360px, 1.8fr) repeat(2, minmax(180px, 1fr)) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.city-analysis-filter {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.city-analysis-filter span {
+  color: #93c8de;
+  font-size: 12px;
+}
+
+.city-analysis-filter button {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: 6px;
+}
+
+.city-analysis-filter em {
+  min-width: 0;
+  color: #ffffff;
+  font-style: normal;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.city-analysis-filter svg {
+  margin-left: auto;
+  width: 16px;
+  height: 16px;
+  color: #9fdfff;
+}
+
+.city-analysis-refresh,
+.city-analysis-opinion-meta {
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.city-analysis-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.city-analysis-summary article {
+  min-height: 92px;
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 12px 14px;
+}
+
+.city-analysis-summary span {
+  color: #9fd6ea;
+  font-size: 12px;
+}
+
+.city-analysis-summary strong {
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.city-analysis-summary em {
+  color: rgba(181, 224, 244, 0.78);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.city-analysis-summary .tone-cyan strong { color: #69e6ff; }
+.city-analysis-summary .tone-blue strong { color: #75b9ff; }
+.city-analysis-summary .tone-red strong { color: #ff7f8e; }
+.city-analysis-summary .tone-amber strong { color: #ffc76a; }
+.city-analysis-summary .tone-green strong { color: #78e0b0; }
+
+.city-analysis-layout {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.58fr) minmax(320px, 0.88fr);
+  gap: 10px;
+}
+
+.city-analysis-main,
+.city-analysis-side {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.city-analysis-panel {
+  min-width: 0;
+  padding: 12px 14px 14px;
+}
+
+.city-analysis-panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.city-analysis-panel__head strong {
+  display: block;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.city-analysis-panel__head span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(170, 214, 234, 0.78);
+  font-size: 12px;
+}
+
+.city-analysis-table {
+  display: grid;
+}
+
+.city-analysis-table__row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.6fr 1.1fr 1fr 1.2fr 0.75fr;
+  gap: 12px;
+  align-items: center;
+  padding: 11px 10px;
+  border-top: 1px solid rgba(74, 190, 255, 0.12);
+  color: #dcf7ff;
+  font-size: 13px;
+}
+
+.city-analysis-table__row.head {
+  border-top: 0;
+  color: #8fcbe3;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.city-analysis-table__row span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.city-analysis-table__row .status-待会�?
+.city-analysis-table__row .status-研判�?{
+  color: #74d8ff;
+}
+
+.city-analysis-table__row .status-建议升级 {
+  color: #ff8a98;
+}
+
+.city-analysis-table__row .status-退回补�?{
+  color: #ffc564;
+}
+
+.city-analysis-table__row .status-已形成意�?{
+  color: #7be0b0;
+}
+
+.city-analysis-core-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  gap: 10px;
+}
+
+.city-analysis-source-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.city-analysis-source-grid article {
+  min-height: 112px;
+  padding: 10px 12px;
+  border: 1px solid rgba(77, 194, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(5, 32, 66, 0.6);
+}
+
+.city-analysis-source-grid article header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.city-analysis-source-grid article span {
+  color: #a8d8ea;
+  font-size: 12px;
+}
+
+.city-analysis-source-grid article strong {
+  font-size: 24px;
+}
+
+.city-analysis-source-grid article p {
+  margin: 10px 0 0;
+  color: rgba(204, 238, 250, 0.78);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.city-analysis-source-grid .tone-cyan strong { color: #67e7ff; }
+.city-analysis-source-grid .tone-blue strong { color: #79b9ff; }
+.city-analysis-source-grid .tone-amber strong { color: #ffc95f; }
+.city-analysis-source-grid .tone-red strong { color: #ff8796; }
+.city-analysis-source-grid .tone-green strong { color: #7be1b2; }
+
+.city-analysis-merge-links {
+  position: relative;
+  height: 38px;
+  margin: 10px 0 8px;
+}
+
+.city-analysis-merge-links .center {
+  position: absolute;
+  inset: 18px 14% auto;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(99, 207, 255, 0.62), rgba(0, 0, 0, 0));
+}
+
+.city-analysis-merge-links .tag {
+  position: absolute;
+  top: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(77, 194, 255, 0.28);
+  background: rgba(5, 33, 68, 0.9);
+  color: #d8f7ff;
+  font-size: 12px;
+}
+
+.city-analysis-merge-links .county { left: 16%; }
+.city-analysis-merge-links .city { right: 16%; }
+
+.city-analysis-merge-center {
+  min-height: 82px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 134, 149, 0.24);
+  border-radius: 10px;
+  background: radial-gradient(circle at 50% 0, rgba(255, 88, 112, 0.18), transparent 55%), rgba(8, 28, 59, 0.76);
+  text-align: center;
+}
+
+.city-analysis-merge-center b {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.city-analysis-merge-center span,
+.city-analysis-merge-center em {
+  font-style: normal;
+  color: #a7d8ea;
+  font-size: 12px;
+}
+
+.city-analysis-timeline {
+  display: grid;
+  gap: 10px;
+}
+
+.city-analysis-timeline article {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.city-analysis-timeline i {
+  position: relative;
+  display: block;
+}
+
+.city-analysis-timeline i::before,
+.city-analysis-timeline i::after {
+  content: "";
+  position: absolute;
+}
+
+.city-analysis-timeline i::before {
+  top: 2px;
+  left: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #67ddff;
+  box-shadow: 0 0 12px rgba(77, 223, 255, 0.42);
+}
+
+.city-analysis-timeline i::after {
+  top: 14px;
+  left: 8px;
+  bottom: -16px;
+  width: 1px;
+  background: rgba(103, 221, 255, 0.28);
+}
+
+.city-analysis-timeline i.end::after {
+  display: none;
+}
+
+.city-analysis-timeline header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.city-analysis-timeline header strong {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.city-analysis-timeline header span {
+  color: #82c8e2;
+  font-size: 12px;
+}
+
+.city-analysis-timeline p {
+  margin: 4px 0 0;
+  color: rgba(208, 240, 252, 0.78);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.city-analysis-opinion-section + .city-analysis-opinion-section {
+  margin-top: 14px;
+}
+
+.city-analysis-opinion-section > strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.city-analysis-opinion-section ul {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(214, 242, 252, 0.82);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.city-analysis-records {
+  display: grid;
+  gap: 8px;
+}
+
+.city-analysis-records article {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(5, 32, 66, 0.6);
+  border: 1px solid rgba(71, 187, 255, 0.16);
+}
+
+.city-analysis-records span,
+.city-analysis-records b {
+  display: inline-block;
+  margin-right: 8px;
+  color: #90cfe8;
+  font-size: 12px;
+}
+
+.city-analysis-records b {
+  color: #ffffff;
+}
+
+.city-analysis-records p {
+  margin: 6px 0 0;
+  color: rgba(205, 238, 250, 0.78);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.city-analysis-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.city-analysis-actions button {
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #def8ff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.city-analysis-actions button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.city-analysis-actions .tone-blue { color: #7ec0ff; }
+.city-analysis-actions .tone-cyan { color: #68e7ff; }
+.city-analysis-actions .tone-red { color: #ff8b98; }
+.city-analysis-actions .tone-slate { color: #c8def3; }
+
+@media (max-width: 1320px) {
+  .city-analysis-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .city-analysis-layout,
+  .city-analysis-core-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .city-analysis-source-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .city-analysis-toolbar__filters,
+  .city-analysis-summary,
+  .city-analysis-actions,
+  .city-analysis-source-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .city-analysis-table {
+    overflow-x: auto;
+  }
+
+  .city-analysis-table__row {
+    width: 1080px;
+  }
+}

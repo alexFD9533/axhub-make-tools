@@ -23,7 +23,7 @@ import { ShuanHomeCommandV2Page } from './pages/ShuanHomeCommandV2';
 import { ShuanHomeCommandV3Page } from './pages/ShuanHomeCommandV3';
 import { shuanDrilldownRoutePages } from './pages/shuan-drilldowns/data';
 import { shuanDrilldownWireframeRoutePages } from './pages/ShuanDrilldownWireframes';
-import annotationSourceDocument from './annotation-source.json';
+import annotationSourceDocument from './annotation-source-runtime';
 
 const route = defineHashPageRoute([
   { id: 'shuan-home-command', title: '蜀安首页方案A' },

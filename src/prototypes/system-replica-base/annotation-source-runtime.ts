@@ -4,6 +4,10 @@ import projectOverviewDoc from './.spec/docs/原型版本记录.md?raw';
 import smsModuleDoc from './.spec/docs/06-11短信管理模块迭代需求.md?raw';
 import hiddenRiskModuleDoc from './.spec/docs/06-23隐蔽面风险综合分析模块迭代需求.md?raw';
 import shuanHomeV3ModuleDoc from './.spec/docs/蜀安首页V3产品迭代需求说明（2026-06-30）.md?raw';
+import rectificationReviewModuleDoc from './.spec/docs/打非治违分级协同处置-整改复核产品迭代需求说明（2026-07-08）.md?raw';
+import countyInspectionModuleDoc from './.spec/docs/打非治违分级协同处置-现场核查产品迭代需求说明（2026-07-08）.md?raw';
+import illegalCityAnalysisModuleDoc from './.spec/docs/打非治违分级协同处置-专项研判产品迭代需求说明（2026-07-08）.md?raw';
+import provinceSupervisionModuleDoc from './.spec/docs/打非治违分级协同处置-挂牌督办产品迭代需求说明（2026-07-08）.md?raw';
 
 function cloneSource(): AnnotationSourceDocument {
   return JSON.parse(JSON.stringify(baseSource)) as AnnotationSourceDocument;
@@ -37,6 +41,10 @@ const markdownEntries = {
   'sms-module-doc': normalizeMarkdown(smsModuleDoc, '短信管理模块产品迭代需求说明'),
   'hidden-risk-module-doc': normalizeMarkdown(hiddenRiskModuleDoc, '隐蔽面风险综合分析模块迭代需求说明'),
   'shuan-home-v3-module-doc': normalizeMarkdown(shuanHomeV3ModuleDoc, '蜀安首页V3产品迭代需求说明'),
+  'rectification-review-module-doc': normalizeMarkdown(rectificationReviewModuleDoc, '打非治违分级协同处置-整改复核产品迭代需求说明'),
+  'county-inspection-module-doc': normalizeMarkdown(countyInspectionModuleDoc, '打非治违分级协同处置-现场核查产品迭代需求说明'),
+  'illegal-city-analysis-module-doc': normalizeMarkdown(illegalCityAnalysisModuleDoc, '打非治违分级协同处置-专项研判产品迭代需求说明'),
+  'province-supervision-module-doc': normalizeMarkdown(provinceSupervisionModuleDoc, '打非治违分级协同处置-挂牌督办产品迭代需求说明'),
 } as const;
 
 source.markdownMap = {
@@ -45,6 +53,10 @@ source.markdownMap = {
   'sms-module-doc': markdownEntries['sms-module-doc'].displayMarkdown,
   'hidden-risk-module-doc': markdownEntries['hidden-risk-module-doc'].displayMarkdown,
   'shuan-home-v3-module-doc': markdownEntries['shuan-home-v3-module-doc'].displayMarkdown,
+  'rectification-review-module-doc': markdownEntries['rectification-review-module-doc'].displayMarkdown,
+  'county-inspection-module-doc': markdownEntries['county-inspection-module-doc'].displayMarkdown,
+  'illegal-city-analysis-module-doc': markdownEntries['illegal-city-analysis-module-doc'].displayMarkdown,
+  'province-supervision-module-doc': markdownEntries['province-supervision-module-doc'].displayMarkdown,
 };
 
 for (const node of source.directory?.nodes ?? []) {
