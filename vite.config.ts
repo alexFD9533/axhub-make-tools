@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -60,6 +61,25 @@ if (hasSingleEntry) {
 }
 
 const isIifeBuild = hasSingleEntry;
+function readDevRuntimeVersion(): string {
+  const runtimeFiles = [
+    'src/common/react-shim.js',
+    'src/common/react-dom-shim.js',
+    'vite-plugins/clientPreviewPlugin.ts',
+  ];
+  const hash = crypto.createHash('sha256');
+  for (const relativePath of runtimeFiles) {
+    const filePath = path.resolve(projectRoot, relativePath);
+    hash.update(relativePath);
+    hash.update('\0');
+    if (fs.existsSync(filePath)) {
+      hash.update(fs.readFileSync(filePath));
+    }
+    hash.update('\0');
+  }
+  return hash.digest('hex').slice(0, 12);
+}
+
 function shouldIgnoreDevServerWatch(filePath: string): boolean {
   const normalized = filePath.replace(/\\/g, '/');
   if (/\/src\/prototypes\/[^/]+\/\.spec\/docs\/.*\.md$/u.test(normalized)) {
@@ -95,6 +115,11 @@ export default defineConfig(({ command }) => {
     publicDir: false,
 
     optimizeDeps: {
+      esbuildOptions: {
+        define: {
+          __AXHUB_PREVIEW_RUNTIME_VERSION__: JSON.stringify(readDevRuntimeVersion()),
+        },
+      },
       include: [
         'echarts',
         'lucide-react',

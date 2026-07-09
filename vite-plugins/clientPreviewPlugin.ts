@@ -440,6 +440,12 @@ export function clientPreviewPlugin(): Plugin {
             return;
           }
 
+          if (req.url.includes('/node_modules/.vite/deps/')) {
+            applyNoStoreHeaders(res);
+            next();
+            return;
+          }
+
           if (isHtmlProxyModuleRequest(req.url)) {
             applyNoStoreHeaders(res);
             next();

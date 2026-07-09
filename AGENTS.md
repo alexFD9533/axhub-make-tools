@@ -8,6 +8,7 @@
 | ② 产品需求对齐 | 新建原型、明显重构或需求模糊时，先收敛目标用户、核心任务、范围、功能清单、内容来源和验收重点 | `rules/requirements-alignment-guide.md` |
 | ③ 设计方案对齐 | 产品需求确认后，先让用户从 3-4 个带预览链接的 `DESIGN.md` 候选中确认设计基底，再收敛为设计决策 | `rules/requirements-alignment-guide.md` |
 | ④ 原型开发与验收 | 根据已确认方案实现原型；遇到问题按错误信息定位修复，并完成预览验收 | `rules/prototype-development-guide.md` |
+| ⑤ 预览运行时排障 | Axhub 框架入口、直连入口、React runtime、Vite deps、端口或 worktree 异常时，先按运行时规则定位，不盲目改业务页面 | `rules/preview-runtime-guide.md` |
 
 ## 额外产物
 
@@ -51,6 +52,10 @@
    - 模块级变化写入或新建 `src/prototypes/<prototype-name>/.spec/docs/<模块名>产品迭代需求说明（YYYY-MM-DD）.md`
    - 原型说明面板里的文档标题应与实际 Markdown 文件名一致
    - 长文档正文应维护在独立 `.md` 文件中，再由原型运行时读取，不要写死在 `annotation-source.json` 的长字符串里
+8. **预览运行时问题先查环境链路**
+   - Axhub 框架入口和 `/prototypes/...` 直连入口报错时，不默认归因于页面代码；先按 `rules/preview-runtime-guide.md` 核对端口、进程工作目录、Vite deps、React runtime 和浏览器缓存
+   - 涉及 `src/common/react-shim.js`、`src/common/react-dom-shim.js`、`vite.config.ts`、`vite-plugins/clientPreviewPlugin.ts` 的修改，必须同时验证 Axhub 框架入口和直连入口
+   - 发现 Axhub 启动到 `.codex/worktrees/...` 等项目副本时，要明确说明当前实际启动源，并同步运行时修复或切回主项目，避免只修 D 盘主项目
 
 
 ## 系统复刻与迭代规则

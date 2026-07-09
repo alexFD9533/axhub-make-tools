@@ -105,9 +105,24 @@
         }
       }
 
+      function mergeCurrentSearchParams(targetUrl) {
+        try {
+          var target = new URL(targetUrl, location.href);
+          var current = new URLSearchParams(location.search);
+          current.forEach(function (value, key) {
+            if (!target.searchParams.has(key)) {
+              target.searchParams.set(key, value);
+            }
+          });
+          return target.toString();
+        } catch (error) {
+          return targetUrl;
+        }
+      }
+
       function redirectWhenReady(payload) {
         if (payload && payload.ready && payload.adminUrl) {
-          location.replace(payload.adminUrl);
+          location.replace(mergeCurrentSearchParams(payload.adminUrl));
           return true;
         }
         return false;
