@@ -59,14 +59,6 @@ export function RectificationReviewPage() {
             </div>
           </div>
         </div>
-        <div className="drill-review-toolbox-actions">
-          {data.filters.actions.map((item) => (
-            <button key={item} type="button">{item}</button>
-          ))}
-          <button type="button" className="icon-only" aria-label="导出页面">
-            <Download aria-hidden="true" />
-          </button>
-        </div>
       </section>
 
       <section className="drill-review-kpis" aria-label="整改复核核心指标">
@@ -88,7 +80,6 @@ export function RectificationReviewPage() {
             <strong>页面关注点</strong>
             <span>{data.updatedAt}</span>
           </header>
-          <p>{data.summary}</p>
           <div className="drill-review-escalation-grid">
             {data.escalationCards.map((item) => (
               <section key={item.label}>
@@ -135,13 +126,19 @@ export function RectificationReviewPage() {
           <header>
             <div>
               <strong>整改复核任务台账</strong>
-              <span>主表回答矿上改没改、县里过没过、谁在跟进</span>
+              <span>县级复核主任务池</span>
             </div>
             <div className="drill-review-ledger-actions">
               <button type="button">仅看退回</button>
               <button type="button">仅看逾期</button>
             </div>
           </header>
+          <div className="drill-review-ledger-summary" aria-label="整改复核台账摘要">
+            <span><b>26</b>共计事项</span>
+            <span><b>15</b>待县级复核</span>
+            <span><b>7</b>复核退回</span>
+            <span><b>5</b>逾期事项</span>
+          </div>
           <div className="drill-review-table">
             <div className="head">
               {['煤矿名称', '问题来源', '所属专项', '整改期限', '当前状态', '责任人'].map((item) => <span key={item}>{item}</span>)}
@@ -168,6 +165,10 @@ export function RectificationReviewPage() {
         </section>
 
         <aside className="drill-review-side">
+          <header className="drill-review-side-head">
+            <strong>复核辅助判断</strong>
+            <span>结论、退回原因与升级建议</span>
+          </header>
           <section className="drill-review-panel">
             <header>
               <strong>复核结论</strong>

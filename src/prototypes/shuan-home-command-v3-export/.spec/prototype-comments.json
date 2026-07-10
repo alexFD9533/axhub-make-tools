@@ -119,6 +119,45 @@
       },
       "comment": "删除",
       "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report"
+    },
+    {
+      "elementKey": "button_28",
+      "label": "button(\"◎\")",
+      "locator": {
+        "selectors": [
+          "body > div > div > section > div:nth-of-type(2) > div > div > main > div:nth-of-type(2) > div:nth-of-type(8) > button:nth-of-type(3)",
+          "#root div > section > div:nth-of-type(2) > div > div > main > div:nth-of-type(2) > div:nth-of-type(8) > button:nth-of-type(3)"
+        ],
+        "fingerprint": "button|class=mhr-map-btn|text=◎",
+        "path": [
+          0,
+          1,
+          0,
+          0,
+          2,
+          1,
+          0,
+          2,
+          1,
+          3,
+          8,
+          2
+        ]
+      },
+      "marker": {
+        "clientX": 1211.1876220703125,
+        "clientY": 856.6270751953125,
+        "documentX": 1211.1876220703125,
+        "documentY": 856.6270751953125,
+        "xPercent": 63.082688649495445,
+        "y": 856.6270751953125,
+        "isFixed": true,
+        "offsetX": 25.1719970703125,
+        "offsetY": 23.6270751953125,
+        "dirtySince": 1783573122452
+      },
+      "comment": "删除",
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-major-hazard-reminder"
     }
   ],
   "tasks": {
@@ -127,7 +166,7 @@
       "provider": "codex",
       "requestId": "browser-comment-1",
       "sessionId": "local",
-      "updatedAt": "2026-07-08T14:03:48+08:00",
+      "updatedAt": null,
       "message": "退出按钮已重新设计，并固定到标题行右侧。"
     },
     "illegal_overview_filters_inline": {
@@ -135,19 +174,73 @@
       "provider": "codex",
       "requestId": "screenshot-filter-inline",
       "sessionId": "local",
-      "updatedAt": "2026-07-08T14:12:06+08:00",
+      "updatedAt": null,
       "message": "筛选项已合并为一行紧凑布局。"
-    }
-  },
-  "images": [],
-  "_codexTaskLog": {
-    "dangerous_work_left_panel_balance": {
+    },
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-major-hazard-reminder:button_28": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-major-hazard-reminder",
       "state": "completed",
       "provider": "codex",
-      "requestId": "dangerous-work-left-balance",
+      "requestId": "annotation-20260710-batch-01",
       "sessionId": "local",
-      "updatedAt": "2026-07-08T14:35:00+08:00",
-      "message": "危险作业报备页左侧四块模块的高度分配已重新平衡，并同步压缩了局部留白。"
+      "updatedAt": 1783643471669,
+      "message": "指定按钮已删除。"
+    },
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-major-hazard-reminder:section_134": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-major-hazard-reminder",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "annotation-mrd1j9xd-30qlwu",
+      "sessionId": "annotation-mrd1j9xd-30qlwu",
+      "updatedAt": 1783573509598,
+      "message": "修改完成"
+    },
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3:button_28": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "annotation-mrd1i3z1-7jdbdc",
+      "sessionId": "annotation-mrd1i3z1-7jdbdc",
+      "updatedAt": 1783573699483,
+      "message": "AI 修改失败"
     }
-  }
+    ,
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-dangerous-work-report:section_30": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "annotation-20260710-batch-01",
+      "sessionId": "local",
+      "updatedAt": 1783643471669,
+      "message": "顶部标题栏已按当前实现保留。"
+    },
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-dangerous-work-report:main_37": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "annotation-20260710-batch-01",
+      "sessionId": "local",
+      "updatedAt": 1783643471669,
+      "message": "底部色斑图例已移除。"
+    },
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-dangerous-work-report:button_89": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "annotation-20260710-batch-01",
+      "sessionId": "local",
+      "updatedAt": 1783643471669,
+      "message": "指定按钮已删除。"
+    },
+    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-personnel-safety:section_38": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-personnel-safety",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "personnel-titlebar-exit-20260710",
+      "sessionId": "local",
+      "updatedAt": 1783671000000,
+      "message": "已在人员安全页面顶部增加深蓝标题栏和返回首页的退出按钮。"
+    }
+  },
+  "images": []
 }

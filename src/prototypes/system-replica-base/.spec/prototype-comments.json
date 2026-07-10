@@ -2,7 +2,7 @@
   "version": 1,
   "prototypeId": "system-replica-base",
   "pageId": "shuan-home-command-v3",
-  "updatedAt": "2026-07-08T12:45:00+08:00",
+  "updatedAt": "2026-07-09T00:00:00+08:00",
   "comments": [
     {
       "elementKey": "shuan-v3-header",
@@ -155,6 +155,68 @@
       "state": "completed",
       "provider": "codex",
       "updatedAt": "2026-07-08T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-left-overview-header-cleanup",
+      "pageId": "shuan-home-command-v3",
+      "locator": {
+        "selectors": [
+          ".regulated-mine-panel-v3 .panel-title",
+          ".left-hazard-grid .gas-hazard-panel .panel-title",
+          ".left-hazard-grid .hydro-hazard-panel .panel-title"
+        ],
+        "description": "蜀安首页 Av3 左侧总览区标题栏去重与按钮清理"
+      },
+      "comment": "删除煤矿生产状态统计面板内重复的二级标题栏，并移除矿井瓦斯等级、水文地质类型两个灾害面板右上角的更多按钮。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-rectification-review-ledger-height",
+      "pageId": "shuan-home-command-v3-illegal-disposal-rectification-review",
+      "locator": {
+        "selectors": [
+          ".drill-review-page .drill-review-ledger"
+        ],
+        "description": "整改复核页左侧整改复核任务台账卡片"
+      },
+      "comment": "台账区域顶部和底部空白过大，标题、表格和分页应按内容紧凑排列。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-rectification-review-ledger-pagination",
+      "pageId": "shuan-home-command-v3-illegal-disposal-rectification-review",
+      "locator": {
+        "selectors": [
+          ".drill-review-page .drill-review-pagination"
+        ],
+        "description": "整改复核页台账分页区域"
+      },
+      "comment": "分页区域不应落在大块空白中，应贴近台账列表并保持左右边距。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-rectification-review-ledger-header",
+      "pageId": "shuan-home-command-v3-illegal-disposal-rectification-review",
+      "locator": {
+        "selectors": [
+          ".drill-review-page .drill-review-ledger > header"
+        ],
+        "description": "整改复核页台账标题与筛选按钮区域"
+      },
+      "comment": "台账标题区域高度不合理，应与筛选按钮保持同一紧凑标题行。",
+      "type": "layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
     }
   ],
   "tasks": {
@@ -207,6 +269,26 @@
       "state": "completed",
       "provider": "codex",
       "updatedAt": "2026-07-08T00:00:00+08:00"
+    },
+    "shuan-v3-left-overview-header-cleanup": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    "shuan-v3-rectification-review-ledger-height": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    "shuan-v3-rectification-review-ledger-pagination": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    "shuan-v3-rectification-review-ledger-header": {
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-09T00:00:00+08:00"
     }
   },
   "images": []

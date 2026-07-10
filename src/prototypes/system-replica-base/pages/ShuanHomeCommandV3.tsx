@@ -101,7 +101,7 @@ const navPageMap: Record<string, string> = {
   日常监管: 'shuan-home-command-v3-daily-regulation',
   打非治违: 'shuan-home-command-v3-illegal-algorithms',
   从业人员管理: 'shuan-home-command-v3-personnel-safety',
-  生产管理: 'shuan-home-command-v3-production-status',
+  生产管理: 'shuan-home-command-v3-production-management',
   系统设置: 'system-config',
 };
 
@@ -276,19 +276,13 @@ function TimeRangeControl({ value, onChange, label }: { value: TimeRangeValue; o
   return <div className="panel-time-range" role="group" aria-label={label}>{timeRangeOptions.map((option) => <button key={option.value} type="button" className={value === option.value ? 'active' : ''} aria-pressed={value === option.value} onClick={() => onChange(option.value)}>{option.label}</button>)}</div>;
 }
 
-function getActiveTopNavLabel(activeOverlayPage?: string | null) {
-  if (!activeOverlayPage) return '首页';
-  if (activeOverlayPage.includes('illegal-campaign')) return '首页';
-  if (activeOverlayPage.includes('illegal') || activeOverlayPage.includes('algorithm')) return '首页';
-  if (activeOverlayPage.includes('daily-regulation')) return '首页';
-  if (activeOverlayPage.includes('personnel')) return '从业人员管理';
-  if (activeOverlayPage.includes('production')) return '生产管理';
-  if (activeOverlayPage === 'system-config') return '系统设置';
+function getActiveTopNavLabel() {
+  // Drilldowns replace only the homepage workspace; the top navigation stays on 首页.
   return '首页';
 }
 
-function TopHeader({ onOpenPage, activeOverlayPage }: { onOpenPage?: (pageId: string) => void; activeOverlayPage?: string | null }) {
-  const activeNavLabel = getActiveTopNavLabel(activeOverlayPage);
+function TopHeader({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+  const activeNavLabel = getActiveTopNavLabel();
   return (
     <header className="shuan-header" data-annotation-id="shuan-v3-header">
       <div className="shuan-brand"><span className="shuan-emblem"><img src={shuanLogoUrl} alt="" /></span><div className="shuan-title">“蜀安”煤矿多源异构监测系统</div></div>
@@ -321,9 +315,9 @@ function RegulatedMinePanel({ onOpenPage }: { onOpenPage?: (pageId: string) => v
   );
 }
 
-function GasHazardPanel({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+function GasHazardPanel() {
   return (
-    <Panel title="矿井瓦斯等级" className="hazard-panel gas-hazard-panel" titleAction={<MoreButton pageId="shuan-home-command-v3-gas-risk" onOpenPage={onOpenPage} />}>
+    <Panel title="矿井瓦斯等级" className="hazard-panel gas-hazard-panel">
       <div className="hazard-panel-body">
         <div className="gas-hazard-legend">
           {gasHazardRows.map((item) => (
@@ -346,9 +340,9 @@ function GasHazardPanel({ onOpenPage }: { onOpenPage?: (pageId: string) => void 
   );
 }
 
-function HydroHazardPanel({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+function HydroHazardPanel() {
   return (
-    <Panel title="矿井水文地质类型" className="hazard-panel hydro-hazard-panel" titleAction={<MoreButton pageId="shuan-home-command-v3-water-risk" onOpenPage={onOpenPage} />}>
+    <Panel title="矿井水文地质类型" className="hazard-panel hydro-hazard-panel">
       <div className="hydro-hazard-list">
         {hydroHazardRows.map((item) => (
           <div key={item.label} className={`hydro-hazard-row tone-${item.tone}`}>
@@ -423,8 +417,8 @@ function LeftInsightPanels({ onOpenPage }: { onOpenPage?: (pageId: string) => vo
       <PersonnelSituationPanel onOpenPage={onOpenPage} />
       <DataAggregationPanel onOpenPage={onOpenPage} />
       <div className="left-hazard-grid">
-        <GasHazardPanel onOpenPage={onOpenPage} />
-        <HydroHazardPanel onOpenPage={onOpenPage} />
+        <GasHazardPanel />
+        <HydroHazardPanel />
       </div>
     </>
   );
@@ -433,7 +427,7 @@ function LeftInsightPanels({ onOpenPage }: { onOpenPage?: (pageId: string) => vo
 function CommandV2Concept({ onOpenPage, activeOverlayPage }: { onOpenPage?: (pageId: string) => void; activeOverlayPage?: string | null }) {
   return (
     <div className="shuan-concept shuan-command shuan-command-v2 shuan-command-v3">
-      <TopHeader onOpenPage={onOpenPage} activeOverlayPage={activeOverlayPage} />
+      <TopHeader onOpenPage={onOpenPage} />
       <main className="command-grid">
         <div className="command-left" data-annotation-id="shuan-v3-left-overview"><LeftInsightPanels onOpenPage={onOpenPage} /></div>
         <MapStage onOpenPage={onOpenPage} />

@@ -228,7 +228,9 @@ const basePage = (id: string, title: string, kind: DrilldownKind, tone: Drilldow
 });
 
 export const shuanDrilldownPages: DrilldownPage[] = [
-  basePage('shuan-home-command-v3-production-status', '生产态势', 'secondary', 'blue'),
+  basePage('shuan-home-command-v3-production-management', '生产管理', 'secondary', 'blue'),
+  basePage('shuan-home-command-v3-production-status', '煤矿生产状态统计', 'secondary', 'blue'),
+  basePage('shuan-home-command-v3-production-operation', '煤矿生产运行详情', 'secondary', 'blue'),
   basePage('shuan-home-command-v3-personnel-safety', '人员安全', 'secondary', 'green'),
   basePage('shuan-home-command-v3-video-dispatch', '视频调度', 'secondary', 'slate'),
   basePage('shuan-home-command-v3-illegal-algorithms', '算法线索研判', 'algorithm', 'red'),
@@ -1044,13 +1046,26 @@ export interface AffectedMine {
   id: string;
   name: string;
   area: string;
-  feedbackStatus: '已反馈' | '未反馈';
-  needEvacuation: boolean;
-  undergroundCount: number;
-  unevacuatedCount: number;
-  lastReportTime: string;
-  status: '撤离中' | '持续监测' | '待反馈' | '无需撤离' | '已完成撤离' | '异常';
   phone: string;
+  // 人员定位数据
+  undergroundCount: number;
+  initialUndergroundCount: number;
+  lastReportTime: string;
+  // 状态流转
+        status: '监测中' | '撤人中' | '疑似完成' | '撤离完成';
+  // 通知记录
+  notification?: {
+    time: string;
+    operator: string;
+    contactPerson: string;
+    contactPhone: string;
+    summary: string;
+  };
+  // 完成确认
+  completionConfirmed?: {
+    time: string;
+    operator: string;
+  };
 }
 
 export interface EvacuationStage {
@@ -1067,6 +1082,19 @@ export interface EvacuationDetail {
   phone: string;
   lastReport: string;
   stages: EvacuationStage[];
+  // 通知记录
+  notification?: {
+    time: string;
+    operator: string;
+    contactPerson: string;
+    contactPhone: string;
+    summary: string;
+  };
+  // 完成确认
+  completionConfirmed?: {
+    time: string;
+    operator: string;
+  };
 }
 
 export interface DisasterDetail {
@@ -1225,49 +1253,83 @@ export const shuanMajorHazardReminderData: MajorHazardWorkbenchData = {
         id: 'm1',
         name: '广元朝天煤矿',
         area: '朝天区',
-        feedbackStatus: '已反馈',
-        needEvacuation: true,
-        undergroundCount: 36,
-        unevacuatedCount: 6,
-        lastReportTime: '08:18',
-        status: '撤离中',
         phone: '0839-8622001',
+        undergroundCount: 36,
+        initialUndergroundCount: 36,
+        lastReportTime: '08:18',
+        status: '监测中',
       },
       {
         id: 'm2',
         name: '平溪煤矿',
         area: '朝天区',
-        feedbackStatus: '已反馈',
-        needEvacuation: false,
-        undergroundCount: 22,
-        unevacuatedCount: 0,
-        lastReportTime: '08:16',
-        status: '持续监测',
         phone: '0839-8622002',
+        undergroundCount: 22,
+        initialUndergroundCount: 22,
+        lastReportTime: '08:16',
+        status: '撤人中',
+        notification: {
+          time: '08:20',
+          operator: '张监管',
+          contactPerson: '李调度',
+          contactPhone: '0839-8622002',
+          summary: '已电话通知立即清点井下人员',
+        },
       },
       {
         id: 'm3',
         name: '羊木煤矿',
         area: '朝天区',
-        feedbackStatus: '未反馈',
-        needEvacuation: true,
-        undergroundCount: 15,
-        unevacuatedCount: 15,
-        lastReportTime: '----',
-        status: '待反馈',
         phone: '0839-8622003',
+        undergroundCount: 8,
+        initialUndergroundCount: 15,
+        lastReportTime: '08:25',
+        status: '撤人中',
+        notification: {
+          time: '08:15',
+          operator: '张监管',
+          contactPerson: '王调度',
+          contactPhone: '0839-8622003',
+          summary: '已通知撤人，正在组织升井',
+        },
       },
       {
         id: 'm4',
         name: '柏杨煤矿',
         area: '朝天区',
-        feedbackStatus: '已反馈',
-        needEvacuation: false,
-        undergroundCount: 10,
-        unevacuatedCount: 0,
-        lastReportTime: '08:05',
-        status: '持续监测',
         phone: '0839-8622004',
+        undergroundCount: 0,
+        initialUndergroundCount: 10,
+        lastReportTime: '08:30',
+        status: '疑似完成',
+        notification: {
+          time: '08:10',
+          operator: '张监管',
+          contactPerson: '赵调度',
+          contactPhone: '0839-8622004',
+          summary: '已通知撤人',
+        },
+      },
+      {
+        id: 'm5',
+        name: '红星煤矿',
+        area: '朝天区',
+        phone: '0839-8622005',
+        undergroundCount: 0,
+        initialUndergroundCount: 12,
+        lastReportTime: '08:35',
+        status: '撤离完成',
+        notification: {
+          time: '08:05',
+          operator: '张监管',
+          contactPerson: '刘调度',
+          contactPhone: '0839-8622005',
+          summary: '已通知撤人',
+        },
+        completionConfirmed: {
+          time: '08:35',
+          operator: '张监管',
+        },
       },
     ],
     evacuationDetail: {
@@ -1278,11 +1340,10 @@ export const shuanMajorHazardReminderData: MajorHazardWorkbenchData = {
       phone: '0839-8622001',
       lastReport: '2025-07-08 08:18',
       stages: [
-        { name: '预警', completed: true, time: '08:10' },
-        { name: '下达撤离', completed: true, time: '08:12' },
-        { name: '井下广播', completed: true, time: '08:13' },
-        { name: '人员升井', completed: true, time: '08:16' },
-        { name: '清点核验', completed: false },
+        { name: '监测中', completed: true, time: '08:10' },
+        { name: '撤人中', completed: true, time: '08:12' },
+        { name: '疑似完成', completed: true, time: '08:16' },
+        { name: '撤离完成', completed: false },
       ],
     },
   },

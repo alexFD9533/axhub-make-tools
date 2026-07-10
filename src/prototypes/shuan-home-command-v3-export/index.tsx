@@ -8,7 +8,7 @@ import type { AnnotationSourceDocument, AnnotationViewerOptions } from '@axhub/a
 import '../system-replica-base/style.css';
 import { defineHashPageRoute, useHashPage } from '../../common/useHashPage';
 import { ShuanHomeCommandV3Page } from '../system-replica-base/pages/ShuanHomeCommandV3';
-import { shuanDrilldownRoutePages } from '../system-replica-base/pages/shuan-drilldowns';
+import { shuanDrilldownRoutePages } from '../system-replica-base/pages/shuan-drilldowns/data';
 import type { ShuanHomeVariant } from '../system-replica-base/pages/ShuanHomeConcepts';
 import annotationSourceDocument from './annotation-source.json';
 

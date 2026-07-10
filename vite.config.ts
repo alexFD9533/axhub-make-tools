@@ -186,7 +186,7 @@ export default defineConfig(({ command }) => {
       outDir: path.resolve(projectRoot, 'dist'),
       emptyOutDir: !isIifeBuild,
       target: isIifeBuild ? 'es2015' : 'esnext',
-      assetsInlineLimit: 1024 * 1024,
+      assetsInlineLimit: 6 * 1024 * 1024, // 6MB – 内联卫星地图和背景图片，避免发布后缓存/路径问题
       rollupOptions: {
         input: rollupInput,
         external: isIifeBuild ? ['react', 'react-dom'] : [],

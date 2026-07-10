@@ -1,4 +1,4 @@
-﻿/**
+/**
  * build-release.mjs - 构建发布包
  *
  * 使用方法:
@@ -54,31 +54,41 @@ async function buildRelease() {
     process.exit(1);
   }
 
-  // 步骤 2: 创建发布目录并复制 JS
+  // 步骤 2: 创建发布目录并复制 JS + assets
   console.log("[2/3] 生成发布文件...");
   fs.mkdirSync(releasePath, { recursive: true });
 
   // 先清理旧的发布文件
   for (const f of fs.readdirSync(releasePath)) {
     const fp = path.join(releasePath, f);
-    if (f.endsWith(".js") || f === "index.html") {
-      fs.rmSync(fp, { force: true });
+    if (f.endsWith(".js") || f === "index.html" || f === "assets") {
+      fs.rmSync(fp, { recursive: true, force: true });
     }
   }
 
+  // 复制 JS 文件
   if (!fs.existsSync(distJsPath)) {
-    const altPattern = path.join(projectRoot, "dist");
-    const found = findJsFile(altPattern);
-    if (found) {
-      fs.copyFileSync(found, releaseJsPath);
-      console.log("  JS:", releaseJsName);
-    } else {
-      console.error("构建产物未找到:", distJsPath);
-      process.exit(1);
-    }
-  } else {
-    fs.copyFileSync(distJsPath, releaseJsPath);
-    console.log("  JS:", releaseJsName);
+    console.error("构建产物未找到:", distJsPath);
+    process.exit(1);
+  }
+  fs.copyFileSync(distJsPath, releaseJsPath);
+  console.log("  JS:", releaseJsName);
+
+  // 修复 Vite 构建出的绝对资源路径为相对路径（适配 Axhub 子目录发布）
+  let jsContent = fs.readFileSync(releaseJsPath, "utf8");
+  const assetMatches = (jsContent.match(/url\(\/assets\//g) || []).length;
+  if (assetMatches > 0) {
+    jsContent = jsContent.replace(/url\(\/assets\//g, "url(./assets/");
+    fs.writeFileSync(releaseJsPath, jsContent, "utf8");
+    console.log("  路径修复: /assets/ → ./assets/ (" + assetMatches + " 处)");
+  }
+
+  // 复制 assets 目录
+  const distAssetsPath = path.join(projectRoot, "dist", "assets");
+  const releaseAssetsPath = path.join(releasePath, "assets");
+  if (fs.existsSync(distAssetsPath)) {
+    copyDir(distAssetsPath, releaseAssetsPath);
+    console.log("  assets:", releaseAssetsPath.replace(projectRoot, ""));
   }
 
   const htmlContent = [
@@ -183,6 +193,20 @@ function findJsFile(dir) {
     }
   }
   return null;
+}
+
+function copyDir(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
 }
 
 buildRelease().catch((err) => {

@@ -313,9 +313,6 @@ export function DangerousWorkReportPage({ onExit }: { onExit?: () => void }) {
             <button type="button">
               2025-05-24 <CalendarDays aria-hidden="true" />
             </button>
-            <button type="button" className="reset">
-              重置
-            </button>
           </section>
           <section className="drill-dangerous-map-stage">
             <div className="drill-dangerous-map-svg" dangerouslySetInnerHTML={{ __html: normalizedSichuanMapSvg }} />
@@ -329,14 +326,6 @@ export function DangerousWorkReportPage({ onExit }: { onExit?: () => void }) {
                 <span>{name}</span>
               </div>
             ))}
-            <div className="drill-dangerous-map-legend">
-              {['已报备', '即将开始', '进行中', '已结束', '已撤销'].map((item, index) => (
-                <span key={item} className={`s-${index}`}>
-                  <i />
-                  {item}
-                </span>
-              ))}
-            </div>
           </section>
         </main>
 
@@ -483,3 +472,5 @@ export function DangerousWorkReportPage({ onExit }: { onExit?: () => void }) {
     </div>
   );
 }
+
+

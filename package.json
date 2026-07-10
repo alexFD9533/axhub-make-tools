@@ -20,7 +20,10 @@
         "test:ui": "vitest --ui",
         "coverage": "npm run test:coverage",
         "check-ready": "node scripts/check-app-ready.mjs",
-        "capture:theme": "node scripts/capture-theme-homepage.mjs"
+        "capture:theme": "node scripts/capture-theme-homepage.mjs",
+        "save": "node scripts/quick-save.mjs",
+        "save:status": "node scripts/quick-save.mjs --status",
+        "save:push": "node scripts/quick-save.mjs --push"
     },
     "devDependencies": {
         "@floating-ui/react": "^0.27.17",
@@ -50,3 +53,4 @@
         "motion": "^12.38.0"
     }
 }
+
