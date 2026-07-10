@@ -44,14 +44,16 @@ import {
   AlertTriangle,
   CloudRain,
   CloudLightning,
+  CloudUpload,
   Mountain,
   ShieldCheck,
+  Wifi,
   Phone,
   CheckCircle2,
   Circle,
   MapPin,
 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import sichuanMapSvg from '../../../../resources/shuan/sichuan-map.svg?raw';
 import { normalizeInlineSvg } from '../../../../common/inlineSvg';
 import { CountyInspectionPage } from './CountyInspectionPage';
@@ -60,7 +62,7 @@ import { IllegalCityAnalysisPage } from './IllegalCityAnalysisPage';
 import './major-hazard-overrides.css';
 import { ProvinceSupervisionPage } from './ProvinceSupervisionPage';
 import { RectificationReviewPage } from './RectificationReviewPage';
-import { DrilldownPage, DrilldownTone, shuanCountyInspectionData, shuanDailyRegulationAnalysis, shuanDangerousWorkReportData, shuanDrilldownPages, shuanHiddenDangerData, shuanHiddenFaceMineProfileData, shuanIllegalCampaignModules, shuanLicenseExpiryReminderData, shuanMajorHazardReminderData, shuanProvinceSupervisionData, shuanRectificationReviewData, shuanRiskControlDashboardData, shuanRiskControlData, shuanVideoDispatchData } from './data';
+import { DrilldownPage, DrilldownTone, shuanCountyInspectionData, shuanDailyRegulationAnalysis, shuanDangerousWorkReportData, shuanDataGovernanceData, shuanDrilldownPages, shuanHiddenDangerData, shuanHiddenFaceMineProfileData, shuanIllegalCampaignModules, shuanLicenseExpiryReminderData, shuanMajorHazardReminderData, shuanProvinceSupervisionData, shuanRectificationReviewData, shuanRiskControlDashboardData, shuanRiskControlData, shuanVideoDispatchData } from './data';
 
 const normalizedSichuanMapSvg = normalizeInlineSvg(sichuanMapSvg);
 
@@ -850,18 +852,22 @@ function PersonnelSafetyPage({ onExit }: { onExit?: () => void }) {
                 </button>
               ))}
             </div>
-            <div className="personnel-map-legend">
-              <div className="personnel-map-legend-group">
-                <strong>图例说明</strong>
-                <span><i className="tone-green" />正常（0 个异常矿）</span>
-                <span><i className="tone-amber" />关注（1-2 个异常矿）</span>
-                <span><i className="tone-red" />异常（≥3 个异常矿）</span>
+            <div className="personnel-map-legends">
+              <div className="personnel-map-legend personnel-map-legend--status">
+                <div className="personnel-map-legend-group">
+                  <strong>图例说明</strong>
+                  <span><i className="tone-green" />正常（0 个异常矿）</span>
+                  <span><i className="tone-amber" />关注（1-2 个异常矿）</span>
+                  <span><i className="tone-red" />异常（≥3 个异常矿）</span>
+                </div>
               </div>
-              <div className="personnel-map-legend-group">
-                <strong>气泡说明</strong>
-                <span>从业人数（人）</span>
-                <span>井下人数（人）</span>
-                <span>异常矿数（个）</span>
+              <div className="personnel-map-legend personnel-map-legend--bubble">
+                <div className="personnel-map-legend-group personnel-map-legend-group--bubble">
+                  <strong>气泡说明</strong>
+                  <span>从业人数（人）</span>
+                  <span>井下人数（人）</span>
+                  <span>异常矿数（个）</span>
+                </div>
               </div>
             </div>
             <div className="personnel-map-tools" aria-hidden="true"><button>+</button><button>−</button><button><Circle /></button></div>
@@ -4013,6 +4019,157 @@ function VideoDispatchPage() {
   );
 }
 
+const governanceResources = [
+  { title: '煤矿基础数据', icon: Database },
+  { title: '人员与用工数据', icon: Users },
+  { title: '自然灾害数据', icon: CloudLightning },
+  { title: '安全监测数据', icon: ShieldCheck },
+  { title: '生产运行数据', icon: Factory },
+  { title: '事故保障数据', icon: ShieldCheck },
+];
+
+const governanceQuality = [
+  ['完整性', 97, '2,13 8,10 14,11 20,5 26,8 32,3 38,9 44,6 50,7 56,2'],
+  ['准确性', 98, '2,14 8,13 14,6 20,11 26,4 32,7 38,3 44,10 50,4 56,6'],
+  ['时效性', 90, '2,5 8,11 14,13 20,9 26,10 32,6 38,12 44,8 50,10 56,7'],
+  ['一致性', 99, '2,12 8,10 14,4 20,9 26,3 32,7 38,2 44,8 50,4 56,5'],
+  ['规范性', 99, '2,13 8,7 14,10 20,5 26,11 32,3 38,8 44,4 50,7 56,2'],
+  ['有效性', 99, '2,12 8,11 14,5 20,9 26,3 32,8 38,4 44,7 50,2 56,4'],
+] as const;
+
+function GovernanceSparkline({ points }: { points: string }) {
+  return (
+    <svg className="data-governance-spark" viewBox="0 0 58 16" aria-hidden="true">
+      <polyline points={points} fill="none" stroke="currentColor" strokeWidth="1.2" />
+      <circle cx="56" cy="4" r="1.8" fill="currentColor" />
+    </svg>
+  );
+}
+
+function GovernancePanel({ className = '', children }: { className?: string; children: React.ReactNode }) {
+  return <section className={`data-governance-panel ${className}`}>{children}</section>;
+}
+
+function DataGovernancePage({ onExit }: { onExit?: () => void }) {
+  const trafficGreen = '0,78 42,70 88,60 134,54 180,36 225,38 270,45 315,41 360,44 405,47 450,37 495,40 540,30 585,34 630,38 675,33 720,40 765,28 810,35 855,26 900,34 945,23 990,32 1035,19 1080,29 1125,22 1170,34 1215,18 1260,31 1305,22 1360,28';
+  const trafficBlue = '0,82 42,77 88,73 134,83 180,64 225,78 270,52 315,70 360,58 405,66 450,49 495,73 540,55 585,66 630,45 675,62 720,52 765,68 810,48 855,60 900,52 945,66 990,43 1035,61 1080,50 1125,69 1170,45 1215,67 1260,46 1305,65 1360,38';
+
+  return (
+    <div className="data-governance-viewport">
+      <div className="data-governance-canvas">
+        <div className="data-governance-frame" />
+        <header className="data-governance-topbar">
+          <section className="data-governance-title-block">
+            <h1>数据汇聚与治理链路</h1>
+            <button className="data-governance-exit" type="button" onClick={onExit}><LogOut aria-hidden="true" />退出</button>
+          </section>
+          <section className="data-governance-status-block">
+            <button className="data-governance-select" type="button">总体 <ChevronDown aria-hidden="true" /></button>
+            <div className="data-governance-live-cards">
+              <article><i className="is-live" /><span>链路状态<strong className="is-green">正常运行</strong></span></article>
+              <article><Database aria-hidden="true" /><span>今日数据量<strong>1287<small>万条</small></strong></span></article>
+              <article><Clock aria-hidden="true" /><span>链路延迟<strong>0.68<small>s</small></strong></span></article>
+            </div>
+          </section>
+        </header>
+
+        <GovernancePanel className="data-governance-resources">
+          <h2>数据资源 <em>共36项</em></h2>
+          <div className="data-governance-resource-list">
+            {governanceResources.map(({ title, icon: Icon }) => (
+              <article key={title}>
+                <span className="data-governance-resource-icon"><Icon aria-hidden="true" /></span>
+                <div><strong>{title}</strong><small>煤矿基础、采矿许可证、煤层信息...</small></div>
+                <b>10<small>项</small></b>
+              </article>
+            ))}
+          </div>
+        </GovernancePanel>
+
+        <main className="data-governance-pipeline">
+          <h2>可信数据链路，四重保险护航</h2>
+          <div className="data-governance-flowline"><i /><i /><i /><i /><i /></div>
+          <div className="data-governance-nodes">
+            {[
+              ['01', '多源采集', '同步正常', CloudUpload],
+              ['02', '数据质检', '运行中', ShieldCheck],
+              ['03', '数据治理', '运行中', Database],
+              ['04', '交叉验证', '运行中', Share2],
+            ].map(([num, title, status, Icon]) => (
+              <article key={String(num)}>
+                <span className="data-governance-node-icon"><Icon aria-hidden="true" /></span>
+                <div><b><em>{String(num)}</em>{String(title)}</b><small><i />{String(status)}</small></div>
+              </article>
+            ))}
+          </div>
+          <div className="data-governance-business-cards">
+            <GovernancePanel className="data-governance-collect">
+              <label>累计采集数据</label><strong>12675<small>万条</small></strong>
+              <hr /><label>已对接部门数</label><strong>8</strong>
+              <p><b>接入中</b>　16个接口 | 10个文件 | 10个库表</p>
+              <div className="data-governance-departments">
+                <header>对接部门 <small>（自动轮播）　最近更新：1分钟前</small></header>
+                {['四川省水利厅','四川省气象局','四川省市场监管局','四川省人力资源厅','四川省广元市应急管理局'].map((name, index) => <span className={index === 2 ? 'active' : ''} key={name}>{name}</span>)}
+              </div>
+              <footer><Wifi aria-hidden="true" />接入中</footer>
+            </GovernancePanel>
+            <GovernancePanel className="data-governance-quality">
+              <label>总评</label><strong>96</strong>
+              {governanceQuality.map(([name, value, points]) => (
+                <div className="data-governance-quality-row" key={name}>
+                  <span>{name}</span><b>{value}<small>分</small></b><GovernanceSparkline points={points} />
+                  <i><em style={{ width: `${value}%` }} /></i>
+                </div>
+              ))}
+              <footer><RefreshCcw aria-hidden="true" />最近更新：30秒前</footer>
+            </GovernancePanel>
+            <GovernancePanel className="data-governance-govern">
+              <label>数据治理作业数</label><strong>2337</strong><hr />
+              <label>作业执行成功率</label><strong>100<small>%</small></strong><div className="data-governance-success"><i /></div>
+              <div className="data-governance-queue">
+                <header>任务队列（实时）</header>
+                <span className="data-governance-donut"><i /></span>
+                <ul><li><i className="wait" />待治理　12 <small>(0.5%)</small></li><li><i className="doing" />处理中　36 <small>(1.5%)</small></li><li><i className="done" />已完成 2289 <small>(98.0%)</small></li></ul>
+              </div>
+              <footer><RefreshCcw aria-hidden="true" />最近更新：1分钟前</footer>
+            </GovernancePanel>
+            <GovernancePanel className="data-governance-verify">
+              <label>线索命中数</label><strong>3675</strong><hr />
+              <div className="data-governance-rates"><span>系统误报率<b>5<small>%</small></b></span><span>漏报率<b>3<small>%</small></b></span></div>
+              <div className="data-governance-matrix">
+                <header>验证矩阵（实时）</header>
+                <div className="head"><i />命中　误报　漏报</div>
+                {['高风险','中风险','低风险'].map((risk, row) => <div key={risk}><span>{risk}</span>{[0,1,2].map((col) => <i className={`r${row} c${col}`} key={col} />)}</div>)}
+              </div>
+              <footer><RefreshCcw aria-hidden="true" />最近更新：20秒前</footer>
+            </GovernancePanel>
+          </div>
+        </main>
+
+        <GovernancePanel className="data-governance-score">
+          <h2>数据可信度评分</h2><p><Activity aria-hidden="true" />实时更新</p>
+          <div className="data-governance-gauge"><div><strong>95</strong><span>高可信</span></div></div>
+          {[[ShieldCheck,'质检通过率','96%'],[Database,'治理完成率','100%'],[Share2,'交叉验证命中率','95%']].map(([Icon,label,value]) => <article key={String(label)}><Icon aria-hidden="true" /><span>{String(label)}</span><b>{String(value)}</b></article>)}
+          <footer>评分更新时间：20秒前 <RefreshCcw aria-hidden="true" /></footer>
+        </GovernancePanel>
+
+        <GovernancePanel className="data-governance-traffic">
+          <h2>链路流量监控 <small>（实时）</small></h2><p><i />数据条数（万条/分钟）</p>
+          <div className="data-governance-y-axis"><span>300</span><span>200</span><span>100</span><span>0</span></div>
+          <div className="data-governance-chart-grid">
+            <svg viewBox="0 0 1360 92" preserveAspectRatio="none" aria-label="链路流量实时折线图">
+              <polyline className="green" points={trafficGreen} /><polyline className="blue" points={trafficBlue} />
+            </svg>
+            <div className="data-governance-time-axis">{['10:30','10:40','10:50','11:00','11:10','11:20','11:30','11:40','11:50','12:00','12:10','12:20','12:30','12:40'].map(time => <span key={time}>{time}</span>)}</div>
+          </div>
+          <footer className="data-governance-traffic-provenance"><ShieldCheck aria-hidden="true" /><strong>数据来源权威合规</strong><span>国家矿山局、四川省安技中心、四川省安全科技研究院</span></footer>
+        </GovernancePanel>
+        <GovernancePanel className="data-governance-health"><h2>链路健康度</h2><div>{[0,1,2,3,4].map(i => <i key={i} style={{ animationDelay: `${i * .18}s` }} />)}</div><strong>100%</strong></GovernancePanel>
+      </div>
+    </div>
+  );
+}
+
 function OverviewPage() {
   const secondary = shuanDrilldownPages.filter((page) => page.kind === 'secondary');
   const algorithms = shuanDrilldownPages.filter((page) => page.kind === 'algorithm');
@@ -4061,6 +4218,9 @@ function OverviewPage() {
 }
 
 export function ShuanDrilldownContent({ pageId, onExit }: { pageId: string; onExit?: () => void }) {
+  if (pageId === shuanDataGovernanceData.route) {
+    return <DataGovernancePage onExit={onExit} />;
+  }
   if (pageId === 'shuan-home-command-v3-wireframes') {
     return <OverviewPage />;
   }

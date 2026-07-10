@@ -425,15 +425,23 @@ function LeftInsightPanels({ onOpenPage }: { onOpenPage?: (pageId: string) => vo
 }
 
 function CommandV2Concept({ onOpenPage, activeOverlayPage }: { onOpenPage?: (pageId: string) => void; activeOverlayPage?: string | null }) {
+  const isWorkspaceDrilldown = activeOverlayPage === 'shuan-home-command-v3-data-health';
+
   return (
     <div className="shuan-concept shuan-command shuan-command-v2 shuan-command-v3">
       <TopHeader onOpenPage={onOpenPage} />
-      <main className="command-grid">
-        <div className="command-left" data-annotation-id="shuan-v3-left-overview"><LeftInsightPanels onOpenPage={onOpenPage} /></div>
-        <MapStage onOpenPage={onOpenPage} />
-        <div className="command-right"><DailyRegulationPanel onOpenPage={onOpenPage} /><IllegalTreatmentPanel onOpenPage={onOpenPage} /></div>
-      </main>
-      {activeOverlayPage ? (
+      {isWorkspaceDrilldown ? (
+        <section className="shuan-drilldown-workspace" data-annotation-id="shuan-v3-drill-stage">
+          <ShuanDrilldownContent pageId={activeOverlayPage} onExit={() => onOpenPage?.('shuan-home-command-v3')} />
+        </section>
+      ) : (
+        <main className="command-grid">
+          <div className="command-left" data-annotation-id="shuan-v3-left-overview"><LeftInsightPanels onOpenPage={onOpenPage} /></div>
+          <MapStage onOpenPage={onOpenPage} />
+          <div className="command-right"><DailyRegulationPanel onOpenPage={onOpenPage} /><IllegalTreatmentPanel onOpenPage={onOpenPage} /></div>
+        </main>
+      )}
+      {activeOverlayPage && !isWorkspaceDrilldown ? (
         <section className="shuan-drilldown-overlay" data-annotation-id="shuan-v3-drill-stage">
           <div className="shuan-drilldown-overlay-backdrop" aria-hidden="true" onClick={() => onOpenPage?.('shuan-home-command-v3')} />
           <div className="shuan-drilldown-overlay-panel">

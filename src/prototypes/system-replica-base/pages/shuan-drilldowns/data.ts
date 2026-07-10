@@ -1559,6 +1559,11 @@ export const shuanCountyInspectionData = {
   title: '现场核查 / 县级走访',
 };
 
+export const shuanDataGovernanceData = {
+  route: 'shuan-home-command-v3-data-health',
+  title: '数据汇聚与治理链路',
+};
+
 export const shuanProvinceSupervisionData = {
   route: 'shuan-home-command-v3-illegal-disposal-province-supervision',
   title: '挂牌督办',
@@ -1647,6 +1652,7 @@ export const shuanIllegalDisposalRows = [
 
 export const shuanDrilldownRoutePages = [
   { id: 'shuan-home-command-v3-wireframes', title: '下钻页面框架总览' },
+  { id: shuanDataGovernanceData.route, title: shuanDataGovernanceData.title },
   ...shuanDrilldownPages.map((page) => ({ id: page.id, title: page.title })),
   { id: shuanRiskControlData.route, title: shuanRiskControlData.title },
   { id: shuanDangerousWorkReportData.route, title: shuanDangerousWorkReportData.title },
