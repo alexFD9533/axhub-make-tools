@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "projectName": "地方综管平台",
-  "prototypeName": "四川应急主页",
-  "entryKey": "prototypes/shuan-home-command-v3-export",
+  "prototypeName": "煤矿安全综合监控平台",
+  "entryKey": "prototypes/system-replica-base",
   "releaseDir": "release/zgpt",
   "publicUrl": "http://168.168.168.182:18081/zgpt/",
   "defaultHash": "#page=placeholder-shift-query",
