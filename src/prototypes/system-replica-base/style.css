@@ -16055,12 +16055,14 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 .coal-basic-system-grid article {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto auto auto minmax(48px, 1fr);
-  align-items: center;
+  grid-template-rows: 24px minmax(66px, 1fr) auto;
+  row-gap: 6px;
+  align-content: stretch;
+  align-items: stretch;
   min-width: 0;
   min-height: 0;
   height: 100%;
-  padding: 8px 8px 6px;
+  padding: 8px;
   border: 1px solid rgba(36, 114, 210, 0.64);
   border-radius: 4px;
   background: rgba(4, 30, 70, 0.72);
@@ -16075,25 +16077,42 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   font-weight: 800;
   font-size: 11px;
   white-space: nowrap;
+  border-bottom: 1px solid rgba(48, 118, 191, 0.36);
 }
 
 .coal-basic-system-grid header svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   color: #b8d9ff;
   padding: 5px;
   border-radius: 50%;
   background: rgba(74, 132, 217, 0.26);
 }
 
-.coal-basic-system-grid p {
-  grid-column: 1;
-  margin: 5px 0 0;
+.coal-basic-system-metrics {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  align-items: baseline;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 48px;
+  padding: 5px 7px;
+  border: 1px solid rgba(42, 105, 181, 0.48);
+  border-radius: 2px;
+  background: rgba(5, 37, 78, 0.52);
+}
+
+.coal-basic-system-grid p {
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  align-content: center;
   color: #b6cee3;
-  font-size: 11px;
+  font-size: 10px;
+}
+
+.coal-basic-system-grid p + p {
+  border-left: 1px solid rgba(48, 118, 191, 0.38);
+  padding-left: 7px;
 }
 
 .coal-basic-system-grid p span,
@@ -16103,11 +16122,12 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .coal-basic-system-grid p b {
   justify-self: start;
+  margin-top: 2px;
 }
 
 .coal-basic-system-grid p b {
   color: #56e17f;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1;
 }
 
@@ -16122,31 +16142,62 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   font-style: normal;
 }
 
-.coal-basic-rate-ring {
-  grid-column: 1;
-  grid-row: 4;
-  justify-self: end;
-  align-self: end;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
-  align-content: center;
+.coal-basic-rate-gauge {
+  position: relative;
+  justify-self: center;
+  align-self: center;
+  width: 108px;
+  height: 60px;
+  overflow: hidden;
+}
+
+.coal-basic-rate-gauge::before,
+.coal-basic-rate-gauge::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 108px;
+  height: 108px;
   border-radius: 50%;
-  background:
-    radial-gradient(circle, #08214c 0 53%, transparent 55%),
-    conic-gradient(#6ad772 0 270deg, rgba(75, 132, 191, 0.34) 270deg 360deg);
-  box-shadow: 0 0 12px rgba(99, 215, 123, 0.28);
 }
 
-.coal-basic-rate-ring strong {
-  color: #e9fff0;
-  font-size: 13px;
+.coal-basic-rate-gauge::before {
+  background: conic-gradient(
+    from 270deg,
+    #5adf87 0deg var(--rate-angle),
+    rgba(39, 128, 215, 0.3) var(--rate-angle) 180deg,
+    transparent 180deg 360deg
+  );
+  filter: drop-shadow(0 0 4px rgba(57, 196, 243, 0.22));
 }
 
-.coal-basic-rate-ring span {
-  color: #bfd8ee;
-  font-size: 10px;
+.coal-basic-rate-gauge::after {
+  inset: 5px auto auto 5px;
+  width: 98px;
+  height: 98px;
+  background: #062451;
+}
+
+.coal-basic-rate-gauge__content {
+  position: absolute;
+  inset: 28px 0 auto;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  line-height: 1;
+}
+
+.coal-basic-rate-gauge__content strong {
+  color: #dff7ff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.coal-basic-rate-gauge__content span {
+  margin-top: 2px;
+  color: #7fb1d5;
+  font-size: 9px;
 }
 
 .coal-basic-system-panel footer {

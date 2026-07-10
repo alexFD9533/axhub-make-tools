@@ -341,10 +341,10 @@ const coalBasicAccessSystems = [
 ];
 
 const coalBasicSystemAccessCards = [
-  { name: '传输专网', connected: 128, unconnected: 46, rate: '73.6%', icon: Share2 },
-  { name: '安全监控', connected: 132, unconnected: 42, rate: '75.9%', icon: ShieldCheck },
-  { name: '人员定位', connected: 118, unconnected: 56, rate: '67.8%', icon: Users },
-  { name: '通讯调度', connected: 110, unconnected: 64, rate: '63.2%', icon: Radio },
+  { name: '传输专网', connected: 128, unconnected: 46, rate: '73.6%', rateValue: 73.6, icon: Share2 },
+  { name: '安全监控', connected: 132, unconnected: 42, rate: '75.9%', rateValue: 75.9, icon: ShieldCheck },
+  { name: '人员定位', connected: 118, unconnected: 56, rate: '67.8%', rateValue: 67.8, icon: Users },
+  { name: '通讯调度', connected: 110, unconnected: 64, rate: '63.2%', rateValue: 63.2, icon: Radio },
 ];
 
 const coalBasicArchiveRows = [
@@ -567,11 +567,15 @@ function CoalBasicStatisticsPage() {
               return (
                 <article key={item.name}>
                   <header><Icon aria-hidden="true" /><strong>{item.name}</strong></header>
-                  <p><span>已接入</span><b>{item.connected}<em>处</em></b></p>
-                  <p><span>未接入</span><b className="red">{item.unconnected}<em>处</em></b></p>
-                  <div className="coal-basic-rate-ring" style={{ '--rate': item.rate } as React.CSSProperties}>
-                    <strong>{item.rate}</strong>
-                    <span>接入率</span>
+                  <div className="coal-basic-rate-gauge" style={{ '--rate-angle': `${item.rateValue * 1.8}deg` } as React.CSSProperties} aria-label={`${item.name}接入率${item.rate}`}>
+                    <div className="coal-basic-rate-gauge__content">
+                      <strong>{item.rate}</strong>
+                      <span>接入率</span>
+                    </div>
+                  </div>
+                  <div className="coal-basic-system-metrics">
+                    <p><span>已接入</span><b>{item.connected}<em>处</em></b></p>
+                    <p><span>未接入</span><b className="red">{item.unconnected}<em>处</em></b></p>
                   </div>
                 </article>
               );
