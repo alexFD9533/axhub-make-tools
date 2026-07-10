@@ -348,11 +348,11 @@ const coalBasicSystemAccessCards = [
 ];
 
 const coalBasicArchiveRows = [
-  ['1', '遵义煤矿', '达州市·通川区', '遵义煤矿集团', '国有', '生产矿井', '高瓦斯', '中等', '三级', '已接入'],
-  ['2', '龙泉煤矿', '宜宾市·翠屏区', '宜宾能源集团', '国有', '生产矿井', '突出', '复杂', '三级', '已接入'],
-  ['3', '六盘水小康矿', '广元市·利州区', '盘江集团公司', '国有', '建设矿井', '高瓦斯', '中等', '二级', '已接入'],
-  ['4', '普定煤矿', '泸州市·古蔺县', '泸州能源集团', '集体', '隐患整改矿井', '低瓦斯', '中等', '四级', '未接入'],
-  ['5', '平坝煤矿', '乐山市·犍为县', '川南矿业集团', '国有', '一停四不停矿井', '低瓦斯', '中等', '三级', '未接入'],
+  ['1', '绿水洞煤矿', '攀枝花市·西区', '川煤华荣能源', '国有', '生产矿井', '高瓦斯', '中等', '三级', '已接入'],
+  ['2', '达竹煤矿', '达州市·达川区', '四川达竹煤电', '国有', '生产矿井', '低瓦斯', '简单', '三级', '已接入'],
+  ['3', '芙蓉煤矿', '宜宾市·珙县', '四川芙蓉集团', '国有', '生产矿井', '突出', '复杂', '二级', '已接入'],
+  ['4', '古叙煤矿', '泸州市·古蔺县', '四川古叙煤田', '国有', '建设矿井', '高瓦斯', '中等', '三级', '未接入'],
+  ['5', '嘉阳煤矿', '乐山市·犍为县', '四川嘉阳集团', '集体', '生产矿井', '低瓦斯', '中等', '三级', '未接入'],
 ] as const;
 
 function CoalBasicPanel({ title, className = '', children, action }: { title?: string; className?: string; children: React.ReactNode; action?: React.ReactNode }) {
@@ -360,8 +360,10 @@ function CoalBasicPanel({ title, className = '', children, action }: { title?: s
     <section className={`coal-basic-panel ${className}`}>
       {title ? (
         <header className="coal-basic-panel-title">
-          <strong>{title}</strong>
-          {action}
+          <div className="coal-basic-panel-title-main">
+            <strong>{title}</strong>
+            {action}
+          </div>
         </header>
       ) : null}
       {children}
@@ -584,7 +586,27 @@ function CoalBasicStatisticsPage() {
           <footer>说明：接入率 = 已接入矿井数 / 煤矿总数 × 100%</footer>
         </CoalBasicPanel>
 
-        <CoalBasicPanel title="煤矿档案清单" className="coal-basic-archive-panel" action={<button type="button">查看全部</button>}>
+        <CoalBasicPanel
+          title="煤矿档案清单"
+          className="coal-basic-archive-panel"
+          action={
+            <>
+              <button type="button" className="coal-basic-archive-view-all">查看全部</button>
+              <div className="coal-basic-pagination">
+                <span>共 174 条</span>
+                <button type="button" aria-label="上一页"><ChevronLeft aria-hidden="true" /></button>
+                {[1, 2, 3, 4, 5].map((page) => <button key={page} type="button" className={page === 1 ? 'active' : ''}>{page}</button>)}
+                <span>...</span>
+                <button type="button">18</button>
+                <button type="button" aria-label="下一页"><ChevronRight aria-hidden="true" /></button>
+                <button type="button" className="page-size">10 条页<ChevronDown aria-hidden="true" /></button>
+                <span>跳至</span>
+                <button type="button" className="jump-page">1</button>
+                <span>页</span>
+              </div>
+            </>
+          }
+        >
           <div className="coal-basic-archive-table">
             <div className="head"><span>序号</span><span>煤矿名称</span><span>行政区划</span><span>所属煤炭公司</span><span>所有制</span><span>生产状态</span><span>证照等级</span><span>水文地质类型</span><span>瓦斯等级</span><span>系统接入</span><span>操作</span></div>
             {coalBasicArchiveRows.map((row) => (
@@ -596,18 +618,6 @@ function CoalBasicStatisticsPage() {
               </div>
             ))}
           </div>
-          <footer className="coal-basic-pagination">
-            <span>共 174 条</span>
-            <button type="button" aria-label="上一页"><ChevronLeft aria-hidden="true" /></button>
-            {[1, 2, 3, 4, 5].map((page) => <button key={page} type="button" className={page === 1 ? 'active' : ''}>{page}</button>)}
-            <span>...</span>
-            <button type="button">18</button>
-            <button type="button" aria-label="下一页"><ChevronRight aria-hidden="true" /></button>
-            <button type="button" className="page-size">10 条页<ChevronDown aria-hidden="true" /></button>
-            <span>跳至</span>
-            <button type="button" className="jump-page">1</button>
-            <span>页</span>
-          </footer>
         </CoalBasicPanel>
       </main>
     </div>
@@ -841,14 +851,18 @@ function PersonnelSafetyPage({ onExit }: { onExit?: () => void }) {
               ))}
             </div>
             <div className="personnel-map-legend">
-              <strong>图例说明</strong>
-              <span><i className="tone-green" />正常（0 个异常矿）</span>
-              <span><i className="tone-amber" />关注（1-2 个异常矿）</span>
-              <span><i className="tone-red" />异常（≥3 个异常矿）</span>
-              <strong>气泡说明</strong>
-              <span>从业人数（人）</span>
-              <span>井下人数（人）</span>
-              <span>异常矿数（个）</span>
+              <div className="personnel-map-legend-group">
+                <strong>图例说明</strong>
+                <span><i className="tone-green" />正常（0 个异常矿）</span>
+                <span><i className="tone-amber" />关注（1-2 个异常矿）</span>
+                <span><i className="tone-red" />异常（≥3 个异常矿）</span>
+              </div>
+              <div className="personnel-map-legend-group">
+                <strong>气泡说明</strong>
+                <span>从业人数（人）</span>
+                <span>井下人数（人）</span>
+                <span>异常矿数（个）</span>
+              </div>
             </div>
             <div className="personnel-map-tools" aria-hidden="true"><button>+</button><button>−</button><button><Circle /></button></div>
           </div>
@@ -908,9 +922,13 @@ function PersonnelSafetyPage({ onExit }: { onExit?: () => void }) {
             </div>
           </PersonnelPanel>
 
-            <PersonnelPanel code="D" title="当前异常煤矿清单（按风险排序）">
+            <PersonnelPanel
+              code="D"
+              title="当前异常煤矿清单（按风险排序）"
+              aside={<span className="personnel-panel-more">更多 <ChevronRight aria-hidden="true" /></span>}
+            >
             <div className="personnel-rank-list">
-              {abnormalMines.map((row, index) => (
+              {abnormalMines.slice(0, 5).map((row, index) => (
                 <div key={row[0]}>
                   <i>{index + 1}</i>
                   <span>{row[0]}</span>
@@ -921,7 +939,6 @@ function PersonnelSafetyPage({ onExit }: { onExit?: () => void }) {
                 </div>
               ))}
             </div>
-            <footer className="personnel-pagination"><span>共 168 条</span><ChevronLeft /><b>1</b><span>2</span><span>3</span><span>4</span><span>5</span><span>...</span><span>17</span><ChevronRight /><button>10 条/页 <ChevronDown /></button></footer>
           </PersonnelPanel>
         </aside>
 
@@ -2360,7 +2377,7 @@ function RiskControlPage() {
               <div className="drill-risk-v2-map-filter">
                 <button type="button" className="select">{data.mapFilters.city}<ChevronDown aria-hidden="true" /></button>
                 <div className="search"><input value="" readOnly aria-label="搜索煤矿名称" placeholder={data.mapFilters.searchPlaceholder} /><Search aria-hidden="true" /></div>
-                <div className="chips">{data.mapFilters.levels.map((item, index) => <button key={item} type="button" className={`chip-${index}`}>{item}{item !== '浣庨闄?' ? <span>脳</span> : null}</button>)}</div>
+                <div className="chips">{data.mapFilters.levels.map((item, index) => <button key={item} type="button" className={`chip-${index}`}>{item}{item !== '低风险' ? <span>×</span> : null}</button>)}</div>
                 <button type="button" className="ghost">重置</button>
               </div>
               <div className="drill-risk-v2-map-stage">
@@ -2411,7 +2428,7 @@ function RiskControlPage() {
         <section className="drill-risk-v2-panel">
 
           <div className="drill-risk-v2-trend-card">
-            <div className="drill-risk-v2-subhead"><strong>杩?0鏃ラ闄╁彉鍖栬秼鍔?</strong><button type="button">杩?0鏃?<ChevronDown aria-hidden="true" /></button></div>
+            <div className="drill-risk-v2-subhead"><strong>近30日风险变化趋势</strong><button type="button">近30天<ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-risk-v2-trend-legend">{data.riskTrendSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}</span>)}</div>
             <div className="drill-risk-v2-chart-shell">
               <div className="drill-risk-v2-y-axis" aria-hidden="true">
@@ -2430,7 +2447,7 @@ function RiskControlPage() {
 
         <section className="drill-risk-v2-panel">
           <div className="drill-risk-v2-trend-card">
-            <div className="drill-risk-v2-subhead"><strong>椋庨櫓鍗囬檷绾ц秼鍔?</strong><button type="button">杩?0鏃?<ChevronDown aria-hidden="true" /></button></div>
+            <div className="drill-risk-v2-subhead"><strong>风险升降级趋势</strong><button type="button">近30天<ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-risk-v2-trend-legend"><span><i style={{ background: '#ff545d' }} />升级数量</span><span><i style={{ background: '#58a7ff' }} />降级数量</span></div>
             <div className="drill-risk-v2-group-bars">
               {data.levelTrendBars.map((item) => (
@@ -2448,7 +2465,7 @@ function RiskControlPage() {
 
         <section className="drill-risk-v2-panel">
           <div className="drill-risk-v2-trend-card">
-            <div className="drill-risk-v2-subhead"><strong>区域风险热力趋势</strong><div className="drill-risk-v2-inline-controls"><button type="button">风险热力指数 <ChevronDown aria-hidden="true" /></button><button type="button">杩?0鏃?<ChevronDown aria-hidden="true" /></button></div></div>
+            <div className="drill-risk-v2-subhead"><strong>区域风险热力趋势</strong><div className="drill-risk-v2-inline-controls"><button type="button">风险热力指数 <ChevronDown aria-hidden="true" /></button><button type="button">近30天<ChevronDown aria-hidden="true" /></button></div></div>
             <div className="drill-risk-v2-heat-layout">
               <div className="drill-risk-v2-chart-shell heat">
                 <div className="drill-risk-v2-y-axis" aria-hidden="true">
@@ -2588,7 +2605,7 @@ function HiddenDangerManagementPage() {
               <div className="drill-hazard-v2-map-filter">
                 <button type="button" className="select">{data.mapFilters.scope}<ChevronDown aria-hidden="true" /></button>
                 <div className="search"><input value="" readOnly aria-label="搜索煤矿名称" placeholder={data.mapFilters.searchPlaceholder} /><Search aria-hidden="true" /></div>
-                <div className="chips">{data.mapFilters.statuses.map((item, index) => <button key={item} type="button" className={`chip-${index}`}>{item}<span>脳</span></button>)}</div>
+                <div className="chips">{data.mapFilters.statuses.map((item, index) => <button key={item} type="button" className={`chip-${index}`}>{item}<span>×</span></button>)}</div>
                 <button type="button" className="ghost">重置</button>
               </div>
               <div className="drill-hazard-v2-map-stage">
@@ -2644,7 +2661,7 @@ function HiddenDangerManagementPage() {
       <section className="drill-hazard-v2-bottom">
         <section className="drill-hazard-v2-panel">
           <div className="drill-hazard-v2-trend-card">
-            <div className="drill-hazard-v2-subhead"><strong>杩?0鏃ラ殣鎮ｆ柊澧炶秼鍔?</strong><button type="button">杩?0鏃?<ChevronDown aria-hidden="true" /></button></div>
+            <div className="drill-hazard-v2-subhead"><strong>近30日隐患新增趋势</strong><button type="button">近30天<ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-hazard-v2-trend-legend">{data.newTrendSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}</span>)}</div>
             <div className="drill-hazard-v2-chart-shell">
               <div className="drill-hazard-v2-y-axis" aria-hidden="true">
@@ -2663,8 +2680,8 @@ function HiddenDangerManagementPage() {
 
         <section className="drill-hazard-v2-panel">
           <div className="drill-hazard-v2-trend-card">
-            <div className="drill-hazard-v2-subhead"><strong>隐患整改闭环趋势</strong><button type="button">杩?0鏃?<ChevronDown aria-hidden="true" /></button></div>
-            <div className="drill-hazard-v2-trend-legend"><span><i style={{ background: data.closureTrend.line.color }} />闂幆鐜?</span><span><i style={{ background: data.closureTrend.bars.color }} />环比提升</span></div>
+            <div className="drill-hazard-v2-subhead"><strong>隐患整改闭环趋势</strong><button type="button">近30天<ChevronDown aria-hidden="true" /></button></div>
+            <div className="drill-hazard-v2-trend-legend"><span><i style={{ background: data.closureTrend.line.color }} />闭环率</span><span><i style={{ background: data.closureTrend.bars.color }} />环比提升</span></div>
             <div className="drill-hazard-v2-chart-shell">
               <div className="drill-hazard-v2-y-axis" aria-hidden="true">
                 {closureTicks.map((value) => <span key={value}>{value}</span>)}
@@ -2687,7 +2704,7 @@ function HiddenDangerManagementPage() {
 
         <section className="drill-hazard-v2-panel">
           <div className="drill-hazard-v2-trend-card">
-            <div className="drill-hazard-v2-subhead"><strong>逾期隐患趋势</strong><button type="button">杩?0鏃?<ChevronDown aria-hidden="true" /></button></div>
+            <div className="drill-hazard-v2-subhead"><strong>逾期隐患趋势</strong><button type="button">近30天<ChevronDown aria-hidden="true" /></button></div>
             <div className="drill-hazard-v2-trend-legend">{data.overdueTrendSeries.map((item) => <span key={item.label}><i style={{ background: item.color }} />{item.label}</span>)}</div>
             <div className="drill-hazard-v2-chart-shell">
               <div className="drill-hazard-v2-y-axis" aria-hidden="true">
@@ -2797,8 +2814,8 @@ function DailyRegulationAnalysisPage() {
             <section className="drill-reference-toolbar drill-reference-toolbar-inline">
               <div className="drill-reference-time-filters">
                 <button type="button" className="active">今日</button>
-                <button type="button">杩?鏃?</button>
-                <button type="button">杩?0鏃?</button>
+                <button type="button">近7日</button>
+                <button type="button">近30日</button>
               </div>
               <button type="button" className="drill-reference-select">市州 <ChevronDown aria-hidden="true" /></button>
               <button type="button" className="drill-reference-select">煤矿 <ChevronDown aria-hidden="true" /></button>
@@ -2852,7 +2869,7 @@ function DailyRegulationAnalysisPage() {
       <section className="drill-reference-analytics">
         <article className="drill-analysis-card drill-source-card drill-reference-panel">
           <header>
-            <strong>瀛愮郴缁熸潵婧愬垎甯?</strong>
+            <strong>子系统来源分布</strong>
             <button type="button" className="drill-panel-corner" aria-label="全屏查看"><Search aria-hidden="true" /></button>
           </header>
           <div className="drill-source-list">
@@ -2873,11 +2890,11 @@ function DailyRegulationAnalysisPage() {
 
         <article className="drill-analysis-card drill-matrix-card drill-reference-panel">
           <header>
-            <strong>等级 脳 处置交叉分析</strong>
+            <strong>等级 × 处置交叉分析</strong>
             <button type="button" className="drill-panel-corner" aria-label="全屏查看"><Search aria-hidden="true" /></button>
           </header>
           <div className="drill-matrix-table">
-            <div className="head"><span>等级</span><span>宸插缃?</span><span>寰呭缃?</span><span>合计</span><span>占比</span></div>
+            <div className="head"><span>等级</span><span>已处置</span><span>待处置</span><span>合计</span><span>占比</span></div>
             {shuanDailyRegulationAnalysis.matrix.map((row) => (
               <div key={row.level}>
                 <span><i className={`dot tone-${row.level}`} />{row.level}</span>
@@ -2898,7 +2915,7 @@ function DailyRegulationAnalysisPage() {
 
         <article className="drill-analysis-card drill-region-card drill-reference-panel">
           <header>
-            <strong>鍖哄煙涓庣叅鐭垮垎甯?</strong>
+            <strong>区域与煤矿分布</strong>
             <button type="button" className="drill-panel-corner" aria-label="全屏查看"><Search aria-hidden="true" /></button>
           </header>
           <div className="drill-reference-map-layout">
@@ -2951,7 +2968,7 @@ function DailyRegulationAnalysisPage() {
                   <small>{item.label}</small>
                   <strong>{item.text}</strong>
                 </div>
-                {item.value ? <b>{item.value}</b> : <p>{item.text.replace('寰呭缃?21 条，', '寰呭缃?21 条，')}</p>}
+                {item.value ? <b>{item.value}</b> : <p>{item.text}</p>}
               </article>
             );
           })}
@@ -2964,16 +2981,16 @@ function DailyRegulationAnalysisPage() {
         </header>
         <div className="drill-daily-table">
           <div className="head">
-            <span>煤矿名称</span><span>市州</span><span>瀛愮郴缁?</span><span>预警类型</span><span>等级</span><span>鐘舵€?</span><span>发生时间</span><span>处置情况</span><span>操作</span>
+            <span>煤矿名称</span><span>市州</span><span>子系统</span><span>预警类型</span><span>等级</span><span>状态</span><span>发生时间</span><span>处置情况</span><span>操作</span>
           </div>
           {shuanDailyRegulationAnalysis.details.map((row) => (
-            <div key={`${row.mine}-${row.time}`}>
+              <div key={`${row.mine}-${row.time}`}>
               <span>{row.mine}</span>
               <span>{row.city}</span>
               <span>{row.source}</span>
               <span>{row.type}</span>
               <span><b className={`level-tag tone-${row.level}`}>{row.level}</b></span>
-              <span><b className={`status-tag ${row.status === '宸插缃?' ? 'done' : 'pending'}`}>{row.status}</b></span>
+                <span><b className={`status-tag ${row.status === '已处置' ? 'done' : 'pending'}`}>{row.status}</b></span>
               <span>{row.time}</span>
               <span>{row.disposal}</span>
               <span className="actions"><button type="button">查看</button></span>
@@ -2981,12 +2998,12 @@ function DailyRegulationAnalysisPage() {
           ))}
         </div>
         <footer className="drill-reference-table-footer">
-          <div className="drill-reference-table-total">鍏?{shuanDailyRegulationAnalysis.pagination.total} 条<span>姣忛〉鏄剧ず锛?</span><button type="button" className="drill-reference-page-size">{shuanDailyRegulationAnalysis.pagination.pageSize} <ChevronDown aria-hidden="true" /></button></div>
+          <div className="drill-reference-table-total">共 {shuanDailyRegulationAnalysis.pagination.total} 条<span>每页显示：</span><button type="button" className="drill-reference-page-size">{shuanDailyRegulationAnalysis.pagination.pageSize} <ChevronDown aria-hidden="true" /></button></div>
           <div className="drill-reference-pagination">
-            <button type="button">鈥?</button>
+            <button type="button">‹</button>
             {shuanDailyRegulationAnalysis.pagination.pages.map((page) => <button key={page} type="button" className={page === shuanDailyRegulationAnalysis.pagination.current ? 'active' : ''}>{page}</button>)}
-            <button type="button">鈥?</button>
-            <button type="button">鈥?</button>
+            <button type="button">…</button>
+            <button type="button">›</button>
             <span>前往</span>
             <button type="button" className="jump">1</button>
             <span>页</span>
@@ -3020,7 +3037,7 @@ interface IllegalOverviewAlgorithmCard {
   categoryLabel: string;
   clueCount: number;
   mineCount: number;
-  focusLabel: '楂橀闄?' | '今日新增';
+  focusLabel: '高风险' | '今日新增';
   focusValue: number;
   priority: IllegalOverviewPriority;
   pageId?: string;
@@ -3031,7 +3048,7 @@ interface IllegalOverviewMineRow {
   categoryId: IllegalOverviewCategoryId;
   clueCount: number;
   algorithmCount: number;
-  risk: '楂橀闄?' | '涓闄?' | '浣庨闄?';
+  risk: '高风险' | '中风险' | '低风险';
 }
 
 interface IllegalOverviewPreviewRow {
@@ -3040,7 +3057,7 @@ interface IllegalOverviewPreviewRow {
   categoryId: IllegalOverviewCategoryId;
   algorithm: string;
   time: string;
-  risk: '楂橀闄?' | '涓闄?' | '浣庨闄?';
+  risk: '高风险' | '中风险' | '低风险';
 }
 
 const illegalOverviewCategoryCards: IllegalOverviewCategoryCard[] = [
@@ -3181,7 +3198,7 @@ function IllegalCluePage() {
         <div className="illegal-overview-title">
           <div className="illegal-overview-title__left">
             <h1>多源线索总览</h1>
-            <p>鎸夊垎绫汇€佹潵婧愰〉闈㈠拰鐭夸簳闆嗕腑搴︽煡鐪嬬嚎绱㈠垎甯?</p>
+            <p>按分类、来源页面和矿井集中度查看线索分布</p>
           </div>
           <a className="illegal-overview-title__back" href={routeHref('shuan-home-command-v3')}>
             <LogOut aria-hidden="true" />
@@ -3203,11 +3220,11 @@ function IllegalCluePage() {
             <button type="button">全部区域<ChevronDown aria-hidden="true" /></button>
           </label>
           <label className="illegal-overview-filter">
-            <span>鎵€灞炵熆人</span>
+             <span>所属煤矿</span>
             <button type="button">全部矿井<ChevronDown aria-hidden="true" /></button>
           </label>
           <label className="illegal-overview-filter">
-            <span>鐘舵€?</span>
+             <span>状态</span>
               <button type="button">全部状态<ChevronDown aria-hidden="true" /></button>
           </label>
           <button type="button" className="illegal-overview-refresh">
@@ -3236,7 +3253,7 @@ function IllegalCluePage() {
               </div>
               <div className="illegal-summary-metrics">
                 <span><em>命中矿井</em><b>{item.mineHits}</b></span>
-                <span><em>楂橀闄?</em><b>{item.highRisk}</b></span>
+                   <span><em>高风险</em><b>{item.highRisk}</b></span>
                 <span><em>今日新增</em><b>{item.todayNew}</b></span>
               </div>
             </button>
@@ -3252,7 +3269,7 @@ function IllegalCluePage() {
               <span><i aria-hidden="true">i</i></span>
             </div>
             <div className="illegal-panel-pagination">
-              <span>鍏?{filteredAlgorithms.length} 页</span>
+               <span>共 {filteredAlgorithms.length} 页</span>
               <button type="button" onClick={() => setPage((value) => Math.max(1, value - 1))} disabled={page <= 1}><ChevronLeft aria-hidden="true" /></button>
               <strong>{page}</strong>
               <em>/ {totalPages}</em>
@@ -3301,7 +3318,7 @@ function IllegalCluePage() {
               </select>
             </label>
             <button type="button" className={`illegal-toggle${onlyWithClues ? ' active' : ''}`} onClick={() => setOnlyWithClues((value) => !value)}>
-              <span>鍙湅鏈夌嚎绱?</span>
+               <span>只看有线索</span>
               <i aria-hidden="true"><b /></i>
             </button>
           </div>
@@ -3391,8 +3408,8 @@ function IllegalCluePage() {
       </section>
 
       <footer className="illegal-overview-footer">
-        <span>说明：统计数据每小时更新一次，趋势图基于近7鏃ユ暟鎹?</span>
-        <span>数据更新时间锛?025-07-06 09:30:24</span>
+         <span>说明：统计数据每小时更新一次，趋势图基于近7日数据</span>
+         <span>数据更新时间：2025-07-06 09:30:24</span>
       </footer>
     </div>
   );
@@ -3400,15 +3417,15 @@ function IllegalCluePage() {
 function IllegalCampaignReferenceV2Page() {
   const moduleCards = [
     { title: '隐蔽工作面', subtitle: '停产疑似生产 / 隐蔽采掘风险', icon: MapPinned, route: 'shuan-home-command-v3-illegal-campaign-hidden-face' },
-    { title: '监控造假', subtitle: '浼犳劅鍣ㄥ紓甯?/ 报警闭锁造假风险', icon: MonitorCog, route: 'shuan-home-command-v3-illegal-campaign-monitor-fake' },
-    { title: '隐瞒入井人数', subtitle: '人员定位 / 瑙嗛浜烘暟涓嶅尮閰嶉闄?', icon: Users, route: 'shuan-home-command-v3-illegal-campaign-hidden-person' },
+    { title: '监控造假', subtitle: '传感器异常 / 报警闭锁造假风险', icon: MonitorCog, route: 'shuan-home-command-v3-illegal-campaign-monitor-fake' },
+    { title: '隐瞒入井人数', subtitle: '人员定位 / 视频人数不匹配风险', icon: Users, route: 'shuan-home-command-v3-illegal-campaign-hidden-person' },
   ];
   const kpis = [
     { label: '疑似矿井数', value: '18', trend: '环比 +2', helper: '命中专项整治规则', icon: ShieldAlert, tone: 'warn' },
     { label: '高风险矿井数', value: '9', trend: '环比 +1', helper: '建议优先核查', icon: Siren, tone: 'danger' },
-    { label: '鏀拺线索数', value: '76', trend: '环比 +12', helper: '多源线索汇聚', icon: GitBranch, tone: 'blue' },
-    { label: '待核查任务数', value: '23', trend: '环比 +5', helper: '宸茬敓鎴愭牳鏌ュ缓璁?', icon: ClipboardList, tone: 'cyan' },
-    { label: '閫炬湡浠诲姟鏁?', value: '3', trend: '环比 +1', helper: '需借力跟进', icon: Bell, tone: 'amber' },
+    { label: '支撑线索数', value: '76', trend: '环比 +12', helper: '多源线索汇聚', icon: GitBranch, tone: 'blue' },
+    { label: '待核查任务数', value: '23', trend: '环比 +5', helper: '已生成核查建议', icon: ClipboardList, tone: 'cyan' },
+    { label: '逾期任务数', value: '3', trend: '环比 +1', helper: '需借力跟进', icon: Bell, tone: 'amber' },
   ];
   const mapCallouts = [
     { city: '宜宾市', total: '30矿', high: 4, mid: 6, low: 20, x: 7, y: 38, tone: 'mid' },
@@ -3459,7 +3476,7 @@ function IllegalCampaignReferenceV2Page() {
         <div className="campaign-v2-titleline">
           <div>
             <h1>隐蔽工作面专项整治</h1>
-            <p>澶氭簮鏁版嵁鍏宠仈璇嗗埆闅愯斀閲囨帢娲诲姩锛屾瀯寤虹嚎绱㈤棴鐜不鐞嗛摼璺紝鎻愬崌鎵撻潪娌昏繚绮惧噯搴︺€?</p>
+            <p>多源数据关联识别隐蔽采掘活动，构建线索闭环治理链路，提升打非治违精准度。</p>
           </div>
           <a className="campaign-v2-exit" href={routeHref('shuan-home-command-v3')}>
             <LogOut aria-hidden="true" />
@@ -3483,7 +3500,7 @@ function IllegalCampaignReferenceV2Page() {
       <section className="campaign-v2-filters" aria-label="筛选条件">
         <strong>筛选条件</strong>
         <span>统计周期</span>
-        {['当日', '杩?处', '杩?0处'].map((item) => <button key={item} className={item === '杩?处' ? 'active' : ''}>{item}</button>)}
+        {['当日', '近7日', '近30日'].map((item) => <button key={item} className={item === '近7日' ? 'active' : ''}>{item}</button>)}
         <span>区域</span>
         {['全部', '达州市', '宜宾市', '乐山市', '泸州市', '广元市'].map((item) => <button key={item} className={item === '全部' ? 'active' : ''}>{item}</button>)}
         <span>线索类型</span>
@@ -3521,17 +3538,17 @@ function IllegalCampaignReferenceV2Page() {
               </article>
             ))}
             <div className="campaign-v2-map-legend">
-              <span>鍥句緥锛堥闄╃熆浜曟暟锛?</span>
+               <span>图例（风险矿井数）</span>
               {['6+', '3-5', '1-2', '0'].map((item, index) => <em key={item} className={`l${index}`}>{item}</em>)}
             </div>
           </div>
         </section>
 
         <section className="campaign-v2-panel campaign-v2-donut-panel">
-          <header><strong>可疑线索缁熻锛堟寜绫诲瀷锛?</strong></header>
+           <header><strong>可疑线索统计（按类型）</strong></header>
           <div className="campaign-v2-donut-body">
             <div className="campaign-v2-donut" style={{ background: `conic-gradient(${donutStops})` }}>
-              <span><b>76</b><em>鎬荤嚎绱?</em></span>
+               <span><b>76</b><em>总线索</em></span>
             </div>
             <div className="campaign-v2-clue-list">
               {clueStats.map((item) => (
@@ -3543,7 +3560,7 @@ function IllegalCampaignReferenceV2Page() {
         </section>
 
         <section className="campaign-v2-panel campaign-v2-trend-panel">
-          <header><strong>风险趋势（近7天）</strong><div className="campaign-v2-trend-legend"><span className="suspect">疑似矿井数</span><span className="high">高风险矿井数</span><span className="new">鏂板线索数</span></div></header>
+           <header><strong>风险趋势（近7天）</strong><div className="campaign-v2-trend-legend"><span className="suspect">疑似矿井数</span><span className="high">高风险矿井数</span><span className="new">新增线索数</span></div></header>
           <div className="campaign-v2-chart">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <polyline className="suspect" points={trendPoints.suspect} />
@@ -3551,13 +3568,13 @@ function IllegalCampaignReferenceV2Page() {
               <polyline className="new" points={trendPoints.new} />
             </svg>
             <div className="campaign-v2-chart-grid">{[20, 15, 10, 5, 0].map((item) => <span key={item}>{item}</span>)}</div>
-            <div className="campaign-v2-tooltip"><b>05-11</b><span>疑似矿井数16</span><span>高风险矿井数 8</span><span>鏂板线索数28</span></div>
+             <div className="campaign-v2-tooltip"><b>05-11</b><span>疑似矿井数16</span><span>高风险矿井数 8</span><span>新增线索数28</span></div>
           </div>
           <div className="campaign-v2-axis">{['05-07', '05-08', '05-09', '05-10', '05-11', '05-12', '05-13'].map((item) => <span key={item}>{item}</span>)}</div>
         </section>
 
         <section className="campaign-v2-panel campaign-v2-top-table">
-          <header><strong>高风险矿井TOP10锛堟寜椋庨櫓璇勫垎锛?</strong></header>
+           <header><strong>高风险矿井TOP10（按风险评分）</strong></header>
           <div className="campaign-v2-table campaign-v2-rank-table">
             <div className="head">{['排名', '煤矿名称', '所属区域', '风险评分', '风险等级', '主要触发线索', '最新异常时间', '操作'].map((item) => <span key={item}>{item}</span>)}</div>
             {topRows.map((row) => (
@@ -3572,14 +3589,14 @@ function IllegalCampaignReferenceV2Page() {
               </div>
             ))}
           </div>
-          <footer><span>鍏?0条</span><button>鈥?</button><button className="active">1</button><button>2</button><button>鈥?</button><button>10条页</button></footer>
+           <footer><span>共20条</span><button>‹</button><button className="active">1</button><button>2</button><button>…</button><button>10条页</button></footer>
         </section>
 
         <section className="campaign-v2-panel campaign-v2-task-table-panel">
           <header><strong>待核查任务</strong></header>
-          <div className="campaign-v2-task-tabs"><button className="active">寰呮牳鏌?23)</button><button>鏍告煡涓?7)</button><button>宸插姙缁?126)</button></div>
+           <div className="campaign-v2-task-tabs"><button className="active">待核查(23)</button><button>核查中(7)</button><button>已办结(126)</button></div>
           <div className="campaign-v2-table campaign-v2-task-table">
-            <div className="head">{['任务标题', '鎵€灞炵熆人', '风险等级', '创建时间', '操作'].map((item) => <span key={item}>{item}</span>)}</div>
+             <div className="head">{['任务标题', '所属煤矿', '风险等级', '创建时间', '操作'].map((item) => <span key={item}>{item}</span>)}</div>
             {taskRows.map((row) => <div key={row[0]}>{row.map((cell, i) => <span key={`${row[0]}-${i}`} className={i === 2 ? (cell === '高风险' ? 'risk high' : 'risk mid') : i === 4 ? 'link' : ''}>{cell}</span>)}</div>)}
           </div>
           <a href={routeHref('shuan-home-command-v3-illegal-campaign-hidden-face')}>查看全部任务 <ChevronRight aria-hidden="true" /></a>

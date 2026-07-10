@@ -143,8 +143,8 @@ export function RectificationReviewPage() {
             <div className="head">
               {['煤矿名称', '问题来源', '所属专项', '整改期限', '当前状态', '责任人'].map((item) => <span key={item}>{item}</span>)}
             </div>
-            {data.ledgerRows.map((row) => (
-              <div key={`${row.mine}-${row.owner}`}>
+            {data.ledgerRows.map((row, index) => (
+              <div key={`${row.mine}-${row.owner}`} className={index === 0 ? 'selected' : ''}>
                 <span>{row.mine}</span>
                 <span>{row.source}</span>
                 <span>{row.campaign}</span>
@@ -154,6 +154,29 @@ export function RectificationReviewPage() {
               </div>
             ))}
           </div>
+          <section className="drill-review-selected-task" aria-label="当前选中复核事项">
+            <header>
+              <div>
+                <span>当前选中事项</span>
+                <strong>{data.ledgerRows[0].mine}</strong>
+              </div>
+              <i className={`drill-review-status ${data.ledgerRows[0].statusTone}`}>{data.ledgerRows[0].status}</i>
+            </header>
+            <div>
+              <article>
+                <FileText aria-hidden="true" />
+                <p><span>问题与专项</span><strong>{data.ledgerRows[0].source}</strong><em>{data.ledgerRows[0].campaign}</em></p>
+              </article>
+              <article>
+                <Clock3 aria-hidden="true" />
+                <p><span>整改时限</span><strong>{data.ledgerRows[0].deadline}</strong><em>责任人：{data.ledgerRows[0].owner}</em></p>
+              </article>
+              <article>
+                <CheckCheck aria-hidden="true" />
+                <p><span>复核建议</span><strong>{data.conclusions[0].conclusion}</strong><em>{data.upgradeRules[0].action}</em></p>
+              </article>
+            </div>
+          </section>
           <footer className="drill-review-pagination">
             <span>共 26 项</span>
             <div>
@@ -164,12 +187,15 @@ export function RectificationReviewPage() {
           </footer>
         </section>
 
-        <aside className="drill-review-side">
+        <aside className="drill-review-side drill-review-insight-panel">
           <header className="drill-review-side-head">
-            <strong>复核辅助判断</strong>
-            <span>结论、退回原因与升级建议</span>
+            <div>
+              <strong>复核辅助判断</strong>
+              <span>结论、退回原因与升级建议</span>
+            </div>
+            <em>基于当前台账</em>
           </header>
-          <section className="drill-review-panel">
+          <section className="drill-review-insight-section conclusion">
             <header>
               <strong>复核结论</strong>
               <span>看县里过没过</span>
@@ -187,7 +213,7 @@ export function RectificationReviewPage() {
             </div>
           </section>
 
-          <section className="drill-review-panel">
+          <section className="drill-review-insight-section reasons">
             <header>
               <strong>退回原因排行</strong>
               <span>看为什么被退回</span>
@@ -208,7 +234,7 @@ export function RectificationReviewPage() {
             </div>
           </section>
 
-          <section className="drill-review-panel">
+          <section className="drill-review-insight-section upgrade">
             <header>
               <strong>升级流转判断</strong>
               <span>看是否需要升级流转</span>

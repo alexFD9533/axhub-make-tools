@@ -1561,7 +1561,7 @@ export const shuanCountyInspectionData = {
 
 export const shuanProvinceSupervisionData = {
   route: 'shuan-home-command-v3-illegal-disposal-province-supervision',
-  title: '挂牌督办 / 省级督办',
+  title: '挂牌督办',
   subtitle: '蜀安首页 Av3 / 打非治违 / 分级协同处置第 4 页',
   scope: '省级挂牌督办 / 挂牌督办合并视角',
   updatedAt: '2026-07-08 18:40',

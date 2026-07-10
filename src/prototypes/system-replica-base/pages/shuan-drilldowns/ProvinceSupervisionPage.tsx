@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BellRing, CalendarClock, ClipboardCheck, FileCheck2, LogOut, RefreshCcw, SendToBack, ShieldCheck } from 'lucide-react';
 import { shuanProvinceSupervisionData } from './data';
 
@@ -12,12 +12,12 @@ function TonePill({ tone, children }: { tone: 'red' | 'amber' | 'cyan' | 'green'
 
 export function ProvinceSupervisionPage() {
   const data = shuanProvinceSupervisionData;
+  const [activePanel, setActivePanel] = useState<'timeline' | 'records'>('timeline');
 
   return (
     <div className="drill-page drill-supervision-page drill-supervision-v2">
       <header className="drill-supervision-topline">
         <div>
-          <p>{data.subtitle}</p>
           <h1>{data.title}</h1>
         </div>
         <a className="drill-supervision-exit" href={routeHref('shuan-home-command-v3')}>
@@ -35,7 +35,6 @@ export function ProvinceSupervisionPage() {
           ))}
         </div>
         <div className="drill-supervision-toolbar-meta">
-          <span>统计口径：{data.scope}</span>
           <span>更新时间：{data.updatedAt}</span>
           <button type="button"><RefreshCcw aria-hidden="true" />刷新</button>
         </div>
@@ -137,69 +136,84 @@ export function ProvinceSupervisionPage() {
         </div>
 
         <aside className="drill-supervision-right">
-          <section className="drill-supervision-panel">
-            <header className="drill-supervision-panel-head">
+          <section className="drill-supervision-panel drill-supervision-workbench">
+            <header className="drill-supervision-panel-head drill-supervision-workbench-head">
               <div>
-                <strong>处置闭环时间轴</strong>
-                <span>下发、签收、整改反馈、复核、销号全链跟踪</span>
+                <strong>督办过程</strong>
+                <span>跟踪处置进度、催办记录与领导批示</span>
+              </div>
+              <div className="drill-supervision-tabs" role="tablist" aria-label="督办过程视图">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activePanel === 'timeline'}
+                  className={activePanel === 'timeline' ? 'active' : ''}
+                  onClick={() => setActivePanel('timeline')}
+                >
+                  处置时间轴
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activePanel === 'records'}
+                  className={activePanel === 'records' ? 'active' : ''}
+                  onClick={() => setActivePanel('records')}
+                >
+                  催办与批示
+                </button>
               </div>
             </header>
 
-            <div className="drill-supervision-timeline">
-              {data.timeline.map((item, index) => (
-                <div key={item.label} className={item.active ? 'active' : ''}>
-                  <i>{index + 1}</i>
-                  <section>
-                    <strong>{item.label}</strong>
-                    <span>{item.time}</span>
-                    <p>{item.detail}</p>
-                  </section>
+            <div className="drill-supervision-tab-body">
+              {activePanel === 'timeline' ? (
+                <div className="drill-supervision-timeline" role="tabpanel">
+                  {data.timeline.map((item, index) => (
+                    <div key={item.label} className={item.active ? 'active' : ''}>
+                      <i>{index + 1}</i>
+                      <section>
+                        <strong>{item.label}</strong>
+                        <span>{item.time}</span>
+                        <p>{item.detail}</p>
+                      </section>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </section>
+              ) : (
+                <div className="drill-supervision-side-stack" role="tabpanel">
+                  <article className="drill-supervision-side-card">
+                    <header><BellRing aria-hidden="true" /><strong>催办记录</strong></header>
+                    {data.reminders.map((item) => (
+                      <p key={item.time}>
+                        <span>{item.time}</span>
+                        <b>{item.channel}</b>
+                        <em>{item.target}</em>
+                      </p>
+                    ))}
+                  </article>
 
-          <section className="drill-supervision-panel">
-            <header className="drill-supervision-panel-head">
-              <div>
-                <strong>催办记录与领导批示</strong>
-                <span>直接回答“催办几次、是否已通报、批示落到了谁”</span>
-              </div>
-            </header>
+                  <article className="drill-supervision-side-card">
+                    <header><CalendarClock aria-hidden="true" /><strong>通报状态</strong></header>
+                    <div className="drill-supervision-notice">
+                      <TonePill tone={data.notice.tone}>{data.notice.status}</TonePill>
+                      <p>{data.notice.summary}</p>
+                    </div>
+                  </article>
 
-            <div className="drill-supervision-side-stack">
-              <article className="drill-supervision-side-card">
-                <header><BellRing aria-hidden="true" /><strong>催办记录</strong></header>
-                {data.reminders.map((item) => (
-                  <p key={item.time}>
-                    <span>{item.time}</span>
-                    <b>{item.channel}</b>
-                    <em>{item.target}</em>
-                  </p>
-                ))}
-              </article>
-
-              <article className="drill-supervision-side-card">
-                <header><CalendarClock aria-hidden="true" /><strong>通报状态</strong></header>
-                <div className="drill-supervision-notice">
-                  <TonePill tone={data.notice.tone}>{data.notice.status}</TonePill>
-                  <p>{data.notice.summary}</p>
+                  <article className="drill-supervision-side-card">
+                    <header><ShieldCheck aria-hidden="true" /><strong>领导批示与销号判断</strong></header>
+                    <div className="drill-supervision-judgement">
+                      <p className="directive">{data.directive}</p>
+                      <div className="drill-supervision-closure">
+                        <TonePill tone={data.closure.tone}>{data.closure.status}</TonePill>
+                        <p>{data.closure.summary}</p>
+                        <ul>
+                          {data.closure.conditions.map((item) => <li key={item}>{item}</li>)}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
                 </div>
-              </article>
-
-              <article className="drill-supervision-side-card">
-                <header><ShieldCheck aria-hidden="true" /><strong>领导批示与销号判断</strong></header>
-                <div className="drill-supervision-judgement">
-                  <p className="directive">{data.directive}</p>
-                  <div className="drill-supervision-closure">
-                    <TonePill tone={data.closure.tone}>{data.closure.status}</TonePill>
-                    <p>{data.closure.summary}</p>
-                    <ul>
-                      {data.closure.conditions.map((item) => <li key={item}>{item}</li>)}
-                    </ul>
-                  </div>
-                </div>
-              </article>
+              )}
             </div>
           </section>
         </aside>

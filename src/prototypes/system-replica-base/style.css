@@ -15413,10 +15413,18 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   height: 28px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0 14px;
   color: #fff;
   font-size: 15px;
+}
+
+.coal-basic-panel-title-main {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .coal-basic-panel-title strong {
@@ -16215,10 +16223,18 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .coal-basic-archive-table > div {
   display: grid;
-  grid-template-columns: 48px 104px 134px 144px 74px 84px 84px 96px 80px 78px 62px;
+  grid-template-columns: 0.65fr repeat(9, minmax(0, 1fr)) 0.75fr;
   border-bottom: 1px solid rgba(33, 100, 179, 0.56);
   background: rgba(3, 34, 74, 0.32);
   font-size: 11px;
+}
+
+.coal-basic-archive-table > div > span,
+.coal-basic-archive-table > div > button {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .coal-basic-archive-table span {
@@ -16251,6 +16267,31 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   gap: 8px;
   color: #c7ddf0;
   font-size: 13px;
+}
+
+.coal-basic-panel-title .coal-basic-pagination {
+  height: 24px;
+  flex: 0 0 auto;
+  gap: 4px;
+  font-size: 11px;
+  margin-left: auto;
+}
+
+.coal-basic-panel-title .coal-basic-pagination button {
+  min-width: 24px;
+  height: 24px;
+}
+
+.coal-basic-panel-title .coal-basic-pagination .page-size {
+  min-width: 74px;
+}
+
+.coal-basic-panel-title .coal-basic-pagination .jump-page {
+  min-width: 34px;
+}
+
+.coal-basic-archive-view-all {
+  flex: 0 0 auto;
 }
 
 .coal-basic-pagination button {
@@ -26544,7 +26585,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .drill-review-main {
   display: grid;
-  grid-template-columns: minmax(0, 1.64fr) minmax(330px, 0.92fr);
+  grid-template-columns: minmax(0, 1.56fr) minmax(430px, 0.94fr);
   gap: 12px;
   align-items: stretch;
   height: 548px;
@@ -26552,7 +26593,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .drill-review-ledger {
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
   gap: 8px;
   min-height: 548px;
   height: 100%;
@@ -26662,6 +26703,98 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .drill-review-table > div:not(.head):hover {
   background: rgba(0, 111, 179, 0.12);
+}
+
+.drill-review-table > div.selected {
+  background: rgba(0, 132, 199, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(65, 211, 255, 0.2);
+}
+
+.drill-review-selected-task {
+  margin: 0 4px;
+  padding: 10px 12px;
+  border: 1px solid rgba(65, 211, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(5, 33, 67, 0.72);
+  display: grid;
+  gap: 10px;
+}
+
+.drill-review-selected-task > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.drill-review-selected-task > header > div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.drill-review-selected-task > header span,
+.drill-review-selected-task article span {
+  color: #91c9e2;
+  font-size: 12px;
+}
+
+.drill-review-selected-task > header strong {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.drill-review-selected-task > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.drill-review-selected-task article {
+  min-width: 0;
+  padding: 2px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  border-left: 1px solid rgba(63, 145, 191, 0.18);
+}
+
+.drill-review-selected-task article:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.drill-review-selected-task article svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: #67dcff;
+  flex: 0 0 auto;
+}
+
+.drill-review-selected-task article p {
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.drill-review-selected-task article strong,
+.drill-review-selected-task article em {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drill-review-selected-task article strong {
+  color: #e9faff;
+  font-size: 13px;
+}
+
+.drill-review-selected-task article em {
+  color: rgba(157, 199, 220, 0.74);
+  font-size: 12px;
+  font-style: normal;
 }
 
 .drill-review-status {
@@ -26781,20 +26914,35 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .drill-review-side {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1.18fr);
-  gap: 8px;
+  grid-template-rows: 58px 145px 205px minmax(0, 1fr);
+  gap: 0;
   height: 100%;
   min-height: 548px;
   min-width: 0;
 }
 
+.drill-review-insight-panel {
+  padding: 0 14px 10px;
+  border: 1px solid rgba(54, 186, 255, 0.26);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(7, 40, 79, 0.94), rgba(3, 24, 53, 0.96));
+  box-shadow: inset 0 0 18px rgba(0, 154, 229, 0.08), 0 12px 28px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+}
+
 .drill-review-side-head {
-  min-height: 42px;
+  min-height: 58px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 0 4px;
+  padding: 0 2px;
+  border-bottom: 1px solid rgba(63, 145, 191, 0.22);
+}
+
+.drill-review-side-head > div {
+  display: grid;
+  gap: 3px;
 }
 
 .drill-review-side-head strong {
@@ -26808,13 +26956,44 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   font-size: 12px;
 }
 
+.drill-review-side-head em {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0, 151, 210, 0.14);
+  color: #85dff7;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
 .drill-review-side section {
   min-height: 0;
-  padding: 10px 12px;
+  padding: 9px 2px;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 8px;
+  gap: 6px;
   overflow: hidden;
+}
+
+.drill-review-side .drill-review-insight-section {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.drill-review-side .drill-review-insight-section + .drill-review-insight-section {
+  border-top: 1px solid rgba(63, 145, 191, 0.18);
+}
+
+.drill-review-insight-section > header strong {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.drill-review-insight-section > header span {
+  color: rgba(170, 214, 234, 0.72);
+  font-size: 11px;
 }
 
 .drill-review-conclusion-list,
@@ -26824,17 +27003,17 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   align-content: stretch;
   grid-auto-rows: minmax(0, 1fr);
   min-height: 0;
-  gap: 6px;
+  gap: 4px;
 }
 
 .drill-review-conclusion-list article,
 .drill-review-reason-list article,
 .drill-review-upgrade-list article {
   min-height: 0;
-  padding: 8px 10px;
-  border: 1px solid rgba(60, 142, 184, 0.18);
-  border-radius: 7px;
-  background: rgba(6, 29, 58, 0.64);
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: rgba(6, 38, 72, 0.58);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26880,7 +27059,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 }
 
 .drill-review-reason-list article > i {
-  flex: 0 0 72px;
+  flex: 0 0 60px;
   height: 6px;
   border-radius: 3px;
   background: rgba(5, 28, 61, 0.72);
@@ -26899,6 +27078,38 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   height: 17px;
   color: #ff8a98;
   flex: 0 0 auto;
+}
+
+.drill-review-insight-section.conclusion .drill-review-conclusion-list span,
+.drill-review-insight-section.reasons .drill-review-reason-list span {
+  -webkit-line-clamp: 1;
+}
+
+.drill-review-insight-section.upgrade .drill-review-upgrade-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+}
+
+.drill-review-insight-section.upgrade .drill-review-upgrade-list article {
+  padding: 7px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 4px 7px;
+}
+
+.drill-review-insight-section.upgrade .drill-review-upgrade-list article svg {
+  grid-row: 1 / 3;
+}
+
+.drill-review-insight-section.upgrade .drill-review-upgrade-list article > div {
+  gap: 2px;
+}
+
+.drill-review-insight-section.upgrade .drill-review-upgrade-list article em {
+  grid-column: 2;
+  color: #7fdcf6;
 }
 
 .drill-review-bottom {
@@ -27090,6 +27301,14 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   .drill-review-side {
     height: auto;
     min-height: 0;
+  }
+
+  .drill-review-side {
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .drill-review-insight-section.upgrade .drill-review-upgrade-list {
+    grid-template-columns: 1fr;
   }
 
   .drill-review-escalation-grid {
@@ -29697,7 +29916,8 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 .drill-supervision-page.drill-supervision-v2 {
   min-height: calc(100vh - 98px);
   display: grid;
-  grid-template-rows: auto auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  align-content: start;
   gap: 8px;
   padding: 8px 10px 12px;
   color: #dcecff;
@@ -29747,7 +29967,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .drill-supervision-topline h1 {
   color: #f2f8ff;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1.1;
 }
 
@@ -29832,6 +30052,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.88fr);
   gap: 8px;
+  align-items: stretch;
 }
 
 .drill-supervision-left,
@@ -29843,11 +30064,61 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .drill-supervision-left {
-  grid-template-rows: minmax(320px, auto) minmax(250px, auto);
+  grid-template-rows: auto auto;
 }
 
 .drill-supervision-right {
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  display: block;
+  height: 100%;
+}
+
+.drill-supervision-workbench {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.drill-supervision-workbench-head {
+  min-height: 60px;
+}
+
+.drill-supervision-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(64, 153, 224, 0.28);
+  border-radius: 4px;
+  background: rgba(3, 27, 59, 0.72);
+}
+
+.drill-supervision-tabs button {
+  height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: #91b9de;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.drill-supervision-tabs button:hover,
+.drill-supervision-tabs button:focus-visible {
+  color: #ffffff;
+  outline: none;
+}
+
+.drill-supervision-tabs button.active {
+  background: rgba(31, 119, 187, 0.72);
+  color: #ffffff;
+  box-shadow: inset 0 0 12px rgba(63, 205, 255, 0.12);
+}
+
+.drill-supervision-tab-body {
+  min-height: 0;
+  overflow: auto;
 }
 
 .drill-supervision-panel {
@@ -30134,6 +30405,15 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
   .drill-supervision-main {
     grid-template-columns: 1fr;
+  }
+
+  .drill-supervision-right,
+  .drill-supervision-workbench {
+    height: auto;
+  }
+
+  .drill-supervision-tab-body {
+    overflow: visible;
   }
 
   .drill-supervision-audit-grid {
@@ -32211,7 +32491,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .personnel-right-column {
   grid-row: 1 / span 2;
-  grid-template-rows: 166px 136px 128px minmax(186px, 1fr);
+  grid-template-rows: 166px 136px 178px minmax(150px, 1fr);
 }
 
 .personnel-panel {
@@ -32289,6 +32569,19 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   color: rgba(219, 241, 255, 0.8);
   font-size: 12px;
   font-style: normal;
+}
+
+.personnel-panel-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #5bc9ff;
+  white-space: nowrap;
+}
+
+.personnel-panel-more svg {
+  width: 14px;
+  height: 14px;
 }
 
 .personnel-map-panel {
@@ -32626,16 +32919,27 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   z-index: 3;
   left: 18px;
   bottom: 10px;
-  width: 430px;
+  width: max-content;
   padding: 6px 10px;
   border: 1px solid rgba(65, 160, 255, 0.34);
   background: rgba(3, 24, 58, 0.88);
   box-shadow: inset 0 0 18px rgba(28, 120, 224, 0.14);
   display: grid;
-  grid-template-columns: repeat(4, max-content);
+  grid-template-columns: max-content max-content;
   align-items: center;
-  column-gap: 14px;
-  row-gap: 3px;
+  column-gap: 24px;
+}
+
+.personnel-map-legend-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.personnel-map-legend-group + .personnel-map-legend-group {
+  padding-left: 24px;
+  border-left: 1px solid rgba(104, 192, 255, 0.28);
 }
 
 .personnel-map-legend strong,
