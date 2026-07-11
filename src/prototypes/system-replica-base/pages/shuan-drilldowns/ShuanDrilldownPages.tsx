@@ -1574,7 +1574,7 @@ function MajorHazardReminderPage() {
                     <strong className="text-success">{data.selectedDisaster.evacuationDetail.evacuated}</strong>
                   </div>
                   <div className="mhr-evac-stat">
-                    <span>鏈挙绂?</span>
+                    <span>未撤离</span>
                     <strong className="text-danger">{data.selectedDisaster.evacuationDetail.unevacuated}</strong>
                   </div>
                   <div className="mhr-evac-stat mhr-evac-rate">
@@ -2037,7 +2037,7 @@ function LicenseExpiryReminderPage() {
           <div className="ler-license-row ler-license-head">
             <span>证照类型</span>
             <span style={{ textAlign: 'center' }}>即将到期</span>
-            <span style={{ textAlign: 'center' }}>宸茶繃鏈?</span>
+            <span style={{ textAlign: 'center' }}>已过期</span>
             <span style={{ textAlign: 'center' }}>预警总数</span>
           </div>
           {data.licenseTypes.map((row) => (
@@ -2119,7 +2119,7 @@ function LicenseExpiryReminderPage() {
             <span>煤矿名称</span>
             <span style={{ textAlign: 'center' }}>风险总数</span>
             <span style={{ textAlign: 'center' }}>即将到期</span>
-            <span style={{ textAlign: 'center' }}>宸茶繃鏈?</span>
+            <span style={{ textAlign: 'center' }}>已过期</span>
           </div>
           {data.mineRankings.map((mine) => (
             <div key={mine.rank}>
@@ -2155,7 +2155,7 @@ function LicenseExpiryReminderPage() {
             </span>
             <span>
               <i className="line" style={{ background: '#ff4d4f' }} />
-              宸茶繃鏈?
+              已过期
             </span>
           </div>
           <div className="ler-trend-chart">
@@ -2175,7 +2175,7 @@ function LicenseExpiryReminderPage() {
                   </g>
                 );
               })}
-              {/* 鏌辩姸鍥?- 宸茶繃鏈?*/}
+              {/* 柱状图 - 已过期 */}
               {data.trend.expired.map((v, i) => {
                 const x = padL + (i / (data.trend.days.length - 1)) * plotW - barWidth / 2;
                 const h = (v / trendMax) * plotH;
@@ -2263,12 +2263,12 @@ function LicenseExpiryReminderPage() {
           </div>
         </section>
 
-        {/* 鍙筹細绱ф€ヨ瘉鐓ф彁閱?*/}
+        {/* 右：紧急证照提醒 */}
         <section className="ler-panel">
           <header className="ler-panel-header">
             <div className="ler-panel-title">
               <AlertTriangle size={14} style={{ color: '#ff4d4f' }} />
-              绱ф€ヨ瘉鐓ф彁閱?
+              紧急证照提醒
             </div>
           </header>
           {data.urgentReminders.map((item, idx) => (
@@ -2278,7 +2278,7 @@ function LicenseExpiryReminderPage() {
                 <div className="ler-urgent-company">{item.company}</div>
                 <div className="ler-urgent-license">{item.licenseType}</div>
               </div>
-              <span className="ler-urgent-badge">{item.status === 'expired' ? '宸茶繃鏈?' : '即将到期'}</span>
+              <span className="ler-urgent-badge">{item.status === 'expired' ? '已过期' : '即将到期'}</span>
               <span className="ler-urgent-days">
                 {item.days < 0 ? item.days : `+${item.days}`}
                 <small>处</small>
@@ -3697,7 +3697,7 @@ function HiddenFaceMineProfilePage() {
               <span>综合风险得分</span>
               <strong>{data.mine.score}</strong>
               <p>/100</p>
-              <em>杈冧笂娆?{data.mine.previousDelta} →</em>
+              <em>较上次 {data.mine.previousDelta} →</em>
             </article>
             <article className="drill-mine-profile-card level-card">
               <span>风险等级</span>
@@ -3707,26 +3707,26 @@ function HiddenFaceMineProfilePage() {
             <article className="drill-mine-profile-card">
               <span>区域排名</span>
               <strong>{data.mine.regionRank}</strong>
-              <p>鍚屽尯鍩?</p>
+              <p>同区域排名</p>
             </article>
             <article className="drill-mine-profile-card">
-              <span>鏈夋晥线索数</span>
+              <span>有效线索数</span>
               <strong>{data.mine.validClues}</strong>
-              <p>杈冧笂娆?+23</p>
+              <p>较上次 +23</p>
             </article>
           </div>
 
           <div className="drill-mine-profile-status-strip">
             <span><em>计分线索</em><strong>{data.mine.scoringClues}</strong><b>占比 {data.mine.scoringRatio}</b></span>
-            <span><em>鏈€鏂拌瘎鍒嗘椂闂?</em><strong>{data.mine.lastScoreTime}</strong><b>每日更新</b></span>
-            <span><em>鏈€杩戞牳鏌ョ姸鎬?</em><strong>{data.mine.verificationStatus}</strong><b>{data.mine.verificationProgress}</b></span>
-            <span><em>鏈€鏂板弽棣堢粨璁?</em><strong>{data.mine.feedbackConclusion}</strong><b>{data.mine.pendingIssues}</b></span>
+            <span><em>最新评分时间</em><strong>{data.mine.lastScoreTime}</strong><b>每日更新</b></span>
+            <span><em>最近核查状态</em><strong>{data.mine.verificationStatus}</strong><b>{data.mine.verificationProgress}</b></span>
+            <span><em>最新反馈结论</em><strong>{data.mine.feedbackConclusion}</strong><b>{data.mine.pendingIssues}</b></span>
           </div>
 
           <article className="drill-mine-profile-panel score-breakdown">
             <header>
               <h3>综合评分</h3>
-              <span>缁煎悎椋庨櫓鍒?= 绾跨储鍩虹鍒?+ 鍏宠仈澧炲己鍒?+ 鍥炴祦淇鍒?</span>
+              <span>综合风险分 = 线索基础分 + 关联增强分 + 回流修正分</span>
             </header>
             <div className="drill-mine-profile-score-layout">
               <div className="drill-mine-profile-donut" style={{ '--score': `${scorePercent * 3.6}deg` } as React.CSSProperties}>
@@ -3747,13 +3747,13 @@ function HiddenFaceMineProfilePage() {
                       </span>
                       <b>{part.value}<small>/{part.max}</small></b>
                       <div><mark style={{ width: part.percent }} /></div>
-                      <p>璐＄尞搴?{part.percent}</p>
+                      <p>线索占比 {part.percent}</p>
                     </div>
                   );
                 })}
               </div>
             </div>
-            <footer>娉細鍥炴祦淇鍒嗚寖鍥?-20 ~ +20，当前为 +5.3銆?</footer>
+            <footer>注：回流修正分范围 -20 ~ +20，当前为 +5.3。</footer>
           </article>
         </section>
 
@@ -3769,7 +3769,7 @@ function HiddenFaceMineProfilePage() {
                     <header><Icon aria-hidden="true" /><strong>{item.category}</strong></header>
                     <p><span>线索数</span><b>{item.hit}</b><em>条</em></p>
                     <p><span>计分线索</span><b>{item.scored}</b><em>条</em></p>
-                    <p><span>璐＄尞鍒?</span><b>{item.contribution}</b></p>
+                    <p><span>线索贡献分</span><b>{item.contribution}</b></p>
                     <dl>
                       <dt>代表算法</dt>
                       <dd>{item.algorithm}</dd>
@@ -3809,7 +3809,7 @@ function HiddenFaceMineProfilePage() {
                 <section key={item.dimension}>
                   <header><ShieldAlert aria-hidden="true" /><strong>{item.dimension}</strong><MineProfileTag level={item.level} /></header>
                   <p>{item.clues}</p>
-                  <span>澧炲己鍒?<b>{item.increment}</b></span>
+                  <span>增强分 <b>{item.increment}</b></span>
                 </section>
               ))}
               <section className="total">
@@ -3863,7 +3863,7 @@ function HiddenFaceMineProfilePage() {
               <div className="score-change">
                 <span>回流效果（本次）</span>
                 <p><b>{data.feedback.beforeScore}</b><ChevronRight aria-hidden="true" /><strong>{data.feedback.afterScore}</strong></p>
-                <em>淇鍊?{data.feedback.correction}</em>
+                <em>修正值 {data.feedback.correction}</em>
               </div>
               <div className="level-change">
                 <span>风险等级变化</span>
@@ -3877,7 +3877,7 @@ function HiddenFaceMineProfilePage() {
               </div>
             </div>
             <div className="drill-mine-profile-task-table">
-              <div className="head">{['任务编号', '任务名称', '任务类型', '责任单位', '鐘舵€?', '计划时间', '完成时间', '结论'].map((item) => <span key={item}>{item}</span>)}</div>
+              <div className="head">{['任务编号', '任务名称', '任务类型', '责任单位', '状态', '计划时间', '完成时间', '结论'].map((item) => <span key={item}>{item}</span>)}</div>
               {data.feedback.tasks.map((task) => (
                 <div key={task.id}>
                   <span>{task.id}</span>
@@ -3906,7 +3906,7 @@ function VideoDispatchPage() {
       <DrillContentHeader
         eyebrow="首页 Av3 / 视频入口"
         title={data.title}
-        description={`鐓ょ熆鎬绘暟锛?{data.mineTotal}`}
+        description={`煤矿总数：${data.mineTotal}`}
         actions={
           <a className="drill-video-exit" href={routeHref('shuan-home-command-v3')} aria-label="退出视频联网页">
             <LogOut aria-hidden="true" />
@@ -3919,7 +3919,7 @@ function VideoDispatchPage() {
         <aside className="drill-video-mines">
           <label className="drill-video-search">
             <Search aria-hidden="true" />
-            <input type="text" placeholder="请输入关键字..." aria-label="视频煤矿检" />
+            <input type="text" placeholder="请输入关键字..." aria-label="视频煤矿检索" />
           </label>
           <div className="drill-video-filter-row">
             {data.filters.map((item) => (
@@ -3973,14 +3973,14 @@ function VideoDispatchPage() {
           </section>
           <footer className="drill-video-layout-bar" aria-label="视频分屏布局">
             {data.layouts.map((layout) => <button key={layout} type="button">{layout}</button>)}
-            <button type="button" aria-label="关闭视频" className="close">脳</button>
+            <button type="button" aria-label="关闭视频" className="close">×</button>
           </footer>
         </main>
 
         <aside className="drill-video-groups">
           <header className="drill-video-tabs">
-            <button type="button" className="active">鎸夊尯鍩?</button>
-            <button type="button">鎸夊垎缁?</button>
+            <button type="button" className="active">按区域</button>
+            <button type="button">按分组</button>
             <button type="button" aria-label="导出"><Download aria-hidden="true" /></button>
           </header>
           <label className="drill-video-search">
@@ -3991,7 +3991,7 @@ function VideoDispatchPage() {
             {data.groups.map((group) => (
               <section key={group.title} className={group.expanded ? 'expanded' : ''}>
                 <header>
-                  <strong>{group.title} <b>{group.count}</b>涓棰?</strong>
+                  <strong>{group.title} <b>{group.count}</b>个视频</strong>
                   <ChevronRight aria-hidden="true" />
                 </header>
                 {group.expanded ? (
@@ -4138,8 +4138,10 @@ function DataGovernancePage({ onExit }: { onExit?: () => void }) {
               <div className="data-governance-rates"><span>系统误报率<b>5<small>%</small></b></span><span>漏报率<b>3<small>%</small></b></span></div>
               <div className="data-governance-matrix">
                 <header>验证矩阵（实时）</header>
-                <div className="head"><i />命中　误报　漏报</div>
-                {['高风险','中风险','低风险'].map((risk, row) => <div key={risk}><span>{risk}</span>{[0,1,2].map((col) => <i className={`r${row} c${col}`} key={col} />)}</div>)}
+                <table>
+                  <thead><tr><th scope="col">风险等级</th><th scope="col">命中</th><th scope="col">误报</th><th scope="col">漏报</th></tr></thead>
+                  <tbody>{['高风险','中风险','低风险'].map((risk, row) => <tr key={risk}><th scope="row">{risk}</th>{[0,1,2].map((col) => <td key={col}><i className={`r${row} c${col}`} aria-label={`${risk}${['命中','误报','漏报'][col]}`} /></td>)}</tr>)}</tbody>
+                </table>
               </div>
               <footer><RefreshCcw aria-hidden="true" />最近更新：20秒前</footer>
             </GovernancePanel>
