@@ -16,6 +16,13 @@ function getJSXDevRuntime() {
   return globalObject.ReactJSXDevRuntime || getJSXRuntime();
 }
 
+function createJSXElement(type, props, key) {
+  const elementProps = key === undefined
+    ? props
+    : { ...props, key };
+  return getReact().createElement(type, elementProps);
+}
+
 const ReactProxy = new Proxy({}, {
   get(_target, property) {
     return getReact()?.[property];
@@ -65,6 +72,23 @@ export const Children = globalObject.React?.Children;
 export const version = globalObject.React?.version || '';
 
 // JSX Runtime exports for modern React
-export const jsx = (...args) => (getJSXRuntime().jsx || createElement)(...args);
-export const jsxs = (...args) => (getJSXRuntime().jsxs || createElement)(...args);
-export const jsxDEV = (...args) => (getJSXDevRuntime().jsxDEV || jsx)(...args);
+export const jsx = (type, props, key) => {
+  const runtime = getJSXRuntime();
+  return runtime.jsx
+    ? runtime.jsx(type, props, key)
+    : createJSXElement(type, props, key);
+};
+
+export const jsxs = (type, props, key) => {
+  const runtime = getJSXRuntime();
+  return runtime.jsxs
+    ? runtime.jsxs(type, props, key)
+    : createJSXElement(type, props, key);
+};
+
+export const jsxDEV = (type, props, key, ...rest) => {
+  const runtime = getJSXDevRuntime();
+  return runtime.jsxDEV
+    ? runtime.jsxDEV(type, props, key, ...rest)
+    : createJSXElement(type, props, key);
+};

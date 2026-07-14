@@ -87,13 +87,13 @@ const timeRangeOptions: Array<{ value: TimeRangeValue; label: string }> = [
   { value: 'month', label: '近30日' },
 ];
 
-const navItems: Array<[string, CockpitIconName]> = [
-  ['首页', 'home'],
-  ['日常监管', 'monitor'],
-  ['打非治违', 'siren'],
-  ['从业人员管理', 'users'],
-  ['生产管理', 'mine'],
-  ['系统设置', 'settings'],
+const navItems: Array<[string, CockpitIconName, boolean]> = [
+  ['首页', 'home', true],
+  ['日常监管', 'monitor', false],
+  ['打非治违', 'siren', false],
+  ['从业人员管理', 'users', false],
+  ['生产管理', 'mine', false],
+  ['系统设置', 'settings', false],
 ];
 
 const navPageMap: Record<string, string> = {
@@ -286,7 +286,7 @@ function TopHeader({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
   return (
     <header className="shuan-header" data-annotation-id="shuan-v3-header">
       <div className="shuan-brand"><span className="shuan-emblem"><img src={shuanLogoUrl} alt="" /></span><div className="shuan-title">“蜀安”煤矿多源异构监测系统</div></div>
-      <nav className="command-nav" aria-label="系统顶部导航">{navItems.map(([label, icon]) => <button key={label} type="button" className={label === activeNavLabel ? 'active' : ''} onClick={() => onOpenPage?.(navPageMap[label] || 'shuan-home-command-v3')}><CockpitIcon name={icon} /><span>{label}</span></button>)}</nav>
+      <nav className="command-nav" aria-label="系统顶部导航">{navItems.map(([label, icon, hasContent]) => <button key={label} type="button" className={label === activeNavLabel ? 'active' : ''} aria-disabled={!hasContent} onClick={() => { if (hasContent) onOpenPage?.(navPageMap[label] || 'shuan-home-command-v3'); }}><CockpitIcon name={icon} /><span>{label}</span></button>)}</nav>
       <div className="shuan-top-tools"><button type="button" className="shuan-tool-round shuan-video-entry" aria-label="视频入口" onClick={() => onOpenPage?.('shuan-home-command-v3-video-dispatch')}><Video /></button><button type="button" className="shuan-tool-badge" aria-label="报警消息"><CockpitIcon name="bell" /><b>18</b></button><button type="button" className="shuan-tool-round" aria-label="用户"><UserRound /></button><span className="shuan-user">李明远 <ChevronDown /></span><button type="button" className="shuan-icon-tool" aria-label="设置"><Settings /></button></div>
     </header>
   );

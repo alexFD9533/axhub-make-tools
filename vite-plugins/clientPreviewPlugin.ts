@@ -204,6 +204,9 @@ function createPreviewLoader(type: ResourceType, name: string, projectRoot: stri
   const importPath = `/${type}/${name}/index.tsx?axhub_preview_v=${cacheToken}`;
   const previewPath = `/${type}/${name}`;
   return `
+import React from 'react';
+import * as ReactDOMClient from 'react-dom/client';
+
 function notifyAxhubPreviewUpdated(reason) {
   if (typeof window === 'undefined' || window.parent === window) return;
   window.parent.postMessage({
@@ -219,10 +222,6 @@ if (!rootElement) {
   throw new Error('[Axhub Make Project] Missing #root container');
 }
 
-if (!window.React || !window.ReactDOM) {
-  throw new Error('[Axhub Make Project] React runtime is not ready');
-}
-
 const renderPreview = async () => {
   const module = await import(${JSON.stringify(importPath)});
   const PreviewComponent = module?.default;
@@ -230,10 +229,10 @@ const renderPreview = async () => {
     throw new Error('[Axhub Make Project] Preview component is missing a default export');
   }
 
-  const root = window.ReactDOM.createRoot
-    ? window.ReactDOM.createRoot(rootElement)
+  const root = ReactDOMClient.createRoot
+    ? ReactDOMClient.createRoot(rootElement)
     : null;
-  const element = window.React.createElement(PreviewComponent, {
+  const element = React.createElement(PreviewComponent, {
     container: rootElement,
     config: {
       projectPath: ${JSON.stringify(projectRoot)},
@@ -247,7 +246,7 @@ const renderPreview = async () => {
     return root;
   }
 
-  window.ReactDOM.render(element, rootElement);
+  ReactDOMClient.render?.(element, rootElement);
   return null;
 };
 

@@ -1,3 +1,5 @@
+import { getShuanAlgorithm } from '../../../../resources/shuan/algorithm-catalog';
+
 export type DrilldownTone = 'blue' | 'cyan' | 'green' | 'amber' | 'yellow' | 'red' | 'slate';
 export type DrilldownKind = 'secondary' | 'algorithm';
 
@@ -109,8 +111,8 @@ export const shuanHiddenFaceMineProfileData: HiddenFaceMineProfileData = {
     company: '雷能控股集团有限公司',
     location: '山西省 · 晋城市 · 沁水县',
     productionStatus: '正常生产',
-    score: 86.7,
-    previousDelta: '+8.9',
+    score: 74.9,
+    previousDelta: '-1.7',
     level: '高风险',
     levelReason: '修正后维持',
     regionRank: '8 /127',
@@ -124,23 +126,23 @@ export const shuanHiddenFaceMineProfileData: HiddenFaceMineProfileData = {
     pendingIssues: '待处理 3 项',
   },
   scoreParts: [
-    { label: '线索基础分', value: 58.3, max: 100, percent: '67.2%', description: '由多源线索权重、可信度和时效性计算得分', icon: 'base' },
-    { label: '关联增强分', value: 23.1, max: 100, percent: '26.6%', description: '多维关联识别风险放大得分', icon: 'association' },
-    { label: '回流修正分', value: 5.3, max: 100, percent: '6.2%', description: '因核查反馈修正评分依据', icon: 'feedback' },
+    { label: '线索基础（权重 50%）', value: 41.7, max: 50, percent: '83.4%', description: '原始分 83.3 × 50%，计入 41.7 分', icon: 'base' },
+    { label: '关联增强（权重 50%）', value: 38.5, max: 50, percent: '77.0%', description: '原始分 77.0 × 50%，计入 38.5 分', icon: 'association' },
+    { label: '核验调整', value: -5.3, max: 5.3, percent: '100%', description: '现场核查、执法处置及整改闭环结果经审核后计入当前评分', icon: 'feedback' },
   ],
   algorithmContributions: [
-    { category: '瓦斯', icon: 'gas', hit: 48, scored: 31, contribution: 32.6, algorithm: '瓦斯涌出识别算法', summary: '异常浓度多点同步异常，夜间出现低阈值波动。' },
-    { category: '风', icon: 'wind', hit: 32, scored: 18, contribution: 18.4, algorithm: '通风异常识别算法', summary: '风量波动偏大，局部风速降低。' },
-    { category: '人', icon: 'person', hit: 26, scored: 12, contribution: 11.2, algorithm: '作业行为风险识别', summary: '夜班进出人员与作业风险高频交叉。' },
-    { category: '煤', icon: 'coal', hit: 24, scored: 14, contribution: 9.8, algorithm: '采掘线换风路识别', summary: '煤流保持低频波动，疑似局部生产。' },
-    { category: '电', icon: 'electric', hit: 22, scored: 11, contribution: 8.7, algorithm: '电气设备故障预测', summary: '局部供电活跃，保护动作频繁。' },
+    { category: '瓦斯', icon: 'gas', hit: 48, scored: 31, contribution: 32.6, algorithm: getShuanAlgorithm('瓦斯变化异常').name, summary: getShuanAlgorithm('瓦斯变化异常').description },
+    { category: '风', icon: 'wind', hit: 32, scored: 18, contribution: 18.4, algorithm: getShuanAlgorithm('风量变化异常').name, summary: getShuanAlgorithm('风量变化异常').description },
+    { category: '人', icon: 'person', hit: 26, scored: 12, contribution: 11.2, algorithm: getShuanAlgorithm('人员停留异常').name, summary: getShuanAlgorithm('人员停留异常').description },
+    { category: '煤', icon: 'coal', hit: 24, scored: 14, contribution: 9.8, algorithm: getShuanAlgorithm('工作面产量异常').name, summary: getShuanAlgorithm('工作面产量异常').description },
+    { category: '电', icon: 'electric', hit: 22, scored: 11, contribution: 8.7, algorithm: getShuanAlgorithm('负荷结构异常').name, summary: getShuanAlgorithm('负荷结构异常').description },
   ],
   keyClues: [
-    { id: '31203', title: '31203回风巷瓦斯浓度持续超限', source: '瓦斯超限识别', time: '2025-05-23 07:45', area: '31203回风巷', risk: '高', confidence: '0.95', score: 7.8, tags: ['传感器', '趋势', '阈值'] },
-    { id: '31201', title: '31201采空区上隅角液浓异常', source: '微震异常检测', time: '2025-05-22 22:31', area: '31201上隅角', risk: '高', confidence: '0.90', score: 6.5, tags: ['微震', '事件', '聚集'] },
-    { id: 'vent-01', title: '通风机异常波动且记录值偏低', source: '通风异常识别', time: '2025-05-23 08:10', area: '主井通风系统', risk: '高', confidence: '0.88', score: 5.9, tags: ['风量', '波动', '异常'] },
-    { id: 'coal-01', title: '采掘换线计时超速', source: '采掘换线风险识别', time: '2025-05-22 18:00', area: '31203工作面', risk: '中', confidence: '0.82', score: 4.3, tags: ['计划', '进度', '对比'] },
-    { id: 'methane-02', title: '密闭墙气体浓度异常升高', source: '密闭气体异常识别', time: '2025-05-21 16:20', area: '31201密闭墙', risk: '中', confidence: '0.78', score: 3.8, tags: ['气体', '浓度', '趋势'] },
+    { id: '31203', title: '31203回风巷甲烷监测值异常变化', source: getShuanAlgorithm('瓦斯变化异常').name, time: '2025-05-23 07:45', area: '31203回风巷', risk: '高', confidence: '0.95', score: 7.8, tags: ['甲烷', '趋势', '增幅'] },
+    { id: '31201', title: '31201上隅角瓦斯涌出量异常升高', source: getShuanAlgorithm('瓦斯涌出量异常').name, time: '2025-05-22 22:31', area: '31201上隅角', risk: '高', confidence: '0.90', score: 6.5, tags: ['瓦斯', '涌出量', '临界值'] },
+    { id: 'vent-01', title: '主井通风系统风量突变', source: getShuanAlgorithm('风量变化异常').name, time: '2025-05-23 08:10', area: '主井通风系统', risk: '高', confidence: '0.88', score: 5.9, tags: ['风量', '突变', '通风'] },
+    { id: 'coal-01', title: '31203工作面产量与推进度不匹配', source: getShuanAlgorithm('工作面产量异常').name, time: '2025-05-22 18:00', area: '31203工作面', risk: '中', confidence: '0.82', score: 4.3, tags: ['产量', '推进度', '比对'] },
+    { id: 'person-01', title: '定位卡长期滞留非作业读卡基站', source: getShuanAlgorithm('人员停留异常').name, time: '2025-05-21 16:20', area: '31201工作面入口', risk: '中', confidence: '0.78', score: 3.8, tags: ['定位卡', '停留', '隐蔽工作面'] },
   ],
   associationAnalysis: [
     { dimension: '时间关联', level: '中', increment: '+4.6', clues: '多时段异常叠加' },

@@ -161,6 +161,14 @@
     }
   ],
   "tasks": {
+    "mine-profile-anchor-navigation": {
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "mine-profile-anchor-navigation-20260713",
+      "sessionId": "local",
+      "updatedAt": 1783929600000,
+      "message": "左侧目录已改为平滑滚动页内锚点；滚动经过对应区块时菜单会自动高亮。"
+    },
     "illegal_overview_exit": {
       "state": "completed",
       "provider": "codex",
@@ -195,16 +203,6 @@
       "updatedAt": 1783573509598,
       "message": "修改完成"
     },
-    "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3:button_28": {
-      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3",
-      "state": "completed",
-      "provider": "codex",
-      "requestId": "annotation-mrd1i3z1-7jdbdc",
-      "sessionId": "annotation-mrd1i3z1-7jdbdc",
-      "updatedAt": 1783573699483,
-      "message": "AI 修改失败"
-    }
-    ,
     "page-scope:prototypes%2Fshuan-home-command-v3-export%3A%3Apage%3A%3Ashuan-home-command-v3-dangerous-work-report:section_30": {
       "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-dangerous-work-report",
       "state": "completed",

@@ -13273,10 +13273,6 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   }
 }
 
-body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
-  display: none !important;
-}
-
 /* Reference-image correction: match the supplied 1817x866 dashboard, not a wider 1920 crop. */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-header {
   grid-template-columns: 496px 760px minmax(0, 1fr);
@@ -15723,7 +15719,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 .coal-basic-filter-row {
   height: 34px;
   display: grid;
-  grid-template-columns: repeat(7, minmax(120px, 1fr)) 64px 72px;
+  grid-template-columns: repeat(5, minmax(120px, 1fr)) 64px 72px;
   gap: 10px;
   align-items: center;
   padding: 0 16px;
@@ -15871,14 +15867,11 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 }
 
 .coal-basic-system-panel {
-  grid-column: 1;
-  grid-row: 3;
-  display: flex;
-  flex-direction: column;
+  display: none;
 }
 
 .coal-basic-archive-panel {
-  grid-column: 2;
+  grid-column: 1 / -1;
   grid-row: 3;
   display: flex;
   flex-direction: column;
@@ -15948,7 +15941,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   flex: 1 1 auto;
   min-height: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(190px, 1.15fr);
   gap: 8px;
   padding: 0 10px 8px;
 }
@@ -15968,6 +15961,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   margin: 0 0 6px;
   color: #e9f6ff;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .coal-basic-donut-block {
@@ -16036,11 +16030,18 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .coal-basic-access-levels div {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr) 32px 28px;
-  gap: 8px;
+  grid-template-columns: 74px minmax(0, 1fr) 28px 18px;
+  gap: 5px;
   align-items: center;
   color: #d9efff;
   font-size: 11px;
+}
+
+.coal-basic-access-levels div > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .coal-basic-access-levels i {
@@ -16239,7 +16240,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .coal-basic-access-cross-row {
   display: grid;
-  grid-template-columns: 108px minmax(0, 1fr) 30px;
+  grid-template-columns: 108px repeat(4, minmax(0, 1fr));
   gap: 10px;
   align-items: center;
   height: 22px;
@@ -16317,9 +16318,76 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 }
 
 .coal-basic-access-cross-row strong {
-  justify-self: end;
-  min-width: 30px;
-  text-align: right;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-right: 1px solid rgba(33, 100, 179, 0.52);
+  color: #d8eeff;
+}
+
+.coal-basic-access-cross-row.head {
+  height: 24px;
+  flex-basis: 24px;
+  color: #bfeaff;
+  font-weight: 700;
+  background: linear-gradient(180deg, rgba(23, 85, 167, 0.75), rgba(8, 51, 112, 0.72));
+}
+
+.coal-basic-access-cross-row.head strong {
+  color: #bfeaff;
+}
+
+/* Keep the capacity cross-table aligned with the gas-grade table above. */
+.coal-basic-access-cross {
+  display: grid;
+  grid-template-rows: 22px 24px repeat(5, minmax(0, 1fr));
+  gap: 0;
+}
+
+.coal-basic-access-cross-row {
+  grid-template-columns: 1.5fr repeat(4, 1fr);
+  gap: 0;
+  min-height: 19px;
+  height: auto;
+  flex: none;
+  border-bottom: 1px solid rgba(33, 100, 179, 0.58);
+  background: rgba(3, 34, 74, 0.32);
+}
+
+.coal-basic-access-cross-row > span,
+.coal-basic-access-cross-row > strong {
+  min-width: 0;
+  min-height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-right: 1px solid rgba(33, 100, 179, 0.52);
+}
+
+.coal-basic-access-cross-row > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coal-basic-access-cross-row.tone-blue > span:first-child { color: #37e7ff; }
+.coal-basic-access-cross-row.tone-green > span:first-child { color: #63e584; }
+.coal-basic-access-cross-row.tone-amber > span:first-child { color: #ffc449; }
+.coal-basic-access-cross-row.tone-purple > span:first-child { color: #bd8cff; }
+.coal-basic-access-cross-row.tone-red > span:first-child { color: #ff6e73; }
+
+.coal-basic-access-cross-row.head {
+  min-height: 24px;
+  height: 24px;
+  flex-basis: auto;
+}
+
+.coal-basic-access-cross-row.head > span,
+.coal-basic-access-cross-row.head > strong {
+  min-height: 24px;
 }
 
 .coal-basic-system-grid {
@@ -16495,7 +16563,7 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 
 .coal-basic-archive-table > div {
   display: grid;
-  grid-template-columns: 0.65fr repeat(9, minmax(0, 1fr)) 0.75fr;
+  grid-template-columns: 0.65fr repeat(8, minmax(0, 1fr)) 0.75fr;
   border-bottom: 1px solid rgba(33, 100, 179, 0.56);
   background: rgba(3, 34, 74, 0.32);
   font-size: 11px;
@@ -25211,6 +25279,62 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   gap: 12px;
 }
 
+.drill-mine-profile-score-flow {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 18px minmax(120px, 1fr) 18px minmax(120px, 1fr);
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(83, 185, 244, 0.28);
+  background: rgba(5, 48, 94, 0.5);
+}
+
+.drill-mine-profile-score-flow section {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  column-gap: 8px;
+}
+
+.drill-mine-profile-score-flow span,
+.drill-mine-profile-score-flow em {
+  grid-column: 1 / -1;
+}
+
+.drill-mine-profile-score-flow span {
+  color: rgba(207, 232, 248, 0.7);
+  font-size: 12px;
+}
+
+.drill-mine-profile-score-flow strong {
+  color: #7deaff;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.drill-mine-profile-score-flow em {
+  margin-top: 4px;
+  color: rgba(207, 232, 248, 0.62);
+  font-size: 11px;
+  font-style: normal;
+}
+
+.drill-mine-profile-score-flow > b {
+  align-self: center;
+  color: rgba(132, 214, 255, 0.78);
+  font-size: 22px;
+  text-align: center;
+}
+
+.drill-mine-profile-score-flow .is-deduction strong,
+.drill-mine-profile-score-flow .is-deduction em {
+  color: #ffb55a;
+}
+
+.drill-mine-profile-score-flow .is-final strong {
+  color: #ff7165;
+}
+
 .drill-mine-profile-score-bars > div {
   display: grid;
   grid-template-columns: 42px 1.2fr 84px minmax(120px, 1fr) 84px;
@@ -25274,6 +25398,35 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   margin: 0;
   color: #ccecff;
   text-align: right;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow {
+  grid-template-columns: minmax(120px, 1fr) 18px minmax(120px, 1fr) 18px minmax(120px, 1fr);
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(83, 185, 244, 0.28);
+}
+
+@media (max-width: 760px) {
+  .drill-mine-profile-score-bars > .drill-mine-profile-score-flow {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .drill-mine-profile-score-flow > b {
+    display: none;
+  }
+
+  .drill-mine-profile-score-flow section {
+    grid-template-columns: 1fr auto;
+    padding-bottom: 7px;
+    border-bottom: 1px dashed rgba(114, 190, 239, 0.16);
+  }
+
+  .drill-mine-profile-score-flow section:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
 }
 
 .drill-mine-profile-panel footer {
@@ -25360,7 +25513,29 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
 }
 
 .drill-mine-profile-clue-table > div {
-  grid-template-columns: 42px 1.7fr 1.15fr 1fr 1.05fr 70px 70px 64px 1.2fr;
+  grid-template-columns: 56px repeat(8, minmax(0, 1fr));
+}
+
+.drill-mine-profile-clue-table .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drill-mine-profile-clue-table .actions button {
+  min-width: 52px;
+  height: 24px;
+  padding: 0 14px;
+  border: 1px solid rgba(64, 181, 255, 0.72);
+  border-radius: 3px;
+  color: #8edcff;
+  background: rgba(18, 91, 151, 0.35);
+  cursor: pointer;
+}
+
+.drill-mine-profile-clue-table .actions button:hover {
+  color: #fff;
+  background: rgba(35, 139, 219, 0.56);
 }
 
 .drill-mine-profile-task-table > div {
@@ -26934,6 +27109,19 @@ body[data-shuan-v3-export-visual="true"] #__axhub_annotation_host__ {
   color: rgba(186, 226, 246, 0.82);
   font-size: 12px;
   white-space: nowrap;
+}
+
+.drill-mine-profile-clue-table .head span:nth-child(1),
+.drill-mine-profile-clue-table .head span:nth-child(6),
+.drill-mine-profile-clue-table .head span:nth-child(7),
+.drill-mine-profile-clue-table .head span:nth-child(8),
+.drill-mine-profile-clue-table .head span:nth-child(9),
+.drill-mine-profile-clue-table > div:not(.head) > span:nth-child(1),
+.drill-mine-profile-clue-table > div:not(.head) > span:nth-child(6),
+.drill-mine-profile-clue-table > div:not(.head) > span:nth-child(7),
+.drill-mine-profile-clue-table > div:not(.head) > span:nth-child(8),
+.drill-mine-profile-clue-table > div:not(.head) > span:nth-child(9) {
+  text-align: center;
 }
 
 .drill-review-ledger-summary b {
@@ -33589,7 +33777,470 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
     overflow-x: auto;
   }
 
-  .personnel-table > div {
+.personnel-table > div {
     width: 1080px;
+  }
+}
+
+/* 综合评分：用真实的累计关系表达模型分与核验调整 */
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) repeat(5, 18px);
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px 0 8px;
+  border: 0;
+  border-bottom: 1px solid rgba(114, 190, 239, 0.18);
+  background: transparent;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow section {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 3px;
+  padding: 0 4px;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow span {
+  color: rgba(224, 243, 255, 0.82);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow strong {
+  color: #57cfff;
+  font-size: 22px;
+  line-height: 1.05;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow em {
+  margin: 0;
+  color: rgba(205, 230, 247, 0.58);
+  font-size: 10px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow > b {
+  align-self: center;
+  color: rgba(157, 222, 255, 0.82);
+  font-size: 20px;
+  text-align: center;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow > b.is-deduction,
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow section.is-deduction strong {
+  color: #5bd68a;
+}
+
+.drill-mine-profile-score-bars > .drill-mine-profile-score-flow section.is-final strong {
+  color: #ff7165;
+}
+
+.drill-mine-profile-waterfall {
+  position: relative;
+  height: 34px;
+  margin: 8px 0 4px;
+  overflow: visible;
+  border-radius: 3px;
+  background: rgba(28, 60, 95, 0.72);
+}
+
+.drill-mine-profile-waterfall > span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+.drill-mine-profile-waterfall .base {
+  left: 0;
+  background: #2b8dff;
+}
+
+.drill-mine-profile-waterfall .association {
+  left: 41.7%;
+  background: #42c9e8;
+}
+
+.drill-mine-profile-waterfall .adjustment {
+  left: 74.9%;
+  background: #5bd68a;
+}
+
+.drill-mine-profile-waterfall > i {
+  position: absolute;
+  top: 40px;
+  padding-top: 3px;
+  color: #c9efff;
+  font-size: 11px;
+  font-style: normal;
+  transform: translateX(-50%);
+}
+
+.drill-mine-profile-waterfall > i::before {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 1px;
+  height: 8px;
+  background: currentColor;
+  content: '';
+}
+
+.drill-mine-profile-waterfall .model-marker {
+  color: #57cfff;
+}
+
+.drill-mine-profile-waterfall .current-marker {
+  color: #ff7165;
+}
+
+.drill-mine-profile-score-note {
+  margin: 44px 0 0;
+  color: rgba(205, 230, 247, 0.68);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .drill-mine-profile-score-bars > .drill-mine-profile-score-flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 18px repeat(3, minmax(0, 1fr));
+  }
+
+  .drill-mine-profile-score-bars > .drill-mine-profile-score-flow > b:nth-of-type(1),
+  .drill-mine-profile-score-bars > .drill-mine-profile-score-flow > b:nth-of-type(2),
+  .drill-mine-profile-score-bars > .drill-mine-profile-score-flow > b:nth-of-type(3) {
+    display: none;
+  }
+}
+
+/* 综合评分参考图复刻：固定四层阅读结构 */
+.drill-mine-profile-panel.score-breakdown {
+  min-height: 470px;
+  padding: 14px 28px 14px;
+  overflow: hidden;
+}
+
+.drill-mine-profile-panel.score-breakdown > header {
+  position: relative;
+  min-height: 42px;
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(40, 141, 229, 0.58);
+}
+
+.drill-mine-profile-panel.score-breakdown > header::after {
+  position: absolute;
+  left: 155px;
+  bottom: -2px;
+  width: 52px;
+  height: 5px;
+  background: #2b8dff;
+  content: '';
+  transform: skewX(-35deg);
+}
+
+.drill-mine-profile-panel.score-breakdown > header h3 {
+  font-size: 24px;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-layout {
+  position: relative;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-layout::before {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 251px;
+  width: 1px;
+  background: rgba(64, 161, 231, 0.32);
+  content: '';
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut {
+  position: relative;
+  width: 210px;
+  height: 329px;
+  aspect-ratio: auto;
+  margin: 0 auto;
+  overflow: visible;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut > img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut > span,
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut > strong,
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut > em,
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut > b {
+  position: relative;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-donut strong {
+  font-size: 52px;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-bars {
+  min-width: 0;
+  gap: 0;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow {
+  grid-template-columns:
+    minmax(120px, 1fr) 34px
+    minmax(120px, 1fr) 34px
+    minmax(120px, 1fr) 34px
+    minmax(120px, 1fr) 34px
+    minmax(120px, 1fr);
+  min-height: 122px;
+  gap: 6px;
+  padding: 6px 0 10px;
+  border-bottom: 0;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow section {
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow span {
+  color: #f3fbff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow strong {
+  font-size: 31px;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow em {
+  color: rgba(223, 240, 252, 0.82);
+  font-size: 14px;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow > b {
+  font-size: 29px;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow section.is-final strong {
+  color: #ff6f64;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow section.is-deduction strong,
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow > b.is-deduction {
+  color: #5bd68a;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-waterfall {
+  position: relative;
+  height: 198px;
+  margin: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 44px;
+  overflow: hidden;
+  border: 1px solid rgba(86, 160, 219, 0.52);
+  border-radius: 3px;
+  background: rgba(25, 53, 85, 0.78);
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-track > span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-track .base {
+  left: 0;
+  background: #2b8dff;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-track .association {
+  background: #42c9e8;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-track .adjustment {
+  background: #5bd68a;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-axis {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  border-top: 1px dashed rgba(155, 216, 255, 0.68);
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-axis > span {
+  position: absolute;
+  top: 9px;
+  color: rgba(235, 247, 255, 0.94);
+  font-size: 18px;
+  transform: translateX(-50%);
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-axis > span::before {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 1px;
+  height: 10px;
+  background: rgba(177, 227, 255, 0.88);
+  content: '';
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-axis > span:first-child {
+  transform: none;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-axis > span:last-child {
+  transform: translateX(-100%);
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-waterfall > i {
+  position: absolute;
+  top: 47px;
+  width: 2px;
+  height: 57px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-waterfall > i::before {
+  top: -7px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.drill-mine-profile-panel.score-breakdown .base-marker,
+.drill-mine-profile-panel.score-breakdown .model-marker {
+  color: #42c9e8;
+}
+
+.drill-mine-profile-panel.score-breakdown .current-marker {
+  color: #ff7165;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-label {
+  position: absolute;
+  top: 102px;
+  width: 190px;
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  color: rgba(226, 243, 254, 0.9);
+  text-align: center;
+  transform: translateX(-50%);
+  height: auto;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-label strong {
+  color: #42c9e8;
+  font-size: 23px;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-label span {
+  font-size: 15px;
+}
+
+.drill-mine-profile-panel.score-breakdown .waterfall-label em {
+  color: rgba(213, 235, 250, 0.7);
+  font-size: 13px;
+  font-style: normal;
+}
+
+.drill-mine-profile-panel.score-breakdown .base-label { left: 41.7%; }
+.drill-mine-profile-panel.score-breakdown .model-label { left: 67%; }
+.drill-mine-profile-panel.score-breakdown .adjustment-label { left: 80%; }
+.drill-mine-profile-panel.score-breakdown .current-label { left: 92%; }
+
+.drill-mine-profile-panel.score-breakdown .adjustment-label strong {
+  color: #5bd68a;
+}
+
+.drill-mine-profile-panel.score-breakdown .current-label strong {
+  color: #ff7165;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-note {
+  position: relative;
+  margin: 4px -28px -14px;
+  padding: 12px 22px 12px 62px;
+  border-top: 1px dashed rgba(86, 160, 219, 0.34);
+  color: rgba(230, 244, 254, 0.9);
+  font-size: 14px;
+  text-align: left;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-note::before {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #42b9ff;
+  border-radius: 50%;
+  color: #42b9ff;
+  content: 'i';
+  font-size: 16px;
+  font-weight: 800;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 1200px) {
+  .drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow span {
+    font-size: 14px;
+  }
+
+  .drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow strong {
+    font-size: 25px;
   }
 }

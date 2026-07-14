@@ -55,6 +55,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import sichuanMapSvg from '../../../../resources/shuan/sichuan-map.svg?raw';
+import hiddenFaceScoreShield from '../../../../resources/shuan/score/hidden-face-score-shield.png';
 import { normalizeInlineSvg } from '../../../../common/inlineSvg';
 import { CountyInspectionPage } from './CountyInspectionPage';
 import { DangerousWorkReportPage } from './DangerousWorkReportPage';
@@ -219,8 +220,6 @@ const coalBasicFilters = [
   ['证照等级', '请选择证照等级'],
   ['水文类型', '请选择水文类型'],
   ['所有制', '请选择所有制'],
-  ['煤炭供给侧', '请选择煤炭供给侧'],
-  ['系统接入', '请选择系统接入'],
 ] as const;
 
 const coalBasicKpis = [
@@ -268,11 +267,10 @@ const coalBasicHydroTypes = [
   { label: '极复杂', value: 14, percent: '8.0%', color: '#7ad88e' },
 ];
 
-const coalBasicSystemOnlineRows = [
-  { label: '监测监控', access: 168, offline: 11 },
-  { label: '人员定位', access: 162, offline: 14 },
-  { label: '工业视频', access: 156, offline: 21 },
-  { label: '水害防治', access: 149, offline: 9 },
+const coalBasicCapacityRows = [
+  { label: '小于15万', value: 86, color: '#35d2ff' },
+  { label: '15至60万', value: 57, color: '#78a8ff' },
+  { label: '大于等于60万', value: 31, color: '#58df89' },
 ];
 
 const coalBasicGasCrossRows = [
@@ -350,11 +348,11 @@ const coalBasicSystemAccessCards = [
 ];
 
 const coalBasicArchiveRows = [
-  ['1', '绿水洞煤矿', '攀枝花市·西区', '川煤华荣能源', '国有', '生产矿井', '高瓦斯', '中等', '三级', '已接入'],
-  ['2', '达竹煤矿', '达州市·达川区', '四川达竹煤电', '国有', '生产矿井', '低瓦斯', '简单', '三级', '已接入'],
-  ['3', '芙蓉煤矿', '宜宾市·珙县', '四川芙蓉集团', '国有', '生产矿井', '突出', '复杂', '二级', '已接入'],
-  ['4', '古叙煤矿', '泸州市·古蔺县', '四川古叙煤田', '国有', '建设矿井', '高瓦斯', '中等', '三级', '未接入'],
-  ['5', '嘉阳煤矿', '乐山市·犍为县', '四川嘉阳集团', '集体', '生产矿井', '低瓦斯', '中等', '三级', '未接入'],
+  ['1', '绿水洞煤矿', '攀枝花市·西区', '川煤华荣能源', '国有', '生产矿井', '高瓦斯', '中等', '三级'],
+  ['2', '达竹煤矿', '达州市·达川区', '四川达竹煤电', '国有', '生产矿井', '低瓦斯', '简单', '三级'],
+  ['3', '芙蓉煤矿', '宜宾市·珙县', '四川芙蓉集团', '国有', '生产矿井', '突出', '复杂', '二级'],
+  ['4', '古叙煤矿', '泸州市·古蔺县', '四川古叙煤田', '国有', '建设矿井', '高瓦斯', '中等', '三级'],
+  ['5', '嘉阳煤矿', '乐山市·犍为县', '四川嘉阳集团', '集体', '生产矿井', '低瓦斯', '中等', '三级'],
 ] as const;
 
 function CoalBasicPanel({ title, className = '', children, action }: { title?: string; className?: string; children: React.ReactNode; action?: React.ReactNode }) {
@@ -402,12 +400,7 @@ function MiniDonut({ items, label = '总数', total = '174' }: { items: Array<{ 
 }
 
 function CoalBasicStatisticsPage() {
-  const [activeAccessSystem, setActiveAccessSystem] = useState<(typeof coalBasicAccessSystems)[number]['id']>(coalBasicAccessSystems[0].id);
   const [activeCrossDimension, setActiveCrossDimension] = useState<'gas' | 'hydro'>('gas');
-  const activeAccessSystemRows = useMemo(
-    () => coalBasicAccessSystems.find((item) => item.id === activeAccessSystem)?.rows ?? coalBasicAccessSystems[0].rows,
-    [activeAccessSystem],
-  );
   const activeCrossRows = activeCrossDimension === 'gas' ? coalBasicGasCrossRows : coalBasicHydroCrossRows;
   const activeCrossHeaders = activeCrossDimension === 'gas'
     ? ['瓦斯等级', '高瓦斯', '突出', '低瓦斯', '合计']
@@ -485,16 +478,15 @@ function CoalBasicStatisticsPage() {
               <MiniDonut items={coalBasicHydroTypes} />
             </article>
             <article className="coal-basic-access-levels">
-              <h3>系统在线情况</h3>
-              {coalBasicSystemOnlineRows.map((item) => (
+              <h3>产能情况</h3>
+              {coalBasicCapacityRows.map((item) => (
                 <div key={item.label}>
                   <span>{item.label}</span>
                   <i>
-                    <b style={{ width: `${Math.max(8, ((item.access - item.offline) / item.access) * 100)}%` }} />
-                    <em style={{ width: `${Math.max(4, (item.offline / item.access) * 100)}%` }} />
+                    <b style={{ width: `${(item.value / 174) * 100}%`, background: item.color }} />
                   </i>
-                  <strong>{item.access}</strong>
-                  <small>{item.offline}</small>
+                  <strong>{item.value}</strong>
+                  <small>处</small>
                 </div>
               ))}
             </article>
@@ -519,73 +511,23 @@ function CoalBasicStatisticsPage() {
                 </div>
               ))}
             </section>
-            <section className="coal-basic-access-cross" aria-label="生产状态乘系统接入">
+            <section className="coal-basic-access-cross" aria-label="生产状态乘产能情况">
               <header>
-                <span>生产状态 × 系统接入（单位：处）</span>
-                <div className="coal-basic-access-cross-legend">
-                  <em><i />已接入</em>
-                  <em className="red"><i />未接入</em>
-                </div>
-                <div className="coal-basic-access-cross-tabs">
-                  {coalBasicAccessSystems.map((system) => (
-                    <button
-                      key={system.id}
-                      type="button"
-                      className={system.id === activeAccessSystem ? 'active' : ''}
-                      onClick={() => setActiveAccessSystem(system.id)}
-                    >
-                      {system.label}
-                    </button>
-                  ))}
-                </div>
+                <span>生产状态 × 产能情况（单位：处）</span>
               </header>
-              {activeAccessSystemRows.map((row) => {
-                const connectedPercentValue = Number(((row.connected / row.total) * 100).toFixed(1));
-                const unconnectedPercentValue = Number(((row.unconnected / row.total) * 100).toFixed(1));
-                const connectedPercent = `${connectedPercentValue.toFixed(1)}%`;
-                const unconnectedPercent = `${unconnectedPercentValue.toFixed(1)}%`;
-                const showConnectedLabel = connectedPercentValue >= 28;
-                const barTooltip = `已接入 ${row.connected}（${connectedPercent}）\n未接入 ${row.unconnected}（${unconnectedPercent}）\n合计 ${row.total}`;
+              <div className="coal-basic-access-cross-row head">
+                <span>生产状态</span><strong>小于15万</strong><strong>15至60万</strong><strong>大于等于60万</strong><strong>合计</strong>
+              </div>
+              {coalBasicCapacityCrossRows.map((row) => {
                 return (
-                <div key={row.status} className="coal-basic-access-cross-row">
+                <div key={row.status} className={`coal-basic-access-cross-row tone-${row.tone}`}>
                   <span className="coal-basic-access-cross-label">{row.status}</span>
-                  <div className="coal-basic-stack-bar" title={barTooltip}>
-                    <div className="coal-basic-stack-track">
-                      <b style={{ width: connectedPercent }} />
-                      <i style={{ width: unconnectedPercent }} />
-                    </div>
-                    {showConnectedLabel ? <span className="coal-basic-stack-label connected" style={{ width: connectedPercent }}>{row.connected} ({connectedPercent})</span> : null}
-                  </div>
-                  <strong>{row.total}</strong>
+                  {row.values.map((value, index) => <strong key={`${row.status}-${index}`}>{value}</strong>)}
                 </div>
                 );
               })}
             </section>
           </div>
-        </CoalBasicPanel>
-
-        <CoalBasicPanel title="监管系统接入情况" className="coal-basic-system-panel">
-          <div className="coal-basic-system-grid">
-            {coalBasicSystemAccessCards.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.name}>
-                  <header><Icon aria-hidden="true" /><strong>{item.name}</strong></header>
-                  <div className="coal-basic-rate-gauge" style={{ '--rate-angle': `${item.rateValue * 1.8}deg` } as React.CSSProperties} aria-label={`${item.name}接入率${item.rate}`}>
-                    <div className="coal-basic-rate-gauge__content">
-                      <strong>{item.rate}</strong>
-                      <span>接入率</span>
-                    </div>
-                  </div>
-                  <div className="coal-basic-system-metrics">
-                    <p><span>已接入</span><b>{item.connected}<em>处</em></b></p>
-                    <p><span>未接入</span><b className="red">{item.unconnected}<em>处</em></b></p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-          <footer>说明：接入率 = 已接入矿井数 / 煤矿总数 × 100%</footer>
         </CoalBasicPanel>
 
         <CoalBasicPanel
@@ -610,11 +552,11 @@ function CoalBasicStatisticsPage() {
           }
         >
           <div className="coal-basic-archive-table">
-            <div className="head"><span>序号</span><span>煤矿名称</span><span>行政区划</span><span>所属煤炭公司</span><span>所有制</span><span>生产状态</span><span>证照等级</span><span>水文地质类型</span><span>瓦斯等级</span><span>系统接入</span><span>操作</span></div>
+            <div className="head"><span>序号</span><span>煤矿名称</span><span>行政区划</span><span>所属煤炭公司</span><span>所有制</span><span>生产状态</span><span>瓦斯等级</span><span>水文地质类型</span><span>标准化等级</span><span>操作</span></div>
             {coalBasicArchiveRows.map((row) => (
               <div key={row[0]}>
                 {row.map((cell, index) => (
-                  <span key={`${row[0]}-${index}`} className={index === 9 ? (cell === '已接入' ? 'status-on' : 'status-off') : ''}>{cell}</span>
+                  <span key={`${row[0]}-${index}`}>{cell}</span>
                 ))}
                 <button type="button">查看</button>
               </div>
@@ -673,6 +615,14 @@ const personnelKpis = [
   { label: '持证上岗率', value: '93.14', unit: '%', change: '较昨日 ▲ 0.76 个百分点', tone: 'blue', icon: ClipboardList },
   { label: '当前井下人数', value: '3,126', unit: '人', change: '较昨日 ▲ 2.12%', tone: 'cyan', icon: MapPin },
   { label: '下井准入异常煤矿数', value: '11', unit: '矿', change: '较昨日 ▲ 1 矿', tone: 'red', icon: AlertTriangle },
+];
+
+const coalBasicCapacityCrossRows = [
+  { status: '生产矿井', tone: 'blue', values: [28, 24, 12, 64] },
+  { status: '建设矿井', tone: 'green', values: [18, 7, 2, 27] },
+  { status: '隐患整改矿井', tone: 'amber', values: [9, 3, 0, 12] },
+  { status: '一停四不停矿井', tone: 'purple', values: [20, 10, 4, 34] },
+  { status: '井口封（锁）闭矿井', tone: 'red', values: [11, 13, 27, 51] },
 ];
 
 const personnelRegions = [
@@ -3077,53 +3027,52 @@ const illegalOverviewCategoryCards: IllegalOverviewCategoryCard[] = [
 ];
 
 const illegalOverviewCoreAlgorithms: IllegalOverviewAlgorithmCard[] = [
-  { id: 'gas-output-mismatch', title: '瓦斯涌出量不匹配', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 185, mineCount: 22, focusLabel: '高风险', focusValue: 68, priority: 'high', pageId: 'shuan-home-command-v3-algorithm-gas-mismatch' },
-  { id: 'overlimit-upload-missing', title: '超限报警未上传', categoryId: 'power', categoryLabel: '管住电', clueCount: 126, mineCount: 20, focusLabel: '高风险', focusValue: 52, priority: 'high' },
-  { id: 'air-volume-change', title: '风量变化异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 92, mineCount: 19, focusLabel: '高风险', focusValue: 32, priority: 'medium' },
-  { id: 'person-stay-abnormal', title: '人员停留异常', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 76, mineCount: 16, focusLabel: '高风险', focusValue: 21, priority: 'medium' },
-  { id: 'one-person-multi-card', title: '疑似一人多卡', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 64, mineCount: 14, focusLabel: '高风险', focusValue: 18, priority: 'high' },
-  { id: 'abnormal-disconnect', title: '异常断线', categoryId: 'power', categoryLabel: '管住电', clueCount: 51, mineCount: 13, focusLabel: '高风险', focusValue: 19, priority: 'medium' },
-  { id: 'power-consumption-abnormal', title: '用电异常', categoryId: 'power', categoryLabel: '管住电', clueCount: 64, mineCount: 14, focusLabel: '今日新增', focusValue: 18, priority: 'medium' },
-  { id: 'fan-delay-abnormal', title: '停风逻辑异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 48, mineCount: 11, focusLabel: '今日新增', focusValue: 12, priority: 'low' },
-  { id: 'return-air-temperature', title: '回风温度异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 42, mineCount: 10, focusLabel: '今日新增', focusValue: 10, priority: 'low' },
-  { id: 'air-door-missing', title: '风门联动缺失', categoryId: 'wind', categoryLabel: '管住风', clueCount: 41, mineCount: 9, focusLabel: '今日新增', focusValue: 8, priority: 'low' },
-  { id: 'output-wave', title: '产量异常波动', categoryId: 'coal', categoryLabel: '管住煤', clueCount: 36, mineCount: 8, focusLabel: '今日新增', focusValue: 9, priority: 'low' },
-  { id: 'pipe-pressure-abnormal', title: '管道压力异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 28, mineCount: 6, focusLabel: '今日新增', focusValue: 6, priority: 'low' },
+  { id: 'gas-emission-volume', title: '瓦斯涌出量异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 185, mineCount: 22, focusLabel: '高风险', focusValue: 68, priority: 'high', pageId: 'shuan-home-command-v3-algorithm-gas-mismatch' },
+  { id: 'gas-change', title: '瓦斯变化异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 126, mineCount: 20, focusLabel: '高风险', focusValue: 52, priority: 'high' },
+  { id: 'gas-pipeline-flow', title: '管道流量异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 92, mineCount: 19, focusLabel: '高风险', focusValue: 32, priority: 'medium' },
+  { id: 'gas-pipeline-pressure', title: '管道压力异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 76, mineCount: 16, focusLabel: '高风险', focusValue: 21, priority: 'medium' },
+  { id: 'gas-daily-analysis', title: '瓦斯日分析异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 64, mineCount: 14, focusLabel: '高风险', focusValue: 18, priority: 'high' },
+  { id: 'gas-methane-definition', title: '甲烷定义设置异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 51, mineCount: 13, focusLabel: '高风险', focusValue: 19, priority: 'medium' },
+  { id: 'gas-lock-cycle', title: '闭锁周期异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 64, mineCount: 14, focusLabel: '今日新增', focusValue: 18, priority: 'medium' },
+  { id: 'gas-emission-mismatch', title: '瓦斯涌出量不匹配', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 48, mineCount: 11, focusLabel: '今日新增', focusValue: 12, priority: 'low' },
+  { id: 'gas-overlimit-not-uploaded', title: '超限报警未上传', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 42, mineCount: 10, focusLabel: '今日新增', focusValue: 10, priority: 'low' },
+  { id: 'gas-drilling-methane-logic', title: '打钻甲烷逻辑异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 41, mineCount: 9, focusLabel: '今日新增', focusValue: 8, priority: 'low' },
+  { id: 'gas-logic', title: '逻辑异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 36, mineCount: 8, focusLabel: '今日新增', focusValue: 9, priority: 'low' },
+  { id: 'gas-steady-value', title: '瓦斯恒值异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 28, mineCount: 6, focusLabel: '今日新增', focusValue: 6, priority: 'low' },
+  { id: 'gas-sudden-rise-fall', title: '陡升陡降', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 24, mineCount: 5, focusLabel: '今日新增', focusValue: 4, priority: 'low' },
+  { id: 'gas-disconnect', title: '异常断线', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 21, mineCount: 5, focusLabel: '今日新增', focusValue: 3, priority: 'low' },
+  { id: 'gas-calibration', title: '异常标校', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 19, mineCount: 4, focusLabel: '今日新增', focusValue: 3, priority: 'low' },
+  { id: 'gas-power-feedback', title: '馈电异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 17, mineCount: 4, focusLabel: '今日新增', focusValue: 2, priority: 'low' },
+  { id: 'gas-sensor-config', title: '传感器配置异常', categoryId: 'gas', categoryLabel: '管住瓦斯', clueCount: 15, mineCount: 3, focusLabel: '今日新增', focusValue: 2, priority: 'low' },
+  { id: 'power-coal-consumption-change', title: '吨煤电耗变化异常', categoryId: 'power', categoryLabel: '管住电', clueCount: 126, mineCount: 20, focusLabel: '高风险', focusValue: 52, priority: 'high' },
+  { id: 'power-load-structure', title: '负荷结构异常', categoryId: 'power', categoryLabel: '管住电', clueCount: 64, mineCount: 14, focusLabel: '今日新增', focusValue: 18, priority: 'medium' },
+  { id: 'power-time-dimension', title: '时间维度异常', categoryId: 'power', categoryLabel: '管住电', clueCount: 51, mineCount: 13, focusLabel: '高风险', focusValue: 19, priority: 'medium' },
+  { id: 'wind-start-stop-group', title: '开停组停运异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 92, mineCount: 19, focusLabel: '高风险', focusValue: 32, priority: 'medium' },
+  { id: 'wind-local-fan-switch', title: '局部通风机切换异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 48, mineCount: 11, focusLabel: '今日新增', focusValue: 12, priority: 'low' },
+  { id: 'wind-speed-setting', title: '风速设置异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 42, mineCount: 10, focusLabel: '今日新增', focusValue: 10, priority: 'low' },
+  { id: 'wind-volume-change', title: '风量变化异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 41, mineCount: 9, focusLabel: '今日新增', focusValue: 8, priority: 'low' },
+  { id: 'wind-usage', title: '用风异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 36, mineCount: 8, focusLabel: '今日新增', focusValue: 9, priority: 'low' },
+  { id: 'wind-speed-change', title: '风速变化异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 28, mineCount: 6, focusLabel: '今日新增', focusValue: 6, priority: 'low' },
+  { id: 'wind-stop-logic', title: '停风逻辑异常', categoryId: 'wind', categoryLabel: '管住风', clueCount: 24, mineCount: 5, focusLabel: '今日新增', focusValue: 4, priority: 'low' },
+  { id: 'coal-volume-compare', title: '煤量比对异常', categoryId: 'coal', categoryLabel: '管住煤', clueCount: 76, mineCount: 16, focusLabel: '高风险', focusValue: 21, priority: 'medium' },
+  { id: 'coal-vehicle-access', title: '运煤车辆出入异常', categoryId: 'coal', categoryLabel: '管住煤', clueCount: 64, mineCount: 14, focusLabel: '高风险', focusValue: 18, priority: 'high' },
+  { id: 'coal-face-output', title: '工作面产量异常', categoryId: 'coal', categoryLabel: '管住煤', clueCount: 51, mineCount: 13, focusLabel: '高风险', focusValue: 19, priority: 'medium' },
+  { id: 'person-overtime-underground', title: '人员超时未升井', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 64, mineCount: 14, focusLabel: '今日新增', focusValue: 18, priority: 'medium' },
+  { id: 'person-leader-shift', title: '带班领导井下交接班异常', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 48, mineCount: 11, focusLabel: '今日新增', focusValue: 12, priority: 'low' },
+  { id: 'person-patrol', title: '人员井下采掘区域巡检异常', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 42, mineCount: 10, focusLabel: '今日新增', focusValue: 10, priority: 'low' },
+  { id: 'person-monthly-underground', title: '人员月下井次数达标分析', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 41, mineCount: 9, focusLabel: '今日新增', focusValue: 8, priority: 'low' },
+  { id: 'person-safety-off-duty', title: '安全员脱岗', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 36, mineCount: 8, focusLabel: '今日新增', focusValue: 9, priority: 'low' },
+  { id: 'person-stay', title: '人员停留异常', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 28, mineCount: 6, focusLabel: '今日新增', focusValue: 6, priority: 'low' },
+  { id: 'person-no-card', title: '疑似未带卡', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 24, mineCount: 5, focusLabel: '今日新增', focusValue: 4, priority: 'low' },
+  { id: 'person-one-person-multi-card', title: '疑似一人多卡', categoryId: 'personnel', categoryLabel: '管住人', clueCount: 21, mineCount: 5, focusLabel: '今日新增', focusValue: 3, priority: 'low' },
+  { id: 'other-video-not-installed', title: '视频未安装', categoryId: 'other', categoryLabel: '其他', clueCount: 19, mineCount: 4, focusLabel: '今日新增', focusValue: 3, priority: 'low' },
+  { id: 'other-video-disconnect', title: '视频断线', categoryId: 'other', categoryLabel: '其他', clueCount: 17, mineCount: 4, focusLabel: '今日新增', focusValue: 2, priority: 'low' },
+  { id: 'other-carbon-monoxide-calibration-cycle', title: '一氧化碳标校周期异常', categoryId: 'other', categoryLabel: '其他', clueCount: 15, mineCount: 3, focusLabel: '今日新增', focusValue: 2, priority: 'low' },
+  { id: 'other-carbon-monoxide', title: '一氧化碳异常', categoryId: 'other', categoryLabel: '其他', clueCount: 12, mineCount: 3, focusLabel: '今日新增', focusValue: 1, priority: 'low' },
 ];
-
-const illegalOverviewGeneratedAlgorithms: IllegalOverviewAlgorithmCard[] = Array.from({ length: 40 }, (_, index) => {
-  const category = illegalOverviewCategoryCards[(index % (illegalOverviewCategoryCards.length - 1)) + 1];
-  const namesByCategory: Record<Exclude<IllegalOverviewCategoryId, 'all'>, string[]> = {
-    gas: ['瓦斯恒值异常', '甲烷趋势漂移', '抽采负压波动', '传感器平直异常', '瓦斯曲线异常', '瓦斯超限迟报', '甲烷闭锁缺失'],
-    wind: ['局扇启停冲突', '风流短时衰减', '风门状态缺失', '回风量突降', '风筒压差异常', '风机联锁脱节', '风流方向异常'],
-    personnel: ['入井人数不匹配', '超时滞留异常', '夜间入井异常', '人员求救集中', '电子围栏越界', '入井报备缺失', '考勤定位冲突'],
-    coal: ['夜间运输活跃', '煤流持续运行', '产量报送偏差', '皮带负荷背离', '装车节奏异常', '库存变化突增', '采面状态冲突'],
-    power: ['重点回路抬升', '停送电记录冲突', '回路切换异常', '主扇负荷异常', '夜间电流抬升', '设备电压波动', '异常断电恢复'],
-    other: ['视频离线频发', '数据上传延迟', '定位基站离线', '边缘网关异常', '采集链路断续', '预警推送失败', '台账回传滞后'],
-  };
-  const names = namesByCategory[category.id as Exclude<IllegalOverviewCategoryId, 'all'>];
-  const title = names[Math.floor(index / 6) % names.length];
-  const clueCount = 24 + ((index * 7) % 46);
-  const mineCount = 5 + (index % 14);
-  const focusLabel = index % 3 === 0 ? '高风险' : '今日新增';
-  const focusValue = focusLabel === '高风险' ? 6 + (index % 18) : 2 + (index % 9);
-  const priority: IllegalOverviewPriority = index % 5 === 0 ? 'high' : index % 2 === 0 ? 'medium' : 'low';
-  return {
-    id: `generated-${category.id}-${index + 1}`,
-    title,
-    categoryId: category.id,
-    categoryLabel: category.label,
-    clueCount,
-    mineCount,
-    focusLabel,
-    focusValue,
-    priority,
-  };
-});
 
 const illegalOverviewAlgorithms: IllegalOverviewAlgorithmCard[] = [
   ...illegalOverviewCoreAlgorithms,
-  ...illegalOverviewGeneratedAlgorithms,
 ];
 
 const illegalOverviewMineRanking: IllegalOverviewMineRow[] = [
@@ -3441,12 +3390,12 @@ function IllegalCampaignReferenceV2Page() {
     { city: '达州市', total: '41矿', high: 6, mid: 8, low: 22, x: 74, y: 47, tone: 'high' },
   ];
   const clueStats = [
-    { label: '停产期间疑似生产', value: 12, percent: '15.8%', color: '#ff4f61' },
-    { label: '夜间异常活动', value: 9, percent: '11.8%', color: '#ffb243' },
-    { label: '同一区域多类异常', value: 8, percent: '10.5%', color: '#fbd84b' },
-    { label: '数据遮蔽风险', value: 6, percent: '7.9%', color: '#34d8ef' },
-    { label: '历史问题复发', value: 5, percent: '6.6%', color: '#438dff' },
-    { label: '其他线索', value: 36, percent: '47.4%', color: '#3d516c' },
+    { label: '瓦斯', value: 12, percent: '15.8%', color: '#ff4f61' },
+    { label: '风', value: 9, percent: '11.8%', color: '#ffb243' },
+    { label: '人', value: 8, percent: '10.5%', color: '#fbd84b' },
+    { label: '煤', value: 6, percent: '7.9%', color: '#34d8ef' },
+    { label: '电', value: 5, percent: '6.6%', color: '#438dff' },
+    { label: '其他', value: 36, percent: '47.4%', color: '#3d516c' },
   ];
   const donutStops = clueStats.reduce<{ current: number; stops: string[] }>((acc, item) => {
     const start = acc.current;
@@ -3510,7 +3459,7 @@ function IllegalCampaignReferenceV2Page() {
         <span>区域</span>
         {['全部', '达州市', '宜宾市', '乐山市', '泸州市', '广元市'].map((item) => <button key={item} className={item === '全部' ? 'active' : ''}>{item}</button>)}
         <span>线索类型</span>
-        {['全部', '停产期间疑似生产', '夜间异常活动', '同一区域多类异常', '数据遮蔽风险', '历史问题复发'].map((item) => <button key={item} className={item === '全部' ? 'active' : ''}>{item}</button>)}
+        {['全部', '瓦斯', '风', '人', '煤', '电', '其他'].map((item) => <button key={item} className={item === '全部' ? 'active' : ''}>{item}</button>)}
         <button className="reset"><Minus aria-hidden="true" />重置</button>
       </section>
 
@@ -3652,6 +3601,30 @@ function MineProfileTag({ level }: { level: '高' | '中' | '低' }) {
 function HiddenFaceMineProfilePage() {
   const data = shuanHiddenFaceMineProfileData;
   const scorePercent = Math.max(0, Math.min(100, data.mine.score));
+  const weightedScore = data.scoreParts.slice(0, 2).reduce((sum, part) => sum + part.value, 0);
+  const feedbackDeduction = Math.abs(data.scoreParts[2]?.value ?? 0);
+  const [activeSection, setActiveSection] = useState(data.catalog[0]?.id ?? '');
+
+  useEffect(() => {
+    const sections = data.catalog
+      .map((item) => document.getElementById(item.id))
+      .filter((section): section is HTMLElement => Boolean(section));
+    const observer = new IntersectionObserver((entries) => {
+      const current = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((left, right) => Math.abs(left.boundingClientRect.top) - Math.abs(right.boundingClientRect.top))[0];
+      if (current) setActiveSection(current.target.id);
+    }, { rootMargin: '-16% 0px -62%', threshold: 0 });
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [data.catalog]);
+
+  const scrollToSection = (event: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    event.preventDefault();
+    setActiveSection(sectionId);
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <div className="drill-page drill-mine-profile-page">
@@ -3661,8 +3634,14 @@ function HiddenFaceMineProfilePage() {
           <span>返回专题整治</span>
         </a>
         <nav>
-          {data.catalog.map((item, index) => (
-            <a key={item.id} href={`#${item.id}`} className={index === 0 ? 'active' : ''}>
+          {data.catalog.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={activeSection === item.id ? 'active' : ''}
+              aria-current={activeSection === item.id ? 'location' : undefined}
+              onClick={(event) => scrollToSection(event, item.id)}
+            >
               <strong>{item.label}</strong>
               {item.children ? <span>{item.children.join(' / ')}</span> : null}
             </a>
@@ -3683,7 +3662,7 @@ function HiddenFaceMineProfilePage() {
           </div>
         </header>
 
-        <section id="mine-overview" className="drill-mine-profile-section">
+        <section id="mine-overview" className="drill-mine-profile-section" style={{ scrollMarginTop: 24 }}>
           <h2>煤矿概况</h2>
           <div className="drill-mine-profile-overview-grid">
             <article className="drill-mine-profile-card mine-id">
@@ -3726,38 +3705,59 @@ function HiddenFaceMineProfilePage() {
           <article className="drill-mine-profile-panel score-breakdown">
             <header>
               <h3>综合评分</h3>
-              <span>综合风险分 = 线索基础分 + 关联增强分 + 回流修正分</span>
             </header>
             <div className="drill-mine-profile-score-layout">
               <div className="drill-mine-profile-donut" style={{ '--score': `${scorePercent * 3.6}deg` } as React.CSSProperties}>
+                <img src={hiddenFaceScoreShield} alt="" aria-hidden="true" />
                 <span>综合风险得分</span>
                 <strong>{data.mine.score}</strong>
                 <em>/100</em>
                 <b>{data.mine.level}</b>
               </div>
               <div className="drill-mine-profile-score-bars">
-                {data.scoreParts.map((part) => {
-                  const Icon = mineProfileIconByPart[part.icon];
-                  return (
-                    <div key={part.label}>
-                      <i><Icon aria-hidden="true" /></i>
-                      <span>
-                        <strong>{part.label}</strong>
-                        <em>{part.description}</em>
-                      </span>
-                      <b>{part.value}<small>/{part.max}</small></b>
-                      <div><mark style={{ width: part.percent }} /></div>
-                      <p>线索占比 {part.percent}</p>
-                    </div>
-                  );
-                })}
+                <div className="drill-mine-profile-score-flow" aria-label={`模型风险分 ${weightedScore.toFixed(1)}，核验调整减 ${feedbackDeduction.toFixed(1)}，当前风险分 ${data.mine.score}`}>
+                  <section><span>线索基础</span><strong>41.7</strong><em>原始分 83.3 × 50%</em></section>
+                  <b aria-hidden="true">＋</b>
+                  <section><span>关联增强</span><strong>38.5</strong><em>原始分 77.0 × 50%</em></section>
+                  <b aria-hidden="true">＝</b>
+                  <section><span>模型风险分</span><strong>{weightedScore.toFixed(1)}</strong><em>加权汇总</em></section>
+                  <b className="is-deduction" aria-hidden="true">−</b>
+                  <section className="is-deduction"><span>核验调整</span><strong>{feedbackDeduction.toFixed(1)}</strong><em>核验结果修正</em></section>
+                  <b aria-hidden="true">＝</b>
+                  <section className="is-final"><span>当前风险分</span><strong>{data.mine.score}</strong><em>最终结果</em></section>
+                </div>
+                <div className="drill-mine-profile-waterfall" aria-hidden="true">
+                  <div className="waterfall-track">
+                    <span className="base" style={{ width: '41.7%' }} />
+                    <span className="association" style={{ left: '41.7%', width: '38.5%' }} />
+                    <span className="adjustment" style={{ left: '74.9%', width: '5.3%' }} />
+                  </div>
+                  <div className="waterfall-axis">
+                    {[0, 20, 40, 60, 80, 100].map((tick) => <span key={tick} style={{ left: `${tick}%` }}>{tick}</span>)}
+                  </div>
+                  <i className="base-marker" style={{ left: '41.7%' }} />
+                  <i className="model-marker" style={{ left: '80.2%' }} />
+                  <i className="current-marker" style={{ left: '74.9%' }} />
+                  <div className="waterfall-label base-label">
+                    <strong>41.7</strong><span>线索基础加权得分</span><em>（0 → 41.7）</em>
+                  </div>
+                  <div className="waterfall-label model-label">
+                    <strong>80.2</strong><span>模型风险分</span><em>（41.7 + 38.5）</em>
+                  </div>
+                  <div className="waterfall-label adjustment-label">
+                    <strong>-5.3</strong><span>核验调整</span><em>（80.2 → 74.9）</em>
+                  </div>
+                  <div className="waterfall-label current-label">
+                    <strong>74.9</strong><span>当前风险分</span><em>（80.2 - 5.3）</em>
+                  </div>
+                </div>
               </div>
             </div>
-            <footer>注：回流修正分范围 -20 ~ +20，当前为 +5.3。</footer>
+            <p className="drill-mine-profile-score-note">核验调整依据现场核查、执法处置及整改闭环结果，经审核后计入当前评分。</p>
           </article>
         </section>
 
-        <section id="risk-profile" className="drill-mine-profile-section">
+        <section id="risk-profile" className="drill-mine-profile-section" style={{ scrollMarginTop: 24 }}>
           <h2>风险画像</h2>
           <article className="drill-mine-profile-panel">
             <h3>算法线索贡献</h3>
@@ -3785,7 +3785,7 @@ function HiddenFaceMineProfilePage() {
           <article className="drill-mine-profile-panel">
             <h3>关键线索</h3>
             <div className="drill-mine-profile-clue-table">
-              <div className="head">{['序号', '关键线索', '来源算法', '时间', '区域/对象', '风险等级', '置信度', '贡献分', '证据标签'].map((item) => <span key={item}>{item}</span>)}</div>
+              <div className="head">{['序号', '关键线索', '来源算法', '时间', '区域/对象', '风险等级', '数据可信度', '贡献分', '操作'].map((item) => <span key={item}>{item}</span>)}</div>
               {data.keyClues.map((row, index) => (
                 <div key={row.id}>
                   <span>{index + 1}</span>
@@ -3796,7 +3796,7 @@ function HiddenFaceMineProfilePage() {
                   <span><MineProfileTag level={row.risk} /></span>
                   <span>{row.confidence}</span>
                   <span>{row.score}</span>
-                  <span>{row.tags.join(' | ')}</span>
+                  <span className="actions"><button type="button">查看</button></span>
                 </div>
               ))}
             </div>
@@ -3821,7 +3821,7 @@ function HiddenFaceMineProfilePage() {
           </article>
         </section>
 
-        <section id="verification-loop" className="drill-mine-profile-section">
+        <section id="verification-loop" className="drill-mine-profile-section" style={{ scrollMarginTop: 24 }}>
           <h2>核查闭环</h2>
           <div className="drill-mine-profile-verification-grid">
             <article className="drill-mine-profile-panel summary">
