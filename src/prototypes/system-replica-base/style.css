@@ -1,4 +1,4 @@
-* { box-sizing: border-box; }
+﻿* { box-sizing: border-box; }
 :root {
   --topbar: #435783;
   --topbar-deep: #34466f;
@@ -321,7 +321,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
 .config-close-button .close-mark { width: 20px; height: 20px; color: #525b6a; }
 .config-card { margin: 21px 18px 0; background: #fff; border-radius: 6px; border: 1px solid #d9e0eb; overflow: hidden; }
 .config-card header { height: 47px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px 0 22px; background: #c6d0e5; color: #314b7a; font-size: 18px; }
-.config-card header span::before { content: '♧'; margin-right: 2px; color: #2f4a7f; font-size: 19px; }
+.config-card header span::before { content: '\2667'; margin-right: 2px; color: #2f4a7f; font-size: 19px; }
 .config-card header b { font-size: 16px; font-weight: 400; color: #667da5; }
 .config-basic-grid { display: grid; grid-template-columns: 210px 1fr 210px 1fr; border-top: 1px solid #dfe4ec; }
 .config-label, .config-value { min-height: 46px; border-right: 1px solid #dfe4ec; border-bottom: 1px solid #dfe4ec; display: flex; align-items: center; }
@@ -1152,7 +1152,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   }
 }
 
-/* Mining Guard / 矿数卫士 replica */
+/* Mining Guard / 鐭挎暟鍗＋ replica */
 .guard-dashboard { min-height: 100%; background: #edf2fa; padding: 0 10px 10px; }
 .guard-filter-bar { min-height: 96px; background: #eef3fb; border-bottom: 1px dashed #d8d8d8; display: flex; align-items: flex-start; justify-content: center; gap: 42px; padding-top: 14px; position: relative; }
 .guard-filter-bar .query-field { width: 360px; }
@@ -1222,7 +1222,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   .guard-report-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---------------- 隐蔽面风险综合分析 / 风险总览一张图 ---------------- */
+/* ---------------- 闅愯斀闈㈤闄╃患鍚堝垎鏋?/ 椋庨櫓鎬昏涓€寮犲浘 ---------------- */
 .hidden-risk-title-note { color: #6b7589; font-size: 13px; }
 .hidden-risk-filter { background: #fff; border: 1px solid #d3d8e4; border-radius: 4px; padding: 12px 18px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
 .hidden-risk-filter-row { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 28px; }
@@ -7469,7 +7469,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   display: none;
 }
 
-/* 打非治违：分析预警切换与子项列表 */
+/* 鎵撻潪娌昏繚锛氬垎鏋愰璀﹀垏鎹笌瀛愰」鍒楄〃 */
 .shuan-command .illegal-warning-switch {
   position: relative;
   z-index: 2;
@@ -7995,7 +7995,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 13px;
 }
 
-/* --- V2 打非治违：五源线索汇聚漏斗与四级处置分流 --- */
+/* --- V2 鎵撻潪娌昏繚锛氫簲婧愮嚎绱㈡眹鑱氭紡鏂椾笌鍥涚骇澶勭疆鍒嗘祦 --- */
 .shuan-command-v2 .illegal-treatment-panel {
   overflow: hidden;
   padding: 34px 14px 8px;
@@ -8448,7 +8448,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   --illegal-disposal-glow: rgba(255, 78, 96, 0.38);
 }
 
-/* --- V3 打非治违：五源到三项的轻量动态研判连线 --- */
+/* --- V3 鎵撻潪娌昏繚锛氫簲婧愬埌涓夐」鐨勮交閲忓姩鎬佺爺鍒よ繛绾?--- */
 .shuan-command-v3 .command-right .illegal-treatment-panel {
   padding: 58px 18px 12px;
 }
@@ -8859,7 +8859,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   background: linear-gradient(180deg, rgba(196, 92, 12, 0.82), rgba(132, 56, 4, 0.9));
 }
 
-/* --- 地图风险点位与图例 --- */
+/* --- 鍦板浘椋庨櫓鐐逛綅涓庡浘渚?--- */
 .shuan-concept.shuan-command .shuan-map-points .shuan-map-point {
   padding-left: 22px;
 }
@@ -8989,7 +8989,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
 .shuan-concept.shuan-command .shuan-map .legend-chip.tone-blue i { background: #5ce6ff; box-shadow: 0 0 8px rgba(92, 230, 255, 0.55); }
 .shuan-concept.shuan-command .shuan-map .legend-chip.tone-safe i { background: #3ce58a; box-shadow: 0 0 8px rgba(60, 229, 138, 0.5); }
 
-/* --- 提醒通知改为任务卡 --- */
+/* --- 鎻愰啋閫氱煡鏀逛负浠诲姟鍗?--- */
 .shuan-concept.shuan-command .reminder-notice-strip {
   min-height: 56px;
   grid-template-columns: 72px repeat(2, minmax(0, 1fr));
@@ -9086,7 +9086,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: 0 0 12px rgba(110, 230, 255, 0.55);
 }
 
-/* --- 文字层级与适配（不破坏旧规则，只在末尾收敛） --- */
+/* --- 鏂囧瓧灞傜骇涓庨€傞厤锛堜笉鐮村潖鏃ц鍒欙紝鍙湪鏈熬鏀舵暃锛?--- */
 .shuan-concept.shuan-command .panel-title {
   letter-spacing: 0.04em;
 }
@@ -9096,7 +9096,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
 .shuan-concept.shuan-command .map-summary span b {
   text-shadow: 0 0 14px rgba(120, 220, 255, 0.55);
 }
-/* 让大屏在 ≤1500px 时左右栏可读，不再静默裁切右侧 */
+/* 璁╁ぇ灞忓湪 鈮?500px 鏃跺乏鍙虫爮鍙锛屼笉鍐嶉潤榛樿鍒囧彸渚?*/
 @media (max-width: 1500px) {
   .shuan-concept.shuan-command .urgent-brief-bar {
     grid-template-columns: 168px minmax(0, 1fr);
@@ -9133,7 +9133,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   }
 }
 
-/* --- 右侧模块底部安全区：避免内容压住面板边框 --- */
+/* --- 鍙充晶妯″潡搴曢儴瀹夊叏鍖猴細閬垮厤鍐呭鍘嬩綇闈㈡澘杈规 --- */
 .shuan-concept.shuan-command .daily-regulation-panel,
 .shuan-concept.shuan-command .illegal-treatment-panel {
   padding-bottom: 14px;
@@ -9185,7 +9185,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 12px;
 }
 
-/* --- 日常监管最终收敛：压缩统计区，统一提醒通知色系，释放底部空间 --- */
+/* --- 鏃ュ父鐩戠鏈€缁堟敹鏁涳細鍘嬬缉缁熻鍖猴紝缁熶竴鎻愰啋閫氱煡鑹茬郴锛岄噴鏀惧簳閮ㄧ┖闂?--- */
 .shuan-concept.shuan-command .daily-regulation-panel {
   padding-bottom: 18px;
 }
@@ -9301,7 +9301,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: 0 0 12px rgba(110, 230, 255, 0.55);
 }
 
-/* --- 打非治违：放大分析预警分类行，压缩下方子项表格 --- */
+/* --- 鎵撻潪娌昏繚锛氭斁澶у垎鏋愰璀﹀垎绫昏锛屽帇缂╀笅鏂瑰瓙椤硅〃鏍?--- */
 .shuan-concept.shuan-command .illegal-treatment-panel {
   gap: 4px;
 }
@@ -9367,7 +9367,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 9px;
 }
 
-/* --- 打非治违：纵向铺满面板，消除底部空白 --- */
+/* --- 鎵撻潪娌昏繚锛氱旱鍚戦摵婊￠潰鏉匡紝娑堥櫎搴曢儴绌虹櫧 --- */
 .shuan-concept.shuan-command .illegal-treatment-panel {
   display: grid;
   grid-template-rows: auto 84px minmax(124px, 1fr) auto minmax(86px, 0.72fr);
@@ -9424,7 +9424,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   padding: 12px 7px 6px;
 }
 
-/* --- 打非治违：闭环流程避开底部亮蓝装饰线 --- */
+/* --- 鎵撻潪娌昏繚锛氶棴鐜祦绋嬮伩寮€搴曢儴浜摑瑁呴グ绾?--- */
 .shuan-concept.shuan-command .illegal-treatment-panel {
   padding-bottom: 18px;
 }
@@ -9438,7 +9438,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   padding-bottom: 8px;
 }
 
-/* --- 右侧模块：数据时间范围选择 --- */
+/* --- 鍙充晶妯″潡锛氭暟鎹椂闂磋寖鍥撮€夋嫨 --- */
 .shuan-concept.shuan-command .daily-regulation-panel .panel-action,
 .shuan-concept.shuan-command .illegal-treatment-panel .panel-action {
   position: absolute;
@@ -9485,7 +9485,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: 0 0 10px rgba(53, 231, 255, 0.35);
 }
 
-/* --- 打非治违：强化两个分模块标题，承接腾出的空间 --- */
+/* --- 鎵撻潪娌昏繚锛氬己鍖栦袱涓垎妯″潡鏍囬锛屾壙鎺ヨ吘鍑虹殑绌洪棿 --- */
 .shuan-concept.shuan-command .illegal-treatment-panel {
   grid-template-rows: 26px 84px minmax(116px, 1fr) 26px minmax(78px, 0.66fr);
   gap: 6px;
@@ -9539,7 +9539,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   min-height: 66px;
 }
 
-/* --- 打非治违：方案二，处置闭环流程改为底部流程带 --- */
+/* --- 鎵撻潪娌昏繚锛氭柟妗堜簩锛屽缃棴鐜祦绋嬫敼涓哄簳閮ㄦ祦绋嬪甫 --- */
 .shuan-concept.shuan-command .illegal-treatment-panel {
   grid-template-rows: 26px 84px minmax(130px, 1fr) 26px 72px;
 }
@@ -9655,7 +9655,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: 0 0 10px rgba(47, 222, 255, 0.45);
 }
 
-/* --- 打非治违：流程带节点卡槽化，避免图标游离和底部文字重叠 --- */
+/* --- 鎵撻潪娌昏繚锛氭祦绋嬪甫鑺傜偣鍗℃Ы鍖栵紝閬垮厤鍥炬爣娓哥鍜屽簳閮ㄦ枃瀛楅噸鍙?--- */
 .shuan-concept.shuan-command .illegal-treatment-panel {
   grid-template-rows: 26px 84px minmax(120px, 1fr) 26px 82px;
 }
@@ -9726,7 +9726,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   margin-top: 28px;
 }
 
-/* --- 地图图例：统一去掉文字背景，只保留圆点颜色 --- */
+/* --- 鍦板浘鍥句緥锛氱粺涓€鍘绘帀鏂囧瓧鑳屾櫙锛屽彧淇濈暀鍦嗙偣棰滆壊 --- */
 .shuan-concept.shuan-command .shuan-map .legend-chip,
 .shuan-concept.shuan-command .shuan-map .legend-chip.tone-red,
 .shuan-concept.shuan-command .shuan-map .legend-chip.tone-orange,
@@ -9739,7 +9739,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: none;
 }
 
-/* --- V2 地图：卫星地理底纹只在 V2 生效，V1 不继承 --- */
+/* --- V2 鍦板浘锛氬崼鏄熷湴鐞嗗簳绾瑰彧鍦?V2 鐢熸晥锛孷1 涓嶇户鎵?--- */
 .shuan-concept.shuan-command.shuan-command-v2 .command-map-stage .shuan-map {
   isolation: isolate;
   filter: drop-shadow(0 0 20px rgba(21, 215, 255, 0.38));
@@ -9843,7 +9843,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-weight: 800;
 }
 
-/* --- V2 地图二次校准：整块卫星底图 + 行政区划线框 --- */
+/* --- V2 鍦板浘浜屾鏍″噯锛氭暣鍧楀崼鏄熷簳鍥?+ 琛屾斂鍖哄垝绾挎 --- */
 .shuan-concept.shuan-command.shuan-command-v2 .command-map-stage {
   align-items: start;
   padding-top: 0;
@@ -9969,7 +9969,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   bottom: 286px;
 }
 
-/* --- V2 地图最终校准：保留原地图位置，仅替换中心区域底图和区划线 --- */
+/* --- V2 鍦板浘鏈€缁堟牎鍑嗭細淇濈暀鍘熷湴鍥句綅缃紝浠呮浛鎹腑蹇冨尯鍩熷簳鍥惧拰鍖哄垝绾?--- */
 .shuan-concept.shuan-command.shuan-command-v2 .command-map-stage {
   align-items: center;
   justify-items: center;
@@ -10193,7 +10193,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   z-index: 4;
 }
 
-/* --- V2 日常监管：第一行合并，放大分级占比，收窄处置率 --- */
+/* --- V2 鏃ュ父鐩戠锛氱涓€琛屽悎骞讹紝鏀惧ぇ鍒嗙骇鍗犳瘮锛屾敹绐勫缃巼 --- */
 .shuan-concept.shuan-command.shuan-command-v2 .daily-regulation-panel .alarm-command-summary {
   display: grid;
   grid-template-columns: minmax(0, 8.8fr) minmax(112px, 3.2fr);
@@ -10273,7 +10273,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   margin-top: 6px;
 }
 
-/* --- V2 左栏收紧：5 类煤矿状态接入后，恢复原区域节奏 --- */
+/* --- V2 宸︽爮鏀剁揣锛? 绫荤叅鐭跨姸鎬佹帴鍏ュ悗锛屾仮澶嶅師鍖哄煙鑺傚 --- */
 .shuan-concept.shuan-command.shuan-command-v2 .command-grid {
   padding: 8px 10px 6px;
 }
@@ -10865,7 +10865,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   white-space: nowrap;
 }
 
-/* --- V2 地图点位：煤矿单点分布，不做区域数量聚合 --- */
+/* --- V2 鍦板浘鐐逛綅锛氱叅鐭垮崟鐐瑰垎甯冿紝涓嶅仛鍖哄煙鏁伴噺鑱氬悎 --- */
 .shuan-concept.shuan-command.shuan-command-v2 .shuan-map-point.mine-dot {
   min-width: 0;
   width: 8px;
@@ -11419,7 +11419,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 10px;
 }
 
-/* --- V3 左栏对标参考图：六模块紧凑分布 --- */
+/* --- V3 宸︽爮瀵规爣鍙傝€冨浘锛氬叚妯″潡绱у噾鍒嗗竷 --- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-grid {
   padding: 8px 10px 6px;
   grid-template-columns: minmax(580px, 0.98fr) minmax(640px, 1.1fr) minmax(540px, 0.9fr);
@@ -11877,7 +11877,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   color: #ffc772;
 }
 
-/* --- V3 左栏像素级二次微调：按 1920×914 视口重新吃满高度 --- */
+/* --- V3 宸︽爮鍍忕礌绾т簩娆″井璋冿細鎸?1920脳914 瑙嗗彛閲嶆柊鍚冩弧楂樺害 --- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-left {
   grid-template-rows: 120px 194px 132px 122px minmax(188px, 1fr);
   gap: 10px;
@@ -12087,7 +12087,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   justify-content: center;
 }
 
-/* --- V3 左栏概念图贴近修正：统一深蓝底色，收掉彩色雾光 --- */
+/* --- V3 宸︽爮姒傚康鍥捐创杩戜慨姝ｏ細缁熶竴娣辫摑搴曡壊锛屾敹鎺夊僵鑹查浘鍏?--- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .mine-status-card,
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .data-category-card,
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .metric-strip-card {
@@ -12235,7 +12235,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   line-height: 1.2;
 }
 
-/* --- V3 左栏三次贴图修正：顶部状态卡无图标，卡面更接近概念图 --- */
+/* --- V3 宸︽爮涓夋璐村浘淇锛氶《閮ㄧ姸鎬佸崱鏃犲浘鏍囷紝鍗￠潰鏇存帴杩戞蹇靛浘 --- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .mine-status-card {
   padding: 11px 9px 9px;
   border-color: rgba(58, 160, 234, 0.38);
@@ -12328,7 +12328,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   text-shadow: 0 0 7px rgba(89, 203, 255, 0.28);
 }
 
-/* --- V3 生产/人员情况回归 V2 内容，但降低数字体量 --- */
+/* --- V3 鐢熶骇/浜哄憳鎯呭喌鍥炲綊 V2 鍐呭锛屼絾闄嶄綆鏁板瓧浣撻噺 --- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .metric-strip-grid-production,
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .metric-strip-grid-personnel {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -12364,7 +12364,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   line-height: 1.18;
 }
 
-/* --- V3 水文地质列表：去掉首行整块蓝色底感 --- */
+/* --- V3 姘存枃鍦拌川鍒楄〃锛氬幓鎺夐琛屾暣鍧楄摑鑹插簳鎰?--- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .hydro-hazard-row {
   background: transparent;
 }
@@ -12378,13 +12378,13 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: 0 0 7px rgba(82, 157, 255, 0.16);
 }
 
-/* --- V3 地图图例移动到左下角 --- */
+/* --- V3 鍦板浘鍥句緥绉诲姩鍒板乏涓嬭 --- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-legend {
   left: 18px;
   bottom: -118px;
 }
 
-/* --- V3 左栏最终回调：恢复原状态卡排版，标题栏并入煤矿总数 --- */
+/* --- V3 宸︽爮鏈€缁堝洖璋冿細鎭㈠鍘熺姸鎬佸崱鎺掔増锛屾爣棰樻爮骞跺叆鐓ょ熆鎬绘暟 --- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-left {
   grid-template-rows: 112px 194px 124px 114px minmax(180px, 1fr);
 }
@@ -12513,7 +12513,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   line-height: 1.1;
 }
 
-/* --- V3 左栏细调二次收口：标题栏总数更突出，灾害模块再压紧一档 --- */
+/* --- V3 宸︽爮缁嗚皟浜屾鏀跺彛锛氭爣棰樻爮鎬绘暟鏇寸獊鍑猴紝鐏惧妯″潡鍐嶅帇绱т竴妗?--- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-left {
   grid-template-rows: 172px 168px 116px 110px minmax(104px, 1fr);
 }
@@ -12612,7 +12612,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 9px;
 }
 
-/* --- V3 2026-06-29 局部调整：顶部视频入口、左栏顺序、右栏空间重排 --- */
+/* --- V3 2026-06-29 灞€閮ㄨ皟鏁达細椤堕儴瑙嗛鍏ュ彛銆佸乏鏍忛『搴忋€佸彸鏍忕┖闂撮噸鎺?--- */
 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-video-entry {
   border-color: rgba(108, 210, 255, 0.74);
   background: rgba(18, 118, 178, 0.68);
@@ -15290,7 +15290,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   height: 15px;
 }
 
-/* Data aggregation and governance: fixed 1671 × 941 reference canvas. */
+/* Data aggregation and governance: fixed 1671 脳 941 reference canvas. */
 .data-governance-viewport {
   position: relative;
   width: 100%;
@@ -17067,27 +17067,27 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-weight: 800;
 }
 
-.drill-level-stack .tone-红色,
-.drill-matrix-table .dot.tone-红色,
-.level-tag.tone-红色 {
+.drill-level-stack .tone-绾㈣壊,
+.drill-matrix-table .dot.tone-绾㈣壊,
+.level-tag.tone-绾㈣壊 {
   background: #ff4d4f;
 }
 
-.drill-level-stack .tone-橙色,
-.drill-matrix-table .dot.tone-橙色,
-.level-tag.tone-橙色 {
+.drill-level-stack .tone-姗欒壊,
+.drill-matrix-table .dot.tone-姗欒壊,
+.level-tag.tone-姗欒壊 {
   background: #ff9f1a;
 }
 
-.drill-level-stack .tone-黄色,
-.drill-matrix-table .dot.tone-黄色,
-.level-tag.tone-黄色 {
+.drill-level-stack .tone-榛勮壊,
+.drill-matrix-table .dot.tone-榛勮壊,
+.level-tag.tone-榛勮壊 {
   background: #ffd43b;
 }
 
-.drill-level-stack .tone-蓝色,
-.drill-matrix-table .dot.tone-蓝色,
-.level-tag.tone-蓝色 {
+.drill-level-stack .tone-钃濊壊,
+.drill-matrix-table .dot.tone-钃濊壊,
+.level-tag.tone-钃濊壊 {
   background: #3c8dff;
 }
 
@@ -21870,11 +21870,11 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   background: rgba(3, 17, 38, 0.72);
 }
 
-.drill-illegal-algorithm-grid article.risk-高 {
+.drill-illegal-algorithm-grid article.risk-楂?{
   border-color: rgba(255, 84, 94, 0.48);
 }
 
-.drill-illegal-algorithm-grid article.risk-中 {
+.drill-illegal-algorithm-grid article.risk-涓?{
   border-color: rgba(255, 184, 77, 0.38);
 }
 
@@ -22033,17 +22033,17 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-weight: 800;
 }
 
-.drill-illegal-table em.risk-高 {
+.drill-illegal-table em.risk-楂?{
   background: rgba(255, 75, 91, 0.18);
   color: #ff8790;
 }
 
-.drill-illegal-table em.risk-中 {
+.drill-illegal-table em.risk-涓?{
   background: rgba(255, 184, 77, 0.16);
   color: #ffd166;
 }
 
-.drill-illegal-table em.risk-低 {
+.drill-illegal-table em.risk-浣?{
   background: rgba(58, 210, 113, 0.16);
   color: #7df7a8;
 }
@@ -25650,6 +25650,298 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 26px;
 }
 
+.drill-mine-profile-association-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.drill-mine-profile-association-head span,
+.drill-mine-profile-association-foot {
+  color: rgba(207, 232, 248, 0.72);
+  font-size: 12px;
+}
+
+.drill-mine-profile-association-head b,
+.drill-mine-profile-association-foot b {
+  color: #ffbf47;
+}
+
+.drill-mine-profile-association-table {
+  overflow: hidden;
+  border: 1px solid rgba(77, 159, 218, 0.2);
+  border-radius: 4px;
+}
+
+.drill-mine-profile-association-table > div {
+  display: grid;
+  grid-template-columns: 160px 112px minmax(260px, 1.7fr) minmax(180px, 1fr) 78px;
+  align-items: center;
+  min-height: 54px;
+  border-bottom: 1px solid rgba(77, 159, 218, 0.12);
+}
+
+.drill-mine-profile-association-table > div:last-child {
+  border-bottom: 0;
+}
+
+.drill-mine-profile-association-table > div > * {
+  min-width: 0;
+  padding: 8px 10px;
+}
+
+.drill-mine-profile-association-table .head {
+  min-height: 34px;
+  color: rgba(201, 230, 247, 0.68);
+  background: rgba(23, 80, 132, 0.36);
+  font-size: 12px;
+}
+
+.drill-mine-profile-association-table strong {
+  color: #e8f7ff;
+  font-size: 13px;
+}
+
+.drill-mine-profile-association-table > div:not(.head) > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #dff4ff;
+  font-size: 12px;
+}
+
+.drill-mine-profile-association-table p,
+.drill-mine-profile-association-table em {
+  margin: 0;
+  overflow: hidden;
+  color: rgba(211, 235, 249, 0.78);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.drill-mine-profile-association-table em {
+  color: #72d9ff;
+}
+
+.drill-mine-profile-association-table > div:not(.head) > b {
+  color: #ff775f;
+  font-size: 16px;
+  text-align: center;
+}
+
+.drill-mine-profile-association-table > div:not(.head) > b.is-correction {
+  color: #ffbf47;
+}
+
+.drill-mine-profile-association-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.drill-mine-profile-association-foot strong {
+  color: #effaff;
+}
+
+.drill-mine-profile-association-summary {
+  min-width: 360px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  row-gap: 5px;
+  padding: 8px 10px;
+  border: 1px solid rgba(75, 160, 222, 0.34);
+  border-radius: 4px;
+  background: rgba(5, 48, 94, 0.5);
+}
+
+.drill-mine-profile-association-summary > span {
+  color: #bfeaff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.drill-mine-profile-association-summary p {
+  margin: 0;
+  color: rgba(207, 232, 248, 0.72);
+  font-size: 12px;
+  text-align: right;
+}
+
+.drill-mine-profile-association-summary p b {
+  color: #dff5ff;
+}
+
+.drill-mine-profile-association-summary p strong {
+  color: #ffbf47;
+}
+
+.drill-mine-profile-association-summary > div {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(98, 178, 232, 0.16);
+}
+
+.drill-mine-profile-association-summary em {
+  color: rgba(207, 232, 248, 0.66);
+  font-size: 11px;
+  font-style: normal;
+}
+
+.drill-mine-profile-association-summary em b,
+.drill-mine-profile-association-summary > div > strong b {
+  margin-left: 3px;
+  color: #ffbf47;
+}
+
+.drill-mine-profile-association-summary > div > strong {
+  color: #effaff;
+  font-size: 11px;
+}
+
+.drill-mine-profile-association-cards {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.drill-mine-profile-association-cards section {
+  display: grid;
+  grid-template-rows: auto minmax(54px, 1fr) auto;
+  gap: 9px;
+  min-height: 176px;
+  padding: 12px;
+  border: 1px solid rgba(75, 160, 222, 0.28);
+  border-radius: 5px;
+  background: rgba(7, 43, 86, 0.74);
+}
+
+.drill-mine-profile-association-cards section.is-correction {
+  border-color: rgba(255, 191, 71, 0.42);
+  background: rgba(82, 57, 19, 0.24);
+}
+
+.drill-mine-profile-association-cards header,
+.drill-mine-profile-association-cards header > span,
+.drill-mine-profile-association-cards footer {
+  display: flex;
+  align-items: center;
+}
+
+.drill-mine-profile-association-cards header,
+.drill-mine-profile-association-cards footer {
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.drill-mine-profile-association-cards header > span {
+  min-width: 0;
+  gap: 7px;
+}
+
+.drill-mine-profile-association-cards header svg {
+  width: 16px;
+  flex: 0 0 auto;
+  color: #61bfff;
+}
+
+.drill-mine-profile-association-cards strong {
+  overflow: hidden;
+  color: #effaff;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drill-mine-profile-association-cards p {
+  margin: 0;
+  color: rgba(214, 238, 251, 0.78);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.drill-mine-profile-association-cards section > div {
+  display: grid;
+  align-self: center;
+  gap: 3px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(98, 178, 232, 0.14);
+  border-bottom: 1px solid rgba(98, 178, 232, 0.14);
+}
+
+.drill-mine-profile-association-cards section > div span,
+.drill-mine-profile-association-cards footer > span {
+  color: rgba(198, 229, 247, 0.64);
+  font-size: 11px;
+}
+
+.drill-mine-profile-association-cards em {
+  overflow: hidden;
+  color: #78d9ff;
+  font-size: 13px;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drill-mine-profile-association-cards footer {
+  padding-top: 3px;
+}
+
+.drill-mine-profile-association-cards footer b {
+  color: #ff705f;
+  font-size: 19px;
+}
+
+.drill-mine-profile-association-cards section.is-correction footer b {
+  color: #ffbf47;
+}
+
+.drill-mine-profile-association-cards .drill-mine-profile-association-summary {
+  min-width: 0;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(54px, 1fr) auto auto;
+  row-gap: 9px;
+  column-gap: 0;
+  padding: 12px;
+  border-color: rgba(75, 160, 222, 0.34);
+  background: rgba(5, 48, 94, 0.5);
+}
+
+.drill-mine-profile-association-cards .drill-mine-profile-association-summary header {
+  justify-content: flex-start;
+}
+
+.drill-mine-profile-association-cards .drill-mine-profile-association-summary p {
+  align-self: center;
+  color: rgba(214, 238, 251, 0.78);
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.drill-mine-profile-association-cards .drill-mine-profile-association-summary > div {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.drill-mine-profile-association-cards .drill-mine-profile-association-summary footer {
+  padding-top: 3px;
+}
+
+.drill-mine-profile-association-cards .drill-mine-profile-association-summary footer b {
+  color: #ffbf47;
+}
+
 .drill-mine-profile-verification-grid {
   display: grid;
   grid-template-columns: 1.1fr 1.15fr 0.95fr;
@@ -28689,7 +28981,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
 
 .drill-hazard-kpis {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -31174,14 +31466,14 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .status-tag.red,
 .county-inspection-conclusion-list span.recommended,
-.level-tag.level-�?{
+.level-tag.level-锟?{
   color: #ffe3e5;
   background: rgba(255, 94, 107, 0.2);
   border: 1px solid rgba(255, 94, 107, 0.32);
 }
 
 .status-tag.amber,
-.level-tag.level-�?{
+.level-tag.level-锟?{
   color: #ffe9bf;
   background: rgba(255, 181, 72, 0.18);
   border: 1px solid rgba(255, 181, 72, 0.28);
@@ -31189,7 +31481,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .status-tag.blue,
 .status-tag.cyan,
-.level-tag.level-�?
+.level-tag.level-锟?
 .county-inspection-conclusion-list span {
   color: #daf6ff;
   background: rgba(60, 170, 255, 0.16);
@@ -31599,20 +31891,20 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   white-space: nowrap;
 }
 
-.city-analysis-table__row .status-待会�?
-.city-analysis-table__row .status-研判�?{
+.city-analysis-table__row .status-寰呬細锟?
+.city-analysis-table__row .status-鐮斿垽锟?{
   color: #74d8ff;
 }
 
-.city-analysis-table__row .status-建议升级 {
+.city-analysis-table__row .status-寤鸿鍗囩骇 {
   color: #ff8a98;
 }
 
-.city-analysis-table__row .status-退回补�?{
+.city-analysis-table__row .status-閫€鍥炶ˉ锟?{
   color: #ffc564;
 }
 
-.city-analysis-table__row .status-已形成意�?{
+.city-analysis-table__row .status-宸插舰鎴愭剰锟?{
   color: #7be0b0;
 }
 
@@ -32031,7 +32323,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 .production-operation-kpis {
   height: 86px;
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
   padding: 6px 6px 8px;
   border: 1px solid rgba(27, 116, 194, 0.55);
@@ -33691,22 +33983,22 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   color: #dff8ff;
 }
 
-.personnel-table .tag-正常,
-.personnel-table .tag-已到位,
-.personnel-table .tag-低 {
+.personnel-table .tag-姝ｅ父,
+.personnel-table .tag-宸插埌浣?
+.personnel-table .tag-浣?{
   background: rgba(31, 140, 102, 0.66);
   color: #bdf7d2;
 }
 
-.personnel-table .tag-关注,
-.personnel-table .tag-中 {
+.personnel-table .tag-鍏虫敞,
+.personnel-table .tag-涓?{
   background: rgba(157, 110, 37, 0.72);
   color: #ffe2a3;
 }
 
-.personnel-table .tag-异常,
-.personnel-table .tag-未到位,
-.personnel-table .tag-高 {
+.personnel-table .tag-寮傚父,
+.personnel-table .tag-鏈埌浣?
+.personnel-table .tag-楂?{
   background: rgba(175, 63, 62, 0.72);
   color: #ffd0d0;
 }
@@ -33782,7 +34074,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   }
 }
 
-/* 综合评分：用真实的累计关系表达模型分与核验调整 */
+/* 缁煎悎璇勫垎锛氱敤鐪熷疄鐨勭疮璁″叧绯昏〃杈炬ā鍨嬪垎涓庢牳楠岃皟鏁?*/
 .drill-mine-profile-score-bars > .drill-mine-profile-score-flow {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr)) repeat(5, 18px);
@@ -33915,7 +34207,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   }
 }
 
-/* 综合评分参考图复刻：固定四层阅读结构 */
+/* 缁煎悎璇勫垎鍙傝€冨浘澶嶅埢锛氬浐瀹氬洓灞傞槄璇荤粨鏋?*/
 .drill-mine-profile-panel.score-breakdown {
   min-height: 470px;
   padding: 14px 28px 14px;
@@ -34016,6 +34308,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow section {
+  grid-template-columns: 1fr;
   align-content: center;
   justify-items: center;
   gap: 8px;
@@ -34050,12 +34343,21 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   color: #5bd68a;
 }
 
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow section.is-deduction strong::before {
+  content: '-';
+}
+
 .drill-mine-profile-panel.score-breakdown .drill-mine-profile-waterfall {
   position: relative;
   height: 198px;
   margin: 0;
   overflow: visible;
+  isolation: isolate;
   background: transparent;
+}
+
+.drill-mine-profile-panel.score-breakdown .drill-mine-profile-waterfall::after {
+  content: none;
 }
 
 .drill-mine-profile-panel.score-breakdown .waterfall-track {
@@ -34150,6 +34452,42 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   transform: translateX(-50%);
 }
 
+.drill-mine-profile-panel.score-breakdown .model-marker::after,
+.drill-mine-profile-panel.score-breakdown .current-marker::after {
+  position: absolute;
+  border-top: 2px solid currentColor;
+  content: '';
+  pointer-events: none;
+}
+
+.drill-mine-profile-panel.score-breakdown .model-marker::after {
+  top: 62px;
+  left: 0;
+  width: clamp(36px, 3vw, 54px);
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-left: 0;
+}
+
+.drill-mine-profile-panel.score-breakdown .model-marker {
+  left: 80.2% !important;
+  height: 63px;
+}
+
+.drill-mine-profile-panel.score-breakdown .current-marker {
+  left: 74.9% !important;
+  height: 63px;
+}
+
+.drill-mine-profile-panel.score-breakdown .current-marker::after {
+  top: 62px;
+  right: 0;
+  width: clamp(44px, 3.8vw, 68px);
+  height: 9px;
+  border-right: 0;
+  border-left: 2px solid currentColor;
+}
+
 .drill-mine-profile-panel.score-breakdown .base-marker,
 .drill-mine-profile-panel.score-breakdown .model-marker {
   color: #42c9e8;
@@ -34161,7 +34499,8 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .drill-mine-profile-panel.score-breakdown .waterfall-label {
   position: absolute;
-  top: 102px;
+  z-index: 2;
+  top: 112px;
   width: 190px;
   display: grid;
   gap: 5px;
@@ -34191,9 +34530,48 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .drill-mine-profile-panel.score-breakdown .base-label { left: 41.7%; }
-.drill-mine-profile-panel.score-breakdown .model-label { left: 67%; }
-.drill-mine-profile-panel.score-breakdown .adjustment-label { left: 80%; }
-.drill-mine-profile-panel.score-breakdown .current-label { left: 92%; }
+.drill-mine-profile-panel.score-breakdown .model-label { left: 84%; }
+.drill-mine-profile-panel.score-breakdown .adjustment-label { left: 77.55%; }
+.drill-mine-profile-panel.score-breakdown .current-label { left: 69.9%; }
+
+.drill-mine-profile-panel.score-breakdown .model-label,
+.drill-mine-profile-panel.score-breakdown .adjustment-label,
+.drill-mine-profile-panel.score-breakdown .current-label {
+  width: 120px;
+}
+
+.drill-mine-profile-panel.score-breakdown .model-label strong,
+.drill-mine-profile-panel.score-breakdown .adjustment-label strong,
+.drill-mine-profile-panel.score-breakdown .current-label strong {
+  font-size: 22px;
+}
+
+.drill-mine-profile-panel.score-breakdown .model-label span,
+.drill-mine-profile-panel.score-breakdown .adjustment-label span,
+.drill-mine-profile-panel.score-breakdown .current-label span {
+  font-size: 13px;
+}
+
+.drill-mine-profile-panel.score-breakdown .model-label em,
+.drill-mine-profile-panel.score-breakdown .adjustment-label em,
+.drill-mine-profile-panel.score-breakdown .current-label em {
+  font-size: 11px;
+}
+
+.drill-mine-profile-panel.score-breakdown .adjustment-label::before {
+  position: absolute;
+  top: -68px;
+  left: 50%;
+  width: 2px;
+  height: 68px;
+  background: #5bd68a;
+  content: '';
+  transform: translateX(-50%);
+}
+
+.drill-mine-profile-panel.score-breakdown .adjustment-label::after {
+  content: none;
+}
 
 .drill-mine-profile-panel.score-breakdown .adjustment-label strong {
   color: #5bd68a;
