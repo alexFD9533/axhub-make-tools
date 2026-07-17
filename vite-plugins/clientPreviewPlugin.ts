@@ -199,14 +199,17 @@ export function injectPreviewScrollbarStyle(html: string): string {
     : `${tag}\n${html}`;
 }
 
-function createPreviewLoader(type: ResourceType, name: string, projectRoot: string) {
+function createPreviewLoader(
+  type: ResourceType,
+  name: string,
+  projectRoot: string,
+  runtimeOrigin: string,
+) {
   const cacheToken = Date.now().toString(36);
-  const importPath = `/${type}/${name}/index.tsx?axhub_preview_v=${cacheToken}`;
+  const importPath = `${runtimeOrigin}/${type}/${name}/index.tsx?axhub_preview_v=${cacheToken}`;
+  const mountPath = `${runtimeOrigin}/common/clientPreviewRuntime.ts?axhub_preview_v=${cacheToken}`;
   const previewPath = `/${type}/${name}`;
   return `
-import React from 'react';
-import * as ReactDOMClient from 'react-dom/client';
-
 function notifyAxhubPreviewUpdated(reason) {
   if (typeof window === 'undefined' || window.parent === window) return;
   window.parent.postMessage({
@@ -223,42 +226,24 @@ if (!rootElement) {
 }
 
 const renderPreview = async () => {
-  const module = await import(${JSON.stringify(importPath)});
+  const [module, runtime] = await Promise.all([
+    import(${JSON.stringify(importPath)}),
+    import(${JSON.stringify(mountPath)}),
+  ]);
   const PreviewComponent = module?.default;
   if (!PreviewComponent) {
     throw new Error('[Axhub Make Project] Preview component is missing a default export');
   }
 
-  const root = ReactDOMClient.createRoot
-    ? ReactDOMClient.createRoot(rootElement)
-    : null;
-  const element = React.createElement(PreviewComponent, {
-    container: rootElement,
-    config: {
-      projectPath: ${JSON.stringify(projectRoot)},
-    },
-    data: {},
-    events: {},
-  });
-
-  if (root) {
-    root.render(element);
-    return root;
-  }
-
-  ReactDOMClient.render?.(element, rootElement);
-  return null;
+  return runtime.renderClientPreview(PreviewComponent, rootElement, ${JSON.stringify(projectRoot)});
 };
 
 let currentRoot = await renderPreview();
 
 if (import.meta.hot) {
-  import.meta.hot.accept(${JSON.stringify(importPath)}, async () => {
-    if (currentRoot && currentRoot.unmount) {
-      currentRoot.unmount();
-    }
-    currentRoot = await renderPreview();
-    notifyAxhubPreviewUpdated('hmr');
+  import.meta.hot.accept(() => {
+    window.location.reload();
+    notifyAxhubPreviewUpdated('reload');
   });
 }
 `;
@@ -354,6 +339,19 @@ function getRequestRefererOrigin(req: { headers?: Record<string, string | string
   } catch {
     return null;
   }
+}
+
+function resolveViteRuntimeOrigin(
+  projectRoot: string,
+  server: { httpServer?: { address(): string | { port?: number } | null } },
+): string {
+  const runtimeInfo = readServerInfo(projectRoot, 'runtime');
+  if (runtimeInfo?.origin) {
+    return runtimeInfo.origin;
+  }
+  const address = server.httpServer?.address();
+  const port = typeof address === 'object' && address ? address.port : undefined;
+  return `http://localhost:${port || 51720}`;
 }
 
 function isLocalHostname(hostname: string): boolean {
@@ -511,7 +509,10 @@ export function clientPreviewPlugin(): Plugin {
             );
           }
           html = injectDevTemplateBootstrapScript(html, serverOrigin);
-          html = html.replace(/\{\{PREVIEW_LOADER\}\}/g, createPreviewLoader(route.type, route.name, projectRoot));
+          html = html.replace(
+            /\{\{PREVIEW_LOADER\}\}/g,
+            createPreviewLoader(route.type, route.name, projectRoot, resolveViteRuntimeOrigin(projectRoot, server)),
+          );
           html = injectQuickEditRuntimeScript(html, serverOrigin);
 
           res.statusCode = 200;

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @name 煤矿安全综管平台
  * @mode axure
  */
@@ -14,6 +14,7 @@ import { EnterpriseArchivePage } from './pages/EnterpriseArchivePage';
 import { isMonitoringReplicaPage, MonitoringReplicaPage } from './pages/MonitoringPages';
 import { isMiningGuardPage, MiningGuardPage } from './pages/MiningGuardPages';
 import { isHiddenRiskPage, HiddenRiskPage } from './pages/HiddenRiskPages';
+import { RiskAgentDetailPage } from './pages/RiskAgentDetailPage';
 import { PlaceholderPage } from './pages/PlaceholderPage';
 import { SmsEnterpriseReceiverPage, SmsGovernmentReceiverPage, SmsOtherUnitAddressBookPage, SmsRecordPage, SmsRulePage, SmsTemplatePage } from './pages/SmsPages';
 import { SystemConfigPage, SystemDeptPage, SystemDictPage, SystemJobPage, SystemLoginlogPage, SystemMenuPage, SystemNoticePage, SystemOnlinePage, SystemOperlogPage, SystemOrganizationPage, SystemPersonnelPage, SystemPostPage, SystemRolePage, SystemUserPage } from './pages/SystemPages';
@@ -57,6 +58,7 @@ const route = defineHashPageRoute([
   { id: 'guard-safe-risk-report', title: '安全风险研判报告' },
   { id: 'guard-hidden-risk-overview', title: '风险总览一张图' },
   { id: 'guard-hidden-risk-mine-profile', title: '煤矿风险画像' },
+  { id: 'guard-hidden-risk-agent-detail', title: '专项风险研判详情' },
   { id: 'guard-hidden-risk-clue-ledger', title: '线索证据台账' },
   { id: 'guard-hidden-risk-task', title: '工作安排处置' },
   { id: 'guard-hidden-risk-config', title: '配置管理' },
@@ -148,6 +150,7 @@ function findModuleByPage(pageId: string): TopModuleId {
 function CurrentPage({ page }: { page: string }) {
   if (page === 'alarm-disposal') return <AlarmDisposalPage />;
   if (isMonitoringReplicaPage(page)) return <MonitoringReplicaPage page={page} />;
+  if (page === 'guard-hidden-risk-agent-detail') return <RiskAgentDetailPage />;
   if (isHiddenRiskPage(page)) return <HiddenRiskPage page={page} />;
   if (isMiningGuardPage(page)) return <MiningGuardPage page={page} />;
   if (page === 'enterprise-archive') return <EnterpriseArchivePage />;

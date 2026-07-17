@@ -56,6 +56,11 @@
    - Axhub 框架入口和 `/prototypes/...` 直连入口报错时，不默认归因于页面代码；先按 `rules/preview-runtime-guide.md` 核对端口、进程工作目录、Vite deps、React runtime 和浏览器缓存
    - 涉及 `src/common/react-shim.js`、`src/common/react-dom-shim.js`、`vite.config.ts`、`vite-plugins/clientPreviewPlugin.ts` 的修改，必须同时验证 Axhub 框架入口和直连入口
    - 发现 Axhub 启动到 `.codex/worktrees/...` 等项目副本时，要明确说明当前实际启动源，并同步运行时修复或切回主项目，避免只修 D 盘主项目
+9. **统一编码与预览资源规范**
+   - `.ts`、`.tsx`、`.js`、`.css`、`.json`、`.md`、HTML 和配置文件统一使用 UTF-8（无 BOM）；不得把终端显示乱码直接写回源码。
+   - PowerShell 读取中文源码时明确使用 UTF-8；编辑优先使用 `apply_patch`。如必须写入文件，写后重新以 UTF-8 读取核验，避免 Windows PowerShell 默认编码造成乱码或 `?` 字符进入选择器、文案和元数据。
+   - 提交前执行 `git diff --check`；出现 CSS 解析警告、乱码选择器或意外替换字符时，先定位并修复编码问题，再继续页面调整。
+   - Axhub 的预览页面运行在管理端和 Vite 两个不同 origin 时，业务模块、`/resources`、`/common` 等导入必须由 Vite runtime origin 提供；不得假定 53817 管理端会代理所有静态模块路径。
 
 
 ## 系统复刻与迭代规则

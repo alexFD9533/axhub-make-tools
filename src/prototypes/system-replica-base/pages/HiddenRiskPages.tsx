@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { AlertTriangle, ArrowDownRight, ArrowUpRight, ChevronRight, ClipboardList, MapPin, Minus, RefreshCw, Search, ShieldAlert, ShieldCheck, Timer, TrendingUp } from 'lucide-react';
 import { PageScaffold } from '../components/AppShell';
 import { DataTable, Field } from '../components/Primitives';
@@ -426,6 +426,7 @@ function HighRiskMinesCard({ rows, selectedType }: { rows: HighRiskMineRow[]; se
     { key: 'action', title: '操作', width: 150, render: () => (
       <div className="hidden-risk-actions">
         <a href="#page=guard-hidden-risk-mine-profile" className="hidden-risk-text-btn">画像</a>
+        <a href="#page=guard-hidden-risk-agent-detail" className="hidden-risk-text-btn">研判详情</a>
         <a href="#page=guard-hidden-risk-task" className="hidden-risk-text-btn">安排排查</a>
       </div>
     ) },

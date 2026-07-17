@@ -217,9 +217,108 @@
       "state": "completed",
       "provider": "codex",
       "updatedAt": "2026-07-09T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-map-frame-search",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".home-wireframe-map .shuan-map", ".map-search-box"], "description": "首页中部地图内框与快速定位搜索框" },
+      "comment": "移除地图内层画框；快速定位搜索框收窄至中部模块约三分之一宽并居中。",
+      "type": "style-layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-production-face-count",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-production-panel .v3-stat-block:nth-child(2)"], "description": "首页生产情况第二项指标" },
+      "comment": "将当前井下人员改为工作面总数。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-data-health-summary",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-data-panel"], "description": "首页数据汇聚情况" },
+      "comment": "收敛为数据资源36项、数据质检95分、数据可信度99分三项指标。",
+      "type": "data-layout",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-donut-total",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-donut-core > b"], "description": "首页煤矿基础信息环图中心总数" },
+      "comment": "移除环图中心的174，仅保留左侧煤矿总数。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-license-expiry-reminder-copy",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-daily-reminders .v3-reminder-card.tone-amber"], "description": "日常监管内的证照提醒卡片" },
+      "comment": "标题改为证照到期提醒。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-major-geological-disaster-copy",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-daily-reminders .v3-reminder-card.tone-red"], "description": "日常监管内的重大灾害提醒卡片" },
+      "comment": "标题改为重大地质灾害提醒。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-personnel-underground-count",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-personnel-panel .v3-stat-block:nth-child(2) .v3-stat-copy > strong"], "description": "首页从业人员情况的当前井下人员数" },
+      "comment": "当前井下人员由12345调整为3212（最新批注覆盖先前的2131）。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-production-face-count-value",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-production-panel .v3-stat-block:nth-child(2) .v3-stat-copy > strong"], "description": "首页生产情况的工作面总数" },
+      "comment": "工作面总数由12345调整为234个。",
+      "type": "text",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
+    },
+    {
+      "elementKey": "shuan-v3-daily-license-reminder-remove",
+      "pageId": "shuan-home-command-v3",
+      "locator": { "selectors": [".v3-daily-reminders .v3-reminder-card.tone-amber"], "description": "日常监管中的证照到期提醒卡片" },
+      "comment": "删除证照到期提醒，并重新排布日常监管模块，消除明显空白。",
+      "type": "layout-content",
+      "state": "completed",
+      "provider": "codex",
+      "updatedAt": "2026-07-17T00:00:00+08:00"
     }
   ],
   "tasks": {
+    "shuan-v3-daily-license-reminder-remove": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-personnel-underground-count": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-production-face-count-value": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-map-frame-search": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-production-face-count": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-data-health-summary": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-donut-total": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-license-expiry-reminder-copy": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
+    "shuan-v3-major-geological-disaster-copy": { "state": "completed", "provider": "codex", "updatedAt": "2026-07-17T00:00:00+08:00" },
     "shuan-v3-header": {
       "state": "completed",
       "provider": "codex",

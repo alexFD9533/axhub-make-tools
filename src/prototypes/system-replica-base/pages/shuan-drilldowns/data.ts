@@ -1620,6 +1620,7 @@ export const shuanIllegalDisposalRows = [
 ] as const;
 
 export const shuanDrilldownRoutePages = [
+  { id: 'shuan-home-command-v3-coal-quantity-comparison-clue', title: '广元天安煤矿 - 煤量比对异常' },
   { id: 'shuan-home-command-v3-wireframes', title: '下钻页面框架总览' },
   { id: shuanDataGovernanceData.route, title: shuanDataGovernanceData.title },
   ...shuanDrilldownPages.map((page) => ({ id: page.id, title: page.title })),
@@ -1633,5 +1634,6 @@ export const shuanDrilldownRoutePages = [
   { id: 'shuan-home-command-v3-illegal-disposal-city-analysis', title: '专项研判 / 市级研判' },
   { id: shuanProvinceSupervisionData.route, title: shuanProvinceSupervisionData.title },
   { id: shuanHiddenFaceMineProfileData.route, title: shuanHiddenFaceMineProfileData.title },
+  { id: 'guard-hidden-risk-agent-detail', title: 'Risk assessment detail' },
   ...shuanIllegalCampaignModules.map((item) => ({ id: item.route, title: item.title })),
 ];

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ExternalLink, Search, Settings, UserRound, Video } from 'lucide-react';
+import { ChevronDown, ChevronRight, ExternalLink, Search, Settings, UserRound, Video } from 'lucide-react';
 import sichuanMapSvg from '../../../resources/shuan/sichuan-map.svg?raw';
 import { normalizeInlineSvg } from '../../../common/inlineSvg';
 import sichuanSatelliteBgUrl from '../../../resources/shuan/sichuan-satellite-bg-v2-bright.png';
@@ -11,17 +11,7 @@ import conceptDataMonitorIconUrl from '../../../resources/shuan/cockpit/concept-
 import conceptDataProductionIconUrl from '../../../resources/shuan/cockpit/concept-icons/data-production.png';
 import conceptDataAccidentIconUrl from '../../../resources/shuan/cockpit/concept-icons/data-accident.png';
 import shuanLogoUrl from '../../../resources/shuan/logo.svg';
-import illegalGasIconUrl from '../../../resources/shuan/illegal-icons/gas-transparent.png';
-import illegalWindIconUrl from '../../../resources/shuan/illegal-icons/wind-transparent.png';
-import illegalPersonnelIconUrl from '../../../resources/shuan/illegal-icons/personnel-transparent.png';
-import illegalCoalIconUrl from '../../../resources/shuan/illegal-icons/coal-transparent.png';
-import illegalPowerIconUrl from '../../../resources/shuan/illegal-icons/power-transparent.png';
-import illegalMineRectificationIconUrl from '../../../resources/shuan/illegal-icons/mine-rectification-transparent.png';
-import illegalCountyInspectionIconUrl from '../../../resources/shuan/illegal-icons/county-inspection-transparent.png';
-import illegalCityAnalysisIconUrl from '../../../resources/shuan/illegal-icons/city-analysis-transparent.png';
-import illegalProvinceSupervisionIconUrl from '../../../resources/shuan/illegal-icons/province-supervision-transparent.png';
 import { ShuanDrilldownContent } from './shuan-drilldowns/ShuanDrilldownPages';
-import { shuanIllegalDisposalRows } from './shuan-drilldowns/data';
 import {
   SICHUAN_TOTAL_MINES,
   SICHUAN_PRODUCING_MINES,
@@ -149,6 +139,12 @@ const dataCatalogRows: Array<{ name: string; count: number; icon: CockpitIconNam
   { name: '事故保障数据', count: 9, icon: 'data-accident', iconUrl: conceptDataAccidentIconUrl, tone: 'amber' },
 ];
 
+const v3DataHealthRows = [
+  { name: '数据资源', value: '36', unit: '项', iconUrl: conceptDataBasicIconUrl },
+  { name: '数据质检', value: '95', unit: '分', iconUrl: conceptDataMonitorIconUrl },
+  { name: '数据可信度', value: '99', unit: '分', iconUrl: conceptDataProductionIconUrl },
+] as const;
+
 const alarmLevels = [
   ['红色', '9', '7.6%', 'red'],
   ['橙色', '22', '18.6%', 'orange'],
@@ -173,34 +169,17 @@ const reminderTasks = [
   { tone: 'cyan' as ReminderTone, title: '重大灾害提醒', highlight: '3', detail: '3项重大灾害风险需持续跟踪', icon: 'warning' as CockpitIconName, page: 'shuan-home-command-v3-major-hazard-reminder' },
 ];
 
-const illegalSourceRows = [
-  { id: 'gas', name: '瓦斯', iconUrl: illegalGasIconUrl, tone: 'cyan', metrics: [['线索', '28'], ['待核查', '16'], ['关联矿井', '12']] },
-  { id: 'wind', name: '风', iconUrl: illegalWindIconUrl, tone: 'green', metrics: [['线索', '19'], ['待核查', '11'], ['关联矿井', '9']] },
-  { id: 'personnel', name: '人', iconUrl: illegalPersonnelIconUrl, tone: 'amber', metrics: [['线索', '34'], ['待核查', '18'], ['关联矿井', '15']] },
-  { id: 'coal', name: '煤', iconUrl: illegalCoalIconUrl, tone: 'blue', metrics: [['线索', '24'], ['待核查', '13'], ['关联矿井', '11']] },
-  { id: 'power', name: '电', iconUrl: illegalPowerIconUrl, tone: 'red', metrics: [['线索', '22'], ['待核查', '12'], ['关联矿井', '10']] },
+const illegalRiskRows = [
+  { id: 'hidden-face', icon: 'warning' as CockpitIconName, title: '隐蔽工作面', levels: [8, 6, 4], mines: 18, delta: 3 },
+  { id: 'monitor-fake', icon: 'shield' as CockpitIconName, title: '监控系统造假', levels: [7, 5, 3], mines: 15, delta: 2 },
+  { id: 'hidden-person', icon: 'users' as CockpitIconName, title: '隐瞒入井人数', levels: [7, 5, 2], mines: 14, delta: 2 },
 ] as const;
-
-const illegalCampaignRows = [
-  { title: '隐蔽工作面专项整治', page: 'shuan-home-command-v3-illegal-campaign-hidden-face', metrics: [['疑似矿井', '18'], ['较高风险', '9'], ['待核查', '23']] },
-  { title: '监控系统造假专项整治', page: 'shuan-home-command-v3-illegal-campaign-monitor-fake', metrics: [['疑似矿井', '16'], ['较高风险', '8'], ['待核查', '20']] },
-  { title: '隐瞒入井人数专项整治', page: 'shuan-home-command-v3-illegal-campaign-hidden-person', metrics: [['疑似矿井', '14'], ['较高风险', '7'], ['待核查', '17']] },
+const illegalTrendRows = [
+  { id: 'risk-mines', icon: 'warning' as CockpitIconName, label: '风险矿井', value: '47处', tone: 'cyan', points: '2,50 18,44 34,46 50,31 68,37 86,25 104,28 122,14 140,18' },
+  { id: 'new-mines', icon: 'activity' as CockpitIconName, label: '新增/升级矿井', value: '7处', tone: 'amber', points: '2,54 18,51 34,42 50,46 68,34 86,41 104,28 122,32 140,18' },
+  { id: 'new-tasks', icon: 'badge' as CockpitIconName, label: '任务新增', value: '18项', tone: 'blue', points: '2,52 18,41 34,45 50,28 68,35 86,26 104,32 122,15 140,20' },
+  { id: 'closed-tasks', icon: 'check' as CockpitIconName, label: '任务闭环', value: '12项', tone: 'green', points: '2,55 18,48 34,50 50,38 68,42 86,29 104,35 122,24 140,12' },
 ] as const;
-
-const illegalDisposalIconByTitle: Record<string, string> = {
-  '煤矿整改': illegalMineRectificationIconUrl,
-  '县级走访': illegalCountyInspectionIconUrl,
-  '市级研判': illegalCityAnalysisIconUrl,
-  '省挂牌督办': illegalProvinceSupervisionIconUrl,
-};
-
-const illegalSourceDrilldownPage: Record<(typeof illegalSourceRows)[number]['id'], string> = {
-  gas: 'shuan-home-command-v3-illegal-algorithms',
-  wind: 'shuan-home-command-v3-illegal-algorithms',
-  personnel: 'shuan-home-command-v3-illegal-algorithms',
-  coal: 'shuan-home-command-v3-illegal-algorithms',
-  power: 'shuan-home-command-v3-illegal-algorithms',
-};
 
 const mapRegions = [
   { name: '达州市', x: 80, y: 53, status: 'red' as const, count: 41, aliases: ['达州'], labelX: 10, labelY: 30 },
@@ -424,6 +403,230 @@ function LeftInsightPanels({ onOpenPage }: { onOpenPage?: (pageId: string) => vo
   );
 }
 
+/* V3 homepage content rebuild 2026-07-17: layout per src/resources/homepage-redesign-v1.png.
+   Left rail: 煤矿基础信息 / 从业人员情况 / 生产情况 / 数据汇聚情况; center: 地图; right rail: 日常监管 / 打非治违. */
+const mineBasicsStatusRows = [
+  { label: '生产矿井', value: SICHUAN_PRODUCING_MINES, tone: 'blue' },
+  { label: '建设矿井', value: SICHUAN_BUILDING_MINES, tone: 'teal' },
+  { label: '隐患整改矿井', value: SICHUAN_RECTIFICATION_MINES, tone: 'yellow' },
+  { label: '一停四不停矿井', value: SICHUAN_ONE_STOP_FOUR_KEEP_MINES, tone: 'purple' },
+  { label: '井口封闭矿井', value: SICHUAN_SEALED_MINES, tone: 'red' },
+] as const;
+
+const personnelStatBlocks: Array<{ label: string; value: string; unit?: string; icon: CockpitIconName }> = [
+  { label: '总从业人员', value: '12345', icon: 'users' },
+  { label: '当前井下人员', value: '3212', icon: 'underground-worker' },
+];
+
+const productionStatBlocks: Array<{ label: string; value: string; unit?: string; icon: CockpitIconName }> = [
+  { label: '年度产煤', value: '2134', unit: '万吨', icon: 'coal-output' },
+  { label: '工作面总数', value: '234', unit: '个', icon: 'mine-producing' },
+];
+
+const dailyMonitorTabs: Array<{ label: string; icon: CockpitIconName }> = [
+  { label: '安全监控', icon: 'shield' },
+  { label: '人员定位', icon: 'users' },
+  { label: '工业视频', icon: 'monitor' },
+  { label: '视频监测', icon: 'activity' },
+];
+
+const dailyReminderCards = [
+  { title: '重大地质灾害提醒', count: '3', detail: '3项重大灾害风险需持续跟踪', icon: 'warning' as CockpitIconName, tone: 'red', page: 'shuan-home-command-v3-major-hazard-reminder' },
+] as const;
+
+const illegalSuspectRows = [
+  { id: 'hidden-face', icon: 'warning' as CockpitIconName, title: '隐蔽工作面', mines: 2, tone: 'cyan' },
+  { id: 'monitor-fake', icon: 'monitor' as CockpitIconName, title: '监控系统造假', mines: 1, tone: 'green' },
+  { id: 'hidden-person', icon: 'users' as CockpitIconName, title: '隐瞒入井人数', mines: 1, tone: 'purple' },
+] as const;
+
+const illegalTaskBlocks = [
+  { label: '县级任务', pending: 15, closed: 11, icon: 'badge' as CockpitIconName, tone: 'cyan' },
+  { label: '市级任务', pending: 10, closed: 7, icon: 'badge' as CockpitIconName, tone: 'blue' },
+  { label: '省级任务', pending: 6, closed: 4, icon: 'building' as CockpitIconName, tone: 'green' },
+] as const;
+
+const DAILY_HANDLE_RATE = 82;
+const RATE_RING_RADIUS = 30;
+const RATE_RING_CIRCUMFERENCE = 2 * Math.PI * RATE_RING_RADIUS;
+
+function V3HomePanel({ title, children, className = '', titleAction, headerAction, annotationId }: { title: string; children: React.ReactNode; className?: string; titleAction?: React.ReactNode; headerAction?: React.ReactNode; annotationId?: string }) {
+  return (
+    <section className={`home-wireframe-panel v3-home-panel ${className}`} data-annotation-id={annotationId}>
+      <header><span aria-hidden="true" /><h2>{title}</h2>{titleAction && <div className="v3-home-title-action">{titleAction}</div>}{headerAction && <div className="v3-panel-header-action">{headerAction}</div>}</header>
+      <div className="home-wireframe-panel-body">{children}</div>
+    </section>
+  );
+}
+
+function MineBasicsPanel({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+  return (
+    <V3HomePanel title="煤矿基础信息" className="v3-basics-panel" titleAction={<MoreButton pageId="shuan-home-command-v3-production-status" onOpenPage={onOpenPage} />}>
+      <div className="v3-basics-body">
+        <div className="v3-basics-total">
+          <strong>{SICHUAN_TOTAL_MINES}<em>处</em></strong>
+          <span>煤矿总数</span>
+        </div>
+        <div className="v3-donut-wrap">
+          <div className="v3-donut" role="img" aria-label="煤矿状态分布：生产矿井64处、建设矿井13处、隐患整改矿井12处、一停四不停矿井34处、井口封闭矿井51处">
+            <div className="v3-donut-core" aria-hidden="true" />
+          </div>
+          <ul className="v3-donut-legend">
+            {mineBasicsStatusRows.map((row) => (
+              <li key={row.label} className={`tone-${row.tone}`}><i aria-hidden="true" /><span>{row.label}</span><b>{row.value}处</b></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </V3HomePanel>
+  );
+}
+
+function StatPairPanel({ title, className, rows, pageId, onOpenPage }: { title: string; className: string; rows: Array<{ label: string; value: string; unit?: string; icon: CockpitIconName }>; pageId: string; onOpenPage?: (pageId: string) => void }) {
+  return (
+    <V3HomePanel title={title} className={className} titleAction={<MoreButton pageId={pageId} onOpenPage={onOpenPage} />}>
+      <div className="v3-stat-grid">
+        {rows.map((row) => (
+          <div key={row.label} className="v3-stat-block">
+            <span className="v3-stat-icon"><CockpitIcon name={row.icon} /></span>
+            <div className="v3-stat-copy">
+              <strong>{row.value}{row.unit && <em>{row.unit}</em>}</strong>
+              <span>{row.label}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </V3HomePanel>
+  );
+}
+
+function DataAggregationWireframe({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+  return (
+    <V3HomePanel title="数据汇聚情况" className="v3-data-panel" titleAction={<MoreButton pageId="shuan-home-command-v3-data-health" onOpenPage={onOpenPage} />}>
+      <div className="v3-data-grid">
+        {v3DataHealthRows.map(({ name, value, unit, iconUrl }) => (
+          <article key={name} className="v3-data-card">
+            <span className="v3-data-icon"><img src={iconUrl} alt="" /></span>
+            <span className="v3-data-count"><strong>{value}</strong><em>{unit}</em></span>
+            <span className="v3-data-name">{name}</span>
+          </article>
+        ))}
+      </div>
+    </V3HomePanel>
+  );
+}
+
+function DailyRegulationWireframe({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+  const [timeRange, setTimeRange] = useState<TimeRangeValue>('today');
+  const openDailyRegulation = () => onOpenPage?.('shuan-home-command-v3-daily-regulation');
+  return (
+    <V3HomePanel
+      title="日常监管"
+      className="v3-daily-panel"
+      annotationId="shuan-v3-daily-regulation"
+      headerAction={<TimeRangeControl value={timeRange} onChange={setTimeRange} label="日常监管数据时间范围" />}
+    >
+      <div className="v3-daily-summary">
+        <button type="button" className="v3-daily-total" onClick={openDailyRegulation}>
+          <span>预警总数</span>
+          <strong>118</strong>
+        </button>
+        <button type="button" className="v3-daily-dist" onClick={openDailyRegulation}>
+          <span className="v3-block-title">预警分级分布</span>
+          <div className="v3-daily-dist-values">{alarmLevels.map(([label, value, _percent, tone]) => <span key={label} className={`tone-${tone}`}><b>{value}</b><em>{label}</em></span>)}</div>
+          <div className="v3-daily-dist-bar" aria-label="预警分级结构">{alarmLevels.map(([label, value, _percent, tone]) => <i key={label} className={`tone-${tone}`} style={{ flexGrow: Number(value) }} aria-label={`${label}${value}条`} />)}</div>
+        </button>
+        <button type="button" className="v3-daily-rate" onClick={openDailyRegulation}>
+          <span className="v3-block-title">预警处置率</span>
+          <div className="v3-daily-rate-body">
+            <div className="v3-daily-rate-meta"><span><em>已处置</em><b>97</b></span><span><em>待处置</em><b>21</b></span></div>
+            <div className="v3-rate-ring" role="img" aria-label="预警处置率 82%">
+              <svg viewBox="0 0 72 72" aria-hidden="true">
+                <circle className="ring-track" cx="36" cy="36" r={RATE_RING_RADIUS} />
+                <circle className="ring-value" cx="36" cy="36" r={RATE_RING_RADIUS} style={{ strokeDasharray: `${(DAILY_HANDLE_RATE / 100) * RATE_RING_CIRCUMFERENCE} ${RATE_RING_CIRCUMFERENCE}` }} />
+              </svg>
+              <b>{DAILY_HANDLE_RATE}%</b>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div className="v3-daily-tabs" role="group" aria-label="监管模块入口">
+        {dailyMonitorTabs.map((tab) => <button type="button" key={tab.label} onClick={openDailyRegulation}><CockpitIcon name={tab.icon} /><span>{tab.label}</span><ChevronRight className="v3-daily-tab-arrow" aria-hidden="true" /></button>)}
+      </div>
+      <div className="v3-daily-reminders">
+        {dailyReminderCards.map((card) => (
+          <button type="button" key={card.title} className={`v3-reminder-card tone-${card.tone}`} onClick={() => onOpenPage?.(card.page)}>
+            <span className="v3-reminder-icon"><CockpitIcon name={card.icon} /></span>
+            <span className="v3-reminder-copy"><b>{card.title}</b><small>{card.detail}</small></span>
+            <strong>{card.count}</strong>
+          </button>
+        ))}
+      </div>
+    </V3HomePanel>
+  );
+}
+
+function IllegalTreatmentWireframe({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+  const [timeRange, setTimeRange] = useState<TimeRangeValue>('today');
+  const openHiddenFaceCampaign = (filter: Record<string, string> = {}) => {
+    window.sessionStorage.setItem('shuan-illegal-campaign-filter', JSON.stringify({ timeRange, ...filter }));
+    if (window.location.host === 'jtb.boilyun.cn:61000') {
+      window.location.assign('http://jtb.boilyun.cn:61000/pro/5GF1byFFdaW/#page=shuan-home-command-v3-illegal-campaign-hidden-face');
+      return;
+    }
+    onOpenPage?.('shuan-home-command-v3-illegal-campaign-hidden-face');
+  };
+  return (
+    <V3HomePanel
+      title="打非治违"
+      className="v3-illegal-panel"
+      annotationId="shuan-v3-illegal-treatment"
+      headerAction={<TimeRangeControl value={timeRange} onChange={setTimeRange} label="打非治违数据时间范围" />}
+    >
+      <div className="v3-illegal-rows" aria-label="疑似矿井业务">
+        {illegalSuspectRows.map((row) => (
+          <button type="button" key={row.id} className="v3-illegal-row" onClick={() => openHiddenFaceCampaign({ business: row.id })}>
+            <span className={`v3-illegal-icon tone-${row.tone}`}><CockpitIcon name={row.icon} /></span>
+            <b>{row.title}</b>
+            <span className="v3-illegal-mines"><em>疑似矿井</em><strong>{row.mines}</strong></span>
+          </button>
+        ))}
+      </div>
+      <div className="v3-illegal-tasks" aria-label="任务督办">
+        {illegalTaskBlocks.map((task) => (
+          <button type="button" key={task.label} className="v3-illegal-task" onClick={() => openHiddenFaceCampaign()}>
+            <span className={`v3-illegal-task-icon tone-${task.tone}`}><CockpitIcon name={task.icon} /></span>
+            <b>{task.label}</b>
+            <span className="v3-task-nums"><span className="is-pending"><strong>{task.pending}</strong><em>待办</em></span><span className="is-closed"><strong>{task.closed}</strong><em>闭环</em></span></span>
+          </button>
+        ))}
+      </div>
+    </V3HomePanel>
+  );
+}
+
+function FiveZoneHomeWireframe({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
+  return (
+    <main className="home-five-zone-wireframe" aria-label="首页三栏布局">
+      <div className="home-wireframe-rail home-wireframe-left-rail">
+        <MineBasicsPanel onOpenPage={onOpenPage} />
+        <StatPairPanel title="从业人员情况" className="v3-personnel-panel" rows={personnelStatBlocks} pageId="shuan-home-command-v3-personnel-safety" onOpenPage={onOpenPage} />
+        <StatPairPanel title="生产情况" className="v3-production-panel" rows={productionStatBlocks} pageId="shuan-home-command-v3-production-operation" onOpenPage={onOpenPage} />
+        <DataAggregationWireframe onOpenPage={onOpenPage} />
+      </div>
+
+      <div className="home-wireframe-map">
+        <MapStage onOpenPage={onOpenPage} />
+      </div>
+
+      <div className="home-wireframe-rail home-wireframe-right-rail">
+        <DailyRegulationWireframe onOpenPage={onOpenPage} />
+        <IllegalTreatmentWireframe onOpenPage={onOpenPage} />
+      </div>
+    </main>
+  );
+}
+
 function CommandV2Concept({ onOpenPage, activeOverlayPage }: { onOpenPage?: (pageId: string) => void; activeOverlayPage?: string | null }) {
   const isWorkspaceDrilldown = activeOverlayPage === 'shuan-home-command-v3-data-health';
 
@@ -432,20 +635,16 @@ function CommandV2Concept({ onOpenPage, activeOverlayPage }: { onOpenPage?: (pag
       <TopHeader onOpenPage={onOpenPage} />
       {isWorkspaceDrilldown ? (
         <section className="shuan-drilldown-workspace" data-annotation-id="shuan-v3-drill-stage">
-          <ShuanDrilldownContent pageId={activeOverlayPage} onExit={() => onOpenPage?.('shuan-home-command-v3')} />
+          <ShuanDrilldownContent pageId={activeOverlayPage} onExit={(pageId) => onOpenPage?.(pageId || 'shuan-home-command-v3')} />
         </section>
       ) : (
-        <main className="command-grid">
-          <div className="command-left" data-annotation-id="shuan-v3-left-overview"><LeftInsightPanels onOpenPage={onOpenPage} /></div>
-          <MapStage onOpenPage={onOpenPage} />
-          <div className="command-right"><DailyRegulationPanel onOpenPage={onOpenPage} /><IllegalTreatmentPanel onOpenPage={onOpenPage} /></div>
-        </main>
+        <FiveZoneHomeWireframe onOpenPage={onOpenPage} />
       )}
       {activeOverlayPage && !isWorkspaceDrilldown ? (
         <section className="shuan-drilldown-overlay" data-annotation-id="shuan-v3-drill-stage">
           <div className="shuan-drilldown-overlay-backdrop" aria-hidden="true" onClick={() => onOpenPage?.('shuan-home-command-v3')} />
           <div className="shuan-drilldown-overlay-panel">
-            <ShuanDrilldownContent pageId={activeOverlayPage} onExit={() => onOpenPage?.('shuan-home-command-v3')} />
+            <ShuanDrilldownContent pageId={activeOverlayPage} onExit={(pageId) => onOpenPage?.(pageId || 'shuan-home-command-v3')} />
           </div>
         </section>
       ) : null}
@@ -578,17 +777,39 @@ function DailyRegulationPanel({ onOpenPage }: { onOpenPage?: (pageId: string) =>
 
 function IllegalTreatmentPanel({ onOpenPage }: { onOpenPage?: (pageId: string) => void }) {
   const [timeRange, setTimeRange] = useState<TimeRangeValue>('today');
+  const openHiddenFaceCampaign = (filter: Record<string, string> = {}) => {
+    window.sessionStorage.setItem('shuan-illegal-campaign-filter', JSON.stringify({ timeRange, ...filter }));
+    if (window.location.host === 'jtb.boilyun.cn:61000') {
+      window.location.assign('http://jtb.boilyun.cn:61000/pro/5GF1byFFdaW/#page=shuan-home-command-v3-illegal-campaign-hidden-face');
+      return;
+    }
+    onOpenPage?.('shuan-home-command-v3-illegal-campaign-hidden-face');
+  };
+  const statusRows = [['\u5f85\u529e', '19', 'todo'], ['\u6267\u884c', '15', 'running'], ['\u590d\u6838', '9', 'review'], ['\u95ed\u73af', '12', 'closed']] as const;
   return (
-    <Panel title="打非治违" className="illegal-treatment-panel" annotationId="shuan-v3-illegal-treatment" action={<TimeRangeControl value={timeRange} onChange={setTimeRange} label="打非治违数据时间范围" />}>
-        <div className="illegal-funnel-shell">
-          <div className="illegal-source-grid" aria-label="五类智能算法线索">
-          {illegalSourceRows.map((item) => <button type="button" key={item.id} className={`illegal-source-card tone-${item.tone}`} onClick={() => onOpenPage?.(illegalSourceDrilldownPage[item.id])}><strong className="illegal-source-total">{item.metrics[0][1]}</strong><span className="illegal-source-icon"><img src={item.iconUrl} alt="" /></span><em className="illegal-source-name">{item.name}</em><div className="illegal-source-meta">{item.metrics.slice(1).map(([label, value]) => <span key={label}><em>{label}</em><b>{value}</b></span>)}</div></button>)}
+    <Panel title="打非治违" className="illegal-treatment-panel illegal-treatment-panel-v3" annotationId="shuan-v3-illegal-treatment" action={<div className="illegal-panel-actions"><TimeRangeControl value={timeRange} onChange={setTimeRange} label="打非治违数据时间范围" /><button type="button" className="illegal-view-all" onClick={() => openHiddenFaceCampaign()}>查看全部 <ExternalLink aria-hidden="true" /></button></div>}>
+      <div className="illegal-risk-shell">
+        <div className="illegal-risk-overview">
+          <div role="button" tabIndex={0} className="illegal-risk-summary is-clickable" onClick={() => openHiddenFaceCampaign()} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openHiddenFaceCampaign(); }}>
+            <div className="illegal-risk-heading"><CockpitIcon name="shield" /><b>风险矿井</b></div>
+            <strong>47<em>处</em></strong>
+            <div className="illegal-risk-levels">
+              <button type="button" className="risk-level-chip medium" onClick={(event) => { event.stopPropagation(); openHiddenFaceCampaign({ riskLevel: 'medium' }); }}><i />中风险 <b>22处</b></button>
+              <button type="button" className="risk-level-chip highish" onClick={(event) => { event.stopPropagation(); openHiddenFaceCampaign({ riskLevel: 'highish' }); }}><i />较高风险 <b>16处</b></button>
+              <button type="button" className="risk-level-chip high" onClick={(event) => { event.stopPropagation(); openHiddenFaceCampaign({ riskLevel: 'high' }); }}><i />高风险 <b>9处</b></button>
+            </div>
+          </div>
+          <div className="illegal-task-overview">
+            <div className="illegal-task-heading is-clickable" role="button" tabIndex={0} onClick={() => openHiddenFaceCampaign({ metric: 'tasks' })} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openHiddenFaceCampaign({ metric: 'tasks' }); }}><CockpitIcon name="badge" /><b>当期任务</b><span>任务可合并、可升级 <i aria-hidden="true">i</i></span></div>
+            <button type="button" className="illegal-task-total is-clickable" onClick={() => openHiddenFaceCampaign({ metric: 'tasks' })}><strong>55<em>项</em></strong><small>当期新增 <b>18项</b></small></button>
+            <div className="illegal-task-statuses">{statusRows.map(([label, value, key]) => <button type="button" key={key} className={'illegal-task-status ' + key} onClick={() => openHiddenFaceCampaign({ taskStatus: key })}><span>{label}</span><b>{value}</b></button>)}</div>
+          </div>
         </div>
-        <div className="illegal-campaign-grid" aria-label="三类专项整治">
-          {illegalCampaignRows.map((item) => <button type="button" key={item.title} className="illegal-campaign-card" onClick={() => onOpenPage?.(item.page)}><header><strong>{item.title}</strong></header><div>{item.metrics.map(([label, value]) => <span key={label}><em>{label}</em><b>{value}</b></span>)}</div></button>)}
+        <div className="illegal-business-rows" aria-label="三个业务方面">
+          {illegalRiskRows.map((row) => <button type="button" key={row.id} className="illegal-business-row is-clickable" onClick={() => openHiddenFaceCampaign({ business: row.id })}><span className="illegal-business-icon"><CockpitIcon name={row.icon} /></span><b className="illegal-business-title">{row.title}</b><span className="illegal-business-divider" /><span className="illegal-business-distribution"><em>{'\u98ce\u9669\u5206\u5e03'}</em><i className="medium" style={{ flex: row.levels[0] }}>{row.levels[0]}</i><i className="highish" style={{ flex: row.levels[1] }}>{row.levels[1]}</i><i className="high" style={{ flex: row.levels[2] }}>{row.levels[2]}</i></span><span className="illegal-business-arrow" aria-hidden="true">&#8250;</span><span className="illegal-business-metrics"><span className="illegal-business-mines">{'\u98ce\u9669\u77ff'} <b>{row.mines}处</b></span><span className="illegal-business-delta">{'\u65b0\u589e/\u5347\u7ea7'} <b>+{row.delta}处</b></span></span></button>)}
         </div>
-        <div className="illegal-disposal-strip" aria-label="分级处置任务">
-          {shuanIllegalDisposalRows.map((item, index) => <React.Fragment key={item.title}>{item.page ? <button type="button" className={`illegal-disposal-card tone-${item.tone}`} onClick={() => onOpenPage?.(item.page)}><span className="illegal-disposal-icon"><img src={illegalDisposalIconByTitle[item.title]} alt="" /></span><div><strong>{item.title}</strong><em>{item.owner}</em></div><p><small>待办<b>{item.todo}</b></small><small>闭环<b>{item.closed}</b></small></p></button> : <article className={`illegal-disposal-card tone-${item.tone}`}><span className="illegal-disposal-icon"><img src={illegalDisposalIconByTitle[item.title]} alt="" /></span><div><strong>{item.title}</strong><em>{item.owner}</em></div><p><small>待办<b>{item.todo}</b></small><small>闭环<b>{item.closed}</b></small></p></article>}{index < shuanIllegalDisposalRows.length - 1 && <i aria-hidden="true" />}</React.Fragment>)}
+        <div className="illegal-trend-grid" aria-label="近30日趋势">
+          {illegalTrendRows.map((trend) => <button type="button" key={trend.id} className={'illegal-trend-card tone-' + trend.tone + ' is-clickable'} onClick={openHiddenFaceCampaign}><header><span className="illegal-trend-heading"><CockpitIcon name={trend.icon} /><em>{trend.label}</em></span><b>{trend.value}</b></header><svg viewBox="0 0 142 62" role="img" aria-label={trend.label + '近30日趋势'}><path className="trend-gridline" d="M2 58H140 M2 30H140 M2 2H140" /><polyline points={trend.points} /></svg><span className="illegal-trend-tooltip">07-15 / {trend.value}</span><footer><span>06-16</span><span>07-15</span></footer></button>)}
         </div>
       </div>
     </Panel>

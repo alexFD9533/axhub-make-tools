@@ -1,4 +1,5 @@
-﻿* { box-sizing: border-box; }
+/* 【项目约定】本文件采用扁平命名惯例：页面壳层规则以单一业务类名开头（如 .drill-xxx、.county-xxx、.personnel-xxx），仅在对应页面根节点下生效，并非全局通用类；新增样式请沿用页面前缀，避免新增裸全局规则。2026-07-17 全局裸规则审计记录见 .spec/css-global-rules-audit-2026-07-17.md */
+* { box-sizing: border-box; }
 :root {
   --topbar: #435783;
   --topbar-deep: #34466f;
@@ -335,6 +336,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
 .readonly-switch { width: 42px; height: 20px; margin: 0 8px; border-radius: 12px; background: #d2d9e5; position: relative; display: inline-block; }
 .readonly-switch.active { background: #4ba3ff; }
 .readonly-switch i { position: absolute; right: 2px; top: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,.18); }
+/* 【C 类·疑似未使用】.switch-yes 无 tsx 使用，待确认后删除 */
 .switch-yes { color: #1a8cff; }
 .muted-line { color: #6a7485; margin-top: 8px; }
 .config-rule-tags { width: 100%; max-height: 405px; overflow: hidden; padding: 8px 0; align-content: flex-start; }
@@ -2386,6 +2388,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-size: 14px;
 }
 
+/* 【C 类·疑似未使用】.classify-* 组件块（至下方 .classify-bar 为止）在全部 tsx 中无使用，待确认后删除 */
 .classify-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -2472,6 +2475,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   box-shadow: 0 0 10px currentColor;
 }
 
+/* 【B 类·全局共享】以下 4 条 tone-* 背景色裸规则原属 classify 组件（已无 tsx 使用），但泄漏效果现被多处页面元素依赖；暂保留全局，勿加实质样式覆盖，待逐页收编到页面作用域后删除 */
 .tone-cyan { background: #22d3ee; }
 .tone-blue { background: #2f6bff; }
 .tone-orange { background: #ffb31a; }
@@ -6587,6 +6591,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-weight: 900;
 }
 
+/* 【B 类·全局共享】以下 4 条 tone-* 文字色裸规则被 alarm-level-strip、county-overview、city-analysis 等十余处页面元素依赖，保持全局共享，勿加实质样式覆盖；后续逐页收编到页面作用域后再删除 */
 .tone-red {
   color: #ff515a;
 }
@@ -17256,6 +17261,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   white-space: nowrap;
 }
 
+/* 【B 类·全局共享】level-tag / status-tag 基础样式被县级检查与日常监管分析等页面共用，保持全局，勿加实质样式覆盖 */
 .level-tag,
 .status-tag {
   display: inline-flex;
@@ -21870,6 +21876,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   background: rgba(3, 17, 38, 0.72);
 }
 
+/* 【C 类·疑似未使用】.drill-illegal-algorithm-grid 在全部 tsx 中无使用；risk-楂?/risk-涓? 为乱码选择器（原意 risk-高/risk-中），随死代码待确认后一并删除 */
 .drill-illegal-algorithm-grid article.risk-楂?{
   border-color: rgba(255, 84, 94, 0.48);
 }
@@ -22033,6 +22040,7 @@ input[type="checkbox"] { width: 13px; height: 13px; accent-color: #3f5a90; }
   font-weight: 800;
 }
 
+/* 【C 类·疑似未使用】.drill-illegal-table 在全部 tsx 中无使用；em.risk-楂?/涓?/浣? 为乱码选择器（原意 risk-高/中/低），随死代码待确认后一并删除 */
 .drill-illegal-table em.risk-楂?{
   background: rgba(255, 75, 91, 0.18);
   color: #ff8790;
@@ -31452,6 +31460,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .status-tag,
+/* 【B 类·全局共享】level-tag / status-tag 配色变体被 CountyInspectionPage 与 DailyRegulationAnalysisPage 两个页面共用，保持全局，勿加实质样式覆盖 */
 .level-tag,
 .county-inspection-conclusion-list span {
   display: inline-flex;
@@ -31464,16 +31473,17 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   font-weight: 700;
 }
 
+/* 【修复】level-高/中/低 选择器原为乱码，已按 CountyInspectionPage 数据还原；蓝组行末尾缺逗号已补（2026-07-17 审计） */
 .status-tag.red,
 .county-inspection-conclusion-list span.recommended,
-.level-tag.level-锟?{
+.level-tag.level-高 {
   color: #ffe3e5;
   background: rgba(255, 94, 107, 0.2);
   border: 1px solid rgba(255, 94, 107, 0.32);
 }
 
 .status-tag.amber,
-.level-tag.level-锟?{
+.level-tag.level-中 {
   color: #ffe9bf;
   background: rgba(255, 181, 72, 0.18);
   border: 1px solid rgba(255, 181, 72, 0.28);
@@ -31481,7 +31491,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .status-tag.blue,
 .status-tag.cyan,
-.level-tag.level-锟?
+.level-tag.level-低,
 .county-inspection-conclusion-list span {
   color: #daf6ff;
   background: rgba(60, 170, 255, 0.16);
@@ -31891,20 +31901,21 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   white-space: nowrap;
 }
 
-.city-analysis-table__row .status-寰呬細锟?
-.city-analysis-table__row .status-鐮斿垽锟?{
+/* 【修复】status-待会商/研判中/建议升级/退回补查/已形成意见 选择器原为乱码，已按 IllegalCityAnalysisPage 表格数据还原；首行末尾缺逗号已补（2026-07-17 审计） */
+.city-analysis-table__row .status-待会商,
+.city-analysis-table__row .status-研判中 {
   color: #74d8ff;
 }
 
-.city-analysis-table__row .status-寤鸿鍗囩骇 {
+.city-analysis-table__row .status-建议升级 {
   color: #ff8a98;
 }
 
-.city-analysis-table__row .status-閫€鍥炶ˉ锟?{
+.city-analysis-table__row .status-退回补查 {
   color: #ffc564;
 }
 
-.city-analysis-table__row .status-宸插舰鎴愭剰锟?{
+.city-analysis-table__row .status-已形成意见 {
   color: #7be0b0;
 }
 
@@ -33224,10 +33235,13 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 .personnel-dashboard-grid {
   display: grid;
-  grid-template-columns: 430px minmax(620px, 1fr) 492px;
-  grid-template-rows: minmax(0, 1fr) 164px;
+  grid-template-columns:
+    minmax(300px, 0.9fr)
+    minmax(520px, 1.5fr)
+    minmax(320px, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   height: calc(100% - 140px);
-  gap: 8px 12px;
+  gap: 12px;
   margin-top: 8px;
 }
 
@@ -33238,12 +33252,20 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .personnel-left-column {
-  grid-template-rows: 32% 34% 1fr;
+  grid-column: 1;
+  grid-row: 1;
+  grid-template-rows: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.1fr);
 }
 
 .personnel-right-column {
-  grid-row: 1 / span 2;
-  grid-template-rows: 166px 136px 178px minmax(150px, 1fr);
+  grid-column: 3;
+  grid-row: 1;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr);
+}
+
+.personnel-right-column > .personnel-panel:nth-of-type(4),
+.personnel-table-panel {
+  display: none;
 }
 
 .personnel-panel {
@@ -33473,18 +33495,57 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .personnel-staffing-list {
+  position: relative;
+  height: 100%;
   display: grid;
-  gap: 12px;
-  padding-top: 2px;
+  grid-template-columns: 98px minmax(0, 1fr);
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  gap: 1px 8px;
+  align-items: center;
+}
+
+.personnel-staffing-list::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / -1;
+  width: 82px;
+  height: 82px;
+  place-self: center;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ff5b82 0 16.6%,
+    #ff9a3d 16.6% 33.71%,
+    #ffc64e 33.71% 57.23%,
+    #43b9b9 57.23% 74.85%,
+    #3498db 74.85% 79.33%,
+    #ff987e 79.33% 100%
+  );
+  box-shadow: 0 0 18px rgba(45, 170, 255, 0.26);
+}
+
+.personnel-staffing-list::after {
+  content: "";
+  position: absolute;
+  left: 49px;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #062454;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.56);
+  transform: translate(-50%, -50%);
 }
 
 .personnel-staffing-list div {
+  --staff-color: #4cbfff;
+  grid-column: 2;
   display: grid;
-  grid-template-columns: 118px minmax(0, 1fr) 52px 54px;
+  grid-template-columns: 8px minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   color: #d9f3ff;
-  font-size: 13px;
+  font-size: 11px;
+  line-height: 1;
 }
 
 .personnel-staffing-list > div {
@@ -33493,29 +33554,60 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 }
 
 .personnel-staffing-list i {
-  height: 12px;
+  order: 1;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--staff-color);
+  box-shadow: 0 0 7px var(--staff-color);
+}
+
+.personnel-staffing-list span {
+  order: 2;
+  min-width: 0;
   overflow: hidden;
-  border-radius: 999px;
-  background: rgba(19, 67, 121, 0.82);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .personnel-staffing-list i b {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #227cff, #31aaff);
-  box-shadow: 0 0 12px rgba(44, 154, 255, 0.5);
+  display: none;
 }
 
-.personnel-staffing-list .tone-amber i b {
-  background: linear-gradient(90deg, #ffc14d, #ff9f39);
-}
+.personnel-staffing-list .tone-pink { --staff-color: #ff5b82; }
+.personnel-staffing-list .tone-orange { --staff-color: #ff9a3d; }
+.personnel-staffing-list .tone-yellow { --staff-color: #ffc64e; }
+.personnel-staffing-list .tone-teal { --staff-color: #43b9b9; }
+.personnel-staffing-list .tone-blue { --staff-color: #3498db; }
+.personnel-staffing-list .tone-salmon { --staff-color: #ff987e; }
 
 .personnel-staffing-list strong,
 .personnel-staffing-list em {
-  color: #dff8ff;
+  color: var(--staff-color);
   font-style: normal;
   text-align: right;
+  white-space: nowrap;
+}
+
+.personnel-staffing-list strong {
+  order: 3;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.personnel-staffing-list em {
+  order: 4;
+  min-width: 42px;
+  font-size: 10px;
+}
+
+.personnel-left-column > .personnel-panel:nth-of-type(2) > header strong {
+  font-size: 0;
+}
+
+.personnel-left-column > .personnel-panel:nth-of-type(2) > header strong::after {
+  content: "各类专业技术人员人数及占比";
+  font-size: 17px;
 }
 
 .personnel-cert-grid {
@@ -33983,6 +34075,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   color: #dff8ff;
 }
 
+/* 【C 类·疑似未使用】.personnel-table 在全部 tsx 中无使用；以下 tag-* 选择器含乱码（原意约为 正常/已到位/低、关注/中、异常/未到位/高）且第二、六行行末缺逗号；随死代码待确认后一并删除，不做还原 */
 .personnel-table .tag-姝ｅ父,
 .personnel-table .tag-宸插埌浣?
 .personnel-table .tag-浣?{
@@ -34015,27 +34108,114 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
 @media (max-width: 1320px) {
   .personnel-safety-page {
+    overflow: hidden;
+  }
+
+  .personnel-kpi-strip {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    height: 82px;
+  }
+
+  .personnel-kpi-card {
+    min-height: 0;
+    grid-template-columns: 48px minmax(0, 1fr);
+    padding: 8px 8px 8px 10px;
+  }
+
+  .personnel-kpi-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .personnel-kpi-card strong {
+    font-size: 23px;
+  }
+
+  .personnel-auth-panel,
+  .personnel-leader-panel {
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .personnel-donut {
+    width: 82px;
+    height: 82px;
+  }
+
+  .personnel-donut::before {
+    inset: 18px;
+  }
+
+  .personnel-donut.leader {
+    width: 72px;
+    height: 72px;
+  }
+
+  .personnel-donut.leader::before {
+    inset: 17px;
+  }
+
+  .personnel-auth-stats,
+  .personnel-leader-stats {
+    gap: 4px;
+  }
+
+  .personnel-auth-stats p,
+  .personnel-leader-stats p {
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .personnel-auth-stats strong,
+  .personnel-leader-stats strong {
+    font-size: 13px;
+  }
+
+  .personnel-dashboard-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .personnel-left-column {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .personnel-map-panel {
+    grid-column: 2;
+    grid-row: 1;
+    height: auto;
+  }
+
+  .personnel-right-column {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 960px) {
+  .personnel-safety-page {
     overflow: auto;
   }
 
   .personnel-kpi-strip {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     height: auto;
   }
 
   .personnel-kpi-card {
-    min-height: 96px;
+    min-height: 88px;
   }
 
   .personnel-dashboard-grid {
     grid-template-columns: 1fr;
     grid-template-rows: none;
+    height: auto;
   }
 
   .personnel-left-column,
   .personnel-right-column,
-  .personnel-map-panel,
-  .personnel-table-panel {
+  .personnel-map-panel {
     grid-column: auto;
     grid-row: auto;
   }
@@ -34049,13 +34229,7 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   }
 
   .personnel-right-column {
-    grid-template-rows: 184px 148px 98px 289px;
-  }
-}
-
-@media (max-width: 960px) {
-  .personnel-kpi-strip {
-    grid-template-columns: 1fr;
+    grid-template-rows: 184px 148px 180px;
   }
 
   .personnel-auth-panel,
@@ -34356,6 +34530,224 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
   background: transparent;
 }
 
+/* 打非治违：首页底部槽位改为县、市、省同一任务模块的三级筛选摘要。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right .illegal-task-summary-strip {
+  min-height: 0;
+  height: 102px;
+  margin-top: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card {
+  --task-cyan: #18c8ff;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 34px minmax(0, 1fr);
+  gap: 5px;
+  padding: 7px 10px 8px;
+  overflow: hidden;
+  appearance: none;
+  border: 1px solid rgba(35, 210, 255, 0.82);
+  color: #ecf9ff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background:
+    linear-gradient(180deg, rgba(7, 53, 116, 0.86), rgba(2, 22, 67, 0.94)),
+    radial-gradient(circle at 0 0, rgba(38, 204, 255, 0.17), transparent 58%);
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+  box-shadow: inset 0 0 18px rgba(37, 204, 255, 0.11), 0 0 12px rgba(25, 177, 255, 0.08);
+  transition: border-color 180ms ease-out, background-color 180ms ease-out, box-shadow 180ms ease-out;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card:focus-visible {
+  border-color: #82efff;
+  background-color: rgba(14, 103, 173, 0.3);
+  box-shadow: inset 0 0 22px rgba(69, 223, 255, 0.2), 0 0 15px rgba(45, 203, 255, 0.22);
+  outline: none;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card header {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(57, 198, 255, 0.5);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-level-icon {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(49, 202, 255, 0.52);
+  border-radius: 3px;
+  background: linear-gradient(145deg, rgba(37, 167, 255, 0.32), rgba(3, 37, 91, 0.42));
+  box-shadow: inset 0 0 9px rgba(43, 208, 255, 0.16);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-level-icon .cockpit-svg-icon {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: #74e6ff;
+  filter: drop-shadow(0 0 3px rgba(59, 213, 255, 0.55));
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card header strong {
+  overflow: hidden;
+  color: #f6fcff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card header > b {
+  color: #16caff;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 12px rgba(38, 207, 255, 0.6);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track > span {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto 11px auto;
+  justify-items: center;
+  gap: 2px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track > span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  /* 连线延伸至相邻圆点内部，由圆点本身覆盖端点，避免出现断口。 */
+  top: 17px;
+  left: calc(50% + 4px);
+  width: calc(100% - 8px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(86, 212, 255, 0.75), rgba(74, 191, 255, 0.33));
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track em {
+  overflow: visible;
+  color: rgba(232, 247, 255, 0.9);
+  font-size: 10px;
+  font-style: normal;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateY(-3px);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track i {
+  position: relative;
+  z-index: 1;
+  width: 11px;
+  height: 11px;
+  border: 1px solid #6eeaff;
+  border-radius: 50%;
+  background: #0d5897;
+  box-shadow: 0 0 7px rgba(68, 216, 255, 0.7);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track b {
+  color: #16caff;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track .is-closed b {
+  color: #69e34d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card {
+    transition: none;
+  }
+}
+
+/* 打非治违：压缩专题整治行，释放空间给底部统一任务摘要，并收敛为面板同一深蓝层级。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-funnel-shell {
+  grid-template-rows: 92px 104px minmax(110px, 1fr);
+  gap: 10px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-campaign-card {
+  min-height: 0;
+  height: 100%;
+  gap: 6px;
+  padding: 8px 12px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right .illegal-task-summary-strip {
+  height: auto;
+  min-height: 110px;
+  margin-top: 0;
+  gap: 10px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card {
+  border-color: rgba(49, 166, 215, 0.66);
+  background:
+    linear-gradient(180deg, rgba(7, 42, 84, 0.78), rgba(3, 24, 59, 0.9)),
+    radial-gradient(circle at 0 0, rgba(39, 164, 218, 0.1), transparent 58%);
+  box-shadow: inset 0 0 15px rgba(35, 154, 212, 0.08);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card:focus-visible {
+  border-color: rgba(96, 207, 239, 0.88);
+  background-color: rgba(15, 86, 142, 0.2);
+  box-shadow: inset 0 0 20px rgba(57, 177, 225, 0.14), 0 0 10px rgba(37, 155, 214, 0.14);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card header {
+  border-bottom-color: rgba(65, 160, 207, 0.4);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-level-icon {
+  border-color: rgba(67, 170, 215, 0.42);
+  background: linear-gradient(145deg, rgba(31, 123, 192, 0.28), rgba(4, 33, 76, 0.42));
+  box-shadow: inset 0 0 8px rgba(43, 166, 216, 0.1);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-summary-card header > b,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track b {
+  color: #29c3e5;
+  text-shadow: 0 0 8px rgba(39, 190, 226, 0.36);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track > span:not(:last-child)::after {
+  background: linear-gradient(90deg, rgba(76, 176, 216, 0.62), rgba(62, 143, 190, 0.25));
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status-track i {
+  border-color: #5bc8e6;
+  background: #104c82;
+  box-shadow: 0 0 5px rgba(56, 183, 222, 0.46);
+}
+
 .drill-mine-profile-panel.score-breakdown .drill-mine-profile-waterfall::after {
   content: none;
 }
@@ -34620,5 +35012,2266 @@ body:has(.drill-hazard-v2)::-webkit-scrollbar,
 
   .drill-mine-profile-panel.score-breakdown .drill-mine-profile-score-flow strong {
     font-size: 25px;
+  }
+}
+
+/* Approved L0 illegal-treatment design: fixed 630x414 logical canvas. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right .illegal-treatment-panel-v3 {
+  height: 414px; min-height: 414px; overflow: hidden; position: relative;
+  background: linear-gradient(135deg, #031325 0%, #061b31 100%);
+  border: 1px solid rgba(45, 220, 255, .42); color: #f4fbff;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title {
+  height: 34px; padding: 7px 10px 4px; border-bottom: 1px solid rgba(45,220,255,.2);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title-text { font-size: 16px; font-weight: 700; color: #eaf9ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-action { top: 5px; right: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-time-range { gap: 2px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-time-range button,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .shuan-wire-more { color:#9fb3ca; background:transparent; border:0; font-size:10px; padding:3px 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-time-range button.active { color:#2ddcff; background:rgba(34,184,255,.13); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-shell { height: calc(100% - 34px); padding: 8px 9px 9px; box-sizing:border-box; display:grid; grid-template-rows: 92px 103px 1fr; gap:7px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-overview { display:grid; grid-template-columns: 1fr 1fr; gap:10px; min-width:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-overview { min-width:0; border:1px solid rgba(45,220,255,.2); background:rgba(5,27,48,.72); padding:7px 9px; position:relative; box-sizing:border-box; color:inherit; text-align:left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary { display:grid; grid-template-columns: 1fr auto; grid-template-rows: 24px 1fr; align-items:center; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading { display:flex; align-items:center; gap:5px; white-space:nowrap; min-width:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading svg { width:17px; height:17px; color:#22b8ff; flex:none; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading b { font-size:13px; color:#dff7ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary > strong { grid-column:1; font-size:32px; line-height:1; color:#2ddcff; letter-spacing:-1px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary > strong em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong em { font-size:11px; font-style:normal; font-weight:600; margin-left:3px; color:#b7d4e4; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-levels { grid-column:2; grid-row:1 / span 2; display:flex; flex-direction:column; gap:4px; padding-left:8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip { padding:0; border:0; background:none; color:#9fb3ca; font-size:10px; white-space:nowrap; text-align:left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip b { color:#e9f8ff; font-size:11px; margin-left:2px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip i { display:inline-block; width:5px; height:5px; border-radius:50%; margin-right:4px; background:#58d45d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.highish i { background:#ffad18; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.high i { background:#ff454b; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-overview { padding-right:8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total { border:0; background:none; padding:0; color:#f4fbff; display:flex; align-items:baseline; gap:7px; text-align:left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total span { font-size:13px; color:#dff7ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong { font-size:30px; color:#22b8ff; line-height:1; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total small { font-size:10px; color:#9fb3ca; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total small b { color:#d6f4ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-note { position:absolute; top:7px; right:8px; color:#7795aa; font-size:9px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-statuses { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; margin-top:10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status { border:0; border-left:1px solid rgba(159,179,202,.2); background:none; padding:0 0 0 5px; display:flex; flex-direction:column; align-items:flex-start; color:#8fa9bc; font-size:9px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status b { color:#eaf9ff; font-size:16px; line-height:1.2; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status.closed b { color:#64d968; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-rows { border:1px solid rgba(45,220,255,.18); background:rgba(5,27,48,.55); display:grid; grid-template-rows:repeat(3,1fr); padding:0 7px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row { border:0; border-bottom:1px solid rgba(159,179,202,.13); background:none; color:#dff7ff; display:grid; grid-template-columns:118px 1fr 108px 116px; gap:7px; align-items:center; text-align:left; padding:0 2px; min-width:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row:last-child { border-bottom:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-title { font-size:11px; white-space:nowrap; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution { display:flex; align-items:center; gap:3px; min-width:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution em { font-style:normal; color:#7892a5; font-size:9px; white-space:nowrap; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i { display:block; height:5px; min-width:7px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i.medium { background:#58d45d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i.highish { background:#ffad18; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i.high { background:#ff454b; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution small { color:#c6dbe6; font-size:10px; white-space:nowrap; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta { color:#819daf; font-size:9px; white-space:nowrap; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines b { color:#2ddcff; font-size:12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta b { color:#ffad18; font-size:12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; min-height:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card { border:1px solid rgba(45,220,255,.2); background:rgba(5,27,48,.72); padding:6px 7px 5px; color:#dff7ff; min-width:0; display:grid; grid-template-rows:25px 1fr 12px; text-align:left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header { display:flex; flex-direction:column; min-width:0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header span { color:#90adbe; font-size:9px; white-space:nowrap; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header b { font-size:16px; line-height:1.25; color:#2ddcff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card.tone-amber header b { color:#ffad18; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card.tone-blue header b { color:#22b8ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card.tone-green header b { color:#64d968; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card svg { width:100%; height:100%; min-height:46px; overflow:visible; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card .trend-gridline { fill:none; stroke:rgba(159,179,202,.15); stroke-width:1; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card polyline { fill:none; stroke:#2ddcff; stroke-width:2; vector-effect:non-scaling-stroke; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card.tone-amber polyline { stroke:#ffad18; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card.tone-blue polyline { stroke:#22b8ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card.tone-green polyline { stroke:#64d968; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card footer { display:flex; justify-content:space-between; color:#667f94; font-size:8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .is-clickable { cursor:pointer; transition:border-color .18s ease, color .18s ease, background .18s ease; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .is-clickable:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .is-clickable:focus-visible { border-color:rgba(45,220,255,.7); outline:none; background-color:rgba(16,54,78,.8); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title{height:40px;padding:7px 12px 5px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title-text{font-size:20px;letter-spacing:.3px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-action{top:6px;right:10px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-panel-actions{display:flex;align-items:center;gap:14px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-view-all{border:0;background:transparent;color:#22b8ff;font-size:14px;display:flex;align-items:center;gap:4px;padding:2px 0}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-view-all svg{width:16px;height:16px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-shell{height:calc(100% - 40px);padding:8px 9px 9px;grid-template-rows:99px 109px 1fr;gap:8px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-overview{gap:10px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary{display:block;padding:0}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary:after{content:"";position:absolute;left:18%;right:3%;bottom:13px;height:4px;background:linear-gradient(90deg,#58d45d 0 36%,#ffad18 36% 68%,#ff454b 68%);border-radius:4px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading{position:absolute;left:12px;top:13px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading svg{width:24px;height:24px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading b{font-size:18px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary>strong{position:absolute;left:13px;bottom:25px;font-size:42px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-levels{position:absolute;right:7px;left:106px;top:13px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:0}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip{height:62px;border-left:1px solid rgba(45,220,255,.25);padding:4px 0 0 14px;font-size:14px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip b{display:block;font-size:30px;line-height:1.25;margin:0;color:#eefaff}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip i{width:0;height:0;margin:0}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.medium{color:#58d45d}.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.medium b{color:#58d45d}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.highish{color:#ffad18}.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.highish b{color:#ffad18}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.high{color:#ff454b}.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.high b{color:#ff454b}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-overview{padding:10px 10px 8px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading{height:27px;display:flex;align-items:center;gap:8px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading svg{width:25px;height:25px;color:#22b8ff}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading b{font-size:18px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading>span{margin-left:auto;color:#9fb3ca;font-size:12px;white-space:nowrap}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading i{display:inline-flex;width:14px;height:14px;border:1px solid #9fb3ca;border-radius:50%;align-items:center;justify-content:center;font-style:normal;font-size:10px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total{position:absolute;left:12px;top:43px;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong{font-size:42px;line-height:1;color:#22b8ff}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total small{font-size:13px;margin-top:9px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-statuses{position:absolute;left:211px;right:8px;top:40px;height:58px;margin:0;border:1px solid rgba(45,220,255,.28);border-radius:5px;padding:8px 7px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status{padding-left:8px;font-size:13px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status b{font-size:30px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status:not(:last-child):after{content:":";position:absolute;right:-4px;color:#6d8cc2;font-size:30px;line-height:30px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-rows{padding:0 8px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row{grid-template-columns:27px 115px 1px minmax(0,1fr) 18px 111px 116px;gap:7px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-icon svg{width:26px;height:26px;color:#22b8ff}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-title{font-size:16px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-divider{height:28px;background:rgba(45,220,255,.25)}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-arrow{font-size:34px;color:#6d8cc2;text-align:center}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution em,.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines,.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta{font-size:13px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i{height:17px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution small{font-size:20px;color:#eaf9ff;font-weight:700}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines{border-left:1px solid rgba(45,220,255,.25);padding-left:10px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines b,.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta b{font-size:24px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card{padding:8px 9px 7px}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading{display:flex;align-items:center;gap:7px;color:#eaf9ff}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading svg{width:24px;height:24px;color:#22b8ff}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading em{font-size:16px;font-style:normal}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header b{font-size:30px}
+
+/* L0 density correction: preserve the fixed 630x414 canvas while rebalancing its internal tracks. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-shell {
+  grid-template-rows: 98px 112px 148px;
+  gap: 8px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading b { font-size: 16px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading svg { width: 21px; height: 21px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary > strong { font-size: 38px; bottom: 24px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-levels { left: 96px; right: 6px; top: 15px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip { height: 58px; padding: 4px 0 0 8px; font-size: 11px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip b { font-size: 25px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-overview { padding: 8px 8px 7px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading { height: 24px; gap: 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading svg { width: 21px; height: 21px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading b { font-size: 16px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading > span { font-size: 9px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading i { width: 11px; height: 11px; font-size: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total { left: 9px; top: 38px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong { font-size: 38px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total small { margin-top: 6px; font-size: 11px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-statuses { left: 104px; right: 6px; top: 37px; height: 55px; padding: 7px 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status { position: relative; padding-left: 5px; font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status b { font-size: 25px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status:not(:last-child):after { content: "\203A"; right: -3px; font-size: 20px; line-height: 25px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row {
+  grid-template-columns: 23px 98px 1px minmax(0, 1fr) 12px 86px 95px;
+  gap: 4px;
+  padding: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-icon svg { width: 21px; height: 21px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-title { font-size: 14px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-divider { height: 23px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-arrow { font-size: 24px; line-height: 24px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution { gap: 2px; overflow: hidden; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta { font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i { min-width: 4px; height: 13px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution small { font-size: 16px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines { padding-left: 6px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines b,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta b { font-size: 19px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-grid { gap: 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card { padding: 7px 7px 6px; grid-template-rows: 34px 1fr 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading { gap: 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading svg { width: 19px; height: 19px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading em { font-size: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header b { font-size: 25px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card svg { min-height: 0; }
+
+/* Right column alignment pass: both panels share the same header, content origin, and bottom edge. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right {
+  height: 100%;
+  min-height: 0;
+  align-self: stretch;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right .daily-regulation-panel,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right .illegal-treatment-panel-v3 {
+  box-sizing: border-box;
+  min-height: 0;
+  height: auto;
+  padding: 38px 14px 8px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title {
+  top: 10px;
+  left: 18px;
+  height: 25px;
+  padding: 0 0 0 20px;
+  border-bottom: 0;
+  font-size: 20px;
+  line-height: 25px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title-text {
+  font-size: 20px;
+  line-height: 25px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-action {
+  top: 10px;
+  right: 14px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-shell {
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  grid-template-rows: 90px 102px minmax(0, 1fr);
+  gap: 8px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-overview,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-rows,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-grid {
+  min-width: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-overview {
+  overflow: hidden;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading b { font-size: 15px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary > strong { font-size: 35px; bottom: 21px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip { font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip b { font-size: 23px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading b { font-size: 15px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading > span { font-size: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong { font-size: 35px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-statuses { left: 96px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status { font-size: 9px; padding-left: 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status b { font-size: 22px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row {
+  grid-template-columns: 20px 92px 1px minmax(0, 1fr) 10px 78px 82px;
+  gap: 3px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-icon svg { width: 19px; height: 19px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-title { font-size: 13px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta { font-size: 9px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution small { font-size: 14px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines b,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta b { font-size: 17px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card { padding: 6px; grid-template-rows: 30px minmax(0, 1fr) 11px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading em { font-size: 11px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header b { font-size: 22px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card footer { font-size: 7px; }
+
+/* Match the compact lower-header density of the approved comparison while keeping its height aligned. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title-text {
+  font-size: 16px;
+  letter-spacing: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-panel-actions { gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-view-all { font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-view-all svg { width: 12px; height: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-time-range button { font-size: 10px; padding: 2px 4px; }
+
+/* Final isolated canvas: this module owns its 630x414-slot geometry instead of inheriting dashboard padding. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-right .illegal-treatment-panel-v3 {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  min-height: 0;
+  padding: 0 !important;
+  overflow: hidden;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title {
+  top: 9px;
+  left: 14px;
+  height: 25px;
+  padding: 0 0 0 17px;
+  border: 0;
+  font-size: 16px;
+  line-height: 25px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title::before {
+  width: 6px;
+  height: 21px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-title-text {
+  font-size: 16px;
+  line-height: 25px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-treatment-panel-v3 .panel-action {
+  top: 9px;
+  right: 12px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-shell {
+  position: absolute;
+  top: 41px;
+  right: 10px;
+  bottom: 8px;
+  left: 10px;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  grid-template-rows: 92px 104px minmax(0, 1fr);
+  gap: 8px;
+  overflow: hidden;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-overview { gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-overview {
+  min-width: 0;
+  padding: 8px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading { top: 10px; left: 10px; gap: 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading svg { width: 19px; height: 19px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-heading b { font-size: 14px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary > strong { left: 11px; bottom: 20px; font-size: 36px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-levels { top: 13px; right: 5px; left: 92px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip { height: 57px; padding: 4px 0 0 7px; font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip b { font-size: 23px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading { height: 22px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading svg { width: 19px; height: 19px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading b { font-size: 14px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading > span { font-size: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total { top: 34px; left: 9px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong { font-size: 36px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total small { margin-top: 5px; font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-statuses { top: 34px; right: 5px; left: 96px; height: 52px; padding: 6px 3px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status { padding-left: 4px; font-size: 9px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-status b { font-size: 22px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-rows { padding: 0 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row {
+  grid-template-columns: 20px 90px 1px minmax(0, 1fr) 10px 76px 80px;
+  gap: 3px;
+  min-width: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-icon svg { width: 18px; height: 18px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-title { font-size: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-divider { height: 20px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-arrow { font-size: 20px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution { gap: 1px; overflow: hidden; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta { font-size: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i { min-width: 3px; height: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution small { font-size: 13px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines { padding-left: 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines b,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta b { font-size: 16px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-grid { min-height: 0; gap: 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card {
+  min-width: 0;
+  min-height: 0;
+  padding: 6px;
+  grid-template-rows: 29px minmax(0, 1fr) 10px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading svg { width: 18px; height: 18px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-heading em { font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card header b { font-size: 21px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card svg { min-height: 0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card footer { font-size: 7px; }
+
+/* Design-detail pass: align the risk rail, restore values inside the distribution bars, and animate trend inspection. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-risk-summary:after {
+  left: 98px;
+  right: 10px;
+  bottom: 13px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip {
+  position: relative;
+  padding-left: 7px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -11px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 2px rgba(3, 19, 37, .8);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.medium::after { color: #58d45d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.highish::after { color: #ffad18; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .risk-level-chip.high::after { color: #ff454b; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-heading > span { font-size: 7px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution em {
+  flex: 0 0 42px;
+  font-size: 8px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution i {
+  display: flex;
+  width: auto !important;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #061325;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card {
+  position: relative;
+  overflow: hidden;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card polyline {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-tooltip {
+  position: absolute;
+  z-index: 3;
+  right: 6px;
+  bottom: 20px;
+  padding: 2px 4px;
+  border: 1px solid rgba(45, 220, 255, .45);
+  background: rgba(2, 18, 37, .94);
+  color: #eaf9ff;
+  font-size: 8px;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card:hover .illegal-trend-tooltip,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card:focus-visible .illegal-trend-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card:hover polyline,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card:focus-visible polyline {
+  animation: illegal-risk-trend-draw .52s ease-out both;
+}
+@keyframes illegal-risk-trend-draw {
+  from { stroke-dashoffset: 260; }
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card:hover polyline,
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-trend-card:focus-visible polyline { animation: none; }
+}
+
+/* Copy and spacing pass for compact task and business rows. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total { top: 32px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total strong { font-size: 30px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-task-total small { margin-top: 3px; font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row { grid-template-columns: 20px 90px 1px minmax(0, 205px) 10px minmax(82px, 1fr) 82px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-distribution { max-width: 205px; }
+
+/* Business metrics follow the shortened risk bar; only the tail remains flexible. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row {
+  grid-template-columns: 20px 90px 1px 205px 10px max-content max-content;
+  justify-content: start;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-mines,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta {
+  min-width: max-content;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-delta {
+  margin-left: 8px;
+}
+
+
+/* Fill the business-row tail with two aligned indicators instead of leaving unused space. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-row {
+  grid-template-columns: 20px 90px 1px 205px 10px minmax(0, 1fr);
+  justify-content: stretch;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-metrics {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-metrics .illegal-business-mines,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-metrics .illegal-business-delta {
+  min-width: 0;
+  margin-left: 0;
+  padding-left: 8px;
+  white-space: nowrap;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .illegal-business-metrics .illegal-business-delta {
+  border-left: 1px solid rgba(45, 220, 255, .18);
+}
+
+.coal-basic-county-filter select {
+  width: 176px;
+  height: 30px;
+  appearance: none;
+  padding: 0 28px 0 10px;
+  color: #d8eeff;
+  border: 1px solid rgba(72, 150, 236, 0.58);
+  border-radius: 3px;
+  background: linear-gradient(135deg, rgba(20, 78, 145, 0.64), rgba(5, 37, 82, 0.78));
+}
+
+.coal-basic-county-filter select option {
+  color: #163b63;
+  background: #f7fbff;
+  font-weight: 600;
+}
+
+.coal-basic-county-filter select optgroup {
+  color: #60758e;
+  background: #eef6ff;
+  font-weight: 700;
+}
+
+.coal-basic-county-filter select option:checked {
+  color: #ffffff;
+  background: #216fbe;
+}
+
+.coal-basic-analysis-grid-v2 {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 248px max-content;
+}
+
+.coal-basic-page {
+  height: auto;
+  min-height: calc(100vh - 104px);
+  grid-template-rows: 40px 42px 94px auto;
+  overflow: visible;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-drilldown-overlay-panel:has(.coal-basic-page) {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-drilldown-overlay-panel:has(.coal-basic-page)::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-structure-panel,
+.coal-basic-analysis-grid-v2 .coal-basic-archive-panel,
+.coal-basic-analysis-grid-v2 .coal-basic-region-panel {
+  grid-column: 1;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-structure-panel {
+  box-sizing: border-box;
+  grid-row: 1;
+  height: 248px;
+  min-height: 248px;
+  max-height: 248px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-archive-panel,
+.coal-basic-analysis-grid-v2 .coal-basic-region-panel {
+  grid-row: 2;
+  align-self: start;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-structure-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-structure-grid article {
+  padding: 18px 20px;
+  justify-content: flex-start;
+  background:
+    radial-gradient(circle at 18% 55%, rgba(31, 132, 255, 0.12), transparent 34%),
+    rgba(3, 25, 58, 0.86);
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-structure-grid h3 {
+  margin-bottom: 0;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut-block {
+  flex: 1 1 auto;
+  grid-template-columns: 154px minmax(0, 1fr);
+  gap: 18px;
+  align-content: center;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut {
+  width: 148px;
+  height: 148px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut b {
+  font-size: 30px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut span {
+  font-size: 13px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut-legend {
+  gap: 13px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut-legend span {
+  grid-template-columns: 10px minmax(44px, 1fr) 34px 48px;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-donut-legend i {
+  width: 10px;
+  height: 10px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-access-levels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-access-levels div {
+  grid-template-columns: 96px minmax(0, 1fr) 36px 20px;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-access-levels i {
+  height: 14px;
+  padding-left: 0;
+}
+
+@media (max-width: 1600px) {
+  .coal-basic-analysis-grid-v2 .coal-basic-structure-grid article {
+    padding-inline: 14px;
+  }
+
+  .coal-basic-analysis-grid-v2 .coal-basic-donut-block {
+    grid-template-columns: 124px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .coal-basic-analysis-grid-v2 .coal-basic-donut {
+    width: 118px;
+    height: 118px;
+  }
+
+  .coal-basic-analysis-grid-v2 .coal-basic-donut-legend {
+    gap: 9px;
+  }
+
+  .coal-basic-analysis-grid-v2 .coal-basic-donut-legend span {
+    grid-template-columns: 9px minmax(40px, 1fr) 28px 42px;
+    gap: 5px;
+    font-size: 12px;
+  }
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-region-table {
+  height: auto;
+  grid-auto-rows: minmax(30px, auto);
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-region-table .head {
+  min-height: 34px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-region-table .total {
+  min-height: 32px;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-archive-panel {
+  min-height: 0;
+  align-self: start;
+}
+
+.coal-basic-analysis-grid-v2 .coal-basic-archive-table {
+  flex: 0 0 auto;
+}
+
+.coal-basic-page.coal-basic-page-v2 {
+  height: calc(100vh - 104px);
+  min-height: 0;
+  grid-template-rows: 40px 42px 94px minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.coal-basic-page-v2 .coal-basic-analysis-grid-v2 {
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: 248px minmax(0, 1fr);
+}
+
+.coal-basic-page-v2 .coal-basic-archive-panel,
+.coal-basic-page-v2 .coal-basic-region-panel {
+  height: 100%;
+  min-height: 0;
+  align-self: stretch;
+}
+
+.coal-basic-page-v2 .coal-basic-region-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.coal-basic-page--county .coal-basic-archive-table {
+  flex: 1 1 auto;
+  min-height: 0;
+  grid-template-rows: 34px repeat(5, minmax(0, 1fr));
+}
+
+
+/* Homepage rebuild wireframe: five-zone information architecture + layout only. Visual layer superseded by the "V3 homepage restyle 2026-07-17" block appended at end of file. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe {
+  display: grid;
+  grid-template-columns: minmax(310px, 1.2fr) minmax(500px, 2.1fr) minmax(390px, 1.5fr);
+  gap: 10px;
+  height: calc(100vh - 84px);
+  min-height: 650px;
+  padding: 10px 14px 14px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-rail {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-left-rail { grid-template-rows: minmax(0, 2fr) minmax(0, .92fr); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-right-rail { grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-column,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map { min-width: 0; min-height: 0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel {
+  height: 100%;
+  border: 1px solid rgba(71, 193, 255, .5);
+  background: rgba(5, 25, 61, .78);
+  box-shadow: inset 0 0 0 1px rgba(116, 221, 255, .06);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel > header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(71, 193, 255, .32);
+  background: rgba(26, 80, 140, .22);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel > header > span { width: 5px; height: 15px; background: #4ed7ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel h2 { margin: 0; color: #ecf9ff; font-size: 15px; letter-spacing: .04em; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel-body { display: grid; gap: 10px; align-content: start; padding: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric { display: grid; gap: 5px; padding: 10px; border: 1px dashed rgba(103, 204, 255, .38); background: rgba(20, 67, 116, .15); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric span,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality span { color: rgba(224, 245, 255, .78); font-size: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric strong,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality strong { color: #74dcff; font-size: 26px; line-height: 1; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects em { margin-left: 2px; color: rgba(219, 241, 255, .72); font-size: 11px; font-style: normal; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality { display: grid; gap: 8px; padding: 12px 10px; border: 1px dashed rgba(103, 204, 255, .38); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality > div { display: flex; gap: 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality i { width: 22px; height: 6px; background: #4ed7ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality i.is-muted { background: rgba(78, 215, 255, .18); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality small { color: rgba(200, 234, 255, .5); font-size: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map { position: relative; overflow: hidden; border: 1px solid rgba(71, 193, 255, .5); background: #061a3e; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map-label { position: absolute; z-index: 3; top: 12px; left: 14px; display: grid; gap: 3px; pointer-events: none; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map-label span { color: #eefaff; font-size: 16px; font-weight: 700; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map-label b { color: rgba(192, 232, 255, .68); font-size: 11px; font-weight: 400; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .command-map-stage {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box { top: 15px; right: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map {
+  width: min(760px, 88%);
+  height: auto;
+  min-height: 0;
+  margin: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert { display: grid; grid-template-columns: 1fr auto; gap: 4px; padding: 10px; border: 1px dashed rgba(103, 204, 255, .42); background: rgba(28, 80, 135, .2); color: #eaf9ff; text-align: left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert span { color: rgba(224, 245, 255, .8); font-size: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert strong { color: #ffcc6c; font-size: 28px; line-height: 1; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert small { grid-column: 1 / -1; color: rgba(211, 239, 255, .66); font-size: 11px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels span { padding: 7px 2px; border: 1px solid rgba(110, 194, 255, .28); color: #e8f8ff; font-size: 11px; text-align: center; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid button,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders button { display: flex; justify-content: space-between; padding: 8px; border: 1px dashed rgba(104, 202, 255, .32); background: transparent; color: #e5f7ff; font-size: 11px; text-align: left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid b { color: #66d9ff; font-weight: 400; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders { display: grid; gap: 6px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders b { color: #ffc966; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects { display: grid; gap: 7px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects button { display: flex; justify-content: space-between; align-items: baseline; padding: 9px; border: 1px dashed rgba(103, 204, 255, .38); background: rgba(20, 67, 116, .15); color: #e7f8ff; text-align: left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects span { font-size: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects strong { color: #ffbd69; font-size: 22px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-title { display: flex; justify-content: space-between; align-items: center; padding-top: 3px; color: #effaff; font-size: 13px; font-weight: 700; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-title small { color: rgba(203, 235, 255, .56); font-size: 10px; font-weight: 400; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list { display: grid; gap: 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list button { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; padding: 8px; border: 1px dashed rgba(103, 204, 255, .32); background: transparent; color: #e7f8ff; font-size: 11px; text-align: left; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list b { color: #ffd06f; font-size: 15px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list b.is-closed { color: #72dca9; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list em { display: block; color: rgba(205, 238, 255, .6); font-size: 9px; font-style: normal; font-weight: 400; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert:hover { border-color: #67dcff; background: rgba(45, 145, 207, .18); }
+@media (max-width: 1500px) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe { grid-template-columns: minmax(260px, 1.05fr) minmax(420px, 1.85fr) minmax(340px, 1.35fr); gap: 7px; padding-inline: 8px; }
+}
+
+/* ==========================================================================
+   V3 homepage restyle 2026-07-17
+   设计来源：src/resources/homepage-redesign-v1.png（深海军蓝玻璃拟态驾驶舱）
+   作用域策略：所有选择器均限定在 .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3
+   四联类（即 V3 首页根节点）内，只覆盖视觉属性，不改布局栅格、内容结构与交互，
+   不影响 shuan-command / shuan-command-v2 及其他页面。
+   设计 token：
+   - 背景：深海军蓝 #0A1830 系，青蓝径向渐变点缀
+   - 面板：玻璃拟态 = 半透明深色底 + 1px 青色发光描边 + 10px 圆角 + 内高光
+   - 强调色：青 #5FE3FF / 蓝 #2F9DFF；关键数字加亮加光晕
+   - 预警色：红 #FF5D5D / 橙 #FF9E3D / 黄 #FFD94D / 蓝 #3FA9FF，贯穿图例与分级
+   ========================================================================== */
+
+/* --- 页面底色：深海军蓝 + 青蓝渐变点缀 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 {
+  background:
+    radial-gradient(1100px 520px at 50% -8%, rgba(38, 124, 235, 0.22), transparent 62%),
+    radial-gradient(900px 620px at 50% 112%, rgba(0, 180, 255, 0.10), transparent 60%),
+    linear-gradient(180deg, #0c1d3d 0%, #0a1830 46%, #081227 100%);
+}
+
+/* --- 顶部导航：深色玻璃 + 激活项发光 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-header {
+  background: linear-gradient(180deg, rgba(13, 32, 73, 0.97), rgba(9, 22, 48, 0.92));
+  border-bottom: 1px solid rgba(74, 168, 255, 0.28);
+  box-shadow: 0 6px 24px rgba(2, 8, 24, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-header::after { content: none; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-title {
+  color: #f2faff;
+  text-shadow: 0 0 16px rgba(80, 190, 255, 0.50);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-nav button {
+  border: 1px solid rgba(92, 178, 255, 0.18);
+  color: #c9e6ff;
+  background: rgba(14, 36, 76, 0.50);
+  transition: background 0.18s ease, color 0.18s ease, filter 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-nav button:hover {
+  color: #ffffff;
+  background: rgba(28, 70, 132, 0.62);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-nav button.active {
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(41, 150, 255, 0.95), rgba(10, 88, 190, 0.90));
+  filter: drop-shadow(0 0 10px rgba(40, 160, 255, 0.55));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-top-tools .shuan-tool-round,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-top-tools .shuan-icon-tool,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-top-tools .shuan-tool-badge {
+  border: 1px solid rgba(92, 178, 255, 0.35);
+  border-radius: 50%;
+  color: #9fd6ff;
+  background: rgba(16, 42, 88, 0.55);
+  box-shadow: inset 0 0 10px rgba(60, 160, 255, 0.15);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-tool-badge b {
+  background: #ff4d4f;
+  box-shadow: 0 0 8px rgba(255, 77, 79, 0.60);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-user { color: #eaf6ff; }
+
+/* --- 玻璃拟态面板 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel {
+  border: 1px solid rgba(74, 168, 255, 0.34);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(19, 48, 96, 0.58), rgba(8, 22, 48, 0.80));
+  box-shadow:
+    inset 0 1px 0 rgba(150, 215, 255, 0.10),
+    inset 0 0 28px rgba(36, 120, 220, 0.10),
+    0 12px 32px rgba(2, 8, 24, 0.40);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel > header {
+  height: 42px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(74, 168, 255, 0.18);
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(90deg, rgba(46, 140, 255, 0.16), rgba(46, 140, 255, 0.04) 55%, transparent);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel > header > span {
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #5fe3ff, #1f8dff);
+  box-shadow: 0 0 8px rgba(80, 200, 255, 0.70);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel h2 {
+  color: #f2faff;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px rgba(80, 190, 255, 0.35);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-panel-body { padding: 12px 14px; }
+
+/* --- 指标卡：关键数字放大加亮 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric {
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.32), rgba(13, 32, 66, 0.42));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric span,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality span { color: rgba(196, 226, 252, 0.75); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric strong,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality strong {
+  color: #8fe6ff;
+  font-size: 30px;
+  font-weight: 800;
+  text-shadow: 0 0 16px rgba(64, 196, 255, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-metric em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects em { color: rgba(200, 230, 255, 0.62); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality {
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.28), rgba(13, 32, 66, 0.40));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality i {
+  width: 24px;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #5fe3ff, #2f9dff);
+  box-shadow: 0 0 6px rgba(80, 200, 255, 0.50);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-quality i.is-muted {
+  background: rgba(95, 227, 255, 0.14);
+  box-shadow: none;
+}
+
+/* --- 地图区：玻璃描边 + 搜索框 + 分级预警图例 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map {
+  border: 1px solid rgba(74, 168, 255, 0.34);
+  border-radius: 10px;
+  background: #081830;
+  box-shadow: inset 0 0 40px rgba(20, 90, 180, 0.18), 0 12px 32px rgba(2, 8, 24, 0.40);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map-label span {
+  color: #f2faff;
+  text-shadow: 0 0 12px rgba(80, 190, 255, 0.50);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map-label b { color: rgba(178, 216, 245, 0.70); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box {
+  border: 1px solid rgba(92, 178, 255, 0.40);
+  border-radius: 8px;
+  background: rgba(7, 19, 42, 0.82);
+  box-shadow: 0 6px 20px rgba(2, 8, 24, 0.50), inset 0 0 12px rgba(46, 140, 255, 0.12);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box svg { color: #7fc8ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box input { color: #eaf6ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box input::placeholder { color: rgba(160, 200, 235, 0.55); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box button {
+  border-radius: 6px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #35a5ff, #1565d8);
+  box-shadow: 0 0 12px rgba(53, 165, 255, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-legend {
+  padding: 10px 12px;
+  border: 1px solid rgba(74, 168, 255, 0.32);
+  border-radius: 8px;
+  background: rgba(6, 18, 40, 0.82);
+  box-shadow: 0 8px 24px rgba(2, 8, 24, 0.50), inset 0 0 16px rgba(36, 120, 220, 0.10);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-legend .map-legend-title b { color: #f2faff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip {
+  color: rgba(214, 238, 255, 0.85);
+  font-weight: 600;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip i { box-shadow: 0 0 6px currentColor; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-red i { background: #ff5d5d; color: #ff5d5d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-orange i { background: #ff9e3d; color: #ff9e3d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-yellow i { background: #ffd94d; color: #ffd94d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-blue i { background: #3fa9ff; color: #3fa9ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-safe i { background: #35d0a5; color: #35d0a5; }
+
+/* --- 日常监管：预警总数 hero + 分级色 chips + 精致入口卡 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert {
+  border: 1px solid rgba(255, 196, 94, 0.32);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 176, 64, 0.12), rgba(20, 50, 96, 0.38) 55%);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert strong {
+  color: #ffd071;
+  font-size: 30px;
+  text-shadow: 0 0 16px rgba(255, 190, 80, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert small { color: rgba(200, 226, 252, 0.66); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels { gap: 6px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels span {
+  border: 1px solid rgba(74, 168, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(14, 34, 70, 0.45);
+  font-weight: 700;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels span:nth-child(1) { color: #ff7a7a; border-color: rgba(255, 93, 93, 0.38); background: rgba(255, 93, 93, 0.10); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels span:nth-child(2) { color: #ffab5e; border-color: rgba(255, 158, 61, 0.38); background: rgba(255, 158, 61, 0.10); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels span:nth-child(3) { color: #ffe27a; border-color: rgba(255, 217, 77, 0.35); background: rgba(255, 217, 77, 0.08); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-levels span:nth-child(4) { color: #5eb5ff; border-color: rgba(63, 169, 255, 0.38); background: rgba(63, 169, 255, 0.10); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid button,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders button {
+  border: 1px solid rgba(74, 168, 255, 0.24);
+  border-radius: 6px;
+  color: #d8f0ff;
+  background: linear-gradient(180deg, rgba(30, 72, 132, 0.30), rgba(13, 32, 66, 0.40));
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid b { color: #6fd9ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders b {
+  color: #ffc966;
+  text-shadow: 0 0 8px rgba(255, 190, 80, 0.40);
+}
+
+/* --- 打非治违：疑似矿井行 + 任务督办行 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects button {
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(30, 72, 132, 0.30), rgba(13, 32, 66, 0.40));
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects strong {
+  color: #ffc25e;
+  text-shadow: 0 0 12px rgba(255, 180, 70, 0.40);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-title { color: #f2faff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list button {
+  border: 1px solid rgba(74, 168, 255, 0.20);
+  border-radius: 6px;
+  background: rgba(14, 34, 70, 0.40);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list b { color: #ffd06f; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list b.is-closed { color: #4fd8a0; }
+
+/* --- 统一 hover：描边提亮 + 微浮起 + 光晕 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-entry-grid button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-reminders button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-suspects button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-task-list button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-alert:hover {
+  border-color: rgba(111, 217, 255, 0.60);
+  background: linear-gradient(180deg, rgba(44, 100, 175, 0.40), rgba(18, 44, 88, 0.50));
+  box-shadow: 0 0 14px rgba(64, 180, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   V3 homepage content rebuild 2026-07-17 (round 2)
+   内容结构按 src/resources/homepage-redesign-v1.png 重建：
+   左列 煤矿基础信息(174+环形图) / 从业人员情况 / 生产情况 / 数据汇聚情况；
+   中列 四川地图居中；右列 日常监管 / 打非治违。
+   布局要求：左右列等宽、地图在剩余空间水平居中；沿用 round 1 的玻璃拟态 token。
+   ========================================================================== */
+
+/* --- 三列布局：左右等宽、地图居中（覆盖旧 wireframe 的不等宽列定义） --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe {
+  grid-template-columns: minmax(320px, 400px) minmax(0, 1fr) minmax(320px, 400px);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-left-rail {
+  grid-template-rows: minmax(0, 1.28fr) minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 1.32fr);
+}
+@media (max-width: 1500px) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe {
+    grid-template-columns: minmax(260px, 1fr) minmax(0, 1.6fr) minmax(260px, 1fr);
+    gap: 8px;
+    padding-inline: 10px;
+  }
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong { font-size: 34px; }
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut { width: 96px; height: 96px; }
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong { font-size: 22px; }
+}
+
+/* --- 新面板骨架：header 固定、body 拉伸填充 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel { display: flex; flex-direction: column; overflow: hidden; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel > header { flex: none; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel .home-wireframe-panel-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-panel-header-action { margin-left: auto; display: flex; align-items: center; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel .panel-time-range button { padding: 3px 10px; font-size: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-title-action {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-title-action .shuan-wire-more {
+  min-height: 20px;
+  padding: 0 6px;
+  border-color: rgba(92, 190, 255, 0.42);
+  border-radius: 4px;
+  background: rgba(16, 76, 134, 0.38);
+  color: rgba(213, 239, 255, 0.92);
+  font-size: 10px;
+  font-weight: 700;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-title-action .shuan-wire-more svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* --- 煤矿基础信息：174 大数字 + 环形图 + 图例 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-body { flex: 1; min-height: 0; display: flex; align-items: center; gap: 14px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  padding: 12px 14px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.32), rgba(13, 32, 66, 0.42));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong {
+  color: #8fe6ff;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 800;
+  text-shadow: 0 0 18px rgba(64, 196, 255, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong em { margin-left: 4px; font-size: 14px; font-style: normal; color: rgba(200, 230, 255, 0.62); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total span { font-size: 13px; color: rgba(196, 226, 252, 0.80); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-wrap { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut {
+  position: relative;
+  flex: none;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background: conic-gradient(#4e8cff 0 36.78%, #35d0a5 36.78% 44.25%, #ffc94d 44.25% 51.15%, #9b8cff 51.15% 70.69%, #ff7770 70.69% 100%);
+  box-shadow: 0 0 18px rgba(64, 150, 255, 0.30);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-core {
+  position: absolute;
+  inset: 24%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #0b1d3c;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-core b { color: #f2faff; font-size: 24px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(214, 238, 255, 0.85); white-space: nowrap; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend li.tone-blue,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend li.tone-purple { background: none; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend i { width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 6px currentColor; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend .tone-blue i { background: #4e8cff; color: #4e8cff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend .tone-teal i { background: #35d0a5; color: #35d0a5; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend .tone-yellow i { background: #ffc94d; color: #ffc94d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend .tone-purple i { background: #9b8cff; color: #9b8cff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend .tone-red i { background: #ff7770; color: #ff7770; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend b { color: #eaf6ff; font-weight: 700; }
+
+/* --- 从业人员情况 / 生产情况：左右双大数字块 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.30), rgba(13, 32, 66, 0.40));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(92, 178, 255, 0.40);
+  background: rgba(23, 64, 120, 0.55);
+  box-shadow: inset 0 0 10px rgba(60, 160, 255, 0.20);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon .cockpit-svg-icon { width: 22px; height: 22px; color: #7fd1ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy { display: grid; gap: 4px; min-width: 0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong { color: #f2faff; font-size: 26px; line-height: 1; font-weight: 800; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong em { margin-left: 3px; font-size: 12px; font-style: normal; color: rgba(200, 230, 255, 0.62); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy span { font-size: 12px; color: rgba(196, 226, 252, 0.75); }
+
+/* --- 数据汇聚情况：6 个图标指标块 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-card {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 6px;
+  padding: 10px 6px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.30), rgba(13, 32, 66, 0.40));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-icon { width: 38px; height: 38px; display: grid; place-items: center; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-icon img { width: 100%; height: 100%; object-fit: contain; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-count strong { color: #8fe6ff; font-size: 22px; font-weight: 800; text-shadow: 0 0 10px rgba(64, 196, 255, 0.35); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-count em { margin-left: 2px; font-size: 11px; font-style: normal; color: rgba(200, 230, 255, 0.62); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-name { font-size: 12px; color: rgba(214, 238, 255, 0.85); }
+
+/* --- 日常监管：预警总数 / 分级分布 / 处置率 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-summary { display: grid; grid-template-columns: auto minmax(0, 1.15fr) minmax(0, 1fr); gap: 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-summary > button {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  justify-items: start;
+  padding: 10px 12px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.30), rgba(13, 32, 66, 0.40));
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-total span,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-block-title { font-size: 12px; color: rgba(196, 226, 252, 0.80); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-total strong {
+  color: #ffd071;
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 800;
+  text-shadow: 0 0 16px rgba(255, 190, 80, 0.45);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values { display: flex; gap: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values span { display: grid; justify-items: center; gap: 2px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values b { font-size: 16px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values em { font-size: 10px; font-style: normal; color: rgba(200, 230, 255, 0.60); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-red b { color: #ff7a7a; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-orange b { color: #ffab5e; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-yellow b { color: #ffe27a; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-blue b { color: #5eb5ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar { display: flex; width: 100%; height: 8px; overflow: hidden; border-radius: 4px; background: rgba(14, 34, 70, 0.60); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-red { background: #ff5d5d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-orange { background: #ff9e3d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-yellow { background: #ffd94d; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-blue { background: #3fa9ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-rate-body { display: flex; align-items: center; gap: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-rate-meta { display: grid; gap: 6px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-rate-meta span { display: flex; align-items: baseline; gap: 6px; font-size: 11px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-rate-meta em { font-style: normal; color: rgba(200, 230, 255, 0.65); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-rate-meta b { color: #eaf6ff; font-size: 15px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring { position: relative; width: 62px; height: 62px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring .ring-track { fill: none; stroke: rgba(120, 200, 255, 0.15); stroke-width: 8; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring .ring-value { fill: none; stroke: #35d0a5; stroke-width: 8; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(53, 208, 165, 0.60)); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring b { position: absolute; inset: 0; display: grid; place-items: center; color: #f2faff; font-size: 15px; }
+
+/* --- 日常监管：四个模块 tab --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs button {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 10px 4px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.30), rgba(13, 32, 66, 0.40));
+  color: #d8f0ff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs .cockpit-svg-icon { width: 24px; height: 24px; color: #7fd1ff; }
+
+/* --- 日常监管：提醒卡 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-reminders { display: grid; gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.28), rgba(13, 32, 66, 0.38));
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-icon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(92, 178, 255, 0.35);
+  background: rgba(23, 64, 120, 0.55);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-icon .cockpit-svg-icon { width: 18px; height: 18px; color: #ffc966; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card.tone-red .v3-reminder-icon .cockpit-svg-icon { color: #ff7a7a; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-copy { display: grid; gap: 2px; min-width: 0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-copy b { font-size: 13px; color: #f2faff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-copy small { font-size: 10px; color: rgba(200, 230, 255, 0.60); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card > strong {
+  margin-left: auto;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 190, 80, 0.50);
+  background: rgba(255, 190, 80, 0.18);
+  color: #ffd071;
+  font-size: 13px;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card.tone-red > strong { border-color: rgba(255, 93, 93, 0.50); background: rgba(255, 93, 93, 0.15); color: #ff7a7a; }
+
+/* --- 打非治违：疑似矿井行 + 任务督办块 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-rows { display: grid; gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.30), rgba(13, 32, 66, 0.40));
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(92, 178, 255, 0.40);
+  background: rgba(23, 64, 120, 0.55);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon .cockpit-svg-icon { width: 19px; height: 19px; color: #7fd1ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row > b { font-size: 14px; color: #f2faff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-mines { margin-left: auto; display: flex; align-items: baseline; gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-mines em { font-style: normal; font-size: 11px; color: rgba(200, 230, 255, 0.60); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-mines strong { color: #ffc25e; font-size: 22px; font-weight: 800; text-shadow: 0 0 10px rgba(255, 180, 70, 0.40); }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel .v3-illegal-tasks { margin-top: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 10px 6px;
+  border: 1px solid rgba(74, 168, 255, 0.22);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(32, 76, 140, 0.30), rgba(13, 32, 66, 0.40));
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task > b { font-size: 13px; color: #f2faff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums { display: flex; gap: 14px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums span { display: grid; justify-items: center; gap: 2px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums strong { font-size: 18px; font-weight: 800; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums .is-pending strong { color: #6fd9ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums .is-closed strong { color: #4fd8a0; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums em { font-style: normal; font-size: 10px; color: rgba(200, 230, 255, 0.60); }
+
+/* --- 统一 hover --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-summary > button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs button:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row:hover,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task:hover {
+  border-color: rgba(111, 217, 255, 0.60);
+  box-shadow: 0 0 14px rgba(64, 180, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   V3 homepage compact pass 2026-07-17 (round 3)
+   问题：1912×867 视口下左列「数据汇聚情况」第二排指标块被裁切（超出 41px），
+   右列「打非治违」任务行贴底。
+   处理：压缩左列行高比例（数据面板获得更多空间）、环形图/大数字/图标/内边距
+   全面瘦身，右列同步压缩；三列等宽（400px/1fr/400px）保持不变。
+   ========================================================================== */
+
+/* --- 栅格与面板骨架收紧 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe { gap: 8px; padding: 8px 14px 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-rail { gap: 8px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-left-rail {
+  grid-template-rows: minmax(0, 1.2fr) minmax(0, 0.75fr) minmax(0, 0.75fr) minmax(0, 1.45fr);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel > header { height: 38px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel .home-wireframe-panel-body { gap: 8px; padding: 10px 12px; }
+
+/* --- 左列：煤矿基础信息 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total { padding: 10px 12px; gap: 5px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong { font-size: 36px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut { width: 104px; height: 104px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-core b { font-size: 22px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend { gap: 7px; }
+
+/* --- 左列：从业人员 / 生产情况 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon { width: 38px; height: 38px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon .cockpit-svg-icon { width: 20px; height: 20px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong { font-size: 24px; }
+
+/* --- 左列：数据汇聚情况（重点压缩，保证两排完整可见） --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-card { gap: 3px; padding: 6px 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-icon { width: 26px; height: 26px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-count strong { font-size: 19px; }
+
+/* --- 右列：日常监管同步压缩 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-summary > button { padding: 8px 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-total strong { font-size: 32px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring { width: 56px; height: 56px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs button { gap: 6px; padding: 8px 4px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs .cockpit-svg-icon { width: 20px; height: 20px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card { padding: 6px 10px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-icon { width: 30px; height: 30px; }
+
+/* --- 右列：打非治违同步压缩，任务行不再贴底 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row { padding: 9px 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon { width: 32px; height: 32px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon .cockpit-svg-icon { width: 17px; height: 17px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task { gap: 6px; padding: 8px 6px; }
+
+/* vh≈867 下页面不出纵向滚动条：覆盖 .shuan-command 基础 min-height:1080px */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 { min-height: 100vh; }
+
+/* ==========================================================================
+   V3 homepage refine 2026-07-17 (round 4)
+   任务 1：收窄地图 —— 左右列 400px→460px（仍等宽），地图列收窄至约 950px，
+   地图收进带圆角细描边 + 内边距的舞台框，不再顶天立地。
+   任务 2：深度美化 —— 渐变面板头分隔线、主数字青蓝渐变文字、环形图细环发光、
+   地图暗角 + 城市标记脉冲、玻璃胶囊图例/搜索框、胶囊 tab、页面网格纹理、
+   预警四色降饱和精致化。左右等宽/地图居中/vh=867 无裁切全部保持。
+   ========================================================================== */
+
+/* --- 列宽：左右 460px 等宽，地图收窄居中 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe {
+  grid-template-columns: minmax(360px, 460px) minmax(0, 1fr) minmax(360px, 460px);
+}
+@media (max-width: 1500px) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-five-zone-wireframe {
+    grid-template-columns: minmax(280px, 1fr) minmax(0, 1.35fr) minmax(280px, 1fr);
+  }
+}
+
+/* --- 页面底层：极淡青蓝光晕 + 细网格纹理 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 {
+  background:
+    radial-gradient(1100px 520px at 50% -8%, rgba(38, 124, 235, 0.20), transparent 62%),
+    radial-gradient(900px 620px at 50% 112%, rgba(0, 180, 255, 0.09), transparent 60%),
+    linear-gradient(rgba(90, 170, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 170, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #0c1d3d 0%, #0a1830 46%, #081227 100%);
+  background-size: auto, auto, 44px 44px, 44px 44px, auto;
+}
+
+/* --- 面板头：发光标记 + 标题 + 底部渐变分隔线 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel > header {
+  position: relative;
+  border-bottom: none;
+  background: linear-gradient(90deg, rgba(46, 140, 255, 0.12), rgba(46, 140, 255, 0.03) 55%, transparent);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel > header::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(95, 227, 255, 0.55), rgba(47, 157, 255, 0.18) 55%, transparent);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel > header > span {
+  width: 5px;
+  height: 16px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #8fe6ff, #2f9dff);
+  box-shadow: 0 0 10px rgba(95, 227, 255, 0.80), 0 0 3px rgba(255, 255, 255, 0.50) inset;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-home-panel h2 { letter-spacing: 0.08em; }
+
+/* --- 主数字：青蓝渐变文字 + 发光（174 / 118 / 82%） --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-total strong,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring b {
+  background: linear-gradient(180deg, #c2f2ff 0%, #6fd0ff 45%, #3fa9ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(64, 196, 255, 0.30));
+  font-weight: 900;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong em,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-total strong em {
+  color: rgba(200, 230, 255, 0.62);
+  -webkit-text-fill-color: rgba(200, 230, 255, 0.62);
+  filter: none;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-rate-ring b { font-size: 16px; }
+
+/* --- 左列加宽后回补：环形图/数字略放大 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong { font-size: 40px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut {
+  width: 112px;
+  height: 112px;
+  box-shadow: 0 0 22px rgba(64, 150, 255, 0.40), 0 0 6px rgba(140, 220, 255, 0.25);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-core { inset: 30%; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-core b { font-size: 26px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend i { width: 10px; height: 10px; box-shadow: 0 0 8px currentColor; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon { width: 40px; height: 40px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong { font-size: 25px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-icon { width: 30px; height: 30px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-count strong { font-size: 20px; }
+
+/* --- 地图舞台：内边距 + 圆角细描边画框 + 径向暗角 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map { padding: 14px 16px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map {
+  position: relative;
+  width: min(700px, 94%);
+  overflow: hidden;
+  border: 1px solid rgba(74, 168, 255, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(20, 90, 180, 0.25), inset 0 0 40px rgba(8, 20, 44, 0.40);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, transparent 58%, rgba(4, 10, 26, 0.50) 100%);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map-points { z-index: 3; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map-legend { z-index: 4; }
+
+/* --- 城市标记：缓慢脉冲光圈（红色级别更明显） --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-point.region-dot b { position: relative; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-point.region-dot b::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(95, 227, 255, 0.45);
+  animation: v3-marker-pulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-point.region-dot.risk-red b::after {
+  border-color: rgba(244, 113, 113, 0.65);
+  animation-duration: 2s;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-point.region-dot.risk-orange b::after { border-color: rgba(245, 165, 88, 0.55); }
+@keyframes v3-marker-pulse {
+  0% { transform: scale(0.72); opacity: 0.85; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-point.region-dot b::after { animation: none; opacity: 0; }
+}
+
+/* --- 分级预警图例：半透明玻璃胶囊浮层 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map-legend {
+  border-radius: 12px;
+  border-color: rgba(111, 217, 255, 0.38);
+  background: rgba(8, 22, 48, 0.66);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 28px rgba(2, 8, 24, 0.55), inset 0 1px 0 rgba(150, 215, 255, 0.12);
+}
+
+/* --- 搜索框：圆角玻璃质感 + 聚焦描边发光 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box {
+  border-radius: 999px;
+  background: rgba(7, 19, 42, 0.72);
+  backdrop-filter: blur(6px);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box:focus-within {
+  border-color: rgba(111, 217, 255, 0.75);
+  box-shadow: 0 0 18px rgba(64, 180, 255, 0.35), inset 0 0 12px rgba(46, 140, 255, 0.15);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box button { border-radius: 999px; }
+
+/* 首页地图批注：地图仅保留轮廓与数据点，不再套内层画框；检索框收窄并居中。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .map-search-box {
+  left: 50%;
+  right: auto;
+  width: clamp(210px, 33.333%, 280px);
+  transform: translateX(-50%);
+}
+
+/* --- 监管模块 tab：胶囊样式 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(30, 72, 132, 0.28), rgba(13, 32, 66, 0.38));
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs button:hover { border-color: rgba(111, 217, 255, 0.65); box-shadow: 0 0 12px rgba(64, 180, 255, 0.30); }
+
+/* --- 提醒卡：图标徽章渐变 + hover 微浮起 --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-icon {
+  border-radius: 10px;
+  background: linear-gradient(160deg, rgba(255, 201, 102, 0.22), rgba(23, 64, 120, 0.55));
+  box-shadow: inset 0 0 10px rgba(255, 190, 80, 0.15);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card.tone-red .v3-reminder-icon {
+  background: linear-gradient(160deg, rgba(244, 113, 113, 0.22), rgba(23, 64, 120, 0.55));
+  box-shadow: inset 0 0 10px rgba(244, 113, 113, 0.15);
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-reminder-card:hover { transform: translateY(-2px); }
+
+/* --- 预警四色：降饱和精致化（图例/分级数值/分段条/脉冲统一） --- */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-red i { background: #f47171; color: #f47171; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-orange i { background: #f5a558; color: #f5a558; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-yellow i { background: #eed267; color: #eed267; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .shuan-map .legend-chip.tone-blue i { background: #58a6f2; color: #58a6f2; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-red b { color: #ff8f8f; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-orange b { color: #f7b878; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-yellow b { color: #f2dc84; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-blue b { color: #79b8f5; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-red { background: #f47171; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-orange { background: #f5a558; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-yellow { background: #eed267; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-bar i.tone-blue { background: #58a6f2; }
+
+/* hotfix 2026-07-17 (round 4.1)：分级分布「橙 22」被遮挡
+   原因：style.css 早年全局裸规则 .tone-orange { background:#ffb31a }（2477 行）、
+   .tone-blue { background:#2f6bff }（2476 行）泄漏到 .v3-daily-dist-values 的
+   数值 span 上，橙色不透明底色盖住文字（分段条 i 元素的背景是正常需求，不受影响）。
+   修复：V3 作用域内显式清除分级数值 span 的背景。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-red,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-orange,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-yellow,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-dist-values .tone-blue { background: none; }
+
+/* Reference alignment 2026-07-17: keep the selected top tab as a compact
+   rounded module and lower the map luminance to the supplied dark cockpit. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .command-nav button.active {
+  clip-path: none;
+  border: 1px solid rgba(69, 190, 255, 0.88);
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(17, 117, 217, 0.98), rgba(4, 67, 154, 0.98));
+  box-shadow: inset 0 0 18px rgba(73, 202, 255, 0.25), 0 0 14px rgba(18, 144, 255, 0.38);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .shuan-map-satellite {
+  filter: brightness(0.74) saturate(0.82) contrast(1.05);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-map .command-map-stage .shuan-svg-map path {
+  fill: rgba(0, 126, 198, 0.30) !important;
+  stroke: rgba(35, 210, 255, 0.82) !important;
+  filter: drop-shadow(0 0 4px rgba(35, 210, 255, 0.42));
+}
+
+/* Reference alignment: four supervision entries are compact rectangular
+   action cards, not independent pill controls. */
+/* Daily regulation: use the reference's two-by-two business-entry layout. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs button {
+  min-height: 52px;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(20, 63, 123, 0.44), rgba(8, 30, 69, 0.58));
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tabs .cockpit-svg-icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+/* 日常监管：删除证照提醒后，概览、入口和保留提醒按面板高度均衡铺开。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .home-wireframe-panel-body {
+  display: grid;
+  grid-template-rows: minmax(78px, 1fr) minmax(104px, 1.1fr) minmax(44px, 0.55fr);
+  align-content: stretch;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .v3-daily-summary,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .v3-daily-tabs,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .v3-daily-reminders {
+  min-height: 0;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .v3-daily-summary > button,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .v3-daily-tabs button,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-panel .v3-reminder-card {
+  height: 100%;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-daily-tab-arrow {
+  width: 18px;
+  height: 18px;
+  margin-left: auto;
+  color: rgba(201, 235, 255, 0.85);
+}
+
+/* Reference layout: redistribute only the vertical module heights. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-left-rail {
+  grid-template-rows: minmax(0, 1.20fr) minmax(0, 0.93fr) minmax(0, 0.93fr) minmax(0, 0.93fr);
+}
+
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .home-wireframe-right-rail {
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+/* Let the three lower left modules honor their equal grid tracks instead of
+   allowing the data cards' intrinsic height to stretch the final module. */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-panel,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-panel .home-wireframe-panel-body,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-grid {
+  min-height: 0;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-panel .home-wireframe-panel-body {
+  overflow: hidden;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-grid {
+  grid-auto-rows: minmax(0, 1fr);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-card {
+  min-height: 0;
+  gap: 2px;
+  padding-block: 4px;
+}
+
+/* 打非治违参考图还原（2026-07-17）
+   保留现有业务与交互，仅将右下模块收敛为“标题栏 / 三条风险线索 / 三级任务卡”
+   的固定画布式结构。参考：1349×1166，目标槽位约 460×398。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel {
+  border-color: rgba(45, 139, 231, 0.62);
+  background:
+    radial-gradient(circle at 15% 34%, rgba(29, 139, 238, 0.10), transparent 29%),
+    linear-gradient(180deg, rgba(4, 32, 70, 0.94), rgba(3, 19, 46, 0.97));
+  box-shadow:
+    inset 0 0 32px rgba(18, 103, 202, 0.12),
+    0 0 22px rgba(10, 91, 188, 0.12);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel > header {
+  height: 44px;
+  padding-inline: 14px 12px;
+  background: linear-gradient(90deg, rgba(18, 83, 158, 0.25), rgba(4, 25, 58, 0.28));
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel > header::after {
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, rgba(43, 169, 255, 0.54), rgba(33, 107, 205, 0.34));
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel > header > span {
+  width: 5px;
+  height: 20px;
+  background: linear-gradient(180deg, #79efff, #2ca9ff);
+  box-shadow: 0 0 11px rgba(57, 208, 255, 0.86);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel > header h2 {
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 12px rgba(109, 199, 255, 0.34);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel .panel-time-range {
+  overflow: hidden;
+  padding: 2px;
+  border: 1px solid rgba(49, 132, 224, 0.56);
+  border-radius: 7px;
+  background: rgba(3, 21, 50, 0.72);
+  box-shadow: inset 0 0 12px rgba(20, 85, 170, 0.18);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel .panel-time-range button {
+  min-width: 56px;
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  color: rgba(193, 213, 245, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel .panel-time-range button.active {
+  color: #021a35;
+  background: linear-gradient(180deg, #75efff, #2cb9ed);
+  box-shadow:
+    inset 0 0 10px rgba(255, 255, 255, 0.42),
+    0 0 12px rgba(38, 211, 255, 0.54);
+  text-shadow: none;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel .home-wireframe-panel-body {
+  gap: 8px;
+  padding: 9px 10px 10px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-rows {
+  flex: 1.45 1 0;
+  min-height: 0;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row {
+  min-height: 0;
+  gap: 13px;
+  padding: 6px 14px 6px 11px;
+  border-color: rgba(42, 132, 224, 0.48);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 44px 50%, rgba(28, 148, 255, 0.18), transparent 72px),
+    linear-gradient(90deg, rgba(12, 55, 109, 0.62), rgba(5, 28, 64, 0.74));
+  box-shadow:
+    inset 0 0 16px rgba(33, 120, 221, 0.10),
+    0 3px 10px rgba(0, 7, 24, 0.34);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-width: 2px;
+  background: radial-gradient(circle, rgba(38, 153, 255, 0.28), rgba(3, 20, 48, 0.92) 68%);
+  box-shadow:
+    0 0 13px color-mix(in srgb, currentColor 55%, transparent),
+    inset 0 0 13px color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  opacity: 0.22;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon.tone-cyan { color: #45d9ff; border-color: #32d5ff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon.tone-green { color: #3edda0; border-color: #31d493; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon.tone-purple { color: #bd84ff; border-color: #a66cf2; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-icon .cockpit-svg-icon {
+  width: 23px;
+  height: 23px;
+  color: currentColor;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row > b {
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 10px rgba(143, 207, 255, 0.20);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-mines { gap: 12px; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-mines em {
+  color: rgba(142, 185, 233, 0.82);
+  font-size: 13px;
+  font-weight: 600;
+}
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-mines strong {
+  min-width: 18px;
+  color: #ffc454;
+  font-size: 26px;
+  line-height: 1;
+  text-align: right;
+  text-shadow: 0 0 12px rgba(255, 181, 59, 0.48);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-panel .v3-illegal-tasks {
+  flex: 1 1 0;
+  min-height: 0;
+  margin-top: 0;
+  gap: 7px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task {
+  position: relative;
+  min-height: 0;
+  align-content: center;
+  gap: 3px;
+  padding: 7px 5px 6px;
+  overflow: hidden;
+  border-color: rgba(42, 132, 224, 0.48);
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse 75% 38% at 50% 34%, rgba(28, 147, 255, 0.22), transparent 72%),
+    linear-gradient(180deg, rgba(11, 49, 96, 0.68), rgba(4, 24, 55, 0.82));
+  box-shadow: inset 0 0 16px rgba(31, 118, 218, 0.11);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon {
+  position: relative;
+  width: 50px;
+  height: 35px;
+  display: grid;
+  place-items: start center;
+  color: #55dcff;
+  background: transparent;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon::before,
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  opacity: 0.68;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon::before {
+  bottom: 0;
+  width: 48px;
+  height: 15px;
+  box-shadow: 0 0 10px currentColor, inset 0 0 8px color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon::after {
+  bottom: 5px;
+  width: 34px;
+  height: 10px;
+  opacity: 0.35;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon .cockpit-svg-icon {
+  position: relative;
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+  color: currentColor;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon.tone-blue { color: #459cff; }
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task-icon.tone-green { color: #42dec0; }
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task > b {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums {
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums span {
+  grid-template-columns: auto auto;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums strong {
+  font-size: 18px;
+  line-height: 1;
+  text-shadow: 0 0 9px currentColor;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-task-nums em {
+  font-size: 10px;
+  color: rgba(182, 211, 242, 0.68);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-row,
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-illegal-task {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   V3 homepage left rail visual redesign 2026-07-17
+   Keep the rail, panel tracks, icons and copy unchanged. Replace the nested
+   mini-card treatment with a calmer instrument-panel hierarchy.
+   ========================================================================== */
+
+/* 基础信息：总量成为视觉锚点，分布图与图例形成一体化信息带。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-body {
+  gap: 18px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total {
+  position: relative;
+  flex: 0 0 112px;
+  align-self: stretch;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(67, 190, 255, 0.18), transparent 58%),
+    linear-gradient(180deg, rgba(31, 91, 160, 0.16), rgba(11, 32, 67, 0.08));
+  box-shadow: inset 0 0 0 1px rgba(98, 185, 255, 0.12);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  left: 10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(93, 216, 255, 0.58), transparent);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong {
+  color: #74dcff;
+  font-size: 40px;
+  font-weight: 800;
+  text-shadow: 0 0 14px rgba(57, 185, 255, 0.36);
+  background: none;
+  filter: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong em {
+  color: #a9cbe8;
+  -webkit-text-fill-color: currentColor;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total > span {
+  color: #c8e6fb;
+  font-size: 13px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-wrap {
+  flex: 1;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut {
+  width: 106px;
+  height: 106px;
+  padding: 5px;
+  border: 1px solid rgba(111, 208, 255, 0.22);
+  background:
+    conic-gradient(#4e8cff 0 36.78%, #35d0a5 36.78% 44.25%, #ffc94d 44.25% 51.15%, #9b8cff 51.15% 70.69%, #ff7770 70.69% 100%);
+  background-clip: content-box;
+  box-shadow: 0 0 14px rgba(64, 150, 255, 0.26), inset 0 0 10px rgba(78, 176, 255, 0.12);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-core {
+  inset: 31%;
+  background: #091a38;
+  box-shadow: 0 0 0 5px rgba(7, 24, 52, 0.78), inset 0 0 10px rgba(0, 0, 0, 0.46);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend {
+  flex: 1;
+  gap: 6px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend li {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr) auto;
+  gap: 7px;
+  min-width: 0;
+  color: #c8def1;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend i {
+  width: 7px;
+  height: 7px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend b {
+  color: #f0f8ff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 人员与生产：去掉小卡套小卡，以中央分隔线组织两组指标。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-grid {
+  position: relative;
+  gap: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(32, 85, 151, 0.13), rgba(8, 28, 59, 0.05));
+  box-shadow: inset 0 0 0 1px rgba(87, 169, 240, 0.10);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-grid::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(78, 174, 248, 0.38), transparent);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-block {
+  gap: 11px;
+  min-width: 0;
+  padding: 10px 13px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(82, 183, 255, 0.32);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(35, 103, 177, 0.46), rgba(12, 46, 89, 0.34));
+  box-shadow: inset 0 0 9px rgba(70, 178, 255, 0.14);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon .cockpit-svg-icon {
+  color: #73d7ff;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy {
+  gap: 5px;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong {
+  color: #f2f8ff;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(82, 178, 255, 0.16);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy span {
+  color: #a9cbe7;
+}
+
+/* 数据汇聚：六项共享一块仪表区域，用分隔线建立稳定的扫描节奏。 */
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-grid {
+  gap: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(31, 83, 147, 0.14), rgba(8, 28, 59, 0.05));
+  box-shadow: inset 0 0 0 1px rgba(87, 169, 240, 0.10);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-card {
+  position: relative;
+  gap: 2px;
+  min-width: 0;
+  padding: 5px 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-card:not(:nth-child(3n)) {
+  border-right: 1px solid rgba(73, 163, 236, 0.20);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-card:nth-child(n + 4) {
+  border-top: 1px solid rgba(73, 163, 236, 0.20);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-icon {
+  width: 28px;
+  height: 28px;
+  padding: 3px;
+  border-radius: 7px;
+  background: rgba(25, 78, 133, 0.24);
+  box-shadow: inset 0 0 7px rgba(75, 180, 255, 0.10);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-count {
+  line-height: 1;
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-count strong {
+  color: #73ddff;
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 8px rgba(64, 196, 255, 0.24);
+}
+
+.shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-data-name {
+  color: #c4ddf1;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1500px) {
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-body {
+    gap: 10px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total {
+    flex-basis: 92px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-basics-total strong {
+    font-size: 34px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut {
+    width: 88px;
+    height: 88px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-donut-legend li {
+    gap: 5px;
+    font-size: 11px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-block {
+    gap: 8px;
+    padding-inline: 9px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .shuan-concept.shuan-command.shuan-command-v2.shuan-command-v3 .v3-stat-copy strong {
+    font-size: 21px;
   }
 }

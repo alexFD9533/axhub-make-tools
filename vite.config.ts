@@ -133,29 +133,12 @@ export default defineConfig(({ command }) => {
         'react/jsx-runtime',
         'react/jsx-dev-runtime',
       ],
+      // The preview loader and prototype modules must share one ESM React
+      // instance. Mapping only ReactDOM to the UMD shim splits the dispatcher
+      // and causes hooks such as useState to read a null context.
       alias: [
         { find: '@', replacement: path.resolve(projectRoot, 'src') },
-        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
-          find: /^react$/,
-          replacement: path.resolve(projectRoot, 'src/common/react-shim.js'),
-        },
-        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
-          find: /^react\/jsx-runtime$/,
-          replacement: path.resolve(projectRoot, 'src/common/react-shim.js'),
-        },
-        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-shim.js')) && {
-          find: /^react\/jsx-dev-runtime$/,
-          replacement: path.resolve(projectRoot, 'src/common/react-shim.js'),
-        },
-        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-dom-shim.js')) && {
-          find: /^react-dom$/,
-          replacement: path.resolve(projectRoot, 'src/common/react-dom-shim.js'),
-        },
-        !isIifeBuild && fs.existsSync(path.resolve(projectRoot, 'src/common/react-dom-shim.js')) && {
-          find: /^react-dom\/client$/,
-          replacement: path.resolve(projectRoot, 'src/common/react-dom-shim.js'),
-        },
-      ].filter(Boolean) as { find: string | RegExp; replacement: string }[],
+      ],
     },
 
     css: {

@@ -1,4 +1,4 @@
-﻿export type TopModuleId = 'monitoring' | 'intelligent' | 'video' | 'four-tables' | 'water' | 'electricity' | 'explosives' | 'sms' | 'personnel' | 'mining' | 'basic' | 'system';
+export type TopModuleId = 'monitoring' | 'intelligent' | 'video' | 'four-tables' | 'water' | 'electricity' | 'explosives' | 'sms' | 'personnel' | 'mining' | 'basic' | 'system';
 
 export interface TopModule {
   id: TopModuleId;
@@ -152,6 +152,7 @@ export const menuGroups: Record<TopModuleId, MenuItem[]> = {
     { id: 'guard-hidden-risk', label: '隐蔽面风险综合分析', page: 'guard-hidden-risk-overview', icon: 'alarm', children: [
       { id: 'guard-hidden-risk-overview', label: '风险总览一张图', page: 'guard-hidden-risk-overview' },
       { id: 'guard-hidden-risk-mine-profile', label: '煤矿风险画像', page: 'guard-hidden-risk-mine-profile' },
+      { id: 'guard-hidden-risk-agent-detail', label: '专项风险研判详情', page: 'guard-hidden-risk-agent-detail' },
       { id: 'guard-hidden-risk-clue-ledger', label: '线索证据台账', page: 'guard-hidden-risk-clue-ledger' },
       { id: 'guard-hidden-risk-task', label: '工作安排处置', page: 'guard-hidden-risk-task' },
       { id: 'guard-hidden-risk-config', label: '配置管理', page: 'guard-hidden-risk-config' },

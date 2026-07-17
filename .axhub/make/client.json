@@ -5,7 +5,7 @@
   "templateUrl": "https://github.com/lintendo/Axhub-Make/releases/download/make-client-template-v0.1.4/axhub-make-client-template.zip",
   "templateVersion": "0.1.4",
   "project": {
-    "id": "dfzg-project-shuan-demo",
-    "name": "dfzg-project-shuan-demo"
+    "id": "dfzg-project-shuan-demo-copy",
+    "name": "四川应急v4"
   }
 }

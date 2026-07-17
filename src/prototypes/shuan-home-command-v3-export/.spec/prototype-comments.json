@@ -238,6 +238,78 @@
       "sessionId": "local",
       "updatedAt": 1783671000000,
       "message": "已在人员安全页面顶部增加深蓝标题栏和返回首页的退出按钮。"
+    },
+    "personnel-safety-remove-lists-relayout-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-personnel-safety",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "personnel-safety-remove-lists-relayout-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784268300000,
+      "message": "已移除区域煤矿人员监管清单和当前异常煤矿清单，并将页面重排为自适应三栏满高布局。"
+    },
+    "personnel-safety-swap-side-columns-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-personnel-safety",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "personnel-safety-swap-side-columns-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784269800000,
+      "message": "已交换左右两组业务模块：趋势、带班、准入异常置于左侧，实名认证、人员配备、资格证置于右侧。"
+    },
+    "personnel-safety-professional-staff-donut-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-personnel-safety",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "personnel-safety-professional-staff-donut-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784271000000,
+      "message": "已将人员配备卡片替换为各类专业技术人员人数及占比环形图，包含六类人员、人数和占比。"
+    },
+    "personnel-safety-confirm-column-order-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-personnel-safety",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "personnel-safety-confirm-column-order-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784272200000,
+      "message": "已按确认顺序设置三栏：实名认证、专业技术人员、资格证置于左侧，地图居中，井下人数变化、带班领导、准入异常置于右侧。"
+    },
+    "daily-regulation-handling-primary-label-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-daily-regulation",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "browser-comment-daily-regulation-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784275726429,
+      "message": "左侧指标已改为煤矿处置率，并同步调整图表辅助文案。"
+    },
+    "daily-regulation-handling-secondary-label-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-daily-regulation",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "browser-comment-daily-regulation-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784275726429,
+      "message": "右侧指标已改为监管响应率，并同步调整图表辅助文案。"
+    },
+    "daily-regulation-handling-insight-remove-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-daily-regulation",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "browser-comment-daily-regulation-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784275726429,
+      "message": "分级预警处置底部结论说明已删除。"
+    },
+    "daily-regulation-handling-fill-layout-20260717": {
+      "pageScope": "prototypes/shuan-home-command-v3-export::page::shuan-home-command-v3-daily-regulation",
+      "state": "completed",
+      "provider": "codex",
+      "requestId": "browser-comment-daily-regulation-20260717",
+      "sessionId": "local",
+      "updatedAt": 1784275726429,
+      "message": "内部布局已改为图例列加双环图自适应铺满，两组环图宽度各365px。"
     }
   },
   "images": []
